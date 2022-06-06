@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+	
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL" />
+	</settings>
+	
+	<typeAliases>
+	
+		<typeAlias type="kh.spring.bab.employee.model.vo.Employee" alias="Emp"/>
+		
+	</typeAliases>
+	 
+	<mappers>
+	
+		<mapper resource="mappers/employee-mapper.xml"/>
+		
+	</mappers>
+
+</configuration>
