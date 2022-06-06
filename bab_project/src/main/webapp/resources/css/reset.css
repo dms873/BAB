@@ -1,0 +1,14 @@
+/* 공통 CSS */
+*  {
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+ul, li {
+	list-style-type: none;
+}
