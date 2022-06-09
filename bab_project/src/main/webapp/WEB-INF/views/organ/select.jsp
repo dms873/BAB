@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+<head>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -11,9 +12,8 @@
         crossorigin="anonymous"></script>
     <!-- jsTree js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
-    <!-- jsTree css -->
+   	<!-- jsTree css -->
     <link rel="stylesheet" href="https://www.orangehilldev.com/jstree-bootstrap-theme/demo/assets/dist/themes/proton/style.css" />
-<head>
 <meta charset="UTF-8">
 <title>조직도 조회</title>
 <style>
@@ -179,19 +179,32 @@
 				'responsive' : true
 			}
 		},
-        'plugins' : ["search"]
+        'plugins' : ["search"],
+        "search": {
+        	"case_sensitive": false,
+        	"show_only_matches": true
+        }
 
 	});
+        
+	
 
-    $("#search").keyup(function() {
-        var text = $("#search").val();
-        console.log("검색되잖아");
-        $('#tree').jstree(true).search(text);
-    });
-
-    $("#tree").jstree("open_all");
-
+	/* $("#tree").jstree("open_all"); */
+	</script>
+	
+	<script>
+	$(function() {
+		(function($) {
+			$("#search").keyup(function() {
+				var text = $("#search").val();
+				console.log(text + " 검색되잖아");
+				$('#tree').jstree(true).search(text);
+			});
+		} (jQuery))
+	});
     </script>
+
+	
 
     <script>
         $("#tree").click(function() {

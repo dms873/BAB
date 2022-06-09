@@ -27,4 +27,17 @@ public class ElectronicApprovalController {
 		mv.setViewName("eap/receiptdoc");
 		return mv;
 	}
+	
+	@GetMapping("/selectform/holidayForm")
+	public ModelAndView selectHolidayForm(ModelAndView mv) {
+		mv.setViewName("documentForm/holidayForm");
+		return mv;
+	}
+	
+	@GetMapping("/selectform/spendingForm")
+	public ModelAndView selectSpendingForm(ModelAndView mv) {
+		mv.setViewName("documentForm/spendingForm");
+		return mv;
+	}
+	
 }

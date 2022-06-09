@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -16,6 +16,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
     <!-- jsTree css -->
     <link rel="stylesheet" href="https://www.orangehilldev.com/jstree-bootstrap-theme/demo/assets/dist/themes/proton/style.css" />
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/reset.css">
 <meta charset="UTF-8">
 <title>메인페이지</title>
@@ -25,9 +27,17 @@
             /* border: 1px solid !important; */
             background-color: #0583F2;
         }
+        
+        .toast-info {
+        	background-color: #2F96B4 !important;
+        }
     </style>
+    
+    
 </head>
 <body>
+
+	
 
 	<header>
         <div style="width: 1500px;margin: 0 auto;">
@@ -39,25 +49,8 @@
                 </div>
                 <div style="float: right;">
                     <div style="float: left; line-height: 70px;">
-                        <i id="s_bell_btn" class="bi bi-bell position-relative" style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            <!-- 알람 클릭 시 뜨는 Modal -->
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                    ...
-                                    </div>
-                                    <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
+                    <!-- data-bs-toggle="modal" data-bs-target="#exampleModal" -->
+                        <i id="s_bell_btn" class="bi bi-bell position-relative" style="cursor:pointer;">
                             <!-- 알람 배지 -->
                             <span
                                 class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger s_badge">
@@ -219,8 +212,49 @@
             </article>
         </div>
     </section>
-
     
+    <!-- 메뉴 클릭 시 context_box 자리에 jsp파일(contact.html을 jsp이름으로 바꾸면 됨) load하기(ajax역할하는 함수) -->
+    <script>
+	    
+        $("#menu_contact").click(function() {
+            $("#s_content_box").load("<%=request.getContextPath()%>/contact/select");
+        });
+ 		
+ 		
+        $("#menu_organ").click(function() {
+            $("#s_content_box").load("<%=request.getContextPath()%>/organ/select");
+        });
+
+        $("#menu_eap").click(function() {
+            $("#s_content_box").load("<%=request.getContextPath()%>/eap/main");
+        });
+    </script>
+    
+    <script>
+    	$("#s_bell_btn").click(function() {
+    		
+    		toastr.options = {
+    				  "closeButton": true,
+    				  "debug": false,
+    				  "newestOnTop": true,
+    				  "progressBar": true,
+    				  "positionClass": "toast-top-right",
+    				  "preventDuplicates": false,
+    				  "onclick": null,
+    				  "showDuration": "300",
+    				  "hideDuration": "1000",
+    				  "timeOut": "0",
+    				  "extendedTimeOut": "1000",
+    				  "showEasing": "swing",
+    				  "hideEasing": "linear",
+    				  "showMethod": "fadeIn",
+    				  "hideMethod": "fadeOut"
+    				}
+    		
+    		toastr.info("결재 대기가 2건이 있습니다.", "알람");
+    	});
+    </script>
+
     <script>
         // 알람 아이콘 누를 때마다 색깔 변경, 배지 사라짐
         var i = 0;
@@ -237,7 +271,6 @@
 
     </script>
 
-
     <script>
         // 메뉴에서 클릭했을 때
         $(".s_menu").click(function() {
@@ -245,23 +278,7 @@
              $(this).addClass("active");
          });
     </script>
-
-    <!-- 메뉴 클릭 시 context_box 자리에 jsp파일(contact.html을 jsp이름으로 바꾸면 됨) load하기(ajax역할하는 함수) -->
-    <script>
-        $("#menu_contact").click(function() {
-            $("#s_content_box").load("<%=request.getContextPath()%>/contact/select");
-        });
-
-        $("#menu_organ").click(function() {
-            $("#s_content_box").load("<%=request.getContextPath()%>/organ/select");
-        });
-
-        $("#menu_eap").click(function() {
-            $("#s_content_box").load("<%=request.getContextPath()%>/eap/main");
-        });
-    </script>
-
-	
+    
 
 </body>
 </html>
