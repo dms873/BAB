@@ -15,6 +15,12 @@ public class OraganizationChartController {
 		return mv;
 	}
 	
+	@GetMapping("/selectList")
+	public ModelAndView selectList(ModelAndView mv) {
+		mv.setViewName("organ/selectList");
+		return mv;
+	}
+	
 	@GetMapping("/selectInfo")
 	public ModelAndView selectInfo(ModelAndView mv) {
 		mv.setViewName("organ/selectInfo");

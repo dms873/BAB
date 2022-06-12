@@ -8,7 +8,7 @@
 </head>
 <body>
 
-	<div style="border: 1px solid lightgray;height: 1000px;width: 1150px;margin-top: 20px;margin-left: 10px;border-radius: 10px;padding: 20px;" >
+	<div>
         결재 수신 문서 내용 채우세요 !
     </div>
 

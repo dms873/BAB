@@ -15,29 +15,50 @@
 <meta charset="UTF-8">
 <title>전자결재</title>
 	<style>
-		.s_hover_event {
-			cursor: pointer;
-		}
-		
-		.modal {
-			left: -15% !important;
-		}
-		
-		.s_eap_tt {
-			font-size: 1.2em;
-			font-weight: bold;
-			margin-bottom: 15px;
-		}
-		
-		.s_eap_home {
-			margin-top: 30px;
-		    margin-bottom: 80px;
-		    padding: 0 20px;
-		}
-		
-		.table-hover {
-			cursor: pointer;
-		}
+.s_hover_event {
+	cursor: pointer;
+}
+
+.modal {
+	left: -15% !important;
+}
+
+.s_eap_tt {
+	font-size: 1.2em;
+	font-weight: bold;
+	margin-bottom: 15px;
+}
+
+.s_eap_home {
+	margin-top: 30px;
+	margin-bottom: 80px;
+	padding: 0 20px;
+}
+
+.table-hover {
+	cursor: pointer;
+}
+
+#s_eap_content_box_right {
+	width: 180px;
+	float: left;
+	margin-top: 20px;
+	border: 1px solid lightgray;
+	border-radius: 5px;
+	padding: 10px;
+	margin-left: 20px;
+	height: 900px;
+}
+
+#s_eap_content_box_left {
+	width: 900px;
+	float: left;
+	margin-top: 20px;
+	border: 1px solid lightgray;
+	border-radius: 5px;
+	padding: 10px;
+	height: 900px;
+}
 </style>
 </head>
 <body>
@@ -46,7 +67,7 @@
         <article style="float: left;">
             <div style="width: 150px; height: 1000px; margin-top: 25px;margin-left: 10px;">
                 <button id="s_eap_btn" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">새 결재 진행</button>
-                <!-- Modal -->
+                <!-- 결재 양식 Modal -->
 				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				  <div class="modal-dialog">
 				    <div class="modal-content" style="width: 1200px;">
@@ -83,75 +104,76 @@
             </div>
         </article>  
         <article style="float: left;">
-            <div style="border: 1px solid lightgray;height: 1000px;width: 1150px;margin-top: 20px;margin-left: 10px;border-radius: 10px;padding: 20px;"  id="s_eap_content_box">
+            <div style="border: 1px solid lightgray;height: 1000px;width: 1150px;margin-top: 20px;margin-left: 10px;border-radius: 10px;padding: 20px;" id="s_eap_content_box">
+            	
                 <div class="s_eap_home">
 	                <div class="s_eap_tt">전자 결재 대기</div>
-	                <table class="table table-hover" style="vertical-align: middle; text-align: center;">
-					  <thead>
-					    <tr>
-					      <th scope="col">NO</th>
-					      <th scope="col">기안일</th>
-					      <th scope="col">결재양식</th>
-					      <th scope="col">제목</th>
-					      <th scope="col">첨부</th>
-					      <th scope="col">결재상태</th>
-					    </tr>
-					  </thead>
-					  <tbody>
-					    <tr>
-					      <th scope="row">1</th>
-					      <td>2022/05/26</td>
-					      <td>지출결의서</td>
-					      <td>신규 직원채용 명함 신청의 건</td>
-					      <td><i class="bi bi-paperclip"></i></td>
-					      <td><button class="btn btn-success" style="font-size: .8em; width: 77px;">진행중</button></td>
-					    </tr>
-                        <tr>
-                          <th scope="row">2</th>
-                          <td>2022/05/26</td>
-                          <td>휴가신청서</td>
-                          <td>개인 연차 신청의 건</td>
-                          <td></td>
-                          <td><button class="btn btn-warning" style="font-size: .8em;">결재대기</button></td>
-                        </tr>
-					  </tbody>
-					</table>
-				</div>
-				
-				<div class="s_eap_home">
-	                <div class="s_eap_tt">기안 진행 문서</div>
-	                <table class="table table-hover" style="vertical-align: middle; text-align: center;">
-					  <thead>
-					    <tr>
-					      <th scope="col">NO</th>
-					      <th scope="col">기안일</th>
-					      <th scope="col">결재양식</th>
-					      <th scope="col">제목</th>
-					      <th scope="col">첨부</th>
-					      <th scope="col">결재상태</th>
-					    </tr>
-					  </thead>
-					  <tbody>
-					    <tr>
-					      <th scope="row">1</th>
-					      <td>2022/05/30</td>
-					      <td>지출결의서</td>
-					      <td>개인 반차 신청의 건</td>
-					      <td></td>
-					      <td><button class="btn btn-success" style="font-size: .8em; width: 77px;">진행중</button></td>
-					    </tr>
-                        <tr>
-                          <th scope="row">2</th>
-                          <td>2022/05/30</td>
-                          <td>휴가신청서</td>
-                          <td>개인 연차 신청의 건</td>
-                          <td></td>
-                          <td><button class="btn btn-warning" style="font-size: .8em;">결재대기</button></td>
-                        </tr>
-					  </tbody>
-					</table>
-				</div>
-            </div>
+		                <table class="table table-hover" style="vertical-align: middle; text-align: center;">
+						  <thead>
+						    <tr>
+						      <th scope="col">NO</th>
+						      <th scope="col">기안일</th>
+						      <th scope="col">결재양식</th>
+						      <th scope="col">제목</th>
+						      <th scope="col">첨부</th>
+						      <th scope="col">결재상태</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						    <tr>
+						      <th scope="row">1</th>
+						      <td>2022/05/26</td>
+						      <td>지출결의서</td>
+						      <td>신규 직원채용 명함 신청의 건</td>
+						      <td><i class="bi bi-paperclip"></i></td>
+						      <td><button class="btn btn-success" style="font-size: .8em; width: 77px;">진행중</button></td>
+						    </tr>
+	                        <tr>
+	                          <th scope="row">2</th>
+	                          <td>2022/05/26</td>
+	                          <td>휴가신청서</td>
+	                          <td>개인 연차 신청의 건</td>
+	                          <td></td>
+	                          <td><button class="btn btn-warning" style="font-size: .8em;">결재대기</button></td>
+	                        </tr>
+						  </tbody>
+						</table>
+					</div>
+					
+					<div class="s_eap_home">
+		                <div class="s_eap_tt">기안 진행 문서</div>
+		                <table class="table table-hover" style="vertical-align: middle; text-align: center;">
+						  <thead>
+						    <tr>
+						      <th scope="col">NO</th>
+						      <th scope="col">기안일</th>
+						      <th scope="col">결재양식</th>
+						      <th scope="col">제목</th>
+						      <th scope="col">첨부</th>
+						      <th scope="col">결재상태</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						    <tr>
+						      <th scope="row">1</th>
+						      <td>2022/05/30</td>
+						      <td>지출결의서</td>
+						      <td>개인 반차 신청의 건</td>
+						      <td></td>
+						      <td><button class="btn btn-success" style="font-size: .8em; width: 77px;">진행중</button></td>
+						    </tr>
+	                        <tr>
+	                          <th scope="row">2</th>
+	                          <td>2022/05/30</td>
+	                          <td>휴가신청서</td>
+	                          <td>개인 연차 신청의 건</td>
+	                          <td></td>
+	                          <td><button class="btn btn-warning" style="font-size: .8em;">결재대기</button></td>
+	                        </tr>
+						  </tbody>
+						</table>
+					</div>
+	            </div>
         </article>    
     </section>
     
@@ -180,8 +202,10 @@
     		// value값이 휴가신청서면
     		if(this.value == "s_holiday_form") {
 	    		$("#s_document_form").load("<%=request.getContextPath()%>/eap/selectform/holidayForm");
+    			$("#s_document_form").html('');
     		} else if(this.value == "s_spending_form") { // 지출결의서면
-    			$("#s_document_form").load("<%=request.getContextPath()%>/eap/selectform/spendingForm");		
+    			$("#s_document_form").load("<%=request.getContextPath()%>/eap/selectform/spendingForm");
+    			$("#s_document_form").html('');
     		} else { // 양식을 선택해주세요면
     			$("#s_document_form").html("<div>양식을 선택해주세요.</div>");		
     		}
@@ -189,15 +213,31 @@
     	
     	// 양식선택 후 확인버튼 클릭 시
         $("#liveAlertBtn").click(function() {
+        	// debugger;
         	var form = $("#s_document_form_select").val();
         	if(form == 's_holiday_form') {
         		// 강제로 닫기버튼 클릭하기
+        		// debugger;
         		$(".btn-close").trigger('click');
-	        	$("#s_eap_content_box").load("<%=request.getContextPath()%>/eap/selectform/holidayForm");
+        		$("#s_eap_content_box").html(
+        				'<div>'
+        				+'</div>'
+        				+ '<div id="s_eap_content_box_left">왼쪽</div>'
+						+ '<div id="s_eap_content_box_right">오른쪽</div>');
+        		$("#s_eap_content_box_left").empty();
+	        	$("#s_eap_content_box_left").load("<%=request.getContextPath()%>/eap/selectform/holiday");
+        		$("#s_eap_content_box_right").empty();
+	        	$("#s_eap_content_box_right").load("<%=request.getContextPath()%>/eap/appline");
         	} else if(form == 's_spending_form') {
         		// 강제로 닫기버튼 클릭하기
         		$(".btn-close").trigger('click');
-        		$("#s_eap_content_box").load("<%=request.getContextPath()%>/eap/selectform/spendingForm");
+        		$("#s_eap_content_box").html(
+        				'<div>'
+        				+'</div>'
+        				+ '<div id="s_eap_content_box_left">왼쪽</div>'
+						+ '<div id="s_eap_content_box_right">오른쪽</div>');
+        		$("#s_eap_content_box_left").load("<%=request.getContextPath()%>/eap/selectform/spending");
+        		$("#s_eap_content_box_right").load("<%=request.getContextPath()%>/eap/appline");
         	} else {
         		$("#s_document_form").html('<div class="alert alert-danger d-flex align-items-center" role="alert">'
         				  + '<i class="bi bi-exclamation-triangle-fill"></i>'
@@ -207,6 +247,7 @@
         				+ '</div>')
            	}
         });
+    	
     </script>
 </body>
 </html>

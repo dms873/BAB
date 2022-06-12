@@ -262,7 +262,7 @@
     				  "onclick": null,
     				  "showDuration": "300",
     				  "hideDuration": "1000",
-    				  "timeOut": "0",
+    				  "timeOut": "5000",
     				  "extendedTimeOut": "1000",
     				  "showEasing": "swing",
     				  "hideEasing": "linear",
@@ -276,16 +276,17 @@
 
     <script>
         // 알람 아이콘 누를 때마다 색깔 변경, 배지 사라짐
-        var i = 0;
         $('#s_bell_btn').on('click', function () {
-            if (i == 0) {
+            if ($(this).attr('class', 'bi bi-bell')) {
                 $(this).attr('class', 'bi bi-bell-fill');
                 $('.s_badge').remove();
-                i++;
-            } else if (i == 1) {
+            } else if ($(this).attr('class', 'bi bi-bell-fill')) {
                 $(this).attr('class', 'bi bi-bell');
-                i--;
             }
+            // 5초 후 알람 아이콘 색깔 없애기
+            setTimeout(function () {
+            	$("#s_bell_btn").attr('class', 'bi bi-bell');
+			}, 5000);
         });
 
     </script>
