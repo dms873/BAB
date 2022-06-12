@@ -228,6 +228,10 @@
         $("#menu_eap").click(function() {
             $("#s_content_box").load("<%=request.getContextPath()%>/eap/main");
         });
+        
+        $("#menu_board").click(function() {
+            $("#s_content_box").load("<%=request.getContextPath()%>/board/select");
+        });
     </script>
     
     <script>
