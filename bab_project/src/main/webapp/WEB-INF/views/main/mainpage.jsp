@@ -18,6 +18,13 @@
     <link rel="stylesheet" href="https://www.orangehilldev.com/jstree-bootstrap-theme/demo/assets/dist/themes/proton/style.css" />
 	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
 	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	<!-- fullcalendar CDN 추가 혜미-220612 -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css" rel="stylesheet"/>
+    <!-- datepicker CDN 추가 혜미-220612 -->
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+    <!-- 공통 reset.css -->
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/reset.css">
 <meta charset="UTF-8">
 <title>메인페이지</title>
@@ -231,6 +238,14 @@
         
         $("#menu_board").click(function() {
             $("#s_content_box").load("<%=request.getContextPath()%>/board/select");
+        });
+        /*캘린더 추가 혜미-220612  */
+        $("#menu_calendar").click(function() {
+            $("#s_content_box").load("<%=request.getContextPath()%>/calendar/select");
+        });
+        /*내정보수정 추가 혜미-220612  */
+        $("#menu_info").click(function() {
+            $("#s_content_box").load("<%=request.getContextPath()%>/info/main");
         });
     </script>
     

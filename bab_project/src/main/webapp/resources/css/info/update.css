@@ -1,0 +1,124 @@
+@charset "UTF-8";
+/* 전체 틀 */
+#j_infod_section {
+	border: 1px solid lightgray;
+	height: 1000px;
+	width: 1300px;
+	margin-top: 20px;
+	margin-left: 10px;
+	border-radius: 10px;
+	padding: 20px;
+}
+/* 라인 */
+#j_infod_line {
+	margin: 40px 0px 75px;
+	border: 2px solid gray;
+	background-color: gray;
+	/* bootstrap css먹혀서 씀 */
+	opacity: unset
+}
+/* 테이블 중앙정렬 */
+#j_infod_table {
+	display: flex;
+	text-align: center;
+	justify-content: center;
+}
+/* 테이블 왼쪽 타이틀 */
+.j_infod_title {
+	height: 60px;
+	width: 130px;
+	float: left;
+	display: flex;
+	align-items: center;
+	font-weight: bold;
+}
+/* 테이블 왼쪽 주소 타이틀 */
+.j_infod_addtitle {
+	height: 33px;
+	width: 130px;
+	float: left;
+	display: flex;
+	align-items: center;
+	font-weight: bold;
+}
+/* 테이블 오른쪽 내용 */
+.j_infod_content {
+	height: 50px;
+}
+/* 테이블 오른쪽 주소 내용 */
+.j_infod_addcontent {
+	height: 33px;
+}
+/* input태그 */
+.j_infod_input {
+	height: 32px;
+	width: 350px;
+	border: 1px solid gray;
+	border-radius: 6px;
+}
+
+.j_infod_input:focus {
+	border: 1px solid rgba(5, 131, 242, 0.8);
+	outline: 3px solid rgba(5, 131, 242, 0.3);
+	transition: ease-in-out .15s;
+}
+/* 우편번호 input태그 */
+#j_infod_zipcode {
+	height: 32px;
+	width: 85px;
+	border: 1px solid gray;
+	border-radius: 6px;
+}
+
+#j_infod_zipcode:focus {
+	border: 1px solid rgba(5, 131, 242, 0.8);
+	outline: 3px solid rgba(5, 131, 242, 0.3);
+	transition: ease-in-out .15s;
+}
+/* 상단 내 정보 수정 글씨 */
+#j_infod_menu {
+	margin-top: 20px;
+	font-size: large;
+	font-weight: bold;
+}
+/* 파일선택, 우편번호 찾기 버튼 */
+.j_info_btn {
+	float: left;
+	margin-left: 5px;
+}
+/* 수정 버튼 */
+#j_infod_submit {
+	height: 35px;
+	width: 100px;
+	font-size: medium;
+	color: white;
+	border-radius: 6px;
+	border: #0583F2;
+	background-color: #0583F2;
+	cursor: pointer;
+}
+
+#j_infod_submit:focus {
+	border: 1px solid rgba(5, 131, 242, 0.8);
+	outline: 4px solid rgba(5, 131, 242, 0.3);
+	transition: ease-in-out .15s;
+}
+/* 프로필 사진 */
+#j_infod_img {
+	height: 60px;
+	width: 60px;
+	border-radius: 35px;
+	float: left;
+	display: flex;
+	align-items: center;
+}
+/* 필수 입력 항목 */
+.j_infod_sym {
+	color: red;
+}
+/* 테이블 틀 */
+#j_infod_tbody {
+	padding: 30px;
+	border: 1px solid gray;
+	border-radius: 6px;
+}
