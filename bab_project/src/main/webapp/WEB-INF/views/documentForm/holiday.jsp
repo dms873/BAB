@@ -280,7 +280,7 @@
                console.log("이름 : " + name);
                var job = $('.jstree-clicked').text().substr(5,2);
                console.log("직위 : " + job);
-               var deptText = $("#2_anchor").text(); // 회계팀일때
+               var deptText = $('.jstree-clicked').parent().parent().parent().text().substr(0,3);
                console.log("부서 : " + deptText);
                var deptName = $(".jstree-clicked").text();
                
@@ -301,7 +301,7 @@
                
                if($('.jstree-clicked').text().length > 3) {
 	               if($(".s_appLine_tbody_cl tr").length < 3) {
-	               	$(".s_appLine_tbody_cl").prepend(
+	               	$(".s_appLine_tbody_cl").append(
 	   	               		'<tr>'
 	   	               		+ '<td>' + cnt + '</td>'
 	   	               		+ '<td class="s_td_name">' + name + '</td>'
@@ -314,7 +314,7 @@
 	               	alert("결재선은 최대 3명까지 추가가 가능합니다.");
 	               }
                } else if($('.jstree-clicked').text().length <= 3) {
-            	  $('.s_appDept_tbody_cl').prepend(
+            	  $('.s_appDept_tbody_cl').append(
             			'<tr>'
             			+ '<td>' + deptCnt + '</td>'
             			+ '<td class="s_td_deptName">' + deptName + '</td>'
@@ -344,6 +344,35 @@
 		
 		$("#s_add_appLine_list").click(function() {
 			console.log("확인");
+			var arr = [];
+			for(var i = 0; i < $('.s_td_name').length; i++) {
+				var tdName = $('.s_td_name').eq(i).text();
+				arr.push(tdName);
+				console.log("이름 담긴 모습 : " + arr);
+				console.log("길이 : " + arr.length);
+			}
+			var str1 = arr[0];
+			var str2 = arr[1];
+			var str3 = arr[2];
+			console.log("첫번째 결재자 : " + str1);
+			console.log("두번째 결재자 : " + str2);
+			console.log("세번째 결재자 : " + str3);
+			
+			if(str1 == undefined) {
+				alert("결재선에 1명 이상 선택해주세요.");
+			}
+			if(str2 == undefined) {
+				str2 = null;
+			} 
+			if(str3 == undefined) {
+				str3 = null;
+			} 
+			console.log("첫번째 결재자 결과 : " + str1);
+			console.log("두번째 결재자 결과 : " + str2);
+			console.log("세번째 결재자 결과 : " + str3);
+			// str1 => eap_first_ap에 저장
+			// str2 => eap_mid_ap에 저장
+			// str3 => eap_final_ap에 저장
 		});
 		
 		

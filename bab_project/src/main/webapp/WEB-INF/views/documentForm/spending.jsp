@@ -286,7 +286,7 @@
     <script>
     	function addTr() {
     		// console.log("클릭되냐고~");
-    		$(".s_default_tbody_cl").prepend(
+    		$(".s_default_tbody_cl").append(
 					'<tr>'
 				      + '<th scope="row"><input type="date" class="form-control" name="sp_date"></th>'
 				      + '<td><input type="text" class="form-control" name="sp_detail"></td>'
@@ -351,7 +351,7 @@
                console.log("이름 : " + name);
                var job = $('.jstree-clicked').text().substr(5,2);
                console.log("직위 : " + job);
-               var deptText = $("#2_anchor").text(); // 회계팀일때
+               var deptText = $('.jstree-clicked').parent().parent().parent().text().substr(0,3);
                console.log("부서 : " + deptText);
                var deptName = $(".jstree-clicked").text();
                
@@ -372,7 +372,7 @@
                
                if($('.jstree-clicked').text().length > 3) {
 	               if($(".s_appLine_tbody_cl tr").length < 3) {
-	               	$(".s_appLine_tbody_cl").prepend(
+	               	$(".s_appLine_tbody_cl").append(
 	   	               		'<tr>'
 	   	               		+ '<td>' + cnt + '</td>'
 	   	               		+ '<td class="s_td_name">' + name + '</td>'
@@ -385,7 +385,7 @@
 	               	alert("결재선은 최대 3명까지 추가가 가능합니다.");
 	               }
                } else if($('.jstree-clicked').text().length <= 3) {
-            	  $('.s_appDept_tbody_cl').prepend(
+            	  $('.s_appDept_tbody_cl').append(
             			'<tr>'
             			+ '<td>' + deptCnt + '</td>'
             			+ '<td class="s_td_deptName">' + deptName + '</td>'
