@@ -40,12 +40,12 @@
 						<td class="j_cald_content"><input type="text" name="emp_id"
 							class="j_cald_date" id="datepicker1" required></td>
 						<td class="j_cald_content"><input type="text" name="emp_id"
-							class="j_cald_time" required></td>
+							class="j_cald_time" placeholder="00:00" required></td>
 						<td class="j_cald_content"><a>~</a></td>
 						<td class="j_cald_content"><input type="text" name="emp_id"
 							class="j_cald_date" id="datepicker2" required></td>
 						<td class="j_cald_content"><input type="text" name="emp_id"
-							class="j_cald_time" required></td>
+							class="j_cald_time" placeholder="00:00" required></td>
 					</tr>
 					<tr>
 						<td class="j_cald_title1">내용</td>

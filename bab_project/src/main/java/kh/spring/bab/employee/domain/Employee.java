@@ -7,40 +7,49 @@ import org.springframework.stereotype.Component;
 @Component
 public class Employee {
 
+	//desc employee;
 //	EMP_NO        NOT NULL VARCHAR2(30)  
 //	EMP_NAME      NOT NULL VARCHAR2(30)  
 //	EMP_ID        NOT NULL VARCHAR2(30)  
 //	EMP_PWD       NOT NULL VARCHAR2(30)  
 //	EMP_PHONE     NOT NULL VARCHAR2(30)  
 //	EMP_EMAIL     NOT NULL VARCHAR2(100) 
+//	EMP_ZIPCODE            VARCHAR2(30)  
 //	EMP_ADDRESS   NOT NULL VARCHAR2(300) 
+//	EMP_DADDRESS           VARCHAR2(100) 
 //	EMP_RNUM      NOT NULL VARCHAR2(30)  
 //	EMP_DESKPHONE          NUMBER(4)     
-//	EMP_HIREDATE  NOT NULL TIMESTAMP          
+//	EMP_HIREDATE  NOT NULL TIMESTAMP(6)  
 //	DEPT_CODE     NOT NULL VARCHAR2(30)  
-//	JOB_CODE      NOT NULL VARCHAR2(30)
+//	JOB_CODE      NOT NULL VARCHAR2(30)  
 	
+	//변수 이름짓기
 	private String emp_no;
 	private String emp_name;
 	private String emp_id;
 	private String emp_pwd;
 	private String emp_phone;
 	private String emp_email;
+	private String emp_zipcode;
 	private String emp_address;
+	private String emp_daddress;
 	private String emp_rnum;
 	private String emp_deskphone;
 	private Timestamp emp_hiredate;
 	private String dept_code;
 	private String job_code;
 	
+	//toString
 	@Override
 	public String toString() {
 		return "Employee [emp_no=" + emp_no + ", emp_name=" + emp_name + ", emp_id=" + emp_id + ", emp_pwd=" + emp_pwd
-				+ ", emp_phone=" + emp_phone + ", emp_email=" + emp_email + ", emp_address=" + emp_address
-				+ ", emp_rnum=" + emp_rnum + ", emp_deskphone=" + emp_deskphone + ", emp_hiredate=" + emp_hiredate
-				+ ", dept_code=" + dept_code + ", job_code=" + job_code + "]";
+				+ ", emp_phone=" + emp_phone + ", emp_email=" + emp_email + ", emp_zipcode=" + emp_zipcode
+				+ ", emp_address=" + emp_address + ", emp_daddress=" + emp_daddress + ", emp_rnum=" + emp_rnum
+				+ ", emp_deskphone=" + emp_deskphone + ", emp_hiredate=" + emp_hiredate + ", dept_code=" + dept_code
+				+ ", job_code=" + job_code + "]";
 	}
 
+	//게터세터
 	public String getEmp_no() {
 		return emp_no;
 	}
@@ -89,12 +98,28 @@ public class Employee {
 		this.emp_email = emp_email;
 	}
 
+	public String getEmp_zipcode() {
+		return emp_zipcode;
+	}
+
+	public void setEmp_zipcode(String emp_zipcode) {
+		this.emp_zipcode = emp_zipcode;
+	}
+
 	public String getEmp_address() {
 		return emp_address;
 	}
 
 	public void setEmp_address(String emp_address) {
 		this.emp_address = emp_address;
+	}
+
+	public String getEmp_daddress() {
+		return emp_daddress;
+	}
+
+	public void setEmp_daddress(String emp_daddress) {
+		this.emp_daddress = emp_daddress;
 	}
 
 	public String getEmp_rnum() {
