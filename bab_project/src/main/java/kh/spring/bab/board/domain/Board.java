@@ -1,4 +1,4 @@
-package kh.spring.bab.board.model.vo;
+package kh.spring.bab.board.domain;
 
 
 import java.sql.Timestamp;

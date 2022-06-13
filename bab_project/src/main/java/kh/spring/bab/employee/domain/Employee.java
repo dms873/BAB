@@ -1,4 +1,4 @@
-package kh.spring.bab.employee.model.vo;
+package kh.spring.bab.employee.domain;
 
 import java.sql.Timestamp;
 

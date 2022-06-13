@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kh.spring.bab.employee.domain.Employee;
 import kh.spring.bab.employee.model.dao.EmployeeDao;
-import kh.spring.bab.employee.model.vo.Employee;
 
 @Service
 public class EmployeeService {

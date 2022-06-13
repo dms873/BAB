@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kh.spring.bab.board.domain.Board;
 import kh.spring.bab.board.model.dao.BoardDao;
-import kh.spring.bab.board.model.vo.Board;
 
 @Service
 public class BoardService {

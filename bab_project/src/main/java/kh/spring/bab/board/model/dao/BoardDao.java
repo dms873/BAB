@@ -6,7 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import kh.spring.bab.board.model.vo.Board;
+import kh.spring.bab.board.domain.Board;
 
 @Repository
 public class BoardDao {
