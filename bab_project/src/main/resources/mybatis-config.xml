@@ -8,7 +8,7 @@
 	
 	<typeAliases>
 		<typeAlias type="kh.spring.bab.employee.domain.Employee" alias="Emp"/>
-		<typeAlias type="kh.spring.bab.employee.domain.Board" alias="Board"/>
+		<typeAlias type="kh.spring.bab.board.domain.Board" alias="Board"/>
 	</typeAliases>
 	 
 	<mappers>
