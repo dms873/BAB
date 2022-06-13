@@ -138,7 +138,7 @@
                 </div>
                 <div style="border: 1px solid lightgray; border-radius: 10px;height: 300px;margin-top: 30px;margin-left: 10px; padding: 20px;">
                     <div style="text-align: center; font-weight: bold; font-size: 1.2em; margin-bottom: 20px;">전자 결재 대기</div>
-                    <table class="table" style="text-align: center;">
+                    <table class="table table-hover" style="text-align: center; cursor: pointer;">
                         <thead>
                           <tr>
                             <th scope="col">NO</th>

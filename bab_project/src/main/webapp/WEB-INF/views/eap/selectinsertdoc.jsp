@@ -13,7 +13,7 @@
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/reset.css">
 <meta charset="UTF-8">
-<title>결재 대기 문서</title>
+<title>기안 문서함</title>
 <style>
 	.s_eap_tt {
 		font-size: 1.2em;
@@ -26,7 +26,7 @@
 
 	<div>
 		<div class="s_eap_tt" style="float: left; padding: 30px; margin-bottom: 30px;">
-			결재 대기 문서
+			기안 문서함
 		</div>
 		<div style="padding: 30px;">
 	        <!-- 검색 -->
@@ -79,7 +79,27 @@
 				      <td>휴가신청서</td>
 				      <td>개인 연차 신청의 건</td>
 				      <td></td>
-				      <td><button class="btn btn-warning" style="font-size: .8em;">결재대기</button></td>
+				      <td><button class="btn btn-success" style="font-size: .8em; width: 77px;">진행중</button></td>
+				    </tr>
+				    <tr>
+				      <th scope="row">3</th>
+				      <td>2022/05/13</td>
+				      <td>회계팀</td>
+				      <td>손은진</td>
+				      <td>지출결의서</td>
+				      <td>사람인 유료 채용공고 신청의 건</td>
+				      <td><i class="bi bi-paperclip"></i></td>
+				      <td><button class="btn btn-secondary" style="font-size: .8em; width: 77px;">완료</button></td>
+				    </tr>
+				    <tr>
+				      <th scope="row">4</th>
+				      <td>2022/05/10</td>
+				      <td>회계팀</td>
+				      <td>손은진</td>
+				      <td>지출결의서</td>
+				      <td>사람인 유료 채용공고 신청의 건</td>
+				      <td><i class="bi bi-paperclip"></i></td>
+				      <td><button class="btn btn-danger" style="font-size: .8em; width: 77px;">반려</button></td>
 				    </tr>
 				  </tbody>
 				</table>

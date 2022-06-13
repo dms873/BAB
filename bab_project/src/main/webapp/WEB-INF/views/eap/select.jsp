@@ -178,13 +178,30 @@
     </section>
     
     <script>
+    	// 결재 대기 문서 클릭 시
         $("#s_before_doc").click(function() {
             $("#s_eap_content_box").load("<%=request.getContextPath()%>/eap/beforedoc");
         });
 
+    	// 결재 수신 문서 클릭 시
         $("#s_receipt_doc").click(function() {
             $("#s_eap_content_box").load("<%=request.getContextPath()%>/eap/receiptdoc");
         });
+    	
+    	// 기안 문서함 클릭 시
+    	$("#s_insert_doc").click(function() {
+    		$("#s_eap_content_box").load("<%=request.getContextPath()%>/eap/selectinsertdoc");
+    	});
+    	
+    	// 결재 문서함 클릭 시
+    	$("#s_result_doc").click(function() {
+    		$("#s_eap_content_box").load("<%=request.getContextPath()%>/eap/selectresultdoc");
+    	});
+    	
+    	// 참조 문서함 클릭 시
+    	$("#s_reference_doc").click(function() {
+    		$("#s_eap_content_box").load("<%=request.getContextPath()%>/eap/selectreferencedoc");
+    	});
 
         // 서브메뉴 클릭 시 색깔변경
         $(".s_hover_event").click(function() {
