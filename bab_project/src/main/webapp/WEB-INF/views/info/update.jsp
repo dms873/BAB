@@ -31,7 +31,7 @@
 						<td class="j_infod_content"><img
 							src="https://via.placeholder.com/60x60" id="j_infod_img"></td>
 						<td class="j_infod_content"><input type="file"
-							class="j_info_btn"></td>
+							class="j_infod_btn"></td>
 					</tr>
 					<tr>
 						<td class="j_infod_title">사번</td>
@@ -80,7 +80,7 @@
 							id="j_infod_zipcode" placeholder=" 우편번호" required></td>
 						<td class="j_infod_addcontent">
 							<!-- button onclick 시 kakaopost()메소드 호출 -->
-							<button type="button" class="j_info_btn" onclick="kakaopost()">우편번호
+							<button type="button" class="j_infod_btn" onclick="kakaopost()">우편번호
 								찾기</button>
 						</td>
 					</tr>
