@@ -26,79 +26,86 @@
 
 </head>
 <body>
-	<div class="row" style="width: 1000px;">
-		<div class="col-lg-12">
+<div id="y_board_content" style="border: 1px solid lightgray;height: 1000px;width: 1300px;margin-top: 20px;margin-left: 10px;border-radius: 10px;padding: 20px;" >
+
+	<div class="row" style="margin: 0 25px;">
+		<div class="col-lg-12" >
 			<h1 class="page-header">공지사항</h1>
 		</div>
+		
 		<hr>
+		
+		<div class="pannel-heading">전체 9건의 게시물이 있습니다.</div>
 	</div>
 
-	<div class="row">
-		<div class="col-lg-12">
-			<div class="pannel-heading">전체 9건의 게시물이 있습니다.</div>
-		</div>
-
-	</div>
-	<div>
+	<div style="margin: 20px 0;">
 		<!-- search{s} -->
 		<div class="select_outer" style="display: flex; justify-content: center;">
-			<select class="select">
+			<select class="form-select mb-3" style="width: 100px;">
 				<option value="title">제목</option>
 				<option value="content">내용</option>
 				<option value="writer">작성자</option>
-			</select> <input type="text" class="text-area" name="keyword" id="keyword">
+			</select> <input type="text" class="form-control" name="keyword" id="keyword" style="width: 270px; height: 38px; margin: 0 6px;">
 			<button class="btn btn-sm btn-primary" name="btnSearch"
-				id="btnSearch">검색</button>
+				id="y_btn_search" style="height: 38px;">검색</button>
 		</div>
 	</div>
 	<!-- search{e} -->
 
 
 	<div class="container y_outer_div" style="display: flex; justify-content: center;">
-		<table class="table table-striped table-hover">
+		<table class="table table-striped table-hover" style="text-align: center;">
 			<tr>
+				<td><input type="checkbox" name="checkbox"></td>
 				<td>No</td>
 				<td>제목</td>
 				<td>작성자</td>
 				<td>작성일</td>
 			</tr>
 			<tr>
+				<td><input type="checkbox" name="checkbox"></td>
 				<td>1</td>
 				<td>sdhfssdhsdhfs</td>
 				<td>sdfsfsfs</td>
 				<td>2022-06-09</td>
 			</tr>
 			<tr>
+				<td><input type="checkbox" name="checkbox"></td>
 				<td>1</td>
 				<td>sdhfssdhsdhfs</td>
 				<td>sdfsfsfs</td>
 				<td>2022-06-09</td>
 			</tr>
 			<tr>
+				<td><input type="checkbox" name="checkbox"></td>
 				<td>1</td>
 				<td>sdhfssdhsdhfs</td>
 				<td>sdfsfsfs</td>
 				<td>2022-06-09</td>
 			</tr>
 			<tr>
+				<td><input type="checkbox" name="checkbox"></td>
 				<td>1</td>
 				<td>sdhfssdhsdhfs</td>
 				<td>sdfsfsfs</td>
 				<td>2022-06-09</td>
 			</tr>
 			<tr>
+				<td><input type="checkbox" name="checkbox"></td>
 				<td>1</td>
 				<td>sdhfssdhsdhfs</td>
 				<td>sdfsfsfs</td>
 				<td>2022-06-09</td>
 			</tr>
 			<tr>
+				<td><input type="checkbox" name="checkbox"></td>
 				<td>1</td>
 				<td>sdhfssdhsdhfs</td>
 				<td>sdfsfsfs</td>
 				<td>2022-06-09</td>
 			</tr>
 			<tr>
+				<td><input type="checkbox" name="checkbox"></td>
 				<td>1</td>
 				<td>sdhfssdhsdhfs</td>
 				<td>sdfsfsfs</td>
@@ -108,11 +115,12 @@
 		</table>
 	</div>
 	
-	<div>
-		<button type="button" class="btn btn-primary">글쓰기</button>
+	<div style="margin: 0 15px;">
+		<button type="button" class="btn btn-primary" id="y_btn_insert">글쓰기</button>
+		<button type="button" class="btn btn-secondary" id="y_btn_delete">삭제</button>
 	</div>
 
-		<nav aria-label="Page navigation example" style="display: flex; justify-content: center;">
+		<nav aria-label="Page navigation example" style="display: flex; justify-content: center; margin-top: 50px;">
 			<ul class="pagination">
 				<li class="page-item"><a class="page-link" href="#"
 					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
@@ -125,5 +133,12 @@
 				</a></li>
 			</ul>
 		</nav>
+		
+	<script>
+	 $("#y_btn_insert").click(function() {
+         $("#y_board_content").load("<%=request.getContextPath()%>/board/insert");
+     });
+	</script>
+ </div>
 </body>
 </html>
