@@ -18,19 +18,13 @@
 	href="<%=request.getContextPath()%>/resources/css/employee/findid.css">
 <!-- SweetAlert -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<style>
-	.swal-button--cancel{
-	background-color:red;
-	color:white;
-	border : 0px;
-	}
-</style>
 </head>
 <body id="j_findid_body">
 	<section id="j_findid_section">
 		<div id="j_findid_wrap">
 			<article id="j_findid_article">
-				<form action="<%=request.getContextPath()%>/employee/findid" method="post">
+				<form action="<%=request.getContextPath()%>/employee/findid"
+					method="post">
 					<table>
 						<tr>
 							<td><img
@@ -48,7 +42,8 @@
 						</tr>
 						<tr>
 							<td class="j_findid_table"><input type="text" name="emp_no"
-								placeholder=" 사번을 입력해 주세요." class="j_findid_input" required></td>
+								placeholder=" 사번을 입력해 주세요." class="j_findid_input" required>
+							</td>
 						</tr>
 						<tr>
 							<td class="j_findid_title" id="j_findid_title1">이름</td>
@@ -62,13 +57,14 @@
 							<td class="j_findid_table"></td>
 						</tr>
 						<tr>
-							<td class="j_findid_table"><button type="submit"
-									id="j_findid_submit">아이디 찾기</button></td>
+							<td class="j_findid_table">
+								<button type="submit" id="j_findid_submit">아이디 찾기</button>
+							</td>
 						</tr>
 					</table>
 				</form>
 				<!-- 결과값 sweetalert창으로 뿌리기  -->
-					<c:if test ="${check == 0}">
+				<c:if test="${check == 0}">
 					<script>
 					swal({
 						  title: "입력하신 아이디와 이름이 일치하지 않습니다.",
@@ -78,8 +74,8 @@
 						  closeOnEsc: false
 						})
 					</script>
-					</c:if>
-					<c:if test="${check == 1}">
+				</c:if>
+				<c:if test="${check == 1}">
 					<script>
 					swal({
 						  title: "${findid.emp_name} 님의 아이디는 '${findid.emp_id}' 입니다.",
@@ -98,7 +94,7 @@
 						  }
 						});
 					</script>
-					</c:if>
+				</c:if>
 			</article>
 		</div>
 	</section>
