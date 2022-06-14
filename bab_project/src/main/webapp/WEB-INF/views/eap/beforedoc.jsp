@@ -61,7 +61,7 @@
 				    </tr>
 				  </thead>
 				  <tbody>
-				    <tr>
+				    <tr id="s_test">
 				      <th scope="row">1</th>
 				      <td>2022/05/26</td>
 				      <td>회계팀</td>
@@ -105,6 +105,14 @@
 			</div>
 		</div>
     </div>
+    
+    <script>
+    	$("#s_test").click(function() {
+    		console.log("클릭됨??");
+    		$("#s_eap_content_box").load("<%=request.getContextPath()%>/eap/selectdoc");
+    	});
+    </script>
+    
 
 </body>
 </html>

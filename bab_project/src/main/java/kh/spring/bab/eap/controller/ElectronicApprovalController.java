@@ -89,5 +89,19 @@ public class ElectronicApprovalController {
 		mv.setViewName("eap/selectreferencedoc");
 		return mv;
 	}
+
+	// 문서 상세 조회
+	@GetMapping("/selectdoc")
+	public ModelAndView selectDoc(ModelAndView mv) {
+		mv.setViewName("eap/selectdoc");
+		return mv;
+	}
+	
+	// 결재선 상세 조회
+	@GetMapping("/selectdetailline")
+	public ModelAndView selectDetailLine(ModelAndView mv) {
+		mv.setViewName("eap/selectDetailLine");
+		return mv;
+	}
 	
 }

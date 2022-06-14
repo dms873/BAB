@@ -25,6 +25,10 @@
     <!-- datepicker CDN 추가 혜미-220612 -->
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+    <!-- 통계API CDN 추가 손은진(220614) -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/modules/exporting.js"></script>
+	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <!-- 공통 reset.css -->
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/reset.css">
 <meta charset="UTF-8">
@@ -235,6 +239,11 @@
 
         $("#menu_eap").click(function() {
             $("#s_content_box").load("<%=request.getContextPath()%>/eap/main");
+        });
+        
+        // 근태관리 추가 : 손은진(220614)
+        $("#menu_attendance").click(function() {
+            $("#s_content_box").load("<%=request.getContextPath()%>/attendance/select");
         });
         
         $("#menu_board").click(function() {
