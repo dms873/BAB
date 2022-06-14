@@ -286,18 +286,17 @@
                
                
                for(var i = 0; i < $('.s_td_name').length; i++) {
-   				if($(".s_td_name").eq(i).text() == name) {
-   					alert("결재선에 이미 선택되어 있습니다.");
-   					return;
+            	   if($(".s_td_name").eq(i).text() == name) {
+   						alert("결재선에 이미 선택되어 있습니다.");
+   						return;
+   					}
    				}
-   				
    				for(var i = 0; i < $('.s_td_deptName').length; i++) {
    					if($('.s_td_deptName').eq(i).text() == deptName) {
    						alert("참조처에 이미 선택되어 있습니다.");
    						return;
    					}
    				}
-   			}
                
                if($('.jstree-clicked').text().length > 3) {
 	               if($(".s_appLine_tbody_cl tr").length < 3) {
@@ -314,13 +313,17 @@
 	               	alert("결재선은 최대 3명까지 추가가 가능합니다.");
 	               }
                } else if($('.jstree-clicked').text().length <= 3) {
-            	  $('.s_appDept_tbody_cl').append(
-            			'<tr>'
-            			+ '<td>' + deptCnt + '</td>'
-            			+ '<td class="s_td_deptName">' + deptName + '</td>'
-            			+ '</tr>'
-            	  );
-            	  deptCnt++;
+            	   if ($(".s_appDept_tbody_cl tr").length < 2) {
+	            	  $('.s_appDept_tbody_cl').append(
+	            			'<tr>'
+	            			+ '<td>' + deptCnt + '</td>'
+	            			+ '<td class="s_td_deptName">' + deptName + '</td>'
+	            			+ '</tr>'
+	            	  );
+	            	  deptCnt++;
+            	   } else {
+            		   alert("참조처는 최대 2개 부서까지 추가가 가능합니다.");
+            	   }
                }
 			
 		});
@@ -373,6 +376,28 @@
 			// str1 => eap_first_ap에 저장
 			// str2 => eap_mid_ap에 저장
 			// str3 => eap_final_ap에 저장
+			
+			var arrDept = [];
+			for(var i = 0; i < $('.s_td_deptName').length; i++) {
+				var tdDeptName = $('.s_td_deptName').eq(i).text();
+				arrDept.push(tdDeptName);
+				console.log("참조처 부서 담긴 모습 : " + arrDept);
+				console.log("참조처 길이 : " + arrDept.length);
+			}
+			var deptStr1 = arrDept[0];
+			var deptStr2 = arrDept[1];
+			
+			if(deptStr1 == undefined) {
+				deptStr1 = null;
+			}
+			if(deptStr2 == undefined) {
+				deptStr2 = null;
+			}
+			
+			console.log("첫번째 부서 결과 : " + deptStr1);
+			console.log("두번째 부서 결과 : " + deptStr2);
+			// deptStr1 => eap_first_dept에 저장
+			// deptStr2 => eap_final_dept에 저장
 		});
 		
 		

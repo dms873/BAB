@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,6 +40,21 @@
 </head>
 <body>
 
+	<c:forEach items="${selectOrganList }" var="i">
+		<div class="emp_name" style="display: none;">
+			${i.emp_name }
+		</div>
+		<div class="dept_code" style="display: none;">
+			${i.dept_code }
+		</div>
+		<div class="dept_name" style="display: none;">
+			${i.dept_name }
+		</div>
+		<div class="job_title" style="display: none;">
+			${i.job_title }
+		</div>
+	</c:forEach>
+
 	<div style="border: 1px solid lightgray;height: 1000px;width: 1300px;margin-top: 20px;margin-left: 10px;border-radius: 10px;padding: 20px;" >
         <div style="float:left;border: 1px solid lightgray;width: 40%;height: 955px;padding: 20px;border-radius: 10px;">
             <!-- 검색 -->
@@ -58,6 +74,16 @@
     </div>
 
     <script>
+   		var arr = [];
+    	for(var i = 0; i < $(".emp_name").length; i++) {
+    		var textName = document.getElementsByClassName('emp_name')[i].textContent.trim()
+    		arr.push(textName);
+    		console.log("이름 arr" + i + "번째 : " + arr[i]);
+   		}
+    	console.log("이름 : " + [...arr]);
+    	
+    	
+    
         var data = [
             {
             "id": "1",
@@ -168,6 +194,8 @@
             "icon": "https://media.discordapp.net/attachments/692994434526085184/983044903678398604/5e8f55608965fadc.png"
             },
         ]
+    	
+    	console.log("data: " + JSON.stringify(data));
   
   
   $('#tree').jstree({

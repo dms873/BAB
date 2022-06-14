@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Organ">
+
+	<select id="selectOrganList" resultType="Organ">
+		SELECT EMP_NAME, DEPT_CODE, DEPT_NAME, JOB_TITLE FROM EMPLOYEE
+		JOIN DEPT USING (DEPT_CODE)
+		JOIN JOB USING (JOB_CODE)
+	</select>
+
+
+</mapper>

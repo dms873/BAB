@@ -415,6 +415,57 @@
 		
 		$("#s_add_appLine_list").click(function() {
 			console.log("확인");
+			var arr = [];
+			for(var i = 0; i < $('.s_td_name').length; i++) {
+				var tdName = $('.s_td_name').eq(i).text();
+				arr.push(tdName);
+				console.log("이름 담긴 모습 : " + arr);
+				console.log("길이 : " + arr.length);
+			}
+			var str1 = arr[0];
+			var str2 = arr[1];
+			var str3 = arr[2];
+			console.log("첫번째 결재자 : " + str1);
+			console.log("두번째 결재자 : " + str2);
+			console.log("세번째 결재자 : " + str3);
+			
+			if(str1 == undefined) {
+				alert("결재선에 1명 이상 선택해주세요.");
+			}
+			if(str2 == undefined) {
+				str2 = null;
+			} 
+			if(str3 == undefined) {
+				str3 = null;
+			} 
+			console.log("첫번째 결재자 결과 : " + str1);
+			console.log("두번째 결재자 결과 : " + str2);
+			console.log("세번째 결재자 결과 : " + str3);
+			// str1 => eap_first_ap에 저장
+			// str2 => eap_mid_ap에 저장
+			// str3 => eap_final_ap에 저장
+			
+			var arrDept = [];
+			for(var i = 0; i < $('.s_td_deptName').length; i++) {
+				var tdDeptName = $('.s_td_deptName').eq(i).text();
+				arrDept.push(tdDeptName);
+				console.log("참조처 부서 담긴 모습 : " + arrDept);
+				console.log("참조처 길이 : " + arrDept.length);
+			}
+			var deptStr1 = arrDept[0];
+			var deptStr2 = arrDept[1];
+			
+			if(deptStr1 == undefined) {
+				deptStr1 = null;
+			}
+			if(deptStr2 == undefined) {
+				deptStr2 = null;
+			}
+			
+			console.log("첫번째 부서 결과 : " + deptStr1);
+			console.log("두번째 부서 결과 : " + deptStr2);
+			// deptStr1 => eap_first_dept에 저장
+			// deptStr2 => eap_final_dept에 저장
 		});
 		
 		

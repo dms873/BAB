@@ -9,10 +9,12 @@
 	<typeAliases>
 		<typeAlias type="kh.spring.bab.employee.domain.Employee" alias="Emp"/>
 		<typeAlias type="kh.spring.bab.board.domain.Board" alias="Board"/>
+		<typeAlias type="kh.spring.bab.organ.domain.Organ" alias="Organ"/>
 	</typeAliases>
 	 
 	<mappers>
 		<mapper resource="mappers/employee-mapper.xml"/>
+		<mapper resource="mappers/organ-mapper.xml"/>
 	</mappers>
 
 </configuration>
