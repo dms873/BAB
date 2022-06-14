@@ -2,22 +2,16 @@ package kh.spring.bab.organ.model.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import kh.spring.bab.organ.domain.Organ;
-import kh.spring.bab.organ.model.dao.OrganDao;
 
-@Service
-public class OrganService {
+public interface OrganService {
 
-	@Autowired
-	private OrganDao dao;
+	// return이 있을 경우 : @return : 리턴 값에 대한 설명 작성
+	// parameter가 있을 경우 : @param : 파라미터에 대한 설명 작성
 	
-	// 조직도 사원 조회
-	public List<Organ> selectOrganList() {
-		return dao.selectOrganList();
-	}
-	
-	
+	/**
+	 * @return : 사원 리스트 조회 
+	 * */
+	public List<Organ> selectOrganList();
+
 }

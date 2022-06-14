@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import kh.spring.bab.organ.model.service.OrganService;
+import kh.spring.bab.organ.model.service.OrganServiceImpl;
 
 @Controller
 @RequestMapping("organ")
 public class OraganizationChartController {
 
 	@Autowired
-	private OrganService service;
+	private OrganServiceImpl service;
 	
 	
 	@GetMapping("/select")

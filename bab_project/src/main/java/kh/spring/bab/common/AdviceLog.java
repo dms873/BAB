@@ -12,7 +12,7 @@ public class AdviceLog {
 	
 	@Pointcut("execution(public * kh.spring.bab..*Dao.*(..))")
 	public void commonDaoPointCut() {}
-	@Pointcut("execution(public * kh.spring.bab..*Service.*(..))")
+	@Pointcut("execution(public * kh.spring.bab..*ServiceImpl.*(..))")
 	public void commonServicePointCut() {}
 	@Pointcut("execution(public * kh.spring.bab..*Controller.*(..))")
 	public void commonControllerPointCut() {}
