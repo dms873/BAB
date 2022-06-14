@@ -1,6 +1,5 @@
 package kh.spring.bab.employee.model.dao;
 
-import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +13,10 @@ public class EmployeeDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public List<Employee> selectEmp() {
-		return sqlSession.selectList("Employee.selectEmp");
-	}
+	//아이디 찾기
+		public Employee findid(Employee employee) {
+			return sqlSession.selectOne("Employee.findid", employee);
+		}
 	
 	
 }

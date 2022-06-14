@@ -52,10 +52,10 @@
 						</tr>
 						<tr>
 							<td class="j_login_table"><button type="button"
-									class="j_login_btn">아이디 찾기</button></td>
+									class="j_login_btn" onclick = "location.href='<%=request.getContextPath()%>/employee/findid'">아이디 찾기</button></td>
 							<td>|</td>
 							<td class="j_login_table"><button type="button"
-									class="j_login_btn">비밀번호 찾기</button></td>
+									class="j_login_btn" onclick = "location.href='<%=request.getContextPath()%>/employee/findpwd'">비밀번호 찾기</button></td>
 						</tr>
 						<tr>
 							<td colspan="3" class="j_login_table"><button type="submit"

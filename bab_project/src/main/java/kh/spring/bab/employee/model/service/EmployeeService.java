@@ -1,21 +1,15 @@
 package kh.spring.bab.employee.model.service;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import kh.spring.bab.employee.domain.Employee;
-import kh.spring.bab.employee.model.dao.EmployeeDao;
 
-@Service
-public class EmployeeService {
+public interface EmployeeService {
 	
-	@Autowired
-	private EmployeeDao dao;
-	
-	public List<Employee> selectEmp() {
-		return dao.selectEmp();
-	}
+		//로그인
+		public Employee login(Employee employee);
+		//아이디찾기
+		public Employee findid(Employee employee);
+		//비밀번호찾기
+		public Employee findpwd(Employee employee);
 
 }

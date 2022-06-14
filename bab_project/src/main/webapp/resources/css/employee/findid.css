@@ -88,3 +88,26 @@
 	font-weight: bold;
 	color: dimgray;
 }
+/* SweetAlert */
+.swal-modal {
+  background-color: white;
+  border: 3px solid white;
+}
+.swal-button {
+	background-color: #0583F2;
+}
+.swal-icon--info{
+	border-color:#0583F2;
+}
+.swal-icon--info:after{
+	background-color:#0583F2;
+}
+.swal-icon--info:before{
+	background-color:#0583F2;
+}
+.swal-title{
+	font-size: 20px;
+}
+.swal-text{
+	color : black;
+}
