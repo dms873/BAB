@@ -13,7 +13,7 @@
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/reset.css">
 <meta charset="UTF-8">
-<title>공지사항 글쓰기</title>
+<title>공지사항 글수정</title>
     <!-- 테이블 -->
     <style>
     	table{
@@ -45,7 +45,7 @@
   
     <div class="row" style="margin: 0 25px;">
 		<div class="col-lg-12" >
-			<h1 class="page-header">글쓰기</h1>
+			<h1 class="page-header">글수정</h1>
 		</div>
 		
 		<hr>
@@ -53,11 +53,11 @@
     <button class="btn btn-secondary" id="y_btn_back" style="margin: 30px 20px 10px;">목록</button>
 	
     <div style="margin-left: 20px;">
-    <form action="" method="POST">
+    <form action="<%= request.getContextPath() %>/board/update" method="POST">
     	<table>
     		<tr>
     			<td>제목</td>
-    			<td><input type="text" class="form-control"></td>
+    			<td><input name=board_title type="text" class="form-control"></td>
     		</tr>
 			<tr>
 				<td>작성자</td>
@@ -65,15 +65,14 @@
 			</tr>    		
     		<tr>
     			<td>내용</td>
-    			<td><textarea name="text" id="editor" style="margin: 10px; height: 200px; resize: none;"></textarea></td>
+    			<td><textarea name="board_content" id="editor" style="margin: 10px; height: 200px; resize: none;"></textarea></td>
     		</tr>
     	</table>
-    	<button class="btn btn-primary" id="y_btn_insertDo" style="margin-top: 10px;">확인</button>
+    	<button class="btn btn-primary" id="y_btn_insertDo" style="margin-top: 10px;">수정</button>
     </form>
     </div>
     
     
-    <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
     <script>
       ClassicEditor.create( document.querySelector( '#editor' ) );
     </script>

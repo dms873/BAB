@@ -13,4 +13,20 @@ public interface BoardService {
 	
 	// 공지사항 조회
 	public List<Board> selectBoard();
+	
+	// 공지사항 등록
+	/**
+	 *  @param : Board
+	 *  @return : dao.insertBoard(board)
+	 *  @author : 윤영원
+	 **/
+	public int insertBoard(Board board);
+	
+	// 공지사항 삭제
+		/**
+		 *  @param : Board
+		 *  @return : dao.updateBoard(board)
+		 *  @author : 윤영원
+		 **/
+	public int updateBoard(Board board);
 }

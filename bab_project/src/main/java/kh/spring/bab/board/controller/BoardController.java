@@ -22,7 +22,7 @@ public class BoardController {
 	
 	
 	@GetMapping("/insert")
-	public ModelAndView insertBoard(ModelAndView mv
+	public ModelAndView insert(ModelAndView mv
 			) {
 		
 		mv.setViewName("board/insert");
@@ -30,10 +30,17 @@ public class BoardController {
 	}
 	
 	@PostMapping("/insert")
-	public ModelAndView insertDoBoard(ModelAndView mv
+	public ModelAndView insertDo(ModelAndView mv
+			, Board board
 			) {
 		
-		mv.setViewName("board/insert");
+		//login session 받아오기
+		String writer = "이대표";
+		board.setBoard_writer(writer);
+		
+		int result = service.insertBoard(board);
+		
+		mv.setViewName("redirect:/board/select");
 		return mv;
 	}
 	
@@ -51,6 +58,22 @@ public class BoardController {
 		
 		mv.addObject("selectBoard", service.selectBoard());
 		mv.setViewName("board/select");
+		
+		return mv;
+	}
+	
+	@GetMapping("/update")
+	public ModelAndView updateBoard(ModelAndView mv) {
+		
+		mv.setViewName("board/update");
+		
+		return mv;
+	}
+	
+	@PostMapping("/view")
+	public ModelAndView viewBoardDo(ModelAndView mv) {
+		
+		mv.setViewName("board/selectOne");
 		
 		return mv;
 	}

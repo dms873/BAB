@@ -53,11 +53,11 @@
     <button class="btn btn-secondary" id="y_btn_back" style="margin: 30px 20px 10px;">목록</button>
 	
     <div style="margin-left: 20px;">
-    <form action="" method="POST">
+    <form action="<%=request.getContextPath()%>/board/insert" method="POST">
     	<table class="y_insert_table">
     		<tr class="y_insert_tr">
     			<td class="y_insert_td">제목</td>
-    			<td class="y_insert_td"><input type="text" class="form-control"></td>
+    			<td class="y_insert_td"><input type="text" class="form-control" name="board_title"></td>
     		</tr>
 			<tr class="y_insert_tr">
 				<td class="y_insert_td">작성자</td>
@@ -65,7 +65,7 @@
 			</tr>    		
     		<tr class="y_insert_tr">
     			<td class="y_insert_td">내용</td>
-    			<td class="y_insert_td"><textarea name="text" id="editor" style="margin: 10px; height: 200px; resize: none;"></textarea></td>
+    			<td class="y_insert_td"><textarea name="board_content" id="editor" style="margin: 10px; height: 200px; resize: none;"></textarea></td>
     		</tr>
     	</table>
     	<button class="btn btn-primary" id="y_btn_insertDo" style="margin-top: 10px;">확인</button>

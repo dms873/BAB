@@ -14,7 +14,18 @@ public class BoardDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	//게시글 리스트
 	public List<Board> selectBoard() {
 		return sqlSession.selectList("Board.selectBoard");
+	}
+	
+	//게시글 등록
+	public int insertBoard(Board board) {
+		return sqlSession.insert("Board.insertBoard", board);
+	}
+	
+	//게시글 삭제
+	public int updateBoard(Board board) {
+		return sqlSession.update("Board.updateBoard", board);
 	}
 }

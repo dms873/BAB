@@ -52,10 +52,11 @@
 	<!-- search{e} -->
 
 	
+	<form id="y_board_delete" action="<%= request.getContextPath()%>/board/delete" method="POST">
 	<div class="container y_outer_div" style="display: flex; justify-content: center;">
 		<table class="table table-striped table-hover" style="text-align: center;">
 			<tr>
-				<td><input type="checkbox" name="checkbox"></td>
+				<td><input type="checkbox" id="allCheck" name="allCheck"></td>
 				<td>No</td>
 				<td>제목</td>
 				<td>작성자</td>
@@ -63,58 +64,17 @@
 			</tr>
 		<c:forEach items="${selectBoard}" var="i">
 			<tr>
-				<td><input type="checkbox" name="checkbox"></td>
+				<td><input type="checkbox" id="rowCheck" name="rowCheck" value="${i.board_no }"></td>
 				<td>${i.board_no }</td>
-				<td id="y_td_hover"><a href="javascript:void(0)" onclick="callFunction();" id="y_board_view">${i.board_title }</a></td>
+				<td id="y_td_hover"><a href="javascript:void(0)" onclick="viewFunction();" id="y_board_view">${i.board_title }</a></td>
 				<td>${i.board_writer }</td>
 				<td>${i.board_date }</td>
 			</tr>
 		</c:forEach>
-			<tr>
-				<td><input type="checkbox" name="checkbox"></td>
-				<td>1</td>
-				<td>sdhfssdhsdhfs</td>
-				<td>sdfsfsfs</td>
-				<td>2022-06-09</td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" name="checkbox"></td>
-				<td>1</td>
-				<td>sdhfssdhsdhfs</td>
-				<td>sdfsfsfs</td>
-				<td>2022-06-09</td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" name="checkbox"></td>
-				<td>1</td>
-				<td>sdhfssdhsdhfs</td>
-				<td>sdfsfsfs</td>
-				<td>2022-06-09</td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" name="checkbox"></td>
-				<td>1</td>
-				<td>sdhfssdhsdhfs</td>
-				<td>sdfsfsfs</td>
-				<td>2022-06-09</td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" name="checkbox"></td>
-				<td>1</td>
-				<td>sdhfssdhsdhfs</td>
-				<td>sdfsfsfs</td>
-				<td>2022-06-09</td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" name="checkbox"></td>
-				<td>1</td>
-				<td>sdhfssdhsdhfs</td>
-				<td>sdfsfsfs</td>
-				<td>2022-06-09</td>
-			</tr>
-
+		
 		</table>
 	</div>
+	</form>
 	
 	<div style="margin: 0 15px;">
 		<button type="button" class="btn btn-primary" id="y_btn_insert">글쓰기</button>
@@ -136,13 +96,45 @@
 		</nav>
 		
 	<script>
-	 function callFunction(){
-		 $("#y_board_content").load("<%=request.getContextPath()%>/board/view");
-	 }
 	
-	 $("#y_btn_insert").click(function() {
-         $("#y_board_content").load("<%=request.getContextPath()%>/board/insert");
-     });
+	// 체크박스 전체 선택/해제
+		$("#allCheck").click(function() {
+			if($("#allCheck").prop("checked")){
+				$("input[name=rowCheck]").prop("checked", true);
+			} else {
+				$("input[name=rowCheck]").prop("checked", false);
+			}
+		});
+	
+	// 체크박스 삭제
+	$("#y_btn_delete").click(function() {
+		var del = $("#y_board_delete").serialize();
+		console.log("del : "+ del);
+		if(del=="") {
+			alert("삭제 할 게시물을 선택하세요.")
+		} else {
+			$.ajax({
+				url : "<%= request.getContextPath() %>/board/delete",
+				type : "post",
+				data : del,
+				dataType : "json",
+				success : function(result){
+					console.log(del);
+				}
+			});
+		}
+		
+	});
+	
+	// 게시물 리스트 [제목] 클릭 시 상세보기 페이지 진입
+	function viewFunction(){
+		$("#y_board_content").load("<%=request.getContextPath()%>/board/view");
+	};
+	
+	// 글쓰기 [버튼] 클릭 시 글쓰기 페이지 진입
+	$("#y_btn_insert").click(function() {
+        $("#y_board_content").load("<%=request.getContextPath()%>/board/insert");
+    });
 	</script>
  </div>
 </body>

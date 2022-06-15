@@ -87,6 +87,10 @@
     	$("#menu_board").get(0).click();
     });
     
+    $("#y_btn_update").click(function() {
+        $("#y_board_content").load("<%=request.getContextPath()%>/board/update");
+    });
+    
     </script>
     
   </body>
