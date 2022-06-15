@@ -63,8 +63,11 @@ public class BoardController {
 	}
 	
 	@GetMapping("/update")
-	public ModelAndView updateBoard(ModelAndView mv) {
+	public ModelAndView update(ModelAndView mv
+			, Board board
+			) {
 		
+		int result = service.updateBoard(board);
 		mv.setViewName("board/update");
 		
 		return mv;
