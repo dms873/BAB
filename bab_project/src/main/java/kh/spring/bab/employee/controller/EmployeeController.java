@@ -50,7 +50,23 @@ public class EmployeeController {
 
 	// 비밀번호찾기 페이지열기
 	@GetMapping("/findpwd")
-	public ModelAndView findpwd(ModelAndView mv) {
+	public ModelAndView pagefindpwd(ModelAndView mv) {
+		mv.setViewName("employee/findpwd");
+		return mv;
+	}
+
+	// 비밀번호찾기
+	@PostMapping("/findpwd")
+	public ModelAndView findpwd(ModelAndView mv, Employee employee) {
+
+		Employee findpwd = service.findpwd(employee);
+
+		if (findpwd == null) {
+			mv.addObject("check", 0);
+		} else {
+			mv.addObject("check", 1);
+			mv.addObject("findpwd", findpwd);
+		}
 		mv.setViewName("employee/findpwd");
 		return mv;
 	}

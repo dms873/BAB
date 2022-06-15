@@ -17,4 +17,9 @@ public class EmployeeDao {
 		return sqlSession.selectOne("Employee.findid", employee);
 	}
 
+	// 비밀번호 찾기
+	public Employee findpwd(Employee employee) {
+		return sqlSession.selectOne("Employee.findpwd", employee);
+	}
+
 }

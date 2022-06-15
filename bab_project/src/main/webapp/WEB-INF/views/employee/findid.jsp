@@ -29,7 +29,9 @@
 						<tr>
 							<td><img
 								src="https://cdn.discordapp.com/attachments/692994434526085184/981216631432818758/2-3.png"
-								style="width: 230px;"></td>
+								style="width: 230px;"
+								onclick = "location.href='<%=request.getContextPath()%>/employee/login'"
+								id="j_findid_logo"></td>
 						</tr>
 						<tr>
 							<td class="j_findid_table" id="j_findid_table1">아이디 찾기</td>
@@ -67,7 +69,7 @@
 				<c:if test="${check == 0}">
 					<script>
 					swal({
-						  title: "입력하신 아이디와 이름이 일치하지 않습니다.",
+						  title: "입력하신 정보가 일치하지 않습니다.",
 						  text: "확인 후 다시 입력 바랍니다.",
 						  icon: "error",
 						  closeOnClickOutside: false,
@@ -82,7 +84,7 @@
 						  text: "로그인 페이지로 이동하시겠습니까?",
 						  icon: "info",
 						  buttons: true,
-						  dangerMode: true,
+						  dangerMode: false,
 						  closeOnClickOutside: false,
 						  closeOnEsc: false
 						})
