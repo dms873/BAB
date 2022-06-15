@@ -248,7 +248,7 @@
         $("#menu_attendance").click(function() {
             $("#s_content_box").load("<%=request.getContextPath()%>/attendance/select");
         });
-        
+        // 공지사항 추가 : 윤영원(220615)
         $("#menu_board").click(function() {
             $("#s_content_box").load("<%=request.getContextPath()%>/board/select");
         });
