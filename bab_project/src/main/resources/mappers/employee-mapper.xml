@@ -3,12 +3,17 @@
 <mapper namespace="Employee">
 
 	<!-- 아이디찾기 -->
-	<select id="findid" resultType="Emp">
+	<select id="findid" parameterType="Emp" resultType="Emp">
 		select * from employee where emp_no=#{emp_no} and emp_name=#{emp_name}
 	</select>
 	
 	<!-- 비밀번호찾기 -->
-	<select id="findpwd" resultType="Emp">
+	<select id="findpwd" parameterType="Emp" resultType="Emp">
 		select * from employee where emp_no=#{emp_no} and emp_name=#{emp_name} and emp_id=#{emp_id}
+	</select>
+	
+	<!-- 로그인  -->
+	<select id="login" parameterType="Emp" resultType="Emp">
+		select * from employee where emp_no=#{emp_no} and emp_id=#{emp_id} and emp_pwd=#{emp_pwd}
 	</select>
 </mapper>

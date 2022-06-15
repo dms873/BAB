@@ -1,5 +1,7 @@
 package kh.spring.bab.employee.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,9 +19,26 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeServiceImpl service;
 
-	// 로그인
+	// 로그인 페이지열기
 	@GetMapping("/login")
-	public ModelAndView login(ModelAndView mv) {
+	public ModelAndView pagelogin(ModelAndView mv) {
+		mv.setViewName("employee/login");
+		return mv;
+	}
+	
+	// 로그인
+	@PostMapping("/login")
+	public ModelAndView login(ModelAndView mv, Employee employee, HttpSession session ) {
+
+		Employee login = service.login(employee);
+		//로그인 실패 시
+		if(login==null) {
+			mv.addObject("check", 0);
+		//로그인 성공 시 세션에 정보 저장
+		}else {
+			session.setAttribute("login", login);
+			mv.addObject("check", 1);
+		}
 		mv.setViewName("employee/login");
 		return mv;
 	}

@@ -83,3 +83,17 @@
 	float: left;
 	font-size: small;
 }
+/* SweetAlert */
+/*ok버튼  */
+.swal-button--confirm {
+	background-color: #0583F2;
+	color: white;
+}
+/*타이틀  */
+.swal-title {
+	color: black;
+}
+/*텍스트  */
+.swal-text {
+	color: black;
+}

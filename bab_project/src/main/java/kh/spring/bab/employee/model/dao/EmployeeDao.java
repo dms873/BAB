@@ -12,6 +12,11 @@ public class EmployeeDao {
 	@Autowired
 	private SqlSession sqlSession;
 
+	// 로그인
+	public Employee login(Employee employee) {
+		return sqlSession.selectOne("Employee.login", employee);
+	}
+
 	// 아이디 찾기
 	public Employee findid(Employee employee) {
 		return sqlSession.selectOne("Employee.findid", employee);
