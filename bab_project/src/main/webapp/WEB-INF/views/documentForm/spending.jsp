@@ -349,7 +349,7 @@
                console.log("이 값 넣어야함 : " + text);
                var name = $('.jstree-clicked').text().substr(0,3);
                console.log("이름 : " + name);
-               var job = $('.jstree-clicked').text().substr(5,2);
+               var job = $('.jstree-clicked').text().substr(4,2);
                console.log("직위 : " + job);
                var deptText = $('.jstree-clicked').parent().parent().parent().text().substr(0,3);
                console.log("부서 : " + deptText);

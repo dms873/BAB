@@ -2,10 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="Organ">
 
+	<!-- 조직도에 넣을 이름, 부서명, 직위명 조회 -->
 	<select id="selectOrganList" resultType="Organ">
-		SELECT EMP_NAME, DEPT_CODE, DEPT_NAME, JOB_TITLE FROM EMPLOYEE
+		SELECT * FROM EMPLOYEE
 		JOIN DEPT USING (DEPT_CODE)
 		JOIN JOB USING (JOB_CODE)
+		ORDER BY JOB_CODE
+	</select>
+	
+	<!-- 조직도에 넣을 부서 코드, 부서명 조회 -->
+	<select id="selectDeptList" resultType="Organ">
+		SELECT DEPT_CODE, DEPT_NAME FROM DEPT
+	</select>
+	
+	<!-- 조직도에 넣을 직위명 조회 -->
+	<select id="selectJobList" resultType="Organ">
+		SELECT JOB_TITLE FROM JOB
 	</select>
 
 

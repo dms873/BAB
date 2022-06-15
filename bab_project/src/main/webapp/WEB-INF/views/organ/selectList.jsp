@@ -164,26 +164,109 @@
         ]
   
   
-  $('#tree').jstree({
-		'plugins': ["wholerow"],
-		'core' : {
-			'data' : data,
-			'themes' : {
-				'name' : 'proton',
-				'responsive' : true
-			}
-		},
-        'plugins' : ["search"],
-        "search": {
-        	"case_sensitive": false,
-        	"show_only_matches": true
-        }
-
-	});
+     // load가 됐을 때 DB 다녀오기
+        $(function() {
+        	$.ajax({
+        		url: '<%=request.getContextPath()%>/organ/select'
+        		, type: 'post'
+        		, dataType: 'json'
+        		, success: function(result) {
+//         			console.log("성공 : " + result);
+        			console.log(result.length);
+	      				let json = new Array();
+	      					// 최상위부모
+	      					json.push({
+	      				            "id": "1",
+	      				            "parent": "#",
+	      				            "text": "BAB",
+	      				            "icon": "https://www.jstree.com/static/3.2.1/assets/images/tree_icon.png" //root 아이콘 지정
+		      					},
+		      					{
+		      			            "id": "D10",
+		      			            "parent": "1",
+		      			            "text": "개발팀"
+	      			            },
+	      			          	{
+		      			            "id": "D20",
+		      			            "parent": "1",
+		      			            "text": "기획팀"
+	      			            },
+	      			          	{
+		      			            "id": "D30",
+		      			            "parent": "1",
+		      			            "text": "영업팀"
+	      			            },
+	      			          	{
+		      			            "id": "D40",
+		      			            "parent": "1",
+		      			            "text": "인사팀"
+	      			            },
+	      			          	{
+		      			            "id": "D50",
+		      			            "parent": "1",
+		      			            "text": "임원"
+	      			            },
+	      			          	{
+		      			            "id": "D60",
+		      			            "parent": "1",
+		      			            "text": "회계팀"
+	      			            },
+      			            );
+	      					<%-- $.ajax({
+	      						url:'<%= request.getContextPath()%>/organ/selectDept',
+	      						
+	      					}) --%>
+	      					
+	      					// 부서 정보
+	      					/* for(var i=0; i<result.length; i++){
+	      						json.push({
+	      								// 문제는 result의 length가 29임 (직원 명수), for문 조건이 안맞음
+	      					            "id": "result[i].dept_code",
+	      					            "parent": "1",
+	      					            "text": "result[i].dept_name"
+	      						})
+	      					} */
+	      					
+	      					// 사원 정보
+		        			for(var i = 0; i<result.length; i++){
+		        				json.push({
+	        			            "id": result[i].emp_no,
+	        			            "parent": result[i].dept_code,
+	        			            "text": result[i].emp_name + ' ' + result[i].job_title,
+	        			            "icon": "https://media.discordapp.net/attachments/692994434526085184/983044903678398604/5e8f55608965fadc.png"
+	        			            });
+        					}
+	      					fnCreateJstree(json);
+		        			console.log(json);
+        			
+        		}
+        		, error: function() {
+        			alert("응~못갔다왔어");
+        		}
+        	});
+        });
         
-	
-
-	/* $("#tree").jstree("open_all"); */
+        function fnCreateJstree(jsonData) {
+		  $('#tree').jstree({
+				'plugins': ["wholerow"],
+				'core' : {
+					'data' : jsonData,
+					'state': {
+						'opened' : true
+					},
+					'themes' : {
+						'name' : 'proton',
+						'responsive' : true
+					}
+				},
+		        'plugins' : ["search"],
+		        "search": {
+		        	"case_sensitive": false,
+		        	"show_only_matches": true
+		        }
+		
+			});
+        }
 	</script>
 	
 	<script>

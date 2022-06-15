@@ -44,19 +44,29 @@
 		<div class="emp_name" style="display: none;">
 			${i.emp_name }
 		</div>
+		<div class="dept_name_or" style="display: none;">
+			${i.dept_name }
+		</div>
+		<div class="job_title_or" style="display: none;">
+			${i.job_title }
+		</div>
+	</c:forEach>
+	<c:forEach items="${selectDeptList }" var="i">
 		<div class="dept_code" style="display: none;">
 			${i.dept_code }
 		</div>
 		<div class="dept_name" style="display: none;">
 			${i.dept_name }
 		</div>
+	</c:forEach>
+	<c:forEach items="${selectJobList }" var="i">
 		<div class="job_title" style="display: none;">
 			${i.job_title }
 		</div>
 	</c:forEach>
 
 	<div style="border: 1px solid lightgray;height: 1000px;width: 1300px;margin-top: 20px;margin-left: 10px;border-radius: 10px;padding: 20px;" >
-        <div style="float:left;border: 1px solid lightgray;width: 40%;height: 955px;padding: 20px;border-radius: 10px;">
+        <div style="float:left;border: 1px solid lightgray;width: 40%;height: 955px;padding: 20px;border-radius: 10px;overflow: auto;">
             <!-- 검색 -->
             <nav class="navbar navbar-light" style="float: right; margin-bottom: 20px;">
                 <div class="container-fluid">
@@ -74,13 +84,39 @@
     </div>
 
     <script>
-   		var arr = [];
+   		var arrName = [];
     	for(var i = 0; i < $(".emp_name").length; i++) {
     		var textName = document.getElementsByClassName('emp_name')[i].textContent.trim()
-    		arr.push(textName);
-    		console.log("이름 arr" + i + "번째 : " + arr[i]);
+    		var text1 = document.getElementsByClassName('dept_name_or')[i].textContent.trim()
+    		var text2 = document.getElementsByClassName('job_title_or')[i].textContent.trim()
+    		arrName.push(textName);
+    		console.log("이름 : " + arrName[i]);
+    		console.log("부서명 : " + text1);
+    		console.log("직위명 : " + text2);
+    		console.log("=======================");
    		}
-    	console.log("이름 : " + [...arr]);
+    	
+    	var arrDeptCode = [];
+    	for(var i = 0; i < $(".dept_code").length; i++) {
+    		var textDeptCode = document.getElementsByClassName('dept_code')[i].textContent.trim();
+    		arrDeptCode.push(textDeptCode);
+    	}
+    	console.log([...arrDeptCode]);
+    	
+    	var arrDeptName = [];
+    	for(var i = 0; i < $(".dept_name").length; i++) {
+    		var textDeptName = document.getElementsByClassName('dept_name')[i].textContent.trim();
+    		arrDeptName.push(textDeptName);
+    	}
+    	console.log([...arrDeptName]);
+    	
+    	var arrJob = [];
+    	for(var i = 0; i < $(".job_title").length; i++) {
+    		var textJob = document.getElementsByClassName('job_title')[i].textContent.trim();
+    		arrJob.push(textJob);
+    	}
+    	console.log([...arrJob]);
+    	
     	
     	
     
@@ -194,30 +230,117 @@
             "icon": "https://media.discordapp.net/attachments/692994434526085184/983044903678398604/5e8f55608965fadc.png"
             },
         ]
+        
+        // data.push(arrDeptName.map((v, i) => ({text:v, id:i+2, parent:1})));
+        /* for(var i = 0; i < arrDeptName.length; i++) {
+            data.push({"id": String(i+2), "text": arrDeptName[i]});
+        } */
     	
     	console.log("data: " + JSON.stringify(data));
   
-  
-  $('#tree').jstree({
-		'plugins': ["wholerow"],
-		'core' : {
-			'data' : data,
-			'themes' : {
-				'name' : 'proton',
-				'responsive' : true
-			}
-		},
-        'plugins' : ["search"],
-        "search": {
-        	"case_sensitive": false,
-        	"show_only_matches": true
-        }
-
-	});
+        // load가 됐을 때 DB 다녀오기
+        $(function() {
+        	$.ajax({
+        		url: '<%=request.getContextPath()%>/organ/select'
+        		, type: 'post'
+        		, dataType: 'json'
+        		, success: function(result) {
+//         			console.log("성공 : " + result);
+        			console.log(result.length);
+	      				let json = new Array();
+	      					// 최상위부모
+	      					json.push({
+	      				            "id": "1",
+	      				            "parent": "#",
+	      				            "text": "BAB",
+	      				            "icon": "https://www.jstree.com/static/3.2.1/assets/images/tree_icon.png" //root 아이콘 지정
+		      					},
+		      					{
+		      			            "id": "D10",
+		      			            "parent": "1",
+		      			            "text": "개발팀"
+	      			            },
+	      			          	{
+		      			            "id": "D20",
+		      			            "parent": "1",
+		      			            "text": "기획팀"
+	      			            },
+	      			          	{
+		      			            "id": "D30",
+		      			            "parent": "1",
+		      			            "text": "영업팀"
+	      			            },
+	      			          	{
+		      			            "id": "D40",
+		      			            "parent": "1",
+		      			            "text": "인사팀"
+	      			            },
+	      			          	{
+		      			            "id": "D50",
+		      			            "parent": "1",
+		      			            "text": "임원"
+	      			            },
+	      			          	{
+		      			            "id": "D60",
+		      			            "parent": "1",
+		      			            "text": "회계팀"
+	      			            },
+      			            );
+	      					<%-- $.ajax({
+	      						url:'<%= request.getContextPath()%>/organ/selectDept',
+	      						
+	      					}) --%>
+	      					
+	      					// 부서 정보
+	      					/* for(var i=0; i<result.length; i++){
+	      						json.push({
+	      								// 문제는 result의 length가 29임 (직원 명수), for문 조건이 안맞음
+	      					            "id": "result[i].dept_code",
+	      					            "parent": "1",
+	      					            "text": "result[i].dept_name"
+	      						})
+	      					} */
+	      					
+	      					// 사원 정보
+		        			for(var i = 0; i<result.length; i++){
+		        				json.push({
+	        			            "id": result[i].emp_no,
+	        			            "parent": result[i].dept_code,
+	        			            "text": result[i].emp_name + ' ' + result[i].job_title,
+	        			            "icon": "https://media.discordapp.net/attachments/692994434526085184/983044903678398604/5e8f55608965fadc.png"
+	        			            });
+        					}
+	      					fnCreateJstree(json);
+		        			console.log(json);
+        			
+        		}
+        		, error: function() {
+        			alert("응~못갔다왔어");
+        		}
+        	});
+        });
         
-	
-
-	/* $("#tree").jstree("open_all"); */
+        function fnCreateJstree(jsonData) {
+		  $('#tree').jstree({
+				'plugins': ["wholerow"],
+				'core' : {
+					'data' : jsonData,
+					'state': {
+						'opened' : true
+					},
+					'themes' : {
+						'name' : 'proton',
+						'responsive' : true
+					}
+				},
+		        'plugins' : ["search"],
+		        "search": {
+		        	"case_sensitive": false,
+		        	"show_only_matches": true
+		        }
+		
+			});
+        }
 	</script>
 	
 	<script>

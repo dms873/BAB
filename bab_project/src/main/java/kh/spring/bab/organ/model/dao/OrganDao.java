@@ -14,9 +14,19 @@ public class OrganDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	// 조직도 사원 조회
+	// 조직도에 넣을 이름, 부서명, 직위명 조회
 	public List<Organ> selectOrganList() {
 		return sqlSession.selectList("Organ.selectOrganList");
+	}
+	
+	// 조직도에 넣을 부서 코드, 부서명 조회
+	public List<Organ> selectDeptList() {
+		return sqlSession.selectList("Organ.selectDeptList");
+	}
+	
+	// 조직도에 넣을 직위명 조회
+	public List<Organ> selectJobList() {
+		return sqlSession.selectList("Organ.selectJobList");
 	}
 	
 }

@@ -13,8 +13,8 @@
 		<div>
 			<div style="text-align: center; width: 250px; line-height: 70px; float: left;">
 				<img src="https://media.discordapp.net/attachments/692994434526085184/981215903570092132/unknown.png" style="width: 50px;">
-				<div style="display: inline-block;font-size: .9em;margin-left: 10px;">손은진</div>
-				<div style="display: inline-block;font-size: .9em;">차장</div>
+				<div style="display: inline-block;margin-left: 10px;">손은진</div>
+				<div style="display: inline-block;">차장</div>
 			</div>
 			<div style="border-right: 1px solid; height: 80px; float: left; margin: 0 30px;"></div>
 			<div style="text-align: center;width: 200px;float: left;">

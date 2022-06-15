@@ -6,21 +6,30 @@ import org.springframework.stereotype.Component;
 public class Organ {
 
 	private String emp_name;
+	private String emp_no;
 	private String dept_name;
 	private String dept_code;
 	private String job_title;
 	
 	
+	
 	@Override
 	public String toString() {
-		return "Organ [emp_name=" + emp_name + ", dept_name=" + dept_name + ", dept_code=" + dept_code + ", job_title="
-				+ job_title + "]";
+		return "Organ [emp_name=" + emp_name + ", emp_no=" + emp_no + ", dept_name=" + dept_name + ", dept_code="
+				+ dept_code + ", job_title=" + job_title + "]";
 	}
 	public String getEmp_name() {
 		return emp_name;
 	}
 	public void setEmp_name(String emp_name) {
 		this.emp_name = emp_name;
+	}
+	
+	public String getEmp_no() {
+		return emp_no;
+	}
+	public void setEmp_no(String emp_no) {
+		this.emp_no = emp_no;
 	}
 	public String getDept_name() {
 		return dept_name;
