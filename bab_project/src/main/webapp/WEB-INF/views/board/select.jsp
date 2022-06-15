@@ -16,11 +16,10 @@
 <meta charset="UTF-8">
 <title>공지사항 조회</title>
 <style>
-	/* .y_outer_div {
-		width: 1100px;
-		margin-top : 70px;
-		margin-left: 70px;
-	} */
+	#y_td_hover:hover {
+		text-decoration: underline;
+	}	
+
 	
 </style>
 
@@ -52,7 +51,7 @@
 	</div>
 	<!-- search{e} -->
 
-
+	
 	<div class="container y_outer_div" style="display: flex; justify-content: center;">
 		<table class="table table-striped table-hover" style="text-align: center;">
 			<tr>
@@ -62,13 +61,15 @@
 				<td>작성자</td>
 				<td>작성일</td>
 			</tr>
+		<c:forEach items="${selectBoard}" var="i">
 			<tr>
 				<td><input type="checkbox" name="checkbox"></td>
-				<td>1</td>
-				<td>sdhfssdhsdhfs</td>
-				<td>sdfsfsfs</td>
-				<td>2022-06-09</td>
+				<td>${i.board_no }</td>
+				<td id="y_td_hover"><a href="javascript:void(0)" onclick="callFunction();" id="y_board_view">${i.board_title }</a></td>
+				<td>${i.board_writer }</td>
+				<td>${i.board_date }</td>
 			</tr>
+		</c:forEach>
 			<tr>
 				<td><input type="checkbox" name="checkbox"></td>
 				<td>1</td>
@@ -135,6 +136,10 @@
 		</nav>
 		
 	<script>
+	 function callFunction(){
+		 $("#y_board_content").load("<%=request.getContextPath()%>/board/view");
+	 }
+	
 	 $("#y_btn_insert").click(function() {
          $("#y_board_content").load("<%=request.getContextPath()%>/board/insert");
      });

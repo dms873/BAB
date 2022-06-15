@@ -17,7 +17,7 @@ public class Board {
 	private int board_no;
 	private String board_title;
 	private String board_writer;
-	private Timestamp board_date;
+	private String board_date;
 	private String board_content;
 	private String emp_no;
 	
@@ -45,10 +45,10 @@ public class Board {
 	public void setBoard_writer(String board_writer) {
 		this.board_writer = board_writer;
 	}
-	public Timestamp getBoard_date() {
+	public String getBoard_date() {
 		return board_date;
 	}
-	public void setBoard_date(Timestamp board_date) {
+	public void setBoard_date(String board_date) {
 		this.board_date = board_date;
 	}
 	public String getBoard_content() {

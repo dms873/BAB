@@ -15,6 +15,7 @@
 	<mappers>
 		<mapper resource="mappers/employee-mapper.xml"/>
 		<mapper resource="mappers/organ-mapper.xml"/>
+		<mapper resource="mappers/board-mapper.xml"/>
 	</mappers>
 
 </configuration>

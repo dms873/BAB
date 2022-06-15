@@ -16,27 +16,22 @@
     <title>공지사항 글쓰기</title>
     <!-- 테이블 -->
     <style>
-    	.y_insert_table {
+    	.y_selectOne_table {
     		width: 100%;
     		border-top: 1px solid lightgray;
     		border-collapse: collapse;
-    		text-align: center;
+    		/* text-align: center; */
     	}
     	
-    	.y_insert_td, y_insert_tr {
+    	.y_selectOne_td, y_selectOne_tr {
     		border-bottom: 1px solid lightgray;
     		border-left: 1px solid lightgray;
     		padding: 10px;
   		}
   		
-  		.y_insert_td:first-child {
+  		.y_selectOne_td:first-child {
    		 	border-left: none;
  		}
- 		
-  		.ck.ck-content{
- 			height: 350px;
- 		} 
- 		
     	
     </style>
     
@@ -45,37 +40,48 @@
   
     <div class="row" style="margin: 0 25px;">
 		<div class="col-lg-12" >
-			<h1 class="page-header">글쓰기</h1>
+			<h1 class="page-header">글읽기</h1>
 		</div>
 		
 		<hr>
 	</div>
     <button class="btn btn-secondary" id="y_btn_back" style="margin: 30px 20px 10px;">목록</button>
 	
-    <div style="margin-left: 20px;">
-    <form action="" method="POST">
-    	<table class="y_insert_table">
-    		<tr class="y_insert_tr">
-    			<td class="y_insert_td">제목</td>
-    			<td class="y_insert_td"><input type="text" class="form-control"></td>
+    <div style="padding: 20px;">
+    	<table class="y_selectOne_table">
+    		<tr class="y_selectOne_tr">
+    			<td class="y_selectOne_td" style="background: #ededed; width: 100px;">No</td>
+    			<td class="y_selectOne_td" >1</td>
+    			<td class="y_selectOne_td" style="background: #ededed; width: 100px;">작성자</td>
+				<td class="y_selectOne_td">이대표</td>
+    			
     		</tr>
 			<tr class="y_insert_tr">
-				<td class="y_insert_td">작성자</td>
-				<td class="y_insert_td"><input type="text" class="form-control" value="아무개" name="name" readonly></td>
+				<td class="y_selectOne_td" style="background: #ededed; width: 100px;">제목</td>
+    			<td class="y_selectOne_td">금일 BAB 메일 서버 점검 공지</td>
+				<td class="y_selectOne_td" style="background: #ededed; width: 100px;">작성일</td>
+				<td class="y_selectOne_td">2022-07-22</td>
 			</tr>    		
     		<tr class="y_insert_tr">
-    			<td class="y_insert_td">내용</td>
-    			<td class="y_insert_td"><textarea name="text" id="editor" style="margin: 10px; height: 200px; resize: none;"></textarea></td>
+    			<td colspan=4 class="y_selectOne_td">
+    				<div id=y_selectOne_content>
+    					<script>
+    						var tmpStr = "금일 BAB 메일 점검 공지 안내 드립니다.";
+    						tmpStr = tmpStr.replaceAll("&lt;","<");
+    						tmpStr = tmpStr.replaceAll("&lt;",">");
+    						tmpStr = tmpStr.replaceAll("&amp;lt;","<");
+    						tmpStr = tmpStr.replaceAll("&amp;gt;",">");
+    						tmpStr = tmpStr.replaceAll("&amp;nbsp;"," ");
+    						tmpStr = tmpStr.replaceAll("&amp;amp;","&");
+    						document.getElementById('y_selectOne_content').innerHTML=tmpStr;
+    					</script>
+    				</div>
+    			</td>
     		</tr>
     	</table>
-    	<button class="btn btn-primary" id="y_btn_insertDo" style="margin-top: 10px;">확인</button>
-    </form>
+    	<button class="btn btn-primary" id="y_btn_update" style="margin-top: 10px;">수정</button>
     </div>
     
-    
-    <script>
-      ClassicEditor.create( document.querySelector( '#editor' ) );
-    </script>
     <script>
     $("#y_btn_back").click(function(){
     	$("#menu_board").get(0).click();
