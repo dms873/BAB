@@ -16,5 +16,13 @@ public class AttendanceController {
 		
 		return mv;
 	}
+	
+	// 내 연차 내역
+	@GetMapping("/holiday")
+	public ModelAndView selectHo(ModelAndView mv) {
+		mv.setViewName("attendance/selectHo");
+		
+		return mv;
+	}
 
 }

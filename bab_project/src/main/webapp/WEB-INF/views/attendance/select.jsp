@@ -208,6 +208,16 @@
     </section>
     
     <script>
+    	$("#s_ho_select").click(function() {
+    		$("#s_att_content_box").load("<%=request.getContextPath()%>/attendance/holiday");
+    	});
+    	
+    	$("#s_att_select").click(function() {
+    		$("#menu_attendance").get(0).click();
+    	});
+    </script>
+    
+    <script>
     	// 출근버튼 클릭 시 버튼 사용 불가
     	$("#s_att").click(function() {
     		$("#s_att").prop("disabled", "disabled");
