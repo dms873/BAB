@@ -138,8 +138,8 @@
 	        			// 조직도의 사원정보 상세보기
 	        			$("#tree").click(function() {
 	        		        $('ul li a').click(function() {
-        		    			console.log("이 값을 넘겨 : "+ $(this).text().substr(7,7));
-        		    			var emp_no = $(this).text().substr(7,7);
+        		    			console.log("이 값을 넘겨 : "+ $(this).text().slice(-8, $(this).text().length - 1));
+        		    			var emp_no = $(this).text().slice(-8, $(this).text().length - 1);
         		    			console.log("이거 !!! " + typeof(emp_no));
 	        					$.ajax({
 	        						url: '<%=request.getContextPath()%>/organ/selectdetailinfo'
