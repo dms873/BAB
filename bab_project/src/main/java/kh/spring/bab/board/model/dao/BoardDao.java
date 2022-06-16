@@ -19,6 +19,11 @@ public class BoardDao {
 		return sqlSession.selectList("Board.selectBoard");
 	}
 	
+	//게시글 상세보기
+	public Board readBoard(String board_no) {
+		return sqlSession.selectOne("Board.selectOneBoard", board_no);
+	}
+	
 	//게시글 등록
 	public int insertBoard(Board board) {
 		return sqlSession.insert("Board.insertBoard", board);

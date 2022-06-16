@@ -65,8 +65,8 @@
 		<c:forEach items="${selectBoard}" var="i">
 			<tr>
 				<td><input type="checkbox" id="rowCheck" name="rowCheck" value="${i.board_no }"></td>
-				<td>${i.board_no }</td>
-				<td id="y_td_hover"><a href="javascript:void(0)" onclick="viewFunction();" id="y_board_view">${i.board_title }</a></td>
+				<td class="y_td_no">${i.board_no }</td>
+				<td id="y_td_hover"><a href="javascript:void(0)" id="y_board_view" class="y_board_view">${i.board_title }</a></td>
 				<td>${i.board_writer }</td>
 				<td>${i.board_date }</td>
 			</tr>
@@ -127,9 +127,12 @@
 	});
 	
 	// 게시물 리스트 [제목] 클릭 시 상세보기 페이지 진입
-	function viewFunction(){
-		$("#y_board_content").load("<%=request.getContextPath()%>/board/view");
-	};
+	$(".y_board_view").click(function(){
+		var bNo = $(this).parents("tr").children(".y_td_no").text();
+		console.log("bNo :" + bNo);
+		$("#y_board_content").load("<%=request.getContextPath()%>/board/read?board_no=" + bNo);
+	});
+	
 	
 	// 글쓰기 [버튼] 클릭 시 글쓰기 페이지 진입
 	$("#y_btn_insert").click(function() {

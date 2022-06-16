@@ -57,7 +57,7 @@
     	<table>
     		<tr>
     			<td>제목</td>
-    			<td><input name=board_title type="text" class="form-control"></td>
+    			<td><input name=board_title type="text" class="form-control" value=${updateBoard.board_title }></td>
     		</tr>
 			<tr>
 				<td>작성자</td>
@@ -65,7 +65,7 @@
 			</tr>    		
     		<tr>
     			<td>내용</td>
-    			<td><textarea name="board_content" id="editor" style="margin: 10px; height: 200px; resize: none;"></textarea></td>
+    			<td><textarea name="board_content" id="editor" style="margin: 10px; height: 200px; resize: none;">${updateBoard.board_content }</textarea></td>
     		</tr>
     	</table>
     	<button class="btn btn-primary" id="y_btn_insertDo" style="margin-top: 10px;">수정</button>

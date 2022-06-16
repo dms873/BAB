@@ -6,7 +6,16 @@
 	select board_no, board_title, board_writer, to_char(board_date, 'yyyy-mm-dd') board_date, board_content, emp_no from board order by board_no desc
 </select>
 
+<select id="selectOneBoard" resultType="Board">
+	select board_no, board_title, board_writer, to_char(board_date, 'yyyy-mm-dd') board_date, board_content, emp_no from board where board_no=#{board_no}
+</select>
+
 <insert id="insertBoard">
 	insert into Board values (BOARD_SEQ.nextval, #{board_title}, #{board_writer}, systimestamp, #{board_content}, (select emp_no from employee where emp_name=#{board_writer}))
 </insert>
+
+<update id="updateBoard">
+	update from Board set board_title=#{board_title}, board_content=#{board_content} where board_no=#{board_no}
+</update>
+
 </mapper>

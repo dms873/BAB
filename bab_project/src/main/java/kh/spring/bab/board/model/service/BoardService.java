@@ -11,15 +11,24 @@ import kh.spring.bab.board.model.dao.BoardDao;
 @Service
 public interface BoardService {
 	
+	
 	// 공지사항 조회
+		/**
+		 *  @param :
+		 *  @return : dao.selectBoard(board)
+		 *  @author : 윤영원
+		 **/
 	public List<Board> selectBoard();
 	
+	// 상세보기 조회
+	public Board readBoard(String board_no);
+	
 	// 공지사항 등록
-	/**
-	 *  @param : Board
-	 *  @return : dao.insertBoard(board)
-	 *  @author : 윤영원
-	 **/
+		/**
+		 *  @param : Board
+		 *  @return : dao.insertBoard(board)
+		 *  @author : 윤영원
+		 **/
 	public int insertBoard(Board board);
 	
 	// 공지사항 삭제

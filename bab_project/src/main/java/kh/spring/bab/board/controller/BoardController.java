@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kh.spring.bab.board.domain.Board;
 import kh.spring.bab.board.model.service.BoardService;
@@ -29,23 +31,44 @@ public class BoardController {
 		return mv;
 	}
 	
-	@PostMapping("/insert")
-	public ModelAndView insertDo(ModelAndView mv
-			, Board board
+	@PostMapping(value="/insert", produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public String insertDo(
+			 Board board
+			, @RequestParam(name="board_title", required = false) String board_title
+			, @RequestParam(name="board_writer", required = false) String board_writer
+			, @RequestParam(name="board_content", required = false) String board_content
 			) {
-		
+		System.out.println(board_title + board_writer + board_content);
 		//login session 받아오기
-		String writer = "이대표";
-		board.setBoard_writer(writer);
+		
+		board.setBoard_title(board_title);
+		board.setBoard_writer(board_writer);
+		board.setBoard_content(board_content);
 		
 		int result = service.insertBoard(board);
 		
-		mv.setViewName("redirect:/board/select");
-		return mv;
+		String msg = "";
+		if(result > 0) {
+			msg = "게시글 등록에 성공하였습니다.";
+		} else {
+			msg = "게시글 등록에 실패하였습니다.";
+		}
+		return msg;
 	}
 	
-	@GetMapping("/view")
-	public ModelAndView viewBoard(ModelAndView mv) {
+	@GetMapping("/read")
+	public ModelAndView read(ModelAndView mv
+			, @RequestParam(name="board_no", required = false) String board_no
+			, RedirectAttributes rttr
+			) {
+		
+		System.out.println("board_no : "+board_no );
+		if(board_no == null) {
+			rttr.addFlashAttribute("msg", "번호가 없습니다. 다시 선택해주세요.");
+			mv.setViewName("redirect:/board/select");
+		}
+		mv.addObject("readBoard", service.readBoard(board_no));
 		
 		mv.setViewName("board/selectOne");
 		
@@ -64,20 +87,30 @@ public class BoardController {
 	
 	@GetMapping("/update")
 	public ModelAndView update(ModelAndView mv
-			, Board board
+			, @RequestParam(name="board_no", required = false) String board_no
 			) {
 		
-		int result = service.updateBoard(board);
+		mv.addObject("updateBoard", service.readBoard(board_no));
 		mv.setViewName("board/update");
 		
 		return mv;
 	}
 	
-	@PostMapping("/view")
-	public ModelAndView viewBoardDo(ModelAndView mv) {
+	@PostMapping("/update")
+	public ModelAndView updateDo(ModelAndView mv
+			, Board board
+			, RedirectAttributes rttr
+			) {
 		
-		mv.setViewName("board/selectOne");
+		int result = service.updateBoard(board);
+		if(result > 0) {
+			rttr.addFlashAttribute("msg", "수정이 완료되었습니다.");
+		} else {
+			rttr.addFlashAttribute("msg", "수정에 실패했습니다.");
+		}
+		mv.setViewName("board/view");
 		
 		return mv;
 	}
+	
 }

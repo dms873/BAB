@@ -16,20 +16,20 @@
     <title>공지사항 글쓰기</title>
     <!-- 테이블 -->
     <style>
-    	.y_selectOne_table {
+    	.y_read_table {
     		width: 100%;
     		border-top: 1px solid lightgray;
     		border-collapse: collapse;
     		/* text-align: center; */
     	}
     	
-    	.y_selectOne_td, y_selectOne_tr {
+    	.y_read_td, y_read_tr {
     		border-bottom: 1px solid lightgray;
     		border-left: 1px solid lightgray;
     		padding: 10px;
   		}
   		
-  		.y_selectOne_td:first-child {
+  		.y_read_td:first-child {
    		 	border-left: none;
  		}
     	
@@ -48,32 +48,35 @@
     <button class="btn btn-secondary" id="y_btn_back" style="margin: 30px 20px 10px;">목록</button>
 	
     <div style="padding: 20px;">
-    	<table class="y_selectOne_table">
-    		<tr class="y_selectOne_tr">
-    			<td class="y_selectOne_td" style="background: #ededed; width: 100px;">No</td>
-    			<td class="y_selectOne_td" >1</td>
-    			<td class="y_selectOne_td" style="background: #ededed; width: 100px;">작성자</td>
-				<td class="y_selectOne_td">이대표</td>
+    	<table class="y_read_table">
+    		<tr class="y_read_tr">
+    			<td class="y_read_td" style="background: #ededed; width: 100px;">No</td>
+    			<td class="y_read_td" id="y_read_no" >${readBoard.board_no }</td>
+    			<td class="y_read_td" style="background: #ededed; width: 100px;">작성자</td>
+				<td class="y_read_td">이대표</td>
     			
     		</tr>
 			<tr class="y_insert_tr">
-				<td class="y_selectOne_td" style="background: #ededed; width: 100px;">제목</td>
-    			<td class="y_selectOne_td">금일 BAB 메일 서버 점검 공지</td>
-				<td class="y_selectOne_td" style="background: #ededed; width: 100px;">작성일</td>
-				<td class="y_selectOne_td">2022-07-22</td>
+				<td class="y_read_td" style="background: #ededed; width: 100px;">제목</td>
+    			<td class="y_read_td">${readBoard.board_title }</td>
+				<td class="y_read_td" style="background: #ededed; width: 100px;">작성일</td>
+				<td class="y_read_td">${readBoard.board_date }</td>
 			</tr>    		
     		<tr class="y_insert_tr">
-    			<td colspan=4 class="y_selectOne_td">
-    				<div id=y_selectOne_content>
+    			<td colspan=4 class="y_read_td">
+				<input id="y_hid_content" name="y_hid_content" type="hidden" value="${readBoard.board_content }">
+    				<div id=y_read_content>
     					<script>
-    						var tmpStr = "금일 BAB 메일 점검 공지 안내 드립니다.";
+    						var content = $("#y_hid_content").val();
+    						console.log("content : "+ content);
+    						var tmpStr = content;
     						tmpStr = tmpStr.replaceAll("&lt;","<");
     						tmpStr = tmpStr.replaceAll("&lt;",">");
     						tmpStr = tmpStr.replaceAll("&amp;lt;","<");
     						tmpStr = tmpStr.replaceAll("&amp;gt;",">");
     						tmpStr = tmpStr.replaceAll("&amp;nbsp;"," ");
     						tmpStr = tmpStr.replaceAll("&amp;amp;","&");
-    						document.getElementById('y_selectOne_content').innerHTML=tmpStr;
+    						document.getElementById('y_read_content').innerHTML=tmpStr;
     					</script>
     				</div>
     			</td>
@@ -83,12 +86,16 @@
     </div>
     
     <script>
+    // 게시글 목록으로 이동
     $("#y_btn_back").click(function(){
     	$("#menu_board").get(0).click();
     });
     
+    // 게시글 수정 페이지 이동
     $("#y_btn_update").click(function() {
-        $("#y_board_content").load("<%=request.getContextPath()%>/board/update");
+    	var bNo = $("#y_read_no").text();
+    	console.log("bNo : " + bNo);
+       $("#y_board_content").load("<%=request.getContextPath()%>/board/update?board_no="+bNo);
     });
     
     </script>

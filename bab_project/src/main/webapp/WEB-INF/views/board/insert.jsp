@@ -53,23 +53,23 @@
     <button class="btn btn-secondary" id="y_btn_back" style="margin: 30px 20px 10px;">목록</button>
 	
     <div style="margin-left: 20px;">
-    <form action="<%=request.getContextPath()%>/board/insert" method="POST">
+    <%-- <form id="y_board_insert" action="<%=request.getContextPath()%>/board/insert" method="POST"> --%>
     	<table class="y_insert_table">
     		<tr class="y_insert_tr">
     			<td class="y_insert_td">제목</td>
-    			<td class="y_insert_td"><input type="text" class="form-control" name="board_title"></td>
+    			<td class="y_insert_td"><input type="text" class="form-control" id="board_title" name="board_title"></td>
     		</tr>
 			<tr class="y_insert_tr">
 				<td class="y_insert_td">작성자</td>
-				<td class="y_insert_td"><input type="text" class="form-control" value="아무개" name="name" readonly></td>
+				<td class="y_insert_td"><input type="text" class="form-control" value="이대표" id="board_writer" name="board_writer" readonly></td>
 			</tr>    		
     		<tr class="y_insert_tr">
     			<td class="y_insert_td">내용</td>
     			<td class="y_insert_td"><textarea name="board_content" id="editor" style="margin: 10px; height: 200px; resize: none;"></textarea></td>
     		</tr>
     	</table>
-    	<button class="btn btn-primary" id="y_btn_insertDo" style="margin-top: 10px;">확인</button>
-    </form>
+    	<button type="button" class="btn btn-primary btnChk" id="y_btn_insertDo" style="margin-top: 10px;">확인</button>
+    <!-- </form> -->
     </div>
     
     
@@ -79,6 +79,30 @@
     <script>
     $("#y_btn_back").click(function(){
     	$("#menu_board").get(0).click();
+    });
+    
+  /* var $form = $("#y_board_insert");
+    $form.find(".btnChk").on("click",function(e){
+    	var inf = $form.serialize();
+    	var ctt = $(".ck.ck-content").text();
+    	console.log(inf+ctt); */
+    	
+    	$("#y_btn_insertDo").click(function() {
+    		var ttl = $("#board_title").val();
+    		var wrt = $("#board_writer").val();
+    		var ctt = $(".ck.ck-content").text();
+    		var obj = { "board_title" : ttl, "board_writer" : wrt, "board_content" : ctt};
+    		console.log("obj : "+obj);
+    		
+    	$.ajax({
+    		url: "<%= request.getContextPath() %>/board/insert",
+    		data : obj,
+    		type : "post",
+    		success : function(result){
+    			console.log(result);
+    			$("#menu_board").get(0).click();
+    		}
+    	})
     });
     
     </script>
