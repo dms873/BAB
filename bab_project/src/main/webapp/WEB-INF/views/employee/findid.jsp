@@ -90,9 +90,9 @@
 						})
 						.then((willDelete) => {
 						  if (willDelete) {
-						    swal(location.href="<%=request.getContextPath()%>/employee/login");
+						    location.href="<%=request.getContextPath()%>/employee/login"
 						  } else {
-						    swal(location.href="<%=request.getContextPath()%>/employee/findid");
+						    location.href="<%=request.getContextPath()%>/employee/findid"
 						  }
 						});
 					</script>
