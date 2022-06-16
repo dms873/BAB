@@ -29,4 +29,8 @@ public class OrganDao {
 		return sqlSession.selectList("Organ.selectJobList");
 	}
 	
+	// 조직도에서 상세 직원 정보 조회
+	public Organ selectDetailInfo(String emp_no) {
+		return sqlSession.selectOne("Organ.selectDetailInfo", emp_no);
+	}
 }

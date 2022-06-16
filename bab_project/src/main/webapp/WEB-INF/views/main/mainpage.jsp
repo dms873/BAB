@@ -58,7 +58,7 @@
         <div style="width: 1500px;margin: 0 auto;">
             <div style="margin-top: 30px;height: 100px;border-bottom: 1px solid silver;">
                 <div style="float: left;padding: 10px;">
-                    <a href="#" onclick="location.reload()">
+                    <a href="#" onclick="location.href='<%=request.getContextPath()%>/main/'">
                         <img src="https://cdn.discordapp.com/attachments/692994434526085184/981216631432818758/2-3.png" style="width: 150px;">
                     </a>
                 </div>

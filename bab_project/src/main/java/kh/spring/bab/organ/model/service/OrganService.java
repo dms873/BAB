@@ -26,5 +26,12 @@ public interface OrganService {
 	 * @author : 손은진
 	 * */
 	public List<Organ> selectJobList();
+	
+	/**
+	 * @param : 사원번호
+	 * @return : 상세 직원 정보 조회
+	 * @author : 손은진
+	 * */
+	public Organ selectDetailInfo(String emp_no);
 
 }

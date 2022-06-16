@@ -68,7 +68,7 @@
 	<div style="border: 1px solid lightgray;height: 1000px;width: 1300px;margin-top: 20px;margin-left: 10px;border-radius: 10px;padding: 20px;" >
         <div style="float:left;border: 1px solid lightgray;width: 40%;height: 955px;padding: 20px;border-radius: 10px;overflow: auto;">
             <!-- 검색 -->
-            <nav class="navbar navbar-light" style="float: right; margin-bottom: 20px;">
+            <nav class="navbar navbar-light" style="float: right; margin-bottom: 20px; width: 150px;">
                 <div class="container-fluid">
                     <input class="form-control me-2" placeholder="Search" aria-label="Search" id="search" value="">
                 </div>
@@ -84,162 +84,37 @@
     </div>
 
     <script>
-   		var arrName = [];
-    	for(var i = 0; i < $(".emp_name").length; i++) {
-    		var textName = document.getElementsByClassName('emp_name')[i].textContent.trim()
-    		var text1 = document.getElementsByClassName('dept_name_or')[i].textContent.trim()
-    		var text2 = document.getElementsByClassName('job_title_or')[i].textContent.trim()
-    		arrName.push(textName);
-    		console.log("이름 : " + arrName[i]);
-    		console.log("부서명 : " + text1);
-    		console.log("직위명 : " + text2);
-    		console.log("=======================");
-   		}
-    	
-    	var arrDeptCode = [];
-    	for(var i = 0; i < $(".dept_code").length; i++) {
-    		var textDeptCode = document.getElementsByClassName('dept_code')[i].textContent.trim();
-    		arrDeptCode.push(textDeptCode);
-    	}
-    	console.log([...arrDeptCode]);
-    	
-    	var arrDeptName = [];
-    	for(var i = 0; i < $(".dept_name").length; i++) {
-    		var textDeptName = document.getElementsByClassName('dept_name')[i].textContent.trim();
-    		arrDeptName.push(textDeptName);
-    	}
-    	console.log([...arrDeptName]);
-    	
-    	var arrJob = [];
-    	for(var i = 0; i < $(".job_title").length; i++) {
-    		var textJob = document.getElementsByClassName('job_title')[i].textContent.trim();
-    		arrJob.push(textJob);
-    	}
-    	console.log([...arrJob]);
-    	
-    	
-    	
-    
-        var data = [
-            {
-            "id": "1",
-            "parent": "#",
-            "text": "BAB",
-            "icon": "https://www.jstree.com/static/3.2.1/assets/images/tree_icon.png" //root 아이콘 지정
-            },
-            {
-            "id": "2",
-            "parent": "1",
-            "text": "회계팀"
-            },
-            {
-            "id": "3",
-            "parent": "1",
-            "text": "인사팀"
-            },
-            {
-            "id": "4",
-            "parent": "1",
-            "text": "기획팀"
-            },
-            {
-            "id": "5",
-            "parent": "1",
-            "text": "개발팀"
-            },
-            {
-            "id": "6",
-            "parent": "1",
-            "text": "영업팀"
-            },
-            {
-            "id": "7",
-            "parent": "2",
-            "text": "손은진 (차장)",
-            "icon": "https://media.discordapp.net/attachments/692994434526085184/983044903678398604/5e8f55608965fadc.png"
-            },
-            {
-            "id": "8",
-            "parent": "2",
-            "text": "홍길순 (사원)",
-            "icon": "https://media.discordapp.net/attachments/692994434526085184/983044903678398604/5e8f55608965fadc.png"
-            },
-            {
-            "id": "9",
-            "parent": "4",
-            "text": "장혜미 (과장)",
-            "icon": "https://media.discordapp.net/attachments/692994434526085184/983044903678398604/5e8f55608965fadc.png"
-            },
-            {
-            "id": "10",
-            "parent": "5",
-            "text": "이해람 (사원)",
-            "icon": "https://media.discordapp.net/attachments/692994434526085184/983044903678398604/5e8f55608965fadc.png"
-            },
-            {
-            "id": "11",
-            "parent": "5",
-            "text": "서지훈 (사원)",
-            "icon": "https://media.discordapp.net/attachments/692994434526085184/983044903678398604/5e8f55608965fadc.png"
-            },
-            {
-            "id": "12",
-            "parent": "6",
-            "text": "윤영원 (대리)",
-            "icon": "https://media.discordapp.net/attachments/692994434526085184/983044903678398604/5e8f55608965fadc.png"
-            },
-            {
-            "id": "13",
-            "parent": "6",
-            "text": "홍길동 (사원)",
-            "icon": "https://media.discordapp.net/attachments/692994434526085184/983044903678398604/5e8f55608965fadc.png"
-            },
-            {
-            "id": "14",
-            "parent": "3",
-            "text": "박정환 (차장)",
-            "icon": "https://media.discordapp.net/attachments/692994434526085184/983044903678398604/5e8f55608965fadc.png"
-            },
-            {
-            "id": "15",
-            "parent": "3",
-            "text": "서언주 (부장)",
-            "icon": "https://media.discordapp.net/attachments/692994434526085184/983044903678398604/5e8f55608965fadc.png"
-            },
-            {
-            "id": "16",
-            "parent": "3",
-            "text": "박자민 (이사)",
-            "icon": "https://media.discordapp.net/attachments/692994434526085184/983044903678398604/5e8f55608965fadc.png"
-            },
-            {
-            "id": "17",
-            "parent": "1",
-            "text": "임원"
-            },
-            {
-            "id": "18",
-            "parent": "17",
-            "text": "유재석 (사장)",
-            "icon": "https://media.discordapp.net/attachments/692994434526085184/983044903678398604/5e8f55608965fadc.png"
-            },
-            {
-            "id": "19",
-            "parent": "17",
-            "text": "유희열 (부사장)",
-            "icon": "https://media.discordapp.net/attachments/692994434526085184/983044903678398604/5e8f55608965fadc.png"
-            },
-        ]
-        
-        // data.push(arrDeptName.map((v, i) => ({text:v, id:i+2, parent:1})));
-        /* for(var i = 0; i < arrDeptName.length; i++) {
-            data.push({"id": String(i+2), "text": arrDeptName[i]});
-        } */
-    	
-    	console.log("data: " + JSON.stringify(data));
-  
         // load가 됐을 때 DB 다녀오기
         $(function() {
+			let json = new Array();
+			// 최상위부모
+			json.push({
+		            "id": "1",
+		            "parent": "#",
+		            "text": "BAB",
+		            "icon": "https://www.jstree.com/static/3.2.1/assets/images/tree_icon.png" //root 아이콘 지정
+				},
+            );
+			// 부서 호출
+            $.ajax({
+            	url: '<%=request.getContextPath()%>/organ/selectdept'
+          		, type: 'post'
+          		, dataType: 'json'
+          		, success: function(result) {
+          			for(var i = 0; i < result.length; i++) {
+          				json.push({
+          					"id": result[i].dept_code,
+          					"parent": "1",
+          					"text": result[i].dept_name
+         					})
+          			}
+          			console.log("결과 담김 ? : " + JSON.stringify(json));
+          		}
+            });
+			// 배열+객체 형태로 받아온 값을 배열만 벗기기
+            json.flat();
+            
+            // 사원 호출
         	$.ajax({
         		url: '<%=request.getContextPath()%>/organ/select'
         		, type: 'post'
@@ -247,79 +122,46 @@
         		, success: function(result) {
 //         			console.log("성공 : " + result);
         			console.log(result.length);
-	      				let json = new Array();
-	      					// 최상위부모
-	      					json.push({
-	      				            "id": "1",
-	      				            "parent": "#",
-	      				            "text": "BAB",
-	      				            "icon": "https://www.jstree.com/static/3.2.1/assets/images/tree_icon.png" //root 아이콘 지정
-		      					},
-		      					{
-		      			            "id": "D10",
-		      			            "parent": "1",
-		      			            "text": "개발팀"
-	      			            },
-	      			          	{
-		      			            "id": "D20",
-		      			            "parent": "1",
-		      			            "text": "기획팀"
-	      			            },
-	      			          	{
-		      			            "id": "D30",
-		      			            "parent": "1",
-		      			            "text": "영업팀"
-	      			            },
-	      			          	{
-		      			            "id": "D40",
-		      			            "parent": "1",
-		      			            "text": "인사팀"
-	      			            },
-	      			          	{
-		      			            "id": "D50",
-		      			            "parent": "1",
-		      			            "text": "임원"
-	      			            },
-	      			          	{
-		      			            "id": "D60",
-		      			            "parent": "1",
-		      			            "text": "회계팀"
-	      			            },
-      			            );
-	      					<%-- $.ajax({
-	      						url:'<%= request.getContextPath()%>/organ/selectDept',
-	      						
-	      					}) --%>
-	      					
-	      					// 부서 정보
-	      					/* for(var i=0; i<result.length; i++){
-	      						json.push({
-	      								// 문제는 result의 length가 29임 (직원 명수), for문 조건이 안맞음
-	      					            "id": "result[i].dept_code",
-	      					            "parent": "1",
-	      					            "text": "result[i].dept_name"
-	      						})
-	      					} */
-	      					
-	      					// 사원 정보
-		        			for(var i = 0; i<result.length; i++){
-		        				json.push({
-	        			            "id": result[i].emp_no,
-	        			            "parent": result[i].dept_code,
-	        			            "text": result[i].emp_name + ' ' + result[i].job_title,
-	        			            "icon": "https://media.discordapp.net/attachments/692994434526085184/983044903678398604/5e8f55608965fadc.png"
-	        			            });
-        					}
-	      					fnCreateJstree(json);
-		        			console.log(json);
-        			
-        		}
+      					// 사원 정보
+	        			for(var i = 0; i<result.length; i++){
+	        				json.push({
+        			            "id": result[i].emp_no,
+        			            "parent": result[i].dept_code,
+        			            // emp_no를 띄운 이유 : 상세 조회 시 emp_no를 넘기려고
+        			            "text": result[i].emp_name + ' ' + result[i].job_title  + '(' +  result[i].emp_no + ')',
+        			            "icon": "https://media.discordapp.net/attachments/692994434526085184/983044903678398604/5e8f55608965fadc.png"
+        			            });
+       					}
+      					fnCreateJstree(json);
+	        			console.log("전체 : " + JSON.stringify(json));
+	        			
+	        			// 조직도의 사원정보 상세보기
+	        			$("#tree").click(function() {
+	        		        $('ul li a').click(function() {
+        		    			console.log("이 값을 넘겨 : "+ $(this).text().substr(7,7));
+        		    			var emp_no = $(this).text().substr(7,7);
+        		    			console.log("이거 !!! " + typeof(emp_no));
+	        					$.ajax({
+	        						url: '<%=request.getContextPath()%>/organ/selectdetailinfo'
+	        						, data: {"emp_no":emp_no}
+	        						, type: 'post'
+	        						, success: function(result) {
+	        							console.log("성공 !!!!!!!!!!");
+	        							console.log("result : " + result);
+	        							// 결과 값이 selectInfo.jsp여서 content자리를 html(result)로 바꿈!
+	        							$("#s_dt_info_content").html(result);
+	        						}
+	        					});
+	        				})
+	        		    })
+        		}	
         		, error: function() {
-        			alert("응~못갔다왔어");
+        			alert("실패 !");
         		}
         	});
         });
         
+        // jstree 만드는 함수
         function fnCreateJstree(jsonData) {
 		  $('#tree').jstree({
 				'plugins': ["wholerow"],
@@ -353,22 +195,6 @@
 			});
 		} (jQuery))
 	});
-    </script>
-
-	
-
-    <script>
-        $("#tree").click(function() {
-            $('ul li a').click(function() {
-                var text = $(this).text();
-                console.log("값은? " + text);
-                if(text.match('^손은진')) {
-                    $("#s_dt_info_content").load("<%=request.getContextPath()%>/organ/selectInfo");
-                } else {
-                    $("#s_dt_info_content").html('<div style="color: grey;text-align: center;line-height: 800px;">조직도에서 사원을 선택하시면 상세조회가 가능합니다.</div>');
-                }
-            });
-        })
     </script>
 
 </body>

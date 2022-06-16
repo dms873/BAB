@@ -19,6 +19,15 @@
 	<select id="selectJobList" resultType="Organ">
 		SELECT JOB_TITLE FROM JOB
 	</select>
+	
+	<!-- 조직도에서 상세 직원 정보 조회 -->
+	<select id="selectDetailInfo" resultType="Organ" parameterType="string">
+		SELECT EMP_NAME, EMP_PHONE, EMP_EMAIL, EMP_DESKPHONE
+		    , (SELECT DEPT_NAME FROM DEPT JOIN EMPLOYEE USING (DEPT_CODE) WHERE EMP_NO = #{emp_no}) DEPT_NAME
+		    , (SELECT JOB_TITLE FROM JOB JOIN EMPLOYEE USING (JOB_CODE) WHERE EMP_NO = #{emp_no}) JOB_TITLE
+		FROM EMPLOYEE 
+		WHERE EMP_NO = #{emp_no}
+	</select>
 
 
 </mapper>

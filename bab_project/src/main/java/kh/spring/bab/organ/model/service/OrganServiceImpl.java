@@ -32,5 +32,11 @@ public class OrganServiceImpl implements OrganService {
 		return dao.selectJobList();
 	}
 	
+	@Override
+	// 조직도에서 상세 직원 정보 조회
+	public Organ selectDetailInfo(String emp_no) {
+		return dao.selectDetailInfo(emp_no);
+	}
+	
 	
 }
