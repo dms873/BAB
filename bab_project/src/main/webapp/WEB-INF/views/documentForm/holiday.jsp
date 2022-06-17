@@ -155,7 +155,7 @@
 					</tr>
 					<tr>
 						<th>문서번호</th>
-						<td>자동생성</td>
+						<td>${resultDoc.df_no }</td>
 					</tr>
 				</table>
 		</div>

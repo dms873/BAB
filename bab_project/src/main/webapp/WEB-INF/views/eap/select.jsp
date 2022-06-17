@@ -76,7 +76,7 @@
 				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				      </div>
 				      <div class="modal-body">
-				        <select id="s_document_form_select" class="form-select" aria-label="Default select example">
+				        <select id="s_document_form_select" name="s_document_form_select" class="form-select" aria-label="Default select example">
 				        	<option selected="selected">양식을 선택해주세요</option>
 				        	<option id="s_holiday_form" value="s_holiday_form">휴가신청서</option>
 				        	<option id="s_spending_form" value="s_spending_form">지출결의서</option>
@@ -230,6 +230,8 @@
     	
     	// 양식선택 후 확인버튼 클릭 시
         $("#liveAlertBtn").click(function() {
+        	
+        	
         	// debugger;
         	var form = $("#s_document_form_select").val();
         	if(form == 's_holiday_form') {
@@ -263,6 +265,19 @@
         				  + '</div>'
         				+ '</div>')
            	}
+        	// 결재 양식 선택에 있는 option의 text를 form변수에 담아줌
+        	var form = $("#s_document_form_select option:selected").text();
+        	$.ajax({
+        		url: "<%=request.getContextPath()%>/eap/insertdoc"
+        		// ajax data로 보냄
+        		, data: {"form": form}
+        		, type: "post"
+        		, success: function(result) {
+        			console.log("result : " + result);
+        			// 받아온 결과가 jsp라서 그 자리 html을 result로 넣어줌
+        			$("#s_eap_content_box_left").html(result);
+        		}
+        	});
         });
     	
     </script>
