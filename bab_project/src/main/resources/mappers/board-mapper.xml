@@ -6,7 +6,7 @@
 	select board_no, board_title, board_writer, to_char(board_date, 'yyyy-mm-dd') board_date, board_content, emp_no from board order by board_no desc
 </select>
 
-<select id="selectOneBoard" resultType="Board">
+<select id="readBoard" resultType="Board">
 	select board_no, board_title, board_writer, to_char(board_date, 'yyyy-mm-dd') board_date, board_content, emp_no from board where board_no=#{board_no}
 </select>
 
@@ -18,4 +18,7 @@
 	update from Board set board_title=#{board_title}, board_content=#{board_content} where board_no=#{board_no}
 </update>
 
+<delete id="deleteBoard">
+	delete from Board where board_no=#{board_no}
+</delete>
 </mapper>

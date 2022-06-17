@@ -2,6 +2,8 @@ package kh.spring.bab.board.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -113,4 +115,40 @@ public class BoardController {
 		return mv;
 	}
 	
+	@PostMapping(value="/delete", produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public String delete(HttpServletRequest request
+			, RedirectAttributes rttr
+			) {
+		
+		String[] board_no = request.getParameterValues("valueArr");
+		System.out.println("board_no : " + board_no);
+		
+		int size = board_no.length;
+		System.out.println("size : " + size);
+		
+		int result = 0;
+		
+		for(int i=0; i<size; i++) {
+			result = service.deleteBoard(board_no[i]);
+			System.out.println("result : " + result);
+		}
+		
+		String msg = "";
+		if(result > 0) {
+			msg = "게시글 삭제에 성공하였습니다.";
+		} else {
+			msg = "게시글 삭제에 실패하였습니다.";
+		}
+		return msg;
+		
+//		int result = service.updateBoard(board);
+//		if(result > 0) {
+//			rttr.addFlashAttribute("msg", "수정이 완료되었습니다.");
+//		} else {
+//			rttr.addFlashAttribute("msg", "수정에 실패했습니다.");
+//		}
+//		
+//		return mv;
+	}
 }

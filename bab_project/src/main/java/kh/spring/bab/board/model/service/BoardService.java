@@ -31,11 +31,19 @@ public interface BoardService {
 		 **/
 	public int insertBoard(Board board);
 	
-	// 공지사항 삭제
+	// 공지사항 수정
 		/**
 		 *  @param : Board
 		 *  @return : dao.updateBoard(board)
 		 *  @author : 윤영원
 		 **/
 	public int updateBoard(Board board);
+	
+	// 공지사항 삭제
+			/**
+			 *  @param : board_no[i]
+			 *  @return : dao.deleteBoard(board)
+			 *  @author : 윤영원
+			 **/
+	public int deleteBoard(String board_no);
 }

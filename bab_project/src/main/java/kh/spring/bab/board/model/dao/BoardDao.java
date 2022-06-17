@@ -21,7 +21,7 @@ public class BoardDao {
 	
 	//게시글 상세보기
 	public Board readBoard(String board_no) {
-		return sqlSession.selectOne("Board.selectOneBoard", board_no);
+		return sqlSession.selectOne("Board.readBoard", board_no);
 	}
 	
 	//게시글 등록
@@ -29,8 +29,13 @@ public class BoardDao {
 		return sqlSession.insert("Board.insertBoard", board);
 	}
 	
-	//게시글 삭제
+	//게시글 수정
 	public int updateBoard(Board board) {
 		return sqlSession.update("Board.updateBoard", board);
+	}
+	
+	//게시글 삭제
+	public int deleteBoard(String board_no) {
+		return sqlSession.delete("Board.deleteBoard", board_no);
 	}
 }

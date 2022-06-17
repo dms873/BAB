@@ -98,33 +98,67 @@
 	<script>
 	
 	// 체크박스 전체 선택/해제
-		$("#allCheck").click(function() {
-			if($("#allCheck").prop("checked")){
-				$("input[name=rowCheck]").prop("checked", true);
-			} else {
-				$("input[name=rowCheck]").prop("checked", false);
+	
+	$(function(){
+		var chkObj = document.getElementsByName("rowCheck");
+		console.log("chkObj : " + chkObj);
+		var rowCnt = chkObj.length;
+		
+		$("input[name=allCheck]").click(function() {
+			var chk_listArr = $("input[name=rowCheck]");
+			for(var i = 0; i < chk_listArr.length; i++){
+				chk_listArr[i].checked = this.checked;
 			}
 		});
-	
+			
+		$("input[name=rowCheck]").click(function(){
+			if($("input[name=rowCheck]:checked").length == rowCnt) {
+				$("input[name=rowCheck]")[0].checked = true;
+			} else {
+			$("input[name=allCheck]")[0].checked = false;
+			}
+		});
+	});
 	// 체크박스 삭제
 	$("#y_btn_delete").click(function() {
-		var del = $("#y_board_delete").serialize();
-		console.log("del : "+ del);
-		if(del=="") {
-			alert("삭제 할 게시물을 선택하세요.")
+		var valueArr = new Array();
+		var list = $("input[name=rowCheck]");
+		for(var i = 0; i < list.length; i++) {
+			if(list[i].checked) { // 선택되어 있으면 배열에 값을 저장함
+				valueArr.push(list[i].value);
+			}
+		}
+		if(valueArr.length == 0) {
+			alert("선택된 글이 없습니다.");
 		} else {
+			var chk = confirm("정말 삭제하시겠습니까?");
 			$.ajax({
 				url : "<%= request.getContextPath() %>/board/delete",
 				type : "post",
-				data : del,
-				dataType : "json",
-				success : function(result){
-					console.log(del);
-				}
+				traditional : true,
+				data : {
+					valueArr : valueArr
+				},
+				success : function(result) {
+					console.log("result : " + result);
+					if(result == "게시글 삭제에 성공하였습니다.") {
+						alert(result);
+						console.log("if 탔다");
+						$("#menu_board").get(0).click();
+					} else {
+						alert(result);
+						console.log("else 탔다");
+						$("#menu_board").get(0).click();
+					}
+				},
+				error:function(request,status,error){
+				    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				   }
 			});
 		}
-		
 	});
+		
+		
 	
 	// 게시물 리스트 [제목] 클릭 시 상세보기 페이지 진입
 	$(".y_board_view").click(function(){
