@@ -10,12 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("main")
 public class MainController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
-	@GetMapping("/")
+	@GetMapping("/main")
 	public ModelAndView select(ModelAndView mv) {
 		mv.setViewName("main/mainpage");
 		return mv;
