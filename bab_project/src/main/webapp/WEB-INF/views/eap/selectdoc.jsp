@@ -64,7 +64,6 @@
 		<span><a id="s_eap_app" href="#">결재회수 | </a></span>
 		<span><a id="s_appLine_btn" href="#">문서 수정 | </a></span>
 		<span><a id="s_opinion_btn" href="#">의견 | </a></span>
-		<span><a id="s_opinion_btn" href="#">결재선 | </a></span>
 		<span><a id="s_list_btn" href="#">목록</a></span>
 	</div>
 	

@@ -349,9 +349,13 @@
                console.log("이 값 넣어야함 : " + text);
                var name = $('.jstree-clicked').text().substr(0,3);
                console.log("이름 : " + name);
-               var job = $('.jstree-clicked').text().substr(4,2);
+               var job = $('.jstree-clicked').text().substr(4); // 부사장 '부사'로 되어 수정
                console.log("직위 : " + job);
                var deptText = $('.jstree-clicked').parent().parent().parent().text().substr(0,3);
+               // 임원 부서가 '임원이'로 되어 수정
+               if($('.jstree-clicked').parent().parent().parent().text().substr(0,3).length <= 3) {
+            	    deptText = $('.jstree-clicked').parent().parent().parent().text().substr(0,2);
+            	}
                console.log("부서 : " + deptText);
                var deptName = $(".jstree-clicked").text();
                

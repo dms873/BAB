@@ -274,57 +274,61 @@
         // 결재선에서 '->' 클릭 시
 		$("#s_add_appLine").click(function() {
 			console.log("추가");
-               var text = $(".jstree-clicked").text();
-               console.log("이 값 넣어야함 : " + text);
-               var name = $('.jstree-clicked').text().substr(0,3);
-               console.log("이름 : " + name);
-               var job = $('.jstree-clicked').text().substr(4,2);
-               console.log("직위 : " + job);
-               var deptText = $('.jstree-clicked').parent().parent().parent().text().substr(0,3);
-               console.log("부서 : " + deptText);
-               var deptName = $(".jstree-clicked").text();
-               
-               
-               for(var i = 0; i < $('.s_td_name').length; i++) {
-            	   if($(".s_td_name").eq(i).text() == name) {
-   						alert("결재선에 이미 선택되어 있습니다.");
-   						return;
-   					}
-   				}
-   				for(var i = 0; i < $('.s_td_deptName').length; i++) {
-   					if($('.s_td_deptName').eq(i).text() == deptName) {
-   						alert("참조처에 이미 선택되어 있습니다.");
-   						return;
-   					}
-   				}
-               
-               if($('.jstree-clicked').text().length > 3) {
-	               if($(".s_appLine_tbody_cl tr").length < 3) {
-	               	$(".s_appLine_tbody_cl").append(
-	   	               		'<tr>'
-	   	               		+ '<td>' + cnt + '</td>'
-	   	               		+ '<td class="s_td_name">' + name + '</td>'
-	   	               		+ '<td>' + deptText + '</td>'
-	   	               		+ '<td>' + job + '</td>'
-	   	               		+ '</tr>'
-	   	               	);
-	   		           cnt++;
-	               } else {
-	               	alert("결재선은 최대 3명까지 추가가 가능합니다.");
-	               }
-               } else if($('.jstree-clicked').text().length <= 3) {
-            	   if ($(".s_appDept_tbody_cl tr").length < 2) {
-	            	  $('.s_appDept_tbody_cl').append(
-	            			'<tr>'
-	            			+ '<td>' + deptCnt + '</td>'
-	            			+ '<td class="s_td_deptName">' + deptName + '</td>'
-	            			+ '</tr>'
-	            	  );
-	            	  deptCnt++;
-            	   } else {
-            		   alert("참조처는 최대 2개 부서까지 추가가 가능합니다.");
-            	   }
-               }
+			var text = $(".jstree-clicked").text();
+            console.log("이 값 넣어야함 : " + text);
+            var name = $('.jstree-clicked').text().substr(0,3);
+            console.log("이름 : " + name);
+            var job = $('.jstree-clicked').text().substr(4); // 부사장 '부사'로 되어 수정
+            console.log("직위 : " + job);
+            var deptText = $('.jstree-clicked').parent().parent().parent().text().substr(0,3);
+            // 임원 부서가 '임원이'로 되어 수정
+            if($('.jstree-clicked').parent().parent().parent().text().substr(0,3).length <= 3) {
+         	    deptText = $('.jstree-clicked').parent().parent().parent().text().substr(0,2);
+         	}
+           console.log("부서 : " + deptText);
+           var deptName = $(".jstree-clicked").text();
+             
+             
+           for(var i = 0; i < $('.s_td_name').length; i++) {
+        	   if($(".s_td_name").eq(i).text() == name) {
+					alert("결재선에 이미 선택되어 있습니다.");
+					return;
+				}
+			}
+			for(var i = 0; i < $('.s_td_deptName').length; i++) {
+				if($('.s_td_deptName').eq(i).text() == deptName) {
+					alert("참조처에 이미 선택되어 있습니다.");
+					return;
+				}
+			}
+             
+             if($('.jstree-clicked').text().length > 3) {
+              if($(".s_appLine_tbody_cl tr").length < 3) {
+              	$(".s_appLine_tbody_cl").append(
+  	               		'<tr>'
+  	               		+ '<td>' + cnt + '</td>'
+  	               		+ '<td class="s_td_name">' + name + '</td>'
+  	               		+ '<td>' + deptText + '</td>'
+  	               		+ '<td>' + job + '</td>'
+  	               		+ '</tr>'
+  	               	);
+  		           cnt++;
+              } else {
+              	alert("결재선은 최대 3명까지 추가가 가능합니다.");
+              }
+             } else if($('.jstree-clicked').text().length <= 3) {
+          	   if ($(".s_appDept_tbody_cl tr").length < 2) {
+           	  $('.s_appDept_tbody_cl').append(
+           			'<tr>'
+           			+ '<td>' + deptCnt + '</td>'
+           			+ '<td class="s_td_deptName">' + deptName + '</td>'
+           			+ '</tr>'
+           	  );
+           	  	deptCnt++;
+          	   } else {
+          		   alert("참조처는 최대 2개 부서까지 추가가 가능합니다.");
+          	   }
+             }
 			
 		});
 		
