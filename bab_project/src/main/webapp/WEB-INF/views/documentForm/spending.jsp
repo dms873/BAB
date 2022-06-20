@@ -349,7 +349,11 @@
                console.log("이 값 넣어야함 : " + text);
                var name = $('.jstree-clicked').text().substr(0,3);
                console.log("이름 : " + name);
-               var job = $('.jstree-clicked').text().substr(4); // 부사장 '부사'로 되어 수정
+               var job = $('.jstree-clicked').text().substr(4,2); // 부사장 '부사'로 되어 수정
+               var result = $('.jstree-clicked').text().substr(4,2).match("^부사") // 부사로 시작하지 않으면 null 리턴
+               if(result != null) {
+               	job = $('.jstree-clicked').text().substr(4,3);
+               }
                console.log("직위 : " + job);
                var deptText = $('.jstree-clicked').parent().parent().parent().text().substr(0,3);
                // 임원 부서가 '임원이'로 되어 수정
@@ -400,17 +404,19 @@
 			
 		});
 		
+		// 결재선 쪽 <- 눌렀을 때
 		$("#s_remove_appLine").click(function() {
 			console.log("삭제");
-			$(".s_appLine_tbody_cl").children().first().remove();
+			$(".s_appLine_tbody_cl").children().last().remove();
 			if(cnt == 1) {
 				return;
 			}
 			cnt--;
 		});
 		
+		// 참조처 쪽 <- 눌렀을 때
 		$("#s_remove_appDept").click(function() {
-			$(".s_appDept_tbody_cl").children().first().remove();
+			$(".s_appDept_tbody_cl").children().last().remove();
 			if(deptCnt == 1) {
 				return;
 			}

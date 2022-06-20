@@ -43,7 +43,7 @@
             <!-- 검색 -->
             <nav class="navbar navbar-light" style="float: right; margin-bottom: 20px;">
                 <div class="container-fluid">
-                    <input class="form-control me-2" placeholder="Search" aria-label="Search" id="search" value="" style=" width: 150px;">
+                    <input class="form-control me-2" placeholder="Search" aria-label="Search" id="search" value="" style=" width: 130px;">
                 </div>
             </nav>
             
@@ -95,7 +95,7 @@
 	        				json.push({
         			            "id": result[i].emp_no,
         			            "parent": result[i].dept_code,
-        			            "text": result[i].emp_name + ' ' + result[i].job_title,
+        			            "text": result[i].emp_name + ' ' + result[i].job_title  + '(' +  result[i].emp_no + ')',
         			            "icon": "https://media.discordapp.net/attachments/692994434526085184/983044903678398604/5e8f55608965fadc.png"
         			            });
        					}
@@ -104,7 +104,7 @@
         			
         		}
         		, error: function() {
-        			alert("응~못갔다왔어");
+        			alert("실패 !");
         		}
         	});
         });
@@ -143,22 +143,6 @@
 			});
 		} (jQuery))
 	});
-    </script>
-
-	
-
-    <script>
-        $("#tree").click(function() {
-            $('ul li a').click(function() {
-                var text = $(this).text();
-                console.log("값은222? " + text);
-                if(text.match('^손은진')) {
-                    $("#s_dt_info_content").load("<%=request.getContextPath()%>/organ/selectInfo");
-                } else {
-                    $("#s_dt_info_content").html('<div style="color: grey;text-align: center;line-height: 800px;">조직도에서 사원을 선택하시면 상세조회가 가능합니다.</div>');
-                }
-            });
-        })
     </script>
 
 </body>

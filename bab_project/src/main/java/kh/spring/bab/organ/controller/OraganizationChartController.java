@@ -77,13 +77,15 @@ public class OraganizationChartController {
 		
 		Organ result = service.selectDetailInfo(emp_no);
 		
-		mv.addObject("selectInfo" ,result);
+		mv.addObject("selectInfo", result);
 		mv.setViewName("organ/selectInfo");
 		
 		System.out.println("결과 : " + mv);
 		
 		return mv;
 	}
+	
+	// 결재선 리스트에 있는 사원 번호를 가져와 결재선jsp에 이름, 부서, 직책 띄우기(ajax)
 	
 	
 }

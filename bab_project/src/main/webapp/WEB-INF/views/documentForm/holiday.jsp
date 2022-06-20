@@ -172,6 +172,11 @@
 			</table>
 		</div>
 		
+		<!-- 결재선 리스트에 있는 명단대로 생성 -->
+		<script>
+			
+		</script>
+		
 		<div style="float: left;width: 130px; margin-right: 5px;">
 			<table border="1" class="s_eap_draft_app">
 				<tr>
@@ -274,11 +279,17 @@
         // 결재선에서 '->' 클릭 시
 		$("#s_add_appLine").click(function() {
 			console.log("추가");
+			var empNo = $(".jstree-clicked").text().slice(-8, $(".jstree-clicked").text().length-1);
 			var text = $(".jstree-clicked").text();
             console.log("이 값 넣어야함 : " + text);
             var name = $('.jstree-clicked').text().substr(0,3);
             console.log("이름 : " + name);
-            var job = $('.jstree-clicked').text().substr(4); // 부사장 '부사'로 되어 수정
+            var job = $('.jstree-clicked').text().substr(4,2); // 부사장 '부사'로 되어 수정
+            var result = $('.jstree-clicked').text().substr(4,2).match("^부사") // 부사로 시작하지 않으면 null 리턴
+            if(result != null) {
+            	job = $('.jstree-clicked').text().substr(4,3);
+            }
+            
             console.log("직위 : " + job);
             var deptText = $('.jstree-clicked').parent().parent().parent().text().substr(0,3);
             // 임원 부서가 '임원이'로 되어 수정
@@ -302,6 +313,7 @@
 				}
 			}
              
+			// 결재선 리스트 추가
              if($('.jstree-clicked').text().length > 3) {
               if($(".s_appLine_tbody_cl tr").length < 3) {
               	$(".s_appLine_tbody_cl").append(
@@ -311,12 +323,14 @@
   	               		+ '<td>' + deptText + '</td>'
   	               		+ '<td>' + job + '</td>'
   	               		+ '</tr>'
+  	               		+ '<input type="hidden" name="emp_no" class="emp_no" value="' + empNo + '">'
   	               	);
   		           cnt++;
               } else {
               	alert("결재선은 최대 3명까지 추가가 가능합니다.");
               }
              } else if($('.jstree-clicked').text().length <= 3) {
+            	// 참조처 리스트 추가
           	   if ($(".s_appDept_tbody_cl tr").length < 2) {
            	  $('.s_appDept_tbody_cl').append(
            			'<tr>'
@@ -332,23 +346,26 @@
 			
 		});
 		
+        // 결재선 쪽 <- 눌렀을 때
 		$("#s_remove_appLine").click(function() {
 			console.log("삭제");
-			$(".s_appLine_tbody_cl").children().first().remove();
+			$(".s_appLine_tbody_cl").children().last().remove();
 			if(cnt == 1) {
 				return;
 			}
 			cnt--;
 		});
 		
+		// 참조처 쪽 <- 눌렀을 때
 		$("#s_remove_appDept").click(function() {
-			$(".s_appDept_tbody_cl").children().first().remove();
+			$(".s_appDept_tbody_cl").children().last().remove();
 			if(deptCnt == 1) {
 				return;
 			}
 			deptCnt--;
 		});
 		
+		// 모달에서 확인 클릭 시 
 		$("#s_add_appLine_list").click(function() {
 			console.log("확인");
 			var arr = [];

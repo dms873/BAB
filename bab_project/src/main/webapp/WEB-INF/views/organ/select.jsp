@@ -70,7 +70,7 @@
             <!-- 검색 -->
             <nav class="navbar navbar-light" style="float: right; margin-bottom: 20px; width: 150px;">
                 <div class="container-fluid">
-                    <input class="form-control me-2" placeholder="Search" aria-label="Search" id="search" value="">
+                    <input class="form-control me-2" placeholder="Search" aria-label="Search" id="search" value="" style=" width: 150px;">
                 </div>
             </nav>
             
