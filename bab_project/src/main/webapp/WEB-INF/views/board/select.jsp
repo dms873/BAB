@@ -34,7 +34,7 @@
 		
 		<hr>
 		
-		<div class="pannel-heading">전체 9건의 게시물이 있습니다.</div>
+		<div class="pannel-heading">전체 ${totalCnt}건의 게시물이 있습니다.</div>
 	</div>
 
 	<div style="margin: 20px 0;">
@@ -83,19 +83,31 @@
 
 		<nav aria-label="Page navigation example" style="display: flex; justify-content: center; margin-top: 50px;">
 			<ul class="pagination">
+				<c:if test="${startPage > 1 }">
 				<li class="page-item"><a class="page-link" href="#"
 					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 				</a></li>
-				<li class="page-item"><a class="page-link" href="#">1</a></li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
+				</c:if>
+				<c:forEach begin="${startPage }" end="${endPage }" var="i">
+				<li class="page-item"><a class="page-link" href="#">${i }</a></li>
+				</c:forEach>
+				<c:if test="${endPage < pageCnt }">
 				<li class="page-item"><a class="page-link" href="#"
 					aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 				</a></li>
+				</c:if>
 			</ul>
 		</nav>
 		
 	<script>
+	
+	// 페이징 처리
+	
+	$(".page_item").click(function() {
+		var pageNum = document.getElementsByClassName("page-item");
+		var child = pageNum.firstChild;
+		console.log("pageNum, child : " + pageNum +", "+ child);
+	})
 	
 	// 체크박스 전체 선택/해제
 	

@@ -79,9 +79,37 @@ public class BoardController {
 	
 	
 	@GetMapping("/select")
-	public ModelAndView selectBoard(ModelAndView mv) {
+	public ModelAndView selectBoard(ModelAndView mv
+			, @RequestParam(name="page", defaultValue = "1") int currentPage
+			) {
 		
-		mv.addObject("selectBoard", service.selectBoard());
+		final int pageSize = 7;
+		final int pageBlock = 5;
+		int totalCnt = service.selectTotalCnt();
+		
+		// paging 처리
+		int pageCnt = totalCnt / pageSize + (totalCnt % pageSize == 0 ? 0 : 1);
+		int startPage = 1;
+		int endPage = 1;
+		// int endPage = pageBlock;
+		if (currentPage % pageBlock == 0) {
+			startPage = ((currentPage / pageBlock) - 1) * pageBlock + 1;
+		} else {
+			startPage = (currentPage / pageBlock) * pageBlock + 1;
+		}
+		endPage = startPage + pageBlock - 1;
+		if (endPage > pageCnt) {
+			endPage = pageCnt;
+		}
+		System.out.println("paging" + startPage + "~" + endPage);
+		
+		
+		mv.addObject("selectBoard", service.selectBoard(currentPage, pageSize));
+		mv.addObject("startPage", startPage);
+		mv.addObject("endPage", endPage);
+		mv.addObject("pageCnt", pageCnt);
+		mv.addObject("totalCnt", totalCnt);
+		mv.addObject("currentPage", currentPage);
 		mv.setViewName("board/select");
 		
 		return mv;
@@ -141,14 +169,5 @@ public class BoardController {
 			msg = "게시글 삭제에 실패하였습니다.";
 		}
 		return msg;
-		
-//		int result = service.updateBoard(board);
-//		if(result > 0) {
-//			rttr.addFlashAttribute("msg", "수정이 완료되었습니다.");
-//		} else {
-//			rttr.addFlashAttribute("msg", "수정에 실패했습니다.");
-//		}
-//		
-//		return mv;
 	}
 }

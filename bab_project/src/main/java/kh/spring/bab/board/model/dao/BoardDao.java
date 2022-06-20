@@ -2,6 +2,7 @@ package kh.spring.bab.board.model.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -15,8 +16,13 @@ public class BoardDao {
 	private SqlSession sqlSession;
 	
 	//게시글 리스트
-	public List<Board> selectBoard() {
-		return sqlSession.selectList("Board.selectBoard");
+	public List<Board> selectBoard(int currentPage, int pageSize) {
+		return sqlSession.selectList("Board.selectBoard",null, new RowBounds((currentPage-1)*pageSize, pageSize));
+	}
+	
+	//게시글 목록갯수
+	public int selectTotalCnt() {
+		return sqlSession.selectOne("Board.selectTotalCnt");
 	}
 	
 	//게시글 상세보기

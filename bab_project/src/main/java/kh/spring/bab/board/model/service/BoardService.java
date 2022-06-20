@@ -18,7 +18,15 @@ public interface BoardService {
 		 *  @return : dao.selectBoard(board)
 		 *  @author : 윤영원
 		 **/
-	public List<Board> selectBoard();
+	public List<Board> selectBoard(int currentPage, int pageSize);
+	
+	// 공지사항 목록 갯수
+		/**
+		 *  @param :
+		 *  @return : dao.selectTotalCnt()
+		 *  @author : 윤영원
+		 **/
+	public int selectTotalCnt();
 	
 	// 상세보기 조회
 	public Board readBoard(String board_no);

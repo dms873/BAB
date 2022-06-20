@@ -16,9 +16,14 @@ public class BoardServiceImpl implements BoardService {
 	
 		// 공지사항 조회
 		@Override
-		public List<Board> selectBoard() {
-			return dao.selectBoard();
+		public List<Board> selectBoard(int currentPage, int pageSize) {
+			return dao.selectBoard(currentPage, pageSize);
 		};
+		
+		@Override
+		public int selectTotalCnt() {
+			return dao.selectTotalCnt();
+		}
 		
 		@Override
 		public Board readBoard(String board_no) {
