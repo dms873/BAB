@@ -1,5 +1,6 @@
 package kh.spring.bab.employee.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,6 +89,15 @@ public class EmployeeController {
 		}
 		mv.setViewName("employee/findpwd");
 		return mv;
+	}
+
+	// 로그아웃
+	@GetMapping("/logout")
+	public String logout(HttpServletRequest request) {
+
+		HttpSession session = request.getSession();
+        session.invalidate();
+		return "redirect:/employee/login";
 	}
 
 }

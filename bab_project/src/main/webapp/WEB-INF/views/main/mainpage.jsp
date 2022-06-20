@@ -81,7 +81,8 @@
                                 <div style="font-size: .8em;">손은진님</div>
                             </div>
                             <div style="line-height: 60px;">
-                                <button type="button" class="btn btn-secondary" style="font-size: .8em;">로그아웃</button>
+                                <button type="button" class="btn btn-secondary" style="font-size: .8em;"
+                                onclick="location.href='<%=request.getContextPath()%>/employee/logout'">로그아웃</button>
                             </div>
                         </div>
                     </div>
