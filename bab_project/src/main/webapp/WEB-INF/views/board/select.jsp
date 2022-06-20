@@ -84,15 +84,15 @@
 		<nav aria-label="Page navigation example" style="display: flex; justify-content: center; margin-top: 50px;">
 			<ul class="pagination">
 				<c:if test="${startPage > 1 }">
-				<li class="page-item"><a class="page-link" href="#"
+				<li class="page-item pre"><a class="page-link" href="#"
 					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 				</a></li>
 				</c:if>
 				<c:forEach begin="${startPage }" end="${endPage }" var="i">
-				<li class="page-item"><a class="page-link" href="#">${i }</a></li>
+				<li class="page-item num"><a class="page-link" href="#">${i }</a></li>
 				</c:forEach>
 				<c:if test="${endPage < pageCnt }">
-				<li class="page-item"><a class="page-link" href="#"
+				<li class="page-item next"><a class="page-link" href="#"
 					aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 				</a></li>
 				</c:if>
@@ -103,11 +103,23 @@
 	
 	// 페이징 처리
 	
-	$(".page_item").click(function() {
-		var pageNum = document.getElementsByClassName("page-item");
-		var child = pageNum.firstChild;
-		console.log("pageNum, child : " + pageNum +", "+ child);
+	$(".page-item.num .page-link").click(function(event) {
+		console.log(event.target.innerText);
+		
+		var pageNum = event.target.innerText;
+		$("#s_content_box").load("<%=request.getContextPath()%>/board/select?page="+pageNum);
 	})
+	
+	$(".page-item.pre .page-link").click(function(event){
+		$("#s_content_box").load("<%=request.getContextPath()%>/board/select?page=${currentPage-1}");
+	
+	})
+	
+	$(".page-item.next .page-link").click(function(event){
+		$("#s_content_box").load("<%=request.getContextPath()%>/board/select?page=${currentPage+1}");
+	
+	})
+	
 	
 	// 체크박스 전체 선택/해제
 	
