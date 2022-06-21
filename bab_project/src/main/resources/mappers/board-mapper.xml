@@ -3,7 +3,19 @@
 <mapper namespace="Board">
 
 <select id="selectBoard" resultType="Board">
-	select board_no, board_title, board_writer, to_char(board_date, 'yyyy-mm-dd') board_date, board_content, emp_no from board order by board_no desc
+	select board_no, board_title, board_writer, to_char(board_date, 'yyyy-mm-dd') board_date, board_content, emp_no from board where 1=1
+	<choose>
+		<when test="type != null and type.equals('board_title')">
+		and board_title like '%' || #{keyword} || '%'
+		</when>
+		<when test="type != null and type.equals('board_content')">
+		and board_content like '%' || #{keyword} || '%'
+		</when>
+		<when test="type != null and type.equals('board_writer')">
+		and board_writer like '%' || #{keyword} || '%'
+		</when>
+	</choose>
+	order by board_no desc
 </select>
 
 <select id="selectTotalCnt" resultType="_int">

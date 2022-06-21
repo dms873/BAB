@@ -16,8 +16,8 @@ public class BoardDao {
 	private SqlSession sqlSession;
 	
 	//게시글 리스트
-	public List<Board> selectBoard(int currentPage, int pageSize) {
-		return sqlSession.selectList("Board.selectBoard",null, new RowBounds((currentPage-1)*pageSize, pageSize));
+	public List<Board> selectBoard(int currentPage, int pageSize, Board board) {
+		return sqlSession.selectList("Board.selectBoard", board, new RowBounds((currentPage-1)*pageSize, pageSize));
 	}
 	
 	//게시글 목록갯수

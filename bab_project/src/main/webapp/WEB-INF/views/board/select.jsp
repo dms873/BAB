@@ -38,13 +38,13 @@
 	</div>
 
 	<div style="margin: 20px 0;">
-		<!-- search{s} -->
+	<!-- search{s} -->
 		<div class="select_outer" style="display: flex; justify-content: center;">
-			<select class="form-select mb-3" style="width: 100px;">
-				<option value="title">제목</option>
-				<option value="content">내용</option>
-				<option value="writer">작성자</option>
-			</select> <input type="text" class="form-control" name="keyword" id="keyword" style="width: 270px; height: 38px; margin: 0 6px;">
+			<select id="select_search" name="select_search" class="form-select mb-3" style="width: 100px;">
+				<option value="board_title">제목</option>
+				<option value="board_content">내용</option>
+				<option value="board_writer">작성자</option>
+			</select> <input type="text" class="form-control" name="search_bar" id="search_bar" style="width: 270px; height: 38px; margin: 0 6px;">
 			<button class="btn btn-sm btn-primary" name="btnSearch"
 				id="y_btn_search" style="height: 38px;">검색</button>
 		</div>
@@ -71,7 +71,6 @@
 				<td>${i.board_date }</td>
 			</tr>
 		</c:forEach>
-		
 		</table>
 	</div>
 	</form>
@@ -111,13 +110,17 @@
 	})
 	
 	$(".page-item.pre .page-link").click(function(event){
-		$("#s_content_box").load("<%=request.getContextPath()%>/board/select?page=${currentPage-1}");
+		//이전 페이지 최소값 -1 -> 이전 페이지로 이동
+		const num = Math.min(...[...$('.page-link')].map(v=>v.innerText*1).filter(v=>v>0))-1;
+		$("#s_content_box").load("<%=request.getContextPath()%>/board/select?page="+num);
 	
 	})
 	
 	$(".page-item.next .page-link").click(function(event){
-		$("#s_content_box").load("<%=request.getContextPath()%>/board/select?page=${currentPage+1}");
-	
+		//다음 페이지 최대값 +1 -> 다음 페이지로 이동
+		const num = Math.max(...[...$('.page-link')].map(v=>v.innerText*1).filter(v=>v>0))+1;
+		<%-- $("#s_content_box").load("<%=request.getContextPath()%>/board/select?page=${currentPage+1}"); --%>
+		$("#s_content_box").load("<%=request.getContextPath()%>/board/select?page="+num);
 	})
 	
 	
@@ -179,6 +182,44 @@
 				    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 				   }
 			});
+		}
+	});
+	
+	
+	// 검색
+	$("#y_btn_search").click(function(){
+		var valueSelect = $("#select_search option:selected").val();
+		var valueInput = $("#search_bar").val();
+		console.log("valueSelect : " + valueSelect);
+		console.log("valueInput : " + valueInput);
+
+		//if(valueInput == "") {
+			if(false) {
+			alert("글을 입력해주세요.")
+		} else {
+			$.ajax({
+				url : "<%= request.getContextPath() %>/board/select",
+				type : "get",
+				data : {"type" : valueSelect, "keyword" : valueInput},
+				success : function(result) {
+					console.log(result);
+					
+					$("#s_content_box").html(result);
+					
+					/* $("#y_board_tbody").empty();
+					if(result.length>=1) {
+						result.forEach(function(item){
+							str = '<tr>'
+							str += "<td>" + item.board_no + "</td>";
+							str += "<td><a href = '/board/read?board_no=" + item.board_no + "'>" + item.title + "</a></td>";
+							str += "<td>"+item.writer+"</td>";
+							str += "<td>"+item.date+"</td>";
+							str += "</tr>"
+							$('#y_board_tbody').append(str);
+						}) 
+					}*/
+				}
+			})
 		}
 	});
 		

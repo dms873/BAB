@@ -24,7 +24,6 @@ public class BoardController {
 	@Autowired
 	private BoardService service;
 	
-	
 	@GetMapping("/insert")
 	public ModelAndView insert(ModelAndView mv
 			) {
@@ -78,14 +77,34 @@ public class BoardController {
 	}
 	
 	
-	@GetMapping("/select")
+	@GetMapping(value="/select", produces = "text/plain;charset=UTF-8")
+	@ResponseBody
 	public ModelAndView selectBoard(ModelAndView mv
 			, @RequestParam(name="page", defaultValue = "1") int currentPage
+			, @RequestParam(name="type", required = false) String type
+			, @RequestParam(name="keyword", required = false) String keyword
+			, Board board
 			) {
+		
+		System.out.println("type : " + type);
+		System.out.println("keyword : " + keyword);
+		
+		board.setType(type);
+		board.setKeyword(keyword);
 		
 		final int pageSize = 7;
 		final int pageBlock = 5;
-		int totalCnt = service.selectTotalCnt();
+//		if(board_title.equals("content")) {
+//			String board_content = board_title;
+//		} else if(board_title.equals("writer")) {
+//			String board_writer = board_title;
+//		}
+		
+		List<Board> selectBoard = service.selectBoard(currentPage, pageSize, board);
+			
+		//int totalCnt = service.selectTotalCnt();
+		
+		int totalCnt = keyword == "" || keyword == null  ? service.selectTotalCnt() :selectBoard.size();
 		
 		// paging 처리
 		int pageCnt = totalCnt / pageSize + (totalCnt % pageSize == 0 ? 0 : 1);
@@ -101,10 +120,8 @@ public class BoardController {
 		if (endPage > pageCnt) {
 			endPage = pageCnt;
 		}
-		System.out.println("paging" + startPage + "~" + endPage);
 		
-		
-		mv.addObject("selectBoard", service.selectBoard(currentPage, pageSize));
+		mv.addObject("selectBoard", selectBoard);
 		mv.addObject("startPage", startPage);
 		mv.addObject("endPage", endPage);
 		mv.addObject("pageCnt", pageCnt);
