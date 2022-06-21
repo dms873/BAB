@@ -1,6 +1,9 @@
 package kh.spring.bab.organ.controller;
 
+import java.io.Console;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -85,7 +88,26 @@ public class OraganizationChartController {
 		return mv;
 	}
 	
-	// 결재선 리스트에 있는 사원 번호를 가져와 결재선jsp에 이름, 부서, 직책 띄우기(ajax)
-	
+	// 휴가신청서 결재선 리스트에 있는 사원 번호를 가져와 결재선jsp에 이름, 부서, 직책 띄우기(ajax)
+	@PostMapping(value = "/applinelist", produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public ModelAndView selectApplineList(
+			ModelAndView mv
+			, @RequestParam(value = "emp_no[]", required = false) List<String> emp_noArr
+			) {
+		
+		System.out.println("emp_no : " + emp_noArr);
+		
+		for(String emp_no : emp_noArr) {
+			System.out.println(emp_no);
+			Organ result = service.selectDetailInfo(emp_no);
+			mv.addObject("info", result);
+		}
+		
+		mv.setViewName("documentForm/holiday");
+		
+		return mv;
+		
+	}
 	
 }

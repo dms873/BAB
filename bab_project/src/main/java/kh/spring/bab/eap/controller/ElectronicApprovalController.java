@@ -57,20 +57,20 @@ public class ElectronicApprovalController {
 	}
 	
 	// 휴가신청서 입력양식
-	@GetMapping("/selectform/holiday")
-	public ModelAndView selectHoliday(ModelAndView mv) {
-		mv.setViewName("documentForm/holiday");
-		return mv;
-	}
+//	@GetMapping("/selectform/holiday")
+//	public ModelAndView selectHoliday(ModelAndView mv) {
+//		mv.setViewName("documentForm/holiday");
+//		return mv;
+//	}
 	
 	// 지출결의서 입력양식
-	@GetMapping("/selectform/spending")
-	public ModelAndView selectSpending(ModelAndView mv
-			, @RequestParam(name = "fileUrl", required = false) String fileUrl) {
-		System.out.println(fileUrl);
-		mv.setViewName("documentForm/spending");
-		return mv;
-	}
+//	@GetMapping("/selectform/spending")
+//	public ModelAndView selectSpending(ModelAndView mv
+//			, @RequestParam(name = "fileUrl", required = false) String fileUrl) {
+//		System.out.println(fileUrl);
+//		mv.setViewName("documentForm/spending");
+//		return mv;
+//	}
 	
 	// 결재선
 	@GetMapping("/appline")

@@ -172,19 +172,14 @@
 			</table>
 		</div>
 		
-		<!-- 결재선 리스트에 있는 명단대로 생성 -->
-		<script>
-			
-		</script>
-		
-		<div style="float: left;width: 130px; margin-right: 5px;">
+		<div style="float: left;width: 130px; margin-right: 5px;" id="s_eap_first">
 			<table border="1" class="s_eap_draft_app">
 				<tr>
 					<th rowspan="3">승인</th>
-					<td>차장</td>
+					<td>${info.job_title }</td>
 				</tr>
 				<tr>
-					<td>박정환</td>
+					<td>${info.emp_name }</td>
 				</tr>
 				<tr>
 					<td><img src="https://media.discordapp.net/attachments/692994434526085184/984465393517199430/stamp_1.png" style="width: 50px;"></td>
@@ -192,7 +187,7 @@
 			</table>
 		</div>
 		
-		<div style="float: left;width: 130px; margin-right: 5px;">
+		<div style="float: left;width: 130px; margin-right: 5px;" id="s_eap_mid">
 			<table border="1" class="s_eap_draft_app">
 				<tr>
 					<th rowspan="3">승인</th>
@@ -205,6 +200,9 @@
 					<td><img src="https://media.discordapp.net/attachments/692994434526085184/984465393068421141/stamp_2.png" style="width: 50px;"></td>
 				</tr>
 			</table>
+		</div>
+		
+		<div style="float: left;width: 130px; margin-right: 5px;" id="s_eap_final">
 		</div>
 	
 			<div style="padding: 50px 10px 20px; clear: both;">
@@ -273,9 +271,8 @@
    	</script>
 		
 	<script>
-        var cnt = 1;
         var deptCnt = 1;
-           
+        var arr = [];
         // 결재선에서 '->' 클릭 시
 		$("#s_add_appLine").click(function() {
 			console.log("추가");
@@ -312,20 +309,22 @@
 					return;
 				}
 			}
-             
 			// 결재선 리스트 추가
              if($('.jstree-clicked').text().length > 3) {
               if($(".s_appLine_tbody_cl tr").length < 3) {
-              	$(".s_appLine_tbody_cl").append(
-  	               		'<tr>'
+            	  console.log("결재선 추가")
+            	  arr.push({"name":name,"deptText":deptText,"job":job,"empNo":empNo})
+            	  console.log(arr);
+	              fn_arr(arr);
+            	  /* $(".s_appLine_tbody_cl").append(
+  	               		 '<tr>'
   	               		+ '<td>' + cnt + '</td>'
   	               		+ '<td class="s_td_name">' + name + '</td>'
   	               		+ '<td>' + deptText + '</td>'
-  	               		+ '<td>' + job + '</td>'
+  	               		+ '<td class="s_td_job">' + job + '</td>'
   	               		+ '</tr>'
   	               		+ '<input type="hidden" name="emp_no" class="emp_no" value="' + empNo + '">'
-  	               	);
-  		           cnt++;
+  	               	); */
               } else {
               	alert("결재선은 최대 3명까지 추가가 가능합니다.");
               }
@@ -345,15 +344,60 @@
              }
 			
 		});
+        
+        // 직책 순으로 정렬하는 함수
+		function fn_arr(arr){
+        	console.log(arr);
+        	var cnt = 1;
+        	var aprvList ="";
+        	$(".s_appLine_tbody_cl").empty();
+        	var jobArr = ['사원','대리','과장','차장','부장','이사','부사장','사장'];
+			var numArr = [];
+			
+			for(var i = 0; i < arr.length; i++) { // 부장, 차장, 대리 순이라면
+				numArr.push(jobArr.indexOf(arr[i].job)); // 4,3,1이 들어감
+				console.log(numArr);
+			}
+			
+			numArr.sort();  // 1,3,4
+			for(var i=0; i<numArr.length; i++){
+				console.log("i : " + i);
+				for(var j=0; j<arr.length; j++){
+					console.log("j : " + j);
+					if(arr[j].job==jobArr[numArr[i]]){
+						console.log(arr[j].job)
+						console.log(numArr[i])
+						aprvList += '<tr>'
+  	               				 + '<td>' + cnt + '</td>'
+  	               				 + '<td class="s_td_name">' + arr[j].name + '</td>'
+  	               			 	 + '<td>' + arr[j].deptText + '</td>'
+  	               			     + '<td class="s_td_job">' + arr[j].job + '</td>'
+  	               			     + '</tr>'
+  	               				 + '<input type="hidden" name="emp_no" class="emp_no" value="' + arr[j].empNo + '">'
+  	               				 cnt++;
+  	               				 break;
+					}	
+				}
+			}
+			$(".s_appLine_tbody_cl").append(aprvList);
+			//TODO 직급이 같을 때 for문 여러번 도는 것 수정하기
+        }
+        
+        function fn_remove(arr) {
+        	arr.splice(0); // arr 모두 삭제
+        	$(".s_appLine_tbody_cl").children().remove(); // 테이블에 생성된 자식들 모두 삭제
+        	console.log(arr);
+        }
 		
         // 결재선 쪽 <- 눌렀을 때
 		$("#s_remove_appLine").click(function() {
 			console.log("삭제");
-			$(".s_appLine_tbody_cl").children().last().remove();
-			if(cnt == 1) {
-				return;
-			}
-			cnt--;
+			fn_remove(arr);
+			// $(".s_appLine_tbody_cl").children().last().remove();
+			// if(cnt == 1) {
+			// 	return;
+			// }
+			// cnt--;
 		});
 		
 		// 참조처 쪽 <- 눌렀을 때
@@ -367,6 +411,44 @@
 		
 		// 모달에서 확인 클릭 시 
 		$("#s_add_appLine_list").click(function() {
+			var empNoArr = [];
+			for(var i = 0; i < $(".emp_no").length; i++) {
+				empNoArr.push($(".emp_no").eq(i).val());
+			}
+			console.log(empNoArr);
+			
+			var obj = {"emp_no" : empNoArr};
+			
+			// 결재선 리스트에 있는 사원 번호를 가져와 결재선jsp에 이름, 부서, 직책 띄우기(ajax)
+			$.ajax({
+				url: "<%=request.getContextPath()%>/organ/applinelist"
+				, type: "post"
+				, data: obj
+				, success: function(result) {
+					console.log("결재선리스트 result : " + result);
+				}
+			});
+			
+			// 직책 순으로 정렬
+			/* var jobArr = ['사원','대리','과장','차장','부장','이사','부사장','사장'];
+			console.log("jobArr : " + jobArr);
+			
+			var numArr = [];
+			
+			for(var i = 0; i < $('.s_td_job').length; i++) { // 부장, 차장, 대리 순이라면
+				numArr.push(jobArr.indexOf($('.s_td_job').eq(i).text())); // 4,3,1이 들어감
+			}
+			console.log("numArr : " + numArr);
+			
+			numArr.sort(); // 1,3,4로 정렬됨
+			
+			console.log("numArr sort결과 : " + numArr); */
+			
+			// 정렬된 순으로 최초승인자, 중간승인자, 최종승인자 지정
+			
+			
+			
+			
 			console.log("확인");
 			var arr = [];
 			for(var i = 0; i < $('.s_td_name').length; i++) {
@@ -421,7 +503,7 @@
 			// deptStr2 => eap_final_dept에 저장
 		});
 		
-		
+		 
 	</script>
 		
 	<script>
