@@ -1,6 +1,7 @@
 package kh.spring.bab.organ.controller;
 
 import java.io.Console;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -98,13 +99,29 @@ public class OraganizationChartController {
 		
 		System.out.println("emp_no : " + emp_noArr);
 		
+		List<Organ> list = new ArrayList<Organ>();
+		Organ result = null;
+		String df_code = "";
+		
 		for(String emp_no : emp_noArr) {
 			System.out.println(emp_no);
-			Organ result = service.selectDetailInfo(emp_no);
-			mv.addObject("info", result);
+			result = service.selectInfo(emp_no);
+			list.add(result);
 		}
+		mv.addObject("info", list);
+		System.out.println("list 결과 : " + list);
+		System.out.println("result 결과 : " + result);
+		
+		df_code = "A";
+		// 휴가 신청서 문서 번호 조회
+		Organ docNum = service.selectDoc(df_code);
+		mv.addObject("resultDoc", docNum);
+		
+		System.out.println("docNum 결과 : " + docNum);
 		
 		mv.setViewName("documentForm/holiday");
+		// mv.setViewName("eap/selectLine");
+		System.out.println("mv 결과 : " + mv);
 		
 		return mv;
 		

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,6 +59,36 @@
 	#s_eap_draft tr th,
 	.s_eap_draft_app tr th {
 		width: 50px;
+	}
+</style>
+<style>
+	.s_div {
+	    margin: 20px;
+	}
+	
+	.s_span_fw {
+		font-weight: bold;
+	}
+	
+	#s_eap_content_box_right {
+		width: 180px;
+		float: left;
+		margin-top: 20px;
+		border: 1px solid lightgray;
+		border-radius: 5px;
+		padding: 10px;
+		margin-left: 20px;
+		height: 900px;
+	}
+
+	#s_eap_content_box_left {
+		width: 900px;
+		float: left;
+		margin-top: 20px;
+		border: 1px solid lightgray;
+		border-radius: 5px;
+		padding: 10px;
+		height: 900px;
 	}
 </style>
 </head>
@@ -135,133 +166,174 @@
 	  </div>
 	</div>
 
-
-	<div class="s_div_container" style="height: 800px;">
-		<div style="text-align: center; font-size: 2em; font-weight: bold; padding: 20px;">휴가신청서</div>
-		
-		<div style="float: left; width: 230px; margin: 0 30px;">
-			<table border="1" id="s_eap_draft_info">
+	<div id="s_eap_content_box_left">
+		<div class="s_div_container" style="height: 800px;">
+			<div style="text-align: center; font-size: 2em; font-weight: bold; padding: 20px;">휴가신청서</div>
+			
+			<div style="float: left; width: 230px; margin: 0 30px;">
+				<table border="1" id="s_eap_draft_info">
+						<tr>
+							<th>기안자</th>
+							<td>손은진</td>
+						</tr>
+						<tr>
+							<th>기안부서</th>
+							<td>회계팀</td>
+						</tr>
+						<tr>
+							<th>기안일</th>
+							<td>2022/05/26</td>
+						</tr>
+						<tr>
+							<th>문서번호</th>
+							<td>${resultDoc.df_no }</td>
+						</tr>
+					</table>
+			</div>
+			
+			<div style="float: left;width: 130px; margin-right: 10px;">
+				<table border="1" id="s_eap_draft">
 					<tr>
-						<th>기안자</th>
+						<th rowspan="2">신청</th>
+						<td>차장</td>
+					</tr>
+					<tr>
 						<td>손은진</td>
 					</tr>
-					<tr>
-						<th>기안부서</th>
-						<td>회계팀</td>
-					</tr>
-					<tr>
-						<th>기안일</th>
-						<td>2022/05/26</td>
-					</tr>
-					<tr>
-						<th>문서번호</th>
-						<td>${resultDoc.df_no }</td>
-					</tr>
 				</table>
+			</div>
+			
+			<c:forEach items="${info }" var="i">
+				<div style="float: left;width: 130px; margin-right: 5px;" id="s_eap_first">
+					<table border="1" class="s_eap_draft_app">
+						<tr>
+							<th rowspan="3">승인</th>
+							<td>${i.job_title }</td>
+						</tr>
+						<tr>
+							<td>${i.emp_name }</td>
+						</tr>
+						<tr>
+							<td>
+								<c:if test="${empty i.df_no }">
+									<img src="https://media.discordapp.net/attachments/692994434526085184/988792844099678208/stamp_6.png" style="width: 50px;">
+								</c:if>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</c:forEach>
+			
+			<div style="float: left;width: 130px; margin-right: 5px;" id="s_eap_final">
+			</div>
+		
+				<div style="padding: 50px 10px 20px; clear: both;">
+					<div style="display: inline-block; font-size: 1.2em; font-weight: bold;">제목 : </div> 
+					<input type="text" class="form-control" style="display: inline-block; width: 583px; margin-left: 5px;">
+				</div>
+				
+				<div style="border: 1px solid lightgray; margin: 10px;"></div>
+				
+				<div style="margin: 0 10px;">
+				
+					<div style="padding: 10px 0;">
+						<div class="s_frm_title">1. 종류</div>
+						<div class="form-check" style="display: inline-block;">
+						  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+						  <label class="form-check-label" for="flexRadioDefault1">
+						    연차
+						  </label>
+						</div>
+						<div class="form-check" style="display: inline-block;">
+						  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+						  <label class="form-check-label" for="flexRadioDefault2">
+						    반차
+						  </label>
+						</div>
+					</div>
+					
+					<div style="padding: 10px 0;">
+						<div class="s_frm_title">2. 내용</div>
+						<textarea class="form-control" style="resize: none;"></textarea>
+					</div>
+					
+					<div style="padding: 10px 0;">
+						<div class="s_frm_title">3. 신청기간</div>
+						<input type="datetime-local" class="form-control" style="width: 250px; display: inline-block;"> 부터
+						<input type="datetime-local" class="form-control" style="width: 250px; display: inline-block; margin-left: 10px;"> 까지
+						<div style="display: inline-block;">(총 0일)</div>
+					</div>
+					
+					<div style="padding: 10px 0;">
+						<div class="s_frm_title">4. 기타</div>
+						<div>문의사항은 BAB 손은진(010-1234-5678)에게 연락바랍니다. 끝.</div>
+					</div>
+					
+					<div style="padding: 10px 0;">
+						<div class="s_frm_title">파일첨부</div>
+						<!-- <input type="file" class="form-control"> -->
+						<div id="s_file_upload">
+							<input type="hidden"
+							    role="uploadcare-uploader"
+							    data-public-key="991bc66817ca4103d3ee"
+							    data-tabs="file url"/>
+					    </div>
+						<input type="hidden" name="fileUrl" id="fileUrl">
+					</div>
+					
+				
+				</div>
+			</div>
 		</div>
 		
-		<div style="float: left;width: 130px; margin-right: 10px;">
-			<table border="1" id="s_eap_draft">
-				<tr>
-					<th rowspan="2">신청</th>
-					<td>차장</td>
-				</tr>
-				<tr>
-					<td>손은진</td>
-				</tr>
-			</table>
+		<div id="s_eap_content_box_right">
+			<div style="padding: 10px; text-align: center;">
+			<div style="font-size: 1.2em;font-weight: bold; margin-bottom: 20px;">결재선</div>
+			<div style="padding-bottom: 20px; border-bottom: 1px solid lightgray;">
+				<div>
+					<span>회계팀</span>
+					<span>차장</span>
+				</div>
+				<div>
+					<span>손은진</span>
+					<span style="color: crimson;font-weight: bold;">기안</span>
+				</div>
+			</div>
+			
+			
+			<c:forEach items="${info }" var="i">
+				<div class="s_div">
+					<div>
+						<span>${i.dept_name }</span>
+						<span>${i.job_title }</span>
+					</div>
+					<div>
+						<span>${i.emp_name }</span>
+						<span class="s_span_fw">대기</span>
+					</div>
+				</div>
+			</c:forEach>
+			
 		</div>
-		
-		<div style="float: left;width: 130px; margin-right: 5px;" id="s_eap_first">
-			<table border="1" class="s_eap_draft_app">
-				<tr>
-					<th rowspan="3">승인</th>
-					<td>${info.job_title }</td>
-				</tr>
-				<tr>
-					<td>${info.emp_name }</td>
-				</tr>
-				<tr>
-					<td><img src="https://media.discordapp.net/attachments/692994434526085184/984465393517199430/stamp_1.png" style="width: 50px;"></td>
-				</tr>
-			</table>
-		</div>
-		
-		<div style="float: left;width: 130px; margin-right: 5px;" id="s_eap_mid">
-			<table border="1" class="s_eap_draft_app">
-				<tr>
-					<th rowspan="3">승인</th>
-					<td>부장</td>
-				</tr>
-				<tr>
-					<td>서언주</td>
-				</tr>
-				<tr>
-					<td><img src="https://media.discordapp.net/attachments/692994434526085184/984465393068421141/stamp_2.png" style="width: 50px;"></td>
-				</tr>
-			</table>
-		</div>
-		
-		<div style="float: left;width: 130px; margin-right: 5px;" id="s_eap_final">
-		</div>
+	</div>
 	
-			<div style="padding: 50px 10px 20px; clear: both;">
-				<div style="display: inline-block; font-size: 1.2em; font-weight: bold;">제목 : </div> 
-				<input type="text" class="form-control" style="display: inline-block; width: 583px; margin-left: 5px;">
-			</div>
-			
-			<div style="border: 1px solid lightgray; margin: 10px;"></div>
-			
-			<div style="margin: 0 10px;">
-			
-				<div style="padding: 10px 0;">
-					<div class="s_frm_title">1. 종류</div>
-					<div class="form-check" style="display: inline-block;">
-					  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
-					  <label class="form-check-label" for="flexRadioDefault1">
-					    연차
-					  </label>
-					</div>
-					<div class="form-check" style="display: inline-block;">
-					  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-					  <label class="form-check-label" for="flexRadioDefault2">
-					    반차
-					  </label>
-					</div>
-				</div>
-				
-				<div style="padding: 10px 0;">
-					<div class="s_frm_title">2. 내용</div>
-					<textarea class="form-control" style="resize: none;"></textarea>
-				</div>
-				
-				<div style="padding: 10px 0;">
-					<div class="s_frm_title">3. 신청기간</div>
-					<input type="datetime-local" class="form-control" style="width: 250px; display: inline-block;"> 부터
-					<input type="datetime-local" class="form-control" style="width: 250px; display: inline-block; margin-left: 10px;"> 까지
-					<div style="display: inline-block;">(총 0일)</div>
-				</div>
-				
-				<div style="padding: 10px 0;">
-					<div class="s_frm_title">4. 기타</div>
-					<div>문의사항은 BAB 손은진(010-1234-5678)에게 연락바랍니다. 끝.</div>
-				</div>
-				
-				<div style="padding: 10px 0;">
-					<div class="s_frm_title">파일첨부</div>
-					<!-- <input type="file" class="form-control"> -->
-					<div id="s_file_upload">
-						<input type="hidden"
-						    role="uploadcare-uploader"
-						    data-public-key="991bc66817ca4103d3ee"
-						    data-tabs="file url"/>
-				    </div>
-					<input type="hidden" name="fileUrl" id="fileUrl">
-				</div>
-				
-			
-			</div>
-		</div>
+	<script>
+		
+		// 결재선 지정 시 결재상태에 따라 글씨색 변경
+		for(var i = 0; i < 3; i++) {
+			console.log("eq(" + i + ")번째 값 : " + $(".s_span_fw").eq(i).text());
+			if($(".s_span_fw").eq(i).text() == '결재') {
+				console.log("반복문 if문 탔니?");
+				$(".s_span_fw").eq(i).css('color', 'green');
+			} else {
+				console.log("반복문 else문 탔니?");
+				$(".s_span_fw").eq(i).css('color', 'gray');
+			}
+		}
+	
+		
+		
+	</script>
 		
 	<script>
 	    // 결재선 클릭 시
@@ -353,9 +425,12 @@
         	$(".s_appLine_tbody_cl").empty();
         	var jobArr = ['사원','대리','과장','차장','부장','이사','부사장','사장'];
 			var numArr = [];
+			var nArr = arr.slice();
 			
-			for(var i = 0; i < arr.length; i++) { // 부장, 차장, 대리 순이라면
-				numArr.push(jobArr.indexOf(arr[i].job)); // 4,3,1이 들어감
+			console.log(nArr);
+			
+			for(var i = 0; i < nArr.length; i++) { // 부장, 차장, 대리 순이라면
+				numArr.push(jobArr.indexOf(nArr[i].job)); // 4,3,1이 들어감
 				console.log(numArr);
 			}
 			
@@ -364,23 +439,24 @@
 				console.log("i : " + i);
 				for(var j=0; j<arr.length; j++){
 					console.log("j : " + j);
-					if(arr[j].job==jobArr[numArr[i]]){
-						console.log(arr[j].job)
+					if(nArr[j].job==jobArr[numArr[i]]){
+						console.log(nArr[j].job)
 						console.log(numArr[i])
 						aprvList += '<tr>'
   	               				 + '<td>' + cnt + '</td>'
-  	               				 + '<td class="s_td_name">' + arr[j].name + '</td>'
-  	               			 	 + '<td>' + arr[j].deptText + '</td>'
-  	               			     + '<td class="s_td_job">' + arr[j].job + '</td>'
+  	               				 + '<td class="s_td_name">' + nArr[j].name + '</td>'
+  	               			 	 + '<td>' + nArr[j].deptText + '</td>'
+  	               			     + '<td class="s_td_job">' + nArr[j].job + '</td>'
   	               			     + '</tr>'
-  	               				 + '<input type="hidden" name="emp_no" class="emp_no" value="' + arr[j].empNo + '">'
+  	               				 + '<input type="hidden" name="emp_no" class="emp_no" value="' + nArr[j].empNo + '">'
   	               				 cnt++;
+  	               				 // 직급이 같을 때 for문 여러번 도는 것 막기
+  	               				 nArr.splice(j,1);
   	               				 break;
 					}	
 				}
 			}
 			$(".s_appLine_tbody_cl").append(aprvList);
-			//TODO 직급이 같을 때 for문 여러번 도는 것 수정하기
         }
         
         function fn_remove(arr) {
@@ -411,45 +487,30 @@
 		
 		// 모달에서 확인 클릭 시 
 		$("#s_add_appLine_list").click(function() {
+			
+			console.log("확인");
+			
+			
 			var empNoArr = [];
 			for(var i = 0; i < $(".emp_no").length; i++) {
 				empNoArr.push($(".emp_no").eq(i).val());
 			}
 			console.log(empNoArr);
 			
-			var obj = {"emp_no" : empNoArr};
-			
+		var obj = {"emp_no" : empNoArr};
+
 			// 결재선 리스트에 있는 사원 번호를 가져와 결재선jsp에 이름, 부서, 직책 띄우기(ajax)
 			$.ajax({
-				url: "<%=request.getContextPath()%>/organ/applinelist"
+				url : "<%=request.getContextPath()%>/organ/applinelist"
 				, type: "post"
 				, data: obj
 				, success: function(result) {
 					console.log("결재선리스트 result : " + result);
+					$(".btn-close").trigger('click');
+					$("#s_eap_content_box").html(result);
 				}
 			});
 			
-			// 직책 순으로 정렬
-			/* var jobArr = ['사원','대리','과장','차장','부장','이사','부사장','사장'];
-			console.log("jobArr : " + jobArr);
-			
-			var numArr = [];
-			
-			for(var i = 0; i < $('.s_td_job').length; i++) { // 부장, 차장, 대리 순이라면
-				numArr.push(jobArr.indexOf($('.s_td_job').eq(i).text())); // 4,3,1이 들어감
-			}
-			console.log("numArr : " + numArr);
-			
-			numArr.sort(); // 1,3,4로 정렬됨
-			
-			console.log("numArr sort결과 : " + numArr); */
-			
-			// 정렬된 순으로 최초승인자, 중간승인자, 최종승인자 지정
-			
-			
-			
-			
-			console.log("확인");
 			var arr = [];
 			for(var i = 0; i < $('.s_td_name').length; i++) {
 				var tdName = $('.s_td_name').eq(i).text();
@@ -501,9 +562,37 @@
 			console.log("두번째 부서 결과 : " + deptStr2);
 			// deptStr1 => eap_first_dept에 저장
 			// deptStr2 => eap_final_dept에 저장
+			
+			// ajax에 보낼 obj
+			var dataObj = {
+					"eap_first_ap" : str1,
+					"eap_mid_ap" : str2,
+					"eap_final_ap" : str3,
+					"eap_first_dept" : deptStr1,
+					"eap_final_dept" : deptStr2
+			}
+			
+			$.ajax({
+				url : "<%=request.getContextPath()%>/eap/insertapp"
+					, type: "post"
+					, data: dataObj
+					, success: function(result) {
+						console.log("인서트 성공 result : " + result);
+						// $(".btn-close").trigger('click');
+						// $("#s_eap_content_box").html(result);
+					}
+			});
+			
+			
 		});
 		
 		 
+	</script>
+	
+	<script>
+		$("#s_eap_app").click(function() {
+			console.log("결재요청 클릭");
+		});
 	</script>
 		
 	<script>
@@ -516,17 +605,25 @@
 	});
 	
 	// 파일 첨부 버튼 2개 생겨서 한 개 없앰..
-	if(document.getElementsByClassName('uploadcare--widget__button uploadcare--widget__button_type_open') != document.getElementsByClassName('uploadcare--widget__button uploadcare--widget__button_type_open')[0]) {
-		document.getElementsByClassName('uploadcare--widget__button uploadcare--widget__button_type_open')[0].style.display = 'none';
-	}
+	/* if($('.uploadcare--widget.uploadcare--widget_status_ready').length > 2) {
+    	$(".uploadcare--widget uploadcare--widget_status_ready").css('display','none');
+	} */
+	$(document).ready(function() {
+		if($('.uploadcare--widget.uploadcare--widget_status_ready').length > 1) {
+			console.log("들어왔니?  ?? ? ? ?? ");
+			for(var i = 1; i < $('.uploadcare--widget.uploadcare--widget_status_ready').length; i++) {
+				document.getElementsByClassName('uploadcare--widget_status_ready')[i].style.display = 'none';
+			}
+		}
+	});
 	
 	</script>
 
 	<script>
-	   	$("#s_appLine_btn").click(function() {
+	   <%-- 	$("#s_appLine_btn").click(function() {
 	   		console.log("holiday 결재선 지정 떠라");
 	   		$("#s_modal_content").load("<%=request.getContextPath()%>/organ/selectList");
-	   	});
+	   	}); --%>
    </script>
     
     

@@ -23,5 +23,12 @@ public interface EapService {
 	 * */
 	public Eap selectDoc(String df_code);
 	
+	/**
+	 * @author : 손은진
+	 * @return : 결재선 리스트, 참조처 리스트 DB 저장 insert 결과
+	 * @param : Eap vo
+	 * */
+	public int insertapp(Eap eap);
+	
 
 }

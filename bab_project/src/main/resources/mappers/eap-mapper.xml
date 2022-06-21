@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="Eap">
+	<!-- 문서양식-휴가신청서일 때 -->
 	<insert id="insertHoDoc">
 		INSERT INTO DOCUMENT_FORM VALUES(
 	        (SELECT EXTRACT(YEAR FROM SYSDATE) || '-' || 
@@ -9,6 +10,7 @@
         FROM DUAL), '휴가신청서', 'A')
 	</insert>
 	
+	<!-- 문서양식-지출결의서일 때 -->
 	<insert id="insertSpDoc">
 		INSERT INTO DOCUMENT_FORM VALUES(
 	        (SELECT EXTRACT(YEAR FROM SYSDATE) || '-' || 
@@ -17,7 +19,14 @@
     	FROM DUAL), '지출결의서', 'B')
 	</insert>
 	
+	<!-- 문서양식 번호 조회 -->
 	<select id="selectDoc" resultType="Eap" parameterType="string">
 		SELECT MAX(DF_NO) DF_NO FROM DOCUMENT_FORM WHERE DF_CODE = #{df_code}
 	</select>
+	
+	<!-- 결재선 리스트, 참조처 리스트 DB 저장 -->
+	<insert id="insertapp" parameterType="Eap">
+		INSERT INTO ELECTRONIC_APPROVAL(EAP_NO, EAP_STA_CODE, EAP_FIRST_AP, EAP_MID_AP, EAP_FINAL_AP, EAP_FIRST_DEPT, EAP_FINAL_DEPT, EMP_NO, DF_NO) 
+		VALUES (EAP_SEQ.NEXTVAL, DEFAULT, #{eap_first_ap}, #{eap_mid_ap}, #{eap_final_ap}, #{eap_first_dept}, #{eap_final_dept}, '2206131', (SELECT MAX(DF_NO) DF_NO FROM DOCUMENT_FORM WHERE DF_CODE = 'A'))
+	</insert>
 </mapper>

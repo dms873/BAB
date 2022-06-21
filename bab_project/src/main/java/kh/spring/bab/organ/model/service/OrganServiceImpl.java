@@ -37,6 +37,18 @@ public class OrganServiceImpl implements OrganService {
 	public Organ selectDetailInfo(String emp_no) {
 		return dao.selectDetailInfo(emp_no);
 	}
+
+	// 결재선 리스트에 있는 사원 번호를 가져와 결재선jsp에 이름, 부서, 직책 조회
+	@Override
+	public Organ selectInfo(String emp_no) {
+		return dao.selectInfo(emp_no);
+	}
+
+	// 휴가 신청서 문서 번호 조회
+	@Override
+	public Organ selectDoc(String df_code) {
+		return dao.selectDoc(df_code);
+	}
 	
 	
 }

@@ -13,13 +13,14 @@ public class Organ {
 	private String emp_deskphone;
 	private String emp_email;
 	private String emp_phone;
+	private String df_no;
 	
-	
+
 	@Override
 	public String toString() {
 		return "Organ [emp_name=" + emp_name + ", emp_no=" + emp_no + ", dept_name=" + dept_name + ", dept_code="
 				+ dept_code + ", job_title=" + job_title + ", emp_deskphone=" + emp_deskphone + ", emp_email="
-				+ emp_email + ", emp_phone=" + emp_phone + "]";
+				+ emp_email + ", emp_phone=" + emp_phone + ", df_no=" + df_no + "]";
 	}
 
 	public String getEmp_name() {
@@ -85,5 +86,12 @@ public class Organ {
 	public void setEmp_phone(String emp_phone) {
 		this.emp_phone = emp_phone;
 	}
-	
+
+	public String getDf_no() {
+		return df_no;
+	}
+
+	public void setDf_no(String df_no) {
+		this.df_no = df_no;
+	}
 }

@@ -33,5 +33,20 @@ public interface OrganService {
 	 * @author : 손은진
 	 * */
 	public Organ selectDetailInfo(String emp_no);
+	
+	/**
+	 * @param : 사원번호
+	 * @return : 결재선 리스트 이름, 부서, 직책 조회
+	 * @author : 손은진
+	 * */
+	public Organ selectInfo(String emp_no);
+	
+	/**
+	 * @param : 문서코드
+	 * @return : 휴가 신청서 문서번호 조회
+	 * @author : 손은진
+	 * */
+	
+	public Organ selectDoc(String df_code);
 
 }

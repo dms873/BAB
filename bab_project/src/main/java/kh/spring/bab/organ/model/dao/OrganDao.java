@@ -33,4 +33,14 @@ public class OrganDao {
 	public Organ selectDetailInfo(String emp_no) {
 		return sqlSession.selectOne("Organ.selectDetailInfo", emp_no);
 	}
+	
+	// 결재선 리스트에 있는 사원 번호를 가져와 결재선jsp에 이름, 부서, 직책 조회
+	public Organ selectInfo(String emp_no) {
+		return sqlSession.selectOne("Organ.selectInfo", emp_no);
+	}
+	
+	// 휴가 신청서 문서 번호 조회
+	public Organ selectDoc(String df_code) {
+		return sqlSession.selectOne("Organ.selectDoc", df_code);
+	}
 }

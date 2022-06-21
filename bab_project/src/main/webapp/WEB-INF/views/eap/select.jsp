@@ -238,15 +238,8 @@
         		// 강제로 닫기버튼 클릭하기
         		// debugger;
         		$(".btn-close").trigger('click');
-        		$("#s_eap_content_box").html(
-        				'<div>'
-        				+'</div>'
-        				+ '<div id="s_eap_content_box_left">왼쪽</div>'
-						+ '<div id="s_eap_content_box_right">오른쪽</div>');
-        		$("#s_eap_content_box_left").empty();
-	        	$("#s_eap_content_box_left").load("<%=request.getContextPath()%>/eap/selectform/holiday");
-        		$("#s_eap_content_box_right").empty();
-	        	$("#s_eap_content_box_right").load("<%=request.getContextPath()%>/eap/appline");
+        		// $("#s_eap_content_box").html();
+        		<%-- $("#s_eap_content_box").load("<%=request.getContextPath()%>/eap/selectform/holiday"); --%>
         	} else if(form == 's_spending_form') {
         		// 강제로 닫기버튼 클릭하기
         		$(".btn-close").trigger('click');
@@ -278,7 +271,7 @@
 	        		, success: function(result) {
 	        			console.log("result : " + result);
 	        			// 받아온 결과가 jsp라서 그 자리 html을 result로 넣어줌
-	        			$("#s_eap_content_box_left").html(result);
+	        			$("#s_eap_content_box").html(result);
 	        		}
 	        	});
         	}

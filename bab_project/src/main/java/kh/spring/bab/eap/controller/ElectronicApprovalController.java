@@ -57,20 +57,20 @@ public class ElectronicApprovalController {
 	}
 	
 	// 휴가신청서 입력양식
-//	@GetMapping("/selectform/holiday")
-//	public ModelAndView selectHoliday(ModelAndView mv) {
-//		mv.setViewName("documentForm/holiday");
-//		return mv;
-//	}
+	@GetMapping("/selectform/holiday")
+	public ModelAndView selectHoliday(ModelAndView mv) {
+		mv.setViewName("documentForm/holiday");
+		return mv;
+	}
 	
 	// 지출결의서 입력양식
-//	@GetMapping("/selectform/spending")
-//	public ModelAndView selectSpending(ModelAndView mv
-//			, @RequestParam(name = "fileUrl", required = false) String fileUrl) {
-//		System.out.println(fileUrl);
-//		mv.setViewName("documentForm/spending");
-//		return mv;
-//	}
+	@GetMapping("/selectform/spending")
+	public ModelAndView selectSpending(ModelAndView mv
+			, @RequestParam(name = "fileUrl", required = false) String fileUrl) {
+		System.out.println(fileUrl);
+		mv.setViewName("documentForm/spending");
+		return mv;
+	}
 	
 	// 결재선
 	@GetMapping("/appline")
@@ -147,5 +147,34 @@ public class ElectronicApprovalController {
 		
 		return mv;
 	}
+	
+	// 결재선 리스트, 참조처 리스트 DB 저장
+	@PostMapping(value = "/insertapp", produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public String insertapp(
+			Eap eap,
+			@RequestParam(name = "eap_first_ap", required = false) String eap_first_ap,
+			@RequestParam(name = "eap_mid_ap", required = false) String eap_mid_ap,
+			@RequestParam(name = "eap_final_ap", required = false) String eap_final_ap,
+			@RequestParam(name = "eap_first_dept", required = false) String eap_first_dept,
+			@RequestParam(name = "eap_final_dept", required = false) String eap_final_dept
+			) {
+		
+		System.out.println(eap_first_ap + ", " + eap_mid_ap + ", " + eap_final_ap + ", " + eap_first_dept + ", " + eap_final_ap);
+		
+		eap.setEap_first_ap(eap_first_ap);
+		eap.setEap_mid_ap(eap_mid_ap);
+		eap.setEap_final_ap(eap_final_ap);
+		eap.setEap_first_dept(eap_first_dept);
+		eap.setEap_final_dept(eap_final_dept);
+		
+		int result = service.insertapp(eap);
+		
+		System.out.println("결재선 리스트, 참조처 리스트 insert결과 : " + result);
+		
+		return "";
+	}
+	
+	
 	
 }
