@@ -15,8 +15,7 @@ public class InfoServiceImpl implements InfoService {
 	//내정보수정 메인
 	@Override
 	public Info main(Info info) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.main(info);
 	}
 	
 	//내정보수정 업데이트

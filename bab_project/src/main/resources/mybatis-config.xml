@@ -11,6 +11,7 @@
 		<typeAlias type="kh.spring.bab.board.domain.Board" alias="Board"/>
 		<typeAlias type="kh.spring.bab.organ.domain.Organ" alias="Organ"/>
 		<typeAlias type="kh.spring.bab.eap.domain.Eap" alias="Eap"/>
+		<typeAlias type="kh.spring.bab.info.domain.Info" alias="Info"/>
 	</typeAliases>
 	 
 	<mappers>
@@ -18,6 +19,7 @@
 		<mapper resource="mappers/organ-mapper.xml"/>
 		<mapper resource="mappers/board-mapper.xml"/>
 		<mapper resource="mappers/eap-mapper.xml"/>
+		<mapper resource="mappers/info-mapper.xml"/>
 	</mappers>
 
 </configuration>

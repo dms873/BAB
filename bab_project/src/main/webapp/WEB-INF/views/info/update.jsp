@@ -80,7 +80,7 @@
 							id="j_infod_zipcode" placeholder=" 우편번호" required></td>
 						<td class="j_infod_addcontent">
 							<!-- button onclick 시 kakaopost()메소드 호출 -->
-							<button type="button" class="j_infod_btn" onclick="kakaopost()">우편번호
+							<button type="button" id="j_infod_zipbtn" class="j_infod_btn" onclick="kakaopost()">우편번호
 								찾기</button>
 						</td>
 					</tr>
@@ -96,7 +96,6 @@
 						<td class="j_infod_addcontent" colspan="2"><input type="text"
 							name="" class="j_infod_input" placeholder=" 상세주소" required>
 						</td>
-					</tr>
 					</tr>
 					<tr>
 						<td colspan="3" class="j_infod_content"></td>

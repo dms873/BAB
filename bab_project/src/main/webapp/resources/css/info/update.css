@@ -31,6 +31,8 @@
 	display: flex;
 	align-items: center;
 	font-weight: bold;
+	/* main에 합치면 틀어져서 넣음 */
+	margin-left: 40px;
 }
 /* 테이블 왼쪽 주소 타이틀 */
 .j_infod_addtitle {
@@ -40,6 +42,8 @@
 	display: flex;
 	align-items: center;
 	font-weight: bold;
+	/* main에 합치면 틀어져서 넣음 */
+	margin-left: 40px;
 }
 /* 테이블 오른쪽 내용 */
 .j_infod_content {
@@ -68,12 +72,20 @@
 	width: 85px;
 	border: 1px solid gray;
 	border-radius: 6px;
+	margin-left: 40px;
 }
 
 #j_infod_zipcode:focus {
 	border: 1px solid rgba(5, 131, 242, 0.8);
 	outline: 3px solid rgba(5, 131, 242, 0.3);
 	transition: ease-in-out .15s;
+}
+/* 우편번호 찾기 버튼 */
+#j_infod_zipbtn {
+	width: 130px;
+	height: 30px;
+	border: 1px solid gray;
+	border-radius: 3px;
 }
 /* 상단 내 정보 수정 글씨 */
 #j_infod_menu {
@@ -111,6 +123,7 @@
 	float: left;
 	display: flex;
 	align-items: center;
+	margin-left: 40px;
 }
 /* 필수 입력 항목 */
 .j_infod_sym {

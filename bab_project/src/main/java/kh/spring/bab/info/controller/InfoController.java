@@ -1,5 +1,7 @@
 package kh.spring.bab.info.controller;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -8,8 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import kh.spring.bab.info.domain.Info;
 import kh.spring.bab.info.model.service.InfoServiceImpl;
 
 @Controller
@@ -34,10 +38,18 @@ public class InfoController {
 
 	// 내정보수정 메인
 	@PostMapping("/main")
-	public ModelAndView main(ModelAndView mv) {
-
-		mv.setViewName("info/main");
-		return mv;
+	@ResponseBody
+	public HashMap<String, Object> main(Info info) {
+		
+		Info main = service.main(info);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		if(main==null) {
+			map.put("check", 0);
+		}else {
+			map.put("check", 1);
+		}
+		return map;
 	}
 
 	// 내정보수정 업데이트 페이지열기
