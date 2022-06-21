@@ -53,10 +53,11 @@
 }
 /*input태그 */
 .j_findpwd_input {
-	height: 30px;
+	height: 25px;
 	width: 300px;
 	border: 1px solid gray;
 	border-radius: 6px;
+	padding: 3px;
 }
 
 .j_findpwd_input:focus {
@@ -67,7 +68,7 @@
 /* 비밀번호 찾기 버튼 */
 #j_findpwd_submit {
 	height: 35px;
-	width: 300px;
+	width: 308px;
 	color: white;
 	border-radius: 6px;
 	border: #0A0140;

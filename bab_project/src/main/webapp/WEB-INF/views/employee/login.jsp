@@ -36,17 +36,17 @@
 						</tr>
 						<tr>
 							<td colspan="3" class="j_login_table"><input type="text"
-								name="emp_no" placeholder=" 사번" class="j_login_input"
+								name="emp_no" placeholder="사번" class="j_login_input"
 								id="emp_no" required></td>
 						</tr>
 						<tr>
 							<td colspan="3" class="j_login_table"><input type="text"
-								name="emp_id" placeholder=" 아이디" class="j_login_input"
+								name="emp_id" placeholder="아이디" class="j_login_input"
 								id="emp_id" required></td>
 						</tr>
 						<tr>
 							<td colspan="3" class="j_login_table"><input type="text"
-								name="emp_pwd" placeholder=" 비밀번호" class="j_login_input"
+								name="emp_pwd" placeholder="비밀번호" class="j_login_input"
 								required></td>
 						</tr>
 						<tr>

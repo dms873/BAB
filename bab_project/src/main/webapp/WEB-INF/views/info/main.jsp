@@ -27,8 +27,7 @@
 		<div id="j_infom_men2">사원님의 정보를 안전하게 보호하기 위해 비밀번호를 다시 한번 확인해주세요.
 		</div>
 		<c:if test="${info != null}">
-			<form action="<%=request.getContextPath()%>/info/main" method="post"
-				id="j_infom_form">
+			<form action="<%=request.getContextPath()%>/info/main" method="post">
 				<table id="j_infom_table">
 					<tbody id="j_infom_tbody">
 						<tr>

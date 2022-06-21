@@ -42,11 +42,12 @@
 }
 /*input태그 */
 .j_login_input {
-	height: 30px;
+	height: 25px;
 	width: 300px;
 	border: 1px solid gray;
 	border-radius: 6px;
 	background-color: white;
+	padding: 3px;
 }
 
 .j_login_input:focus {
@@ -60,11 +61,13 @@
 	border: 0px;
 	background-color: white;
 	cursor: pointer;
+	font-weight: bold;
+    color: dimgray;
 }
 /* 로그인 버튼 */
 #j_login_submit {
 	height: 35px;
-	width: 300px;
+	width: 308px;
 	color: white;
 	border-radius: 6px;
 	border: #0A0140;

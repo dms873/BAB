@@ -44,14 +44,14 @@
 						</tr>
 						<tr>
 							<td class="j_findpwd_table"><input type="text" name="emp_no"
-								placeholder=" 사번을 입력해 주세요." class="j_findpwd_input" required></td>
+								placeholder="사번을 입력해 주세요." class="j_findpwd_input" required></td>
 						</tr>
 						<tr>
 							<td class="j_findpwd_title j_findpwd_title1">이름</td>
 						</tr>
 						<tr>
 							<td class="j_findpwd_table"><input type="text"
-								name="emp_name" placeholder=" 이름을 입력해 주세요."
+								name="emp_name" placeholder="이름을 입력해 주세요."
 								class="j_findpwd_input" required></td>
 						</tr>
 						<tr>
@@ -59,7 +59,7 @@
 						</tr>
 						<tr>
 							<td class="j_findpwd_table"><input type="text" name="emp_id"
-								placeholder=" 아이디를 입력해 주세요." class="j_findpwd_input" required></td>
+								placeholder="아이디를 입력해 주세요." class="j_findpwd_input" required></td>
 						</tr>
 						<tr>
 							<td class="j_findpwd_table"></td>

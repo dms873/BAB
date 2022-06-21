@@ -44,7 +44,7 @@
 						</tr>
 						<tr>
 							<td class="j_findid_table"><input type="text" name="emp_no"
-								placeholder=" 사번을 입력해 주세요." class="j_findid_input" required>
+								placeholder="사번을 입력해 주세요." class="j_findid_input" required>
 							</td>
 						</tr>
 						<tr>
@@ -52,7 +52,7 @@
 						</tr>
 						<tr>
 							<td class="j_findid_table"><input type="text"
-								name="emp_name" placeholder=" 이름을 입력해 주세요."
+								name="emp_name" placeholder="이름을 입력해 주세요."
 								class="j_findid_input" required></td>
 						</tr>
 						<tr>
