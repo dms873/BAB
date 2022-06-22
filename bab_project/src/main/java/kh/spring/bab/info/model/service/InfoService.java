@@ -15,9 +15,8 @@ public interface InfoService {
 	// 내정보수정 업데이트
 	/**
 	 * @param info
-	 * @return info
 	 * @author 장혜미
 	 */
-	public Info update(Info info);
+	public int update(Info info);
 
 }

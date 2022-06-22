@@ -66,4 +66,20 @@ public class InfoController {
 		mv.setViewName("info/update");
 		return mv;
 	}
+
+	// 내정보수정 메인
+	@PostMapping("/update")
+	@ResponseBody
+	public HashMap<String, Object> update(Info info) {
+
+		int update = service.update(info);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+
+		if (update == 0) {
+			map.put("check", 0);
+		} else {
+			map.put("check", 1);
+		}
+		return map;
+	}
 }

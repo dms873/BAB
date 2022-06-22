@@ -20,9 +20,8 @@ public class InfoServiceImpl implements InfoService {
 	
 	//내정보수정 업데이트
 	@Override
-	public Info update(Info info) {
-		// TODO Auto-generated method stub
-		return null;
+	public int update(Info info) {
+		return dao.update(info);
 	}
 	
 	

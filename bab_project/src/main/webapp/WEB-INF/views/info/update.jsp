@@ -120,6 +120,52 @@
 				</table>
 			</form>
 		</c:if>
+		<script>
+        //내정보수정_업데이트 ajax
+        $("#j_infod_submit").click(function() {
+            var param = {
+            	"emp_no": $("#emp_no").val(),
+                "emp_pwd": $("#emp_pwd").val(),
+                "emp_email": $("#emp_email").val(),
+                "emp_phone": $("#emp_phone").val(),
+                "emp_zipcode": $("#emp_zipcode").val(),
+                "emp_address": $("#emp_address").val(),
+                "emp_daddress": $("#emp_daddress").val()    
+            }
+            console.log(param);
+            $.ajax({
+                url: "<%= request.getContextPath()%>/info/update",
+                data: param,
+                type: "post",
+                success: function(result) {
+                    console.log(result.check);
+                    if (result.check == 0) {
+                        swal({
+                            title: "입력하신 정보가 일치하지 않습니다.",
+                            text: "확인 후 다시 입력 바랍니다.",
+                            icon: "error",
+                            closeOnClickOutside: false,
+                            closeOnEsc: false
+                        })
+                    } else {
+                        swal({
+                            title: "내 정보 수정 성공!!",
+                            text: "그룹웨어 메인페이지로 이동합니다.",
+                            icon: "success",
+                            closeOnClickOutside: false,
+                            closeOnEsc: false
+                        })
+                        .then((willDelete) => {
+  						  if (willDelete) {
+  							//뒤로가기 시 내정보수정 페이지로 바로 진입 못하게 하려고 replace로 덮어쓰기함
+  						    location.replace("<%=request.getContextPath()%>/main")
+  						  }
+  						});
+                    }
+                }
+            })
+        });
+		</script>
 	</section>
 	<script>
 		//kakao(daum) 주소 API

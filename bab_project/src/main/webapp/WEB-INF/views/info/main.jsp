@@ -99,7 +99,11 @@
                             closeOnClickOutside: false,
                             closeOnEsc: false
                         })
-                        $("#s_content_box").load("<%=request.getContextPath()%>/info/update");
+                        .then((willDelete) => {
+  						  if (willDelete) {
+  							$("#s_content_box").load("<%=request.getContextPath()%>/info/update");
+  						  }
+  						});
                     }
                 }
             })
