@@ -39,13 +39,13 @@
 						</tr>
 						<tr>
 							<td class="j_infod_title">사번</td>
-							<td class="j_infod_content" colspan="2"><input type="text"
+							<td class="j_infod_content" colspan="2"><input type="text" id="emp_no"
 								name="emp_no" class="j_infod_input" value="${update.emp_no}"
 								readonly></td>
 						</tr>
 						<tr>
 							<td class="j_infod_title">아이디</td>
-							<td class="j_infod_content" colspan="2"><input type="text"
+							<td class="j_infod_content" colspan="2"><input type="text" id="emp_id"
 								name="emp_id" class="j_infod_input" value="${update.emp_id}"
 								readonly></td>
 						</tr>
@@ -53,41 +53,41 @@
 							<td class="j_infod_title">새 비밀번호 <a class="j_infod_sym">*</a>
 							</td>
 							<td class="j_infod_content" colspan="2"><input
-								type="password" name="emp_pwd" class="j_infod_input"
-								placeholder="15자 미만(영어+숫자+특수문자)" required></td>
+								type="password" id="emp_pwd" name="emp_pwd" class="j_infod_input"
+								placeholder="15자 미만(영어+숫자+특수문자)"></td>
 						</tr>
 						<tr>
 							<td class="j_infod_title">비밀번호 확인 <a class="j_infod_sym">*</a>
 							</td>
 							<td class="j_infod_content" colspan="2"><input
-								type="password" name="emp_pwdck" class="j_infod_input"
-								placeholder="새 비밀번호를 다시 입력해주세요." required></td>
+								type="password" id="emp_pwdck" name="emp_pwdck" class="j_infod_input"
+								placeholder="새 비밀번호를 다시 입력해주세요."></td>
 						</tr>
 						<tr>
 							<td class="j_infod_title">이름</td>
-							<td class="j_infod_content" colspan="2"><input type="text"
+							<td class="j_infod_content" colspan="2"><input type="text" id="emp_name"
 								name="emp_name" class="j_infod_input" value="${update.emp_name}"
 								readonly></td>
 						</tr>
 						<tr>
 							<td class="j_infod_title">이메일 <a class="j_infod_sym">*</a>
 							</td>
-							<td class="j_infod_content" colspan="2"><input type="email"
+							<td class="j_infod_content" colspan="2"><input type="email" id="emp_email"
 								name="emp_email" class="j_infod_input"
-								value="${update.emp_email}" required></td>
+								value="${update.emp_email}"></td>
 						</tr>
 						<tr>
 							<td class="j_infod_title">휴대폰 <a class="j_infod_sym">*</a>
 							</td>
-							<td class="j_infod_content" colspan="2"><input type="text"
+							<td class="j_infod_content" colspan="2"><input type="text" id="emp_phone"
 								name="emp_phone" class="j_infod_input"
-								value="${update.emp_phone}" required></td>
+								value="${update.emp_phone}"></td>
 						</tr>
 						<tr>
 							<td class="j_infod_addtitle"></td>
-							<td class="j_infod_addcontent"><input type="text"
-								name="emp_zipcode" id="j_infod_zipcode" placeholder="우편번호"
-								value="${update.emp_zipcode}" required></td>
+							<td class="j_infod_addcontent"><input type="text" id="emp_zipcode"
+								name="emp_zipcode" class="j_infod_zipcode" placeholder="우편번호"
+								value="${update.emp_zipcode}"></td>
 							<td class="j_infod_addcontent">
 								<!-- button onclick 시 kakaopost()메소드 호출 -->
 								<button type="button" id="j_infod_zipbtn" class="j_infod_btn"
@@ -98,15 +98,14 @@
 							<td class="j_infod_addtitle">주소 <a class="j_infod_sym">*</a>
 							</td>
 							<td class="j_infod_addcontent" colspan="2"><input
-								type="text" name="emp_address" class="j_infod_input"
-								placeholder="주소" id="j_infod_addr"
-								value="${update.emp_address}" required></td>
+								type="text" id="emp_address" name="emp_address" class="j_infod_input"
+								placeholder="주소" value="${update.emp_address}"></td>
 						</tr>
 						<tr>
 							<td class="j_infod_addtitle"></td>
 							<td class="j_infod_addcontent" colspan="2"><input
-								type="text" name="emp_daddress" class="j_infod_input"
-								placeholder="상세주소" value="${update.emp_daddress}" required>
+								type="text" id="emp_daddress" name="emp_daddress" class="j_infod_input"
+								placeholder="상세주소" value="${update.emp_daddress}">
 							</td>
 						</tr>
 						<tr>
@@ -114,7 +113,7 @@
 						</tr>
 						<tr>
 							<td colspan="3" class="j_infod_content">
-								<button type="submit" id="j_infod_submit">수정</button>
+								<button type="button" id="j_infod_submit">수정</button>
 							</td>
 						</tr>
 					</tbody>
@@ -129,9 +128,9 @@
 						//data는 주소 정보를 담고 있는 객체
 						oncomplete : function(data) {
 							//#j_infod_zipcode에 data.zonecode(우편번호) 값 저장
-							document.querySelector("#j_infod_zipcode").value = data.zonecode;
+							document.querySelector("#emp_zipcode").value = data.zonecode;
 							//#j_infod_zipcode에 data.address(기본주소) 값 저장
-							document.querySelector("#j_infod_addr").value = data.address;
+							document.querySelector("#emp_address").value = data.address;
 						}
 					}).open();
 		}

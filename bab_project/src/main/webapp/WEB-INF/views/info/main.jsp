@@ -53,7 +53,7 @@
 							</td>
 							<td class="j_infom_content" colspan="2">
 							<input type="password" id="emp_pwd" name="emp_pwd"
-								class="j_infom_input" required></td>
+								class="j_infom_input"></td>
 						</tr>
 						<tr>
 							<td colspan="2" class="j_infom_content"></td>

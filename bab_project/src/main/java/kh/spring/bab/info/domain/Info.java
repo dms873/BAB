@@ -2,6 +2,8 @@ package kh.spring.bab.info.domain;
 
 import java.sql.Timestamp;
 
+import javax.validation.constraints.NotBlank;
+
 import org.springframework.stereotype.Component;
 
 @Component
@@ -27,12 +29,25 @@ public class Info {
 	private String emp_no;
 	private String emp_name;
 	private String emp_id;
+	
+	@NotBlank(message="비밀번호는 필수 입력사항입니다.")
 	private String emp_pwd;
+	
+	@NotBlank(message="휴대폰 번호는 필수 입력사항입니다.")
 	private String emp_phone;
+	
+	@NotBlank(message="이메일은 필수 입력사항입니다.")
 	private String emp_email;
+	
+	@NotBlank(message="우편번호는 필수 입력사항입니다.")
 	private String emp_zipcode;
+	
+	@NotBlank(message="주소는 필수 입력사항입니다.")
 	private String emp_address;
+	
+	@NotBlank(message="상세주소는 필수 입력사항입니다.")
 	private String emp_daddress;
+	
 	private String emp_rnum;
 	private String emp_deskphone;
 	private Timestamp emp_hiredate;

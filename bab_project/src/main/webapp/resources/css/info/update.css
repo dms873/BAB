@@ -65,7 +65,7 @@
 	transition: ease-in-out .15s;
 }
 /* 우편번호 input태그 */
-#j_infod_zipcode {
+.j_infod_zipcode {
 	height: 30px;
 	width: 63px;
 	border: 1px solid gray;

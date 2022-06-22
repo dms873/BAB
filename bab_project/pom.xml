@@ -215,15 +215,23 @@
 		    <artifactId>spring-security-config</artifactId>
 		    <version>${org.springframework.security-version}</version>
 		</dependency>
-		
+
 		<!-- gson -->
 		<dependency>
-		    <groupId>com.google.code.gson</groupId>
-		    <artifactId>gson</artifactId>
-		    <version>2.8.9</version>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.8.9</version>
 		</dependency>
+		
+		<!-- 유효성 검사를 위한 validation-api 추가 혜미-20220622 -->
+		<dependency>
+		    <groupId>javax.validation</groupId>
+		    <artifactId>validation-api</artifactId>
+		    <version>2.0.1.Final</version>
+		</dependency>
+		
 	</dependencies>
-	
+
     <build>
         <plugins>
             <plugin>
