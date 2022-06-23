@@ -35,59 +35,59 @@
 							<td class="j_infod_content"><img
 								src="https://via.placeholder.com/60x60" id="j_infod_img"></td>
 							<td class="j_infod_content"><input type="file"
-								class="j_infod_btn"></td>
+								class="j_infod_btn" id="emp_profile"></td>
 						</tr>
 						<tr>
 							<td class="j_infod_title">사번</td>
-							<td class="j_infod_content" colspan="2"><input type="text" id="emp_no"
-								name="emp_no" class="j_infod_input" value="${update.emp_no}"
-								readonly></td>
+							<td class="j_infod_content" colspan="2"><input type="text"
+								id="emp_no" name="emp_no" class="j_infod_input"
+								value="${update.emp_no}" readonly></td>
 						</tr>
 						<tr>
 							<td class="j_infod_title">아이디</td>
-							<td class="j_infod_content" colspan="2"><input type="text" id="emp_id"
-								name="emp_id" class="j_infod_input" value="${update.emp_id}"
-								readonly></td>
+							<td class="j_infod_content" colspan="2"><input type="text"
+								id="emp_id" name="emp_id" class="j_infod_input"
+								value="${update.emp_id}" readonly></td>
 						</tr>
 						<tr>
 							<td class="j_infod_title">새 비밀번호 <a class="j_infod_sym">*</a>
 							</td>
 							<td class="j_infod_content" colspan="2"><input
-								type="password" id="emp_pwd" name="emp_pwd" class="j_infod_input"
-								placeholder="15자 미만(영어+숫자+특수문자)"></td>
+								type="password" id="emp_pwd" name="emp_pwd"
+								class="j_infod_input" placeholder="15자 미만(영어+숫자+특수문자)"></td>
 						</tr>
 						<tr>
 							<td class="j_infod_title">비밀번호 확인 <a class="j_infod_sym">*</a>
 							</td>
 							<td class="j_infod_content" colspan="2"><input
-								type="password" id="emp_pwdck" name="emp_pwdck" class="j_infod_input"
-								placeholder="새 비밀번호를 다시 입력해주세요."></td>
+								type="password" id="emp_repwd" name="emp_repwd"
+								class="j_infod_input" placeholder="새 비밀번호를 다시 입력해주세요."></td>
 						</tr>
 						<tr>
 							<td class="j_infod_title">이름</td>
-							<td class="j_infod_content" colspan="2"><input type="text" id="emp_name"
-								name="emp_name" class="j_infod_input" value="${update.emp_name}"
-								readonly></td>
+							<td class="j_infod_content" colspan="2"><input type="text"
+								id="emp_name" name="emp_name" class="j_infod_input"
+								value="${update.emp_name}" readonly></td>
 						</tr>
 						<tr>
 							<td class="j_infod_title">이메일 <a class="j_infod_sym">*</a>
 							</td>
-							<td class="j_infod_content" colspan="2"><input type="email" id="emp_email"
-								name="emp_email" class="j_infod_input"
+							<td class="j_infod_content" colspan="2"><input type="email"
+								id="emp_email" name="emp_email" class="j_infod_input"
 								value="${update.emp_email}"></td>
 						</tr>
 						<tr>
 							<td class="j_infod_title">휴대폰 <a class="j_infod_sym">*</a>
 							</td>
-							<td class="j_infod_content" colspan="2"><input type="text" id="emp_phone"
-								name="emp_phone" class="j_infod_input"
-								value="${update.emp_phone}"></td>
+							<td class="j_infod_content" colspan="2"><input type="text"
+								id="emp_phone" name="emp_phone" class="j_infod_input"
+								placeholder="010-XXXX-XXXX 형식으로 입력해주세요." value="${update.emp_phone}"></td>
 						</tr>
 						<tr>
 							<td class="j_infod_addtitle"></td>
-							<td class="j_infod_addcontent"><input type="text" id="emp_zipcode"
-								name="emp_zipcode" class="j_infod_zipcode" placeholder="우편번호"
-								value="${update.emp_zipcode}"></td>
+							<td class="j_infod_addcontent"><input type="text"
+								id="emp_zipcode" name="emp_zipcode" class="j_infod_zipcode"
+								placeholder="우편번호" value="${update.emp_zipcode}"></td>
 							<td class="j_infod_addcontent">
 								<!-- button onclick 시 kakaopost()메소드 호출 -->
 								<button type="button" id="j_infod_zipbtn" class="j_infod_btn"
@@ -98,15 +98,16 @@
 							<td class="j_infod_addtitle">주소 <a class="j_infod_sym">*</a>
 							</td>
 							<td class="j_infod_addcontent" colspan="2"><input
-								type="text" id="emp_address" name="emp_address" class="j_infod_input"
-								placeholder="주소" value="${update.emp_address}"></td>
+								type="text" id="emp_address" name="emp_address"
+								class="j_infod_input" placeholder="주소"
+								value="${update.emp_address}"></td>
 						</tr>
 						<tr>
 							<td class="j_infod_addtitle"></td>
 							<td class="j_infod_addcontent" colspan="2"><input
-								type="text" id="emp_daddress" name="emp_daddress" class="j_infod_input"
-								placeholder="상세주소" value="${update.emp_daddress}">
-							</td>
+								type="text" id="emp_daddress" name="emp_daddress"
+								class="j_infod_input" placeholder="상세주소"
+								value="${update.emp_daddress}"></td>
 						</tr>
 						<tr>
 							<td colspan="3" class="j_infod_content"></td>
@@ -120,9 +121,160 @@
 				</table>
 			</form>
 		</c:if>
-		<script>
+	</section>
+	<script>
         //내정보수정_업데이트 ajax
         $("#j_infod_submit").click(function() {
+        	
+        	var pwdCk = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{3,15}$/;
+        	var repwdCk = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{3,15}$/;
+        	var phoneCk = /^01([0])-?([0-9]{4})-?([0-9]{4})$/;
+        	
+        	/* //프로필사진 공란 체크
+        	if($("#emp_profile").val()==""){
+				swal({
+                    title: "비밀번호는 필수 입력 사항입니다.",
+                    text: "확인 후 입력 바랍니다.",
+                    icon: "error",
+                    closeOnClickOutside: false,
+                    closeOnEsc: false
+                })
+                $("#emp_pwd").focus();
+                return false;
+			} */
+        	
+        	//새 비밀번호 공란 체크
+        	if($("#emp_pwd").val()==""){
+				swal({
+                    title: "비밀번호는 필수 입력 사항입니다.",
+                    text: "확인 후 입력 바랍니다.",
+                    icon: "error",
+                    closeOnClickOutside: false,
+                    closeOnEsc: false
+                })
+                $("#emp_pwd").focus();
+                return false;
+			}
+			
+        	//새 비밀번호 유효성 체크
+        	//.test():찾는 문자열이 들어있는지 아닌지를 알려줌(boolean)
+        	if(!pwdCk.test($("#emp_pwd").val())){
+				swal({
+                    title: "새 비밀번호 형식 불일치!!",
+                    text: "15자 미만(영어+숫자+특수문자) 형식으로 입력 바랍니다.",
+                    icon: "error",
+                    closeOnClickOutside: false,
+                    closeOnEsc: false
+                })
+                $("#emp_pwd").focus();
+                return false;
+			}
+        	
+        	//비밀번호 확인 공란 체크
+        	if($("#emp_repwd").val()==""){
+				swal({
+                    title: "비밀번호 확인은 필수 입력 사항입니다.",
+                    text: "확인 후 입력 바랍니다.",
+                    icon: "error",
+                    closeOnClickOutside: false,
+                    closeOnEsc: false
+                })
+                $("#emp_pwdck").focus();
+                return false;
+			}
+        	
+        	//배밀번호 확인 유효성 체크
+        	if(!pwdCk.test($("#emp_repwd").val())){
+				swal({
+                    title: "비밀번호 형식 불일치!!",
+                    text: "15자 미만(영어+숫자+특수문자) 형식으로 입력 바랍니다.",
+                    icon: "error",
+                    closeOnClickOutside: false,
+                    closeOnEsc: false
+                })
+                $("#emp_repwd").focus();
+                return false;
+			}
+        	
+        	//이메일 공란 체크
+        	if($("#emp_email").val()==""){
+				swal({
+                    title: "이메일은 필수 입력 사항입니다.",
+                    text: "확인 후 입력 바랍니다.",
+                    icon: "error",
+                    closeOnClickOutside: false,
+                    closeOnEsc: false
+                })
+                $("#emp_email").focus();
+                return false;
+			}
+        	
+        	//휴대폰 공란 체크
+        	if($("#emp_phone").val()==""){
+				swal({
+                    title: "휴대폰 번호는 필수 입력 사항입니다.",
+                    text: "확인 후 입력 바랍니다.",
+                    icon: "error",
+                    closeOnClickOutside: false,
+                    closeOnEsc: false
+                })
+                $("#emp_phone").focus();
+                return false;
+			}
+        	
+        	//휴대폰 번호 유효성 체크
+        	if(!phoneCk.test($("#emp_phone").val())){
+				swal({
+                    title: "휴대폰 번호 형식 불일치!!",
+                    text: "010-XXXX-XXXX 형식으로 입력 바랍니다.",
+                    icon: "error",
+                    closeOnClickOutside: false,
+                    closeOnEsc: false
+                })
+                $("#emp_phone").focus();
+                return false;
+			}
+        	
+        	//우편번호 공란 체크
+        	if($("#emp_zipcode").val()==""){
+				swal({
+                    title: "우편번호는 필수 입력 사항입니다.",
+                    text: "확인 후 입력 바랍니다.",
+                    icon: "error",
+                    closeOnClickOutside: false,
+                    closeOnEsc: false
+                })
+                $("#emp_zipcode").focus();
+                return false;
+			}
+        	
+        	//주소 공란 체크
+        	if($("#emp_address").val()==""){
+				swal({
+                    title: "주소는 필수 입력 사항입니다.",
+                    text: "확인 후 입력 바랍니다.",
+                    icon: "error",
+                    closeOnClickOutside: false,
+                    closeOnEsc: false
+                })
+                $("#emp_address").focus();
+                return false;
+			}
+        	
+        	//상세주소 공란 체크
+        	if($("#emp_daddress").val()==""){
+				swal({
+                    title: "상세주소는 필수 입력 사항입니다.",
+                    text: "확인 후 입력 바랍니다.",
+                    icon: "error",
+                    closeOnClickOutside: false,
+                    closeOnEsc: false
+                })
+                $("#emp_daddress").focus();
+                return false;
+			}
+        	
+        	if($("#emp_pwd").val() == $("#emp_repwd").val()){
             var param = {
             	"emp_no": $("#emp_no").val(),
                 "emp_pwd": $("#emp_pwd").val(),
@@ -134,7 +286,7 @@
             }
             console.log(param);
             $.ajax({
-                url: "<%= request.getContextPath()%>/info/update",
+                url: "<%=request.getContextPath()%>/info/update",
                 data: param,
                 type: "post",
                 success: function(result) {
@@ -163,10 +315,18 @@
   						});
                     }
                 }
-            })
+            //새 비밀번호와 비밀번호 확인 일치하지 않음
+            })}else{
+            	 swal({
+                     title: "새 비밀번호와 확인이 일치하지 않습니다. ",
+                     text: "확인 후 다시 입력 바랍니다.",
+                     icon: "error",
+                     closeOnClickOutside: false,
+                     closeOnEsc: false
+                 })
+            }
         });
-		</script>
-	</section>
+	</script>
 	<script>
 		//kakao(daum) 주소 API
 		function kakaopost() {

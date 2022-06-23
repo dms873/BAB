@@ -33,26 +33,26 @@
 						<tr>
 							<td class="j_infom_title">사번</td>
 							<td class="j_infom_content" colspan="2"><input type="text"
-								id="emp_no" name="emp_no" class="j_infom_input" value="${info.emp_no}"
-								readonly></td>
+								id="emp_no" name="emp_no" class="j_infom_input"
+								value="${info.emp_no}" readonly></td>
 						</tr>
 						<tr>
 							<td class="j_infom_title">이름</td>
 							<td class="j_infom_content" colspan="2"><input type="text"
-								id="emp_name" name="emp_name" class="j_infom_input" value="${info.emp_name}"
-								readonly></td>
+								id="emp_name" name="emp_name" class="j_infom_input"
+								value="${info.emp_name}" readonly></td>
 						</tr>
 						<tr>
 							<td class="j_infom_title">아이디</td>
 							<td class="j_infom_content" colspan="2"><input type="text"
-								id="emp_id" name="emp_id" class="j_infom_input" value="${info.emp_id}"
-								readonly></td>
+								id="emp_id" name="emp_id" class="j_infom_input"
+								value="${info.emp_id}" readonly></td>
 						</tr>
 						<tr>
 							<td class="j_infom_title">비밀번호 <a id="j_infom_sym">*</a>
 							</td>
-							<td class="j_infom_content" colspan="2">
-							<input type="password" id="emp_pwd" name="emp_pwd"
+							<td class="j_infom_content" colspan="2"><input
+								type="password" id="emp_pwd" name="emp_pwd"
 								class="j_infom_input"></td>
 						</tr>
 						<tr>
@@ -67,9 +67,23 @@
 				</table>
 			</form>
 		</c:if>
-		<script>
+	</section>
+	<script>
         //내정보수정_메인 확인 ajax
         $("#j_infom_submit").click(function() {
+        	//비밀번호 공란 체크
+        	if($("#emp_pwd").val()==""){
+				swal({
+                    title: "비밀번호는 필수 입력 사항입니다.",
+                    text: "확인 후 입력 바랍니다.",
+                    icon: "error",
+                    closeOnClickOutside: false,
+                    closeOnEsc: false
+                })
+                $("#emp_pwd").focus();
+                return false;
+			}
+        	
             var param = {
             	"emp_no": $("#emp_no").val(),
             	"emp_name": $("#emp_name").val(),
@@ -78,7 +92,7 @@
             }
             console.log(param);
             $.ajax({
-                url: "<%= request.getContextPath()%>/info/main",
+                url: "<%=request.getContextPath()%>/info/main",
                 data: param,
                 type: "post",
                 success: function(result) {
@@ -108,7 +122,6 @@
                 }
             })
         });
-		</script>
-	</section>
+	</script>
 </body>
 </html>
