@@ -2,8 +2,6 @@ package kh.spring.bab.info.domain;
 
 import java.sql.Timestamp;
 
-import javax.validation.constraints.NotBlank;
-
 import org.springframework.stereotype.Component;
 
 @Component
