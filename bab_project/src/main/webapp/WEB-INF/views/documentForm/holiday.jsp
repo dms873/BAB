@@ -260,7 +260,7 @@
 						</div>
 						<div>
 							<input type="text" placeholder="신청 종료 기간을 선택해주세요" class="form-control" style="width: 250px; display: inline-block; margin-top: 10px;" id="s_ho_end">
-							<input type="time" class="form-control" style="width: 150px; display: inline-block;" id="s_start_time" min="09:00:00" max="22:00:00"> 까지
+							<input type="time" class="form-control" style="width: 150px; display: inline-block;" id="s_end_time" min="09:00:00" max="22:00:00"> 까지
 							<div style="display: inline-block;">(총 <span id="s_date_cal">0</span>일)</div>
 						</div>
 					</div>
@@ -662,26 +662,72 @@
 			$('#s_ho_start').focus();
 		} */
 		
-		$('#s_ho_end').change(function() {
+		$('#s_end_time').change(function() {
 			// 날짜 계산
-			var start = new Date($('#s_ho_start').val());
-			var end = new Date($('#s_ho_end').val());
+			var start = new Date($('#s_ho_start').val() + 'T' + $('#s_start_time').val());
+			var end = new Date($('#s_ho_end').val() + 'T' + $('#s_end_time').val());
 			// 일수 구하기
-			var diffTime = (end.getTime() - start.getTime()) / (1000*60*60*24);
+			var diffDay = (end.getTime() - start.getTime()) / (1000*60*60*24);
+			// 시간 구하기(휴식시간 1시간 제외)
+			var diffTime = (end.getTime() - start.getTime()) / (1000*60*60) -1;
 			console.log(typeof(diffTime));
 			
-			if(0 < diffTime && diffTime < 1) {
+			if((0 < diffDay && diffDay < 1) && (0 < diffTime && diffTime < 8)) {
 				console.log("날짜 계산 if문탔을까?");
 				$('#s_date_cal').text('0.5'); // 반차
-			} else if(diffTime >= 1) {
+			} else if(diffTime >= 1 && diffTime >= 8) {
 				console.log("날짜 계산 else if문탔을까?");
-				console.log(diffTime);
-				var diffTimeStr = String(diffTime);
-				console.log(typeof(diffTimeStr));
-				console.log(diffTimeStr);
-				diffTimeStr.substring(0, diffTimeStr.indexOf('.'));
-				// diffTime = diffTimeStr.split('.',1);
-				$('#s_date_cal').text(diffTimeStr); // 연차 일수
+				
+				// 평일 계산할 cnt 선언
+				let cnt = 0;
+				while(true) {
+					let tmpDate = start;
+					// 시작시간이 끝나는시간보다 크면
+					if(tmpDate.getTime() > end.getTime()) {
+						console.log("cnt : " + cnt);
+						break;
+					} else { // 아니면
+						let tmp = tmpDate.getDay();
+						// 주말일 때 
+						if(tmp == 0 || tmp == 6) {
+							console.log("주말이다");
+						} else { // 평일일 때
+							console.log("평일이다");
+							// 평일 cnt 올려주기
+							cnt++;
+						}
+						tmpDate.setDate(start.getDate() + 1);
+					}
+				}
+				
+				// 날짜 계산
+				let diff = Math.abs(end.getTime() - start.getTime());
+				diff = Math.ceil(diff / (1000 * 3600 * 24));
+				
+				console.log("diff : " + diff);
+				console.log("diff 타입 : " + typeof(diff));
+				
+				// cnt string으로 변환하여 일수 나타내기
+				var cntStr = String(cnt);
+				$('#s_date_cal').text(cntStr);
+				
+				
+				/* 
+				console.log(diffDay);
+				var diffDayStr = String(diffDay);
+				console.log(typeof(diffDayStr));
+				console.log(diffDayStr);
+				if(diffDayStr >= '0.375' && diffDayStr < '1') {
+					$('#s_date_cal').text('1');
+				} else {
+					if(diffDayStr.indexOf('.') == 1) { // 시간 소수점이 있으면
+						// 소수점 기준 앞자리만 뽑아서 넣기
+						var checkDay = diffDayStr.substring(0, diffDayStr.indexOf('.'));
+						$('#s_date_cal').text(checkDay); // 연차 일수
+					} else { // 없으면
+						$('#s_date_cal').text(diffDayStr); // 그 숫자 그대로 넣기
+					}
+				} */
 			} else {
 				console.log("날짜 계산 else문탔을까?");
 				$('#s_date_cal').text('0');
