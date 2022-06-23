@@ -145,17 +145,24 @@ public class BoardController {
 	
 	@PostMapping("/update")
 	public ModelAndView updateDo(ModelAndView mv
+			, @RequestParam(name="board_no", required = false) int board_no
+			, @RequestParam(name="board_title", required = false) String board_title
+			, @RequestParam(name="board_content", required = false) String board_content
 			, Board board
 			, RedirectAttributes rttr
 			) {
 		
+		
+		board.setBoard_no(board_no);
+		board.setBoard_title(board_title);
+		board.setBoard_content(board_content);
+		System.out.println(board_no+","+board_title+","+board_content);
 		int result = service.updateBoard(board);
 		if(result > 0) {
 			rttr.addFlashAttribute("msg", "수정이 완료되었습니다.");
 		} else {
 			rttr.addFlashAttribute("msg", "수정에 실패했습니다.");
 		}
-		mv.setViewName("board/view");
 		
 		return mv;
 	}

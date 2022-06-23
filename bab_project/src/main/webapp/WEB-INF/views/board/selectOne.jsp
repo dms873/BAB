@@ -64,6 +64,7 @@
 			</tr>    		
     		<tr class="y_insert_tr">
     			<td colspan=4 class="y_read_td">
+				<input id="y_hid_title" name="y_hid_title" type="hidden" value="${readBoard.board_title }">
 				<input id="y_hid_content" name="y_hid_content" type="hidden" value="${readBoard.board_content }">
     				<div id=y_read_content>
     					<script>
@@ -94,7 +95,6 @@
     // 게시글 수정 페이지 이동
     $("#y_btn_update").click(function() {
     	var bNo = $("#y_read_no").text();
-    	console.log("bNo : " + bNo);
        $("#y_board_content").load("<%=request.getContextPath()%>/board/update?board_no="+bNo);
     });
     
