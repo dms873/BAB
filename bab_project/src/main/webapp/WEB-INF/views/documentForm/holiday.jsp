@@ -4,21 +4,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/reset.css">
+	<!-- 업로드케어 CDN -->
     <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.min.js"></script>
+    <!-- datepicker CDN -->
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+    
     <script>
     	UPLOADCARE_LOCALE = "ko"
 	</script>
 <meta charset="UTF-8">
-<title>휴가신청서 양식</title>
+<!-- <title>휴가신청서 양식</title> -->
 <style>
 	.s_frm_title {
 	    font-size: 1em;
@@ -229,7 +224,7 @@
 		
 				<div style="padding: 50px 10px 20px; clear: both;">
 					<div style="display: inline-block; font-size: 1.2em; font-weight: bold;">제목 : </div> 
-					<input type="text" class="form-control" style="display: inline-block; width: 583px; margin-left: 5px;">
+					<input type="text" class="form-control" style="display: inline-block; width: 583px; margin-left: 5px;" id="s_ho_tt">
 				</div>
 				
 				<div style="border: 1px solid lightgray; margin: 10px;"></div>
@@ -254,14 +249,20 @@
 					
 					<div style="padding: 10px 0;">
 						<div class="s_frm_title">2. 내용</div>
-						<textarea class="form-control" style="resize: none;"></textarea>
+						<textarea class="form-control" style="resize: none;" id="s_ho_co"></textarea>
 					</div>
 					
 					<div style="padding: 10px 0;">
 						<div class="s_frm_title">3. 신청기간</div>
-						<input type="datetime-local" class="form-control" style="width: 250px; display: inline-block;"> 부터
-						<input type="datetime-local" class="form-control" style="width: 250px; display: inline-block; margin-left: 10px;"> 까지
-						<div style="display: inline-block;">(총 0일)</div>
+						<div>
+							<input type="text" placeholder="신청 시작 기간을 선택해주세요" class="form-control" style="width: 250px; display: inline-block;" id="s_ho_start">
+							<input type="time" class="form-control" style="width: 150px; display: inline-block;" id="s_start_time" min="09:00:00" max="22:00:00"> 부터
+						</div>
+						<div>
+							<input type="text" placeholder="신청 종료 기간을 선택해주세요" class="form-control" style="width: 250px; display: inline-block; margin-top: 10px;" id="s_ho_end">
+							<input type="time" class="form-control" style="width: 150px; display: inline-block;" id="s_start_time" min="09:00:00" max="22:00:00"> 까지
+							<div style="display: inline-block;">(총 <span id="s_date_cal">0</span>일)</div>
+						</div>
 					</div>
 					
 					<div style="padding: 10px 0;">
@@ -618,7 +619,112 @@
 	});
 	
 	</script>
-
+	
+	<script>
+		// 제목 입력 시
+		$('#s_ho_tt').keyup(function() {
+			// 결재선 지정이 안되어 있다면
+			if($('div').hasClass('s_div') == false) {
+				alert('결재선 지정을 먼저 해주세요');
+				// 입력한 내용 지우기
+				$('#s_ho_tt').val("");
+			}
+		});
+		
+		// 내용 입력 시
+		$('#s_ho_co').keyup(function() {
+			// 결재선 지정이 안되어 있다면
+			if($('div').hasClass('s_div') == false) {
+				alert('결재선 지정을 먼저 해주세요');
+				// 입력한 내용 지우기
+				$('#s_ho_co').val("");
+			}
+		});
+		
+		// 신청 시작 기간 입력되어 있고 결재선 지정이 안되어 있다면
+		/* if($('#s_ho_start').val() != "" && $('div').hasClass('s_div') == false) {
+			alert('결재선 지정을 먼저 해주세요');
+			// 내용 지우기
+			$('#s_ho_start').val("");
+		} */
+		
+		// 신청 끝 기간 입력되어 있고 결재선 지정이 안되어 있다면
+		/* if($('#s_ho_end').val() != "" && $('div').hasClass('s_div') == false) {
+			alert('결재선 지정을 먼저 해주세요');
+			// 내용 지우기
+			$('#s_ho_end').val("");
+		} */
+		
+		// 신청 시작 기간이 비어있고 신청 종료 기간 입력 시
+		/* if($('#s_ho_start').val() == "" && $('#s_ho_end').val() != "") {
+			alert('신청 기간은 시작부터 선택해주세요.');
+			$('#s_ho_end').val("");
+			$('#s_ho_start').focus();
+		} */
+		
+		$('#s_ho_end').change(function() {
+			// 날짜 계산
+			var start = new Date($('#s_ho_start').val());
+			var end = new Date($('#s_ho_end').val());
+			// 일수 구하기
+			var diffTime = (end.getTime() - start.getTime()) / (1000*60*60*24);
+			console.log(typeof(diffTime));
+			
+			if(0 < diffTime && diffTime < 1) {
+				console.log("날짜 계산 if문탔을까?");
+				$('#s_date_cal').text('0.5'); // 반차
+			} else if(diffTime >= 1) {
+				console.log("날짜 계산 else if문탔을까?");
+				console.log(diffTime);
+				var diffTimeStr = String(diffTime);
+				console.log(typeof(diffTimeStr));
+				console.log(diffTimeStr);
+				diffTimeStr.substring(0, diffTimeStr.indexOf('.'));
+				// diffTime = diffTimeStr.split('.',1);
+				$('#s_date_cal').text(diffTimeStr); // 연차 일수
+			} else {
+				console.log("날짜 계산 else문탔을까?");
+				$('#s_date_cal').text('0');
+			}
+		}) 
+		
+		
+		
+	</script>
+	
+	<script>
+    	// datepicker위젯
+		$(function() {
+			$("#s_ho_start, #s_ho_end").datepicker({
+				timepicker: true,
+				changeMonth: true,
+                changeYear: true,
+                controlType: 'select',
+                timeFormat: 'HH:mm',
+                dateFormat: 'yy-mm-dd',
+                yearRange: '1930:2024',
+                dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+                dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+                monthNamesShort: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+                monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+                //minDate: new Date(2018, 5 - 1, 14),
+                //maxDate: new Date(2018, 8 - 1, 24)
+                minDate: new Date(2020, 4 - 1, 1),
+                maxDate: new Date(2023, 8 - 1, 31),
+                beforeShowDay: disableAllTheseDays2
+			});
+			
+			//초기값을 오늘 날짜로 설정해줘야 합니다.
+		    // $('#s_ho_start').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
+		    // $('#s_ho_end').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
+		});
+		
+	   function disableAllTheseDays2(date) {
+            var day = date.getDay();
+            return [(day != 0 && day != 6)];
+			// 0=일, 1=월, 2=화, 4=목, 6=토 => 안나오게 할 것 
+        }
+    </script>
 	<script>
 	   <%-- 	$("#s_appLine_btn").click(function() {
 	   		console.log("holiday 결재선 지정 떠라");

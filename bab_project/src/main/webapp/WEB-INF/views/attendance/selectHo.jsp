@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>내 연차 내역</title>
+<!-- <title>내 연차 내역</title> -->
 </head>
 <body>
 
