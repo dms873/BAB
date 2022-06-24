@@ -5,21 +5,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>정보 수정_상세보기</title>
-<!-- jquery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-	crossorigin="anonymous"></script>
-<!-- kakao(daum) 주소 API -->
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<!-- 공통 reset.css -->
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/resources/css/reset.css">
+<!-- <title>정보 수정_상세보기</title> -->
 <!-- update.css -->
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/info/update.css">
-<!-- SweetAlert -->
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body>
 	<section id="j_infod_section">
@@ -128,7 +117,7 @@
         	
         	var pwdCk = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{3,15}$/;
         	var repwdCk = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{3,15}$/;
-        	var phoneCk = /^01([0])-?([0-9]{4})-?([0-9]{4})$/;
+        	var phoneCk = /^01([0])-([0-9]{4})-([0-9]{4})$/;
         	
         	/* //프로필사진 공란 체크
         	if($("#emp_profile").val()==""){
@@ -301,7 +290,7 @@
                         })
                     } else {
                         swal({
-                            title: "내 정보 수정 성공!!",
+                            title: "내 정보 수정 완료!!",
                             text: "그룹웨어 메인페이지로 이동합니다.",
                             icon: "success",
                             closeOnClickOutside: false,
@@ -312,7 +301,7 @@
   							//뒤로가기 시 내정보수정 페이지로 바로 진입 못하게 하려고 replace로 덮어쓰기함
   						    location.replace("<%=request.getContextPath()%>/main")
   						  }
-  						});
+  						})
                     }
                 }
             //새 비밀번호와 비밀번호 확인 일치하지 않음

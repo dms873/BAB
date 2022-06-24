@@ -32,6 +32,10 @@
 	<script src="https://unpkg.com/hangul-js" type="text/javascript"></script>
 	<!-- CKEditor CDN 추가 윤영원(220615) -->
 	<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
+	<!-- SweetAlert CDN 추가 혜미-220624 -->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<!-- kakao(daum) 주소 API CDN 추가 혜미-220624 -->
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <!-- 공통 reset.css -->
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/reset.css">
 <meta charset="UTF-8">

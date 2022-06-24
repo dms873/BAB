@@ -5,19 +5,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>정보 수정_메인</title>
-<!-- jquery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-	crossorigin="anonymous"></script>
-<!-- 공통 reset.css -->
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/resources/css/reset.css">
+<!-- <title>정보 수정_메인</title> -->
 <!-- main.css -->
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/info/main.css">
-<!-- SweetAlert -->
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body>
 	<section id="j_infom_section">
