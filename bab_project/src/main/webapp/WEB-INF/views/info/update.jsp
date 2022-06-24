@@ -137,7 +137,7 @@
 				swal({
                     title: "비밀번호는 필수 입력 사항입니다.",
                     text: "확인 후 입력 바랍니다.",
-                    icon: "error",
+                    icon: "info",
                     closeOnClickOutside: false,
                     closeOnEsc: false
                 })
@@ -164,7 +164,7 @@
 				swal({
                     title: "비밀번호 확인은 필수 입력 사항입니다.",
                     text: "확인 후 입력 바랍니다.",
-                    icon: "error",
+                    icon: "info",
                     closeOnClickOutside: false,
                     closeOnEsc: false
                 })
@@ -190,7 +190,7 @@
 				swal({
                     title: "이메일은 필수 입력 사항입니다.",
                     text: "확인 후 입력 바랍니다.",
-                    icon: "error",
+                    icon: "info",
                     closeOnClickOutside: false,
                     closeOnEsc: false
                 })
@@ -203,7 +203,7 @@
 				swal({
                     title: "휴대폰 번호는 필수 입력 사항입니다.",
                     text: "확인 후 입력 바랍니다.",
-                    icon: "error",
+                    icon: "info",
                     closeOnClickOutside: false,
                     closeOnEsc: false
                 })
@@ -229,7 +229,7 @@
 				swal({
                     title: "우편번호는 필수 입력 사항입니다.",
                     text: "확인 후 입력 바랍니다.",
-                    icon: "error",
+                    icon: "info",
                     closeOnClickOutside: false,
                     closeOnEsc: false
                 })
@@ -242,7 +242,7 @@
 				swal({
                     title: "주소는 필수 입력 사항입니다.",
                     text: "확인 후 입력 바랍니다.",
-                    icon: "error",
+                    icon: "info",
                     closeOnClickOutside: false,
                     closeOnEsc: false
                 })
@@ -255,7 +255,7 @@
 				swal({
                     title: "상세주소는 필수 입력 사항입니다.",
                     text: "확인 후 입력 바랍니다.",
-                    icon: "error",
+                    icon: "info",
                     closeOnClickOutside: false,
                     closeOnEsc: false
                 })

@@ -67,7 +67,7 @@
 				swal({
                     title: "비밀번호는 필수 입력 사항입니다.",
                     text: "확인 후 입력 바랍니다.",
-                    icon: "error",
+                    icon: "info",
                     closeOnClickOutside: false,
                     closeOnEsc: false
                 })
