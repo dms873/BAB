@@ -29,4 +29,14 @@
 		INSERT INTO ELECTRONIC_APPROVAL(EAP_NO, EAP_STA_CODE, EAP_FIRST_AP, EAP_MID_AP, EAP_FINAL_AP, EAP_FIRST_DEPT, EAP_FINAL_DEPT, EMP_NO, DF_NO) 
 		VALUES (EAP_SEQ.NEXTVAL, DEFAULT, #{eap_first_ap}, #{eap_mid_ap}, #{eap_final_ap}, #{eap_first_dept}, #{eap_final_dept}, '2206131', (SELECT MAX(DF_NO) DF_NO FROM DOCUMENT_FORM WHERE DF_CODE = 'A'))
 	</insert>
+	
+	<!-- 전자결재 테이블 update -->
+	<update id="updateeap" parameterType="Eap">
+		UPDATE ELECTRONIC_APPROVAL SET EAP_STEP = 1, EAP_TITLE = #{eap_title}, EAP_CONTENT = #{eap_content}, EAP_DRAFT_DATE = SYSTIMESTAMP WHERE DF_NO = #{df_no}  
+	</update>
+	
+	<!-- 휴가 테이블 insert -->
+	<insert id="insertatt" parameterType="Att">
+		INSERT INTO HOLIDAY VALUES(HOLIDAY_SEQ.NEXTVAL, #{ho_code}, #{ho_start}, #{ho_end}, NULL, #{ho_use_count}, '2206131', #{df_no}) 
+	</insert>
 </mapper>

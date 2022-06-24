@@ -3,6 +3,7 @@ package kh.spring.bab.eap.model.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kh.spring.bab.attendance.domain.Attendance;
 import kh.spring.bab.eap.domain.Eap;
 import kh.spring.bab.eap.model.dao.EapDao;
 
@@ -34,6 +35,18 @@ public class EapServiceImpl implements EapService {
 	@Override
 	public int insertapp(Eap eap) {
 		return dao.insertapp(eap);
+	}
+
+	// 전자결재 테이블 update
+	@Override
+	public int updateeap(Eap eap) {
+		return dao.updateeap(eap);
+	}
+
+	// 휴가테이블 insert
+	@Override
+	public int insertatt(Attendance att) {
+		return dao.insertatt(att);
 	}
 
 }

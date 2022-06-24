@@ -1,5 +1,6 @@
 package kh.spring.bab.eap.model.service;
 
+import kh.spring.bab.attendance.domain.Attendance;
 import kh.spring.bab.eap.domain.Eap;
 
 public interface EapService {
@@ -29,6 +30,20 @@ public interface EapService {
 	 * @param : Eap vo
 	 * */
 	public int insertapp(Eap eap);
+	
+	/**
+	 * @author : 손은진
+	 * @return : 전자결재 테이블 update
+	 * @param : Eap vo
+	 * */
+	public int updateeap(Eap eap);
+	
+	/**
+	 * @author : 손은진
+	 * @return : 휴가테이블 insert
+	 * @param : Attendance vo
+	 * */
+	public int insertatt(Attendance att);
 	
 
 }

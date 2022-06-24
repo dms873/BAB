@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import kh.spring.bab.attendance.domain.Attendance;
 import kh.spring.bab.eap.domain.Eap;
 import kh.spring.bab.eap.model.service.EapServiceImpl;
 
@@ -172,8 +173,60 @@ public class ElectronicApprovalController {
 		
 		System.out.println("결재선 리스트, 참조처 리스트 insert결과 : " + result);
 		
-		return "";
+		String msg = "";
+		if(result > 0) {
+			msg = "결재선이 지정되었습니다.";
+		} else {
+			msg = "결재선 지정에 실패하였습니다.";
+		}
+		
+		return msg;
 	}
+	
+	// 결재요청 클릭 시 DB다녀올 ajax
+	@PostMapping(value = "/inserteap", produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public String inserteap(
+			Eap eap,
+			Attendance att,
+			@RequestParam(name = "df_no", required = false) String df_no,
+			@RequestParam(name = "eap_title", required = false) String eap_title,
+			@RequestParam(name = "eap_content", required = false) String eap_content,
+			@RequestParam(name = "ho_code", required = false) String ho_code,
+			@RequestParam(name = "ho_start", required = false) String ho_start,
+			@RequestParam(name = "ho_end", required = false) String ho_end,
+			@RequestParam(name = "ho_use_count", required = false) String ho_use_count
+			
+			) {
+		
+			System.out.println("ho_code : " + ho_code);
+			System.out.println("eap_title : " + eap_title);
+			System.out.println("ho_use_count : " + ho_use_count);
+		
+			eap.setDf_no(df_no);
+			eap.setEap_title(eap_title);
+			eap.setEap_content(eap_content);
+			att.setDf_no(df_no);
+			att.setHo_code(ho_code);
+			att.setHo_start(ho_start);
+			att.setHo_end(ho_end);
+			att.setHo_use_count(ho_use_count);
+			
+			// 전자결재 테이블 update
+			int resultEap = service.updateeap(eap);
+			// 휴가테이블 insert
+			int resultAtt = service.insertatt(att);
+			
+			String msg = "";
+			if(resultEap > 0 && resultAtt > 0) {
+				msg = "문서를 기안하였습니다.";
+			} else {
+				msg = "다시 확인하여 기안해주세요.";
+			}
+		
+		return msg;
+	}
+	
 	
 	
 	

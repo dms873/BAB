@@ -4,6 +4,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kh.spring.bab.attendance.domain.Attendance;
 import kh.spring.bab.eap.domain.Eap;
 
 @Repository
@@ -30,6 +31,16 @@ public class EapDao {
 	// 결재선 리스트, 참조처 리스트 DB 저장
 	public int insertapp(Eap eap) {
 		return sqlSession.insert("Eap.insertapp", eap);
+	}
+	
+	// 전자결재 테이블 update
+	public int updateeap(Eap eap) {
+		return sqlSession.update("Eap.updateeap", eap);
+	}
+
+	// 휴가테이블 insert
+	public int insertatt(Attendance att) {
+		return sqlSession.update("Eap.insertatt", att);
 	}
 
 }

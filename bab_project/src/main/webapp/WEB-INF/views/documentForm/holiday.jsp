@@ -181,7 +181,7 @@
 						</tr>
 						<tr>
 							<th>문서번호</th>
-							<td>${resultDoc.df_no }</td>
+							<td id="s_dfNo">${resultDoc.df_no }</td>
 						</tr>
 					</table>
 			</div>
@@ -234,13 +234,13 @@
 					<div style="padding: 10px 0;">
 						<div class="s_frm_title">1. 종류</div>
 						<div class="form-check" style="display: inline-block;">
-						  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+						  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked value="A">
 						  <label class="form-check-label" for="flexRadioDefault1">
 						    연차
 						  </label>
 						</div>
 						<div class="form-check" style="display: inline-block;">
-						  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+						  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="H">
 						  <label class="form-check-label" for="flexRadioDefault2">
 						    반차
 						  </label>
@@ -579,6 +579,7 @@
 					, data: dataObj
 					, success: function(result) {
 						console.log("인서트 성공 result : " + result);
+						alert(result);
 						// $(".btn-close").trigger('click');
 						// $("#s_eap_content_box").html(result);
 					}
@@ -591,8 +592,46 @@
 	</script>
 	
 	<script>
+	
 		$("#s_eap_app").click(function() {
 			console.log("결재요청 클릭");
+			var eap_title = $('#s_ho_tt').val();
+			var eap_content = $('#s_ho_co').val();
+			var ho_code = $('input[type=radio]:checked').val();
+			var ho_start = $('#s_ho_start').val() + " " + $('#s_start_time').val();
+			var ho_end = $('#s_ho_end').val() + " " + $('#s_end_time').val();
+			var ho_use_count = $('#s_date_cal').text();
+			
+			console.log(eap_title);
+			console.log(eap_content);
+			console.log(ho_code);
+			console.log(ho_start);
+			console.log(ho_end);
+			console.log(ho_use_count);
+		
+			// ajax에 보낼 obj
+			var dataObj = {
+				"df_no" : $("#s_dfNo").text(),
+				"eap_title" : eap_title,
+				"eap_content" : eap_content,
+				"ho_code" : ho_code,
+				"ho_start" : ho_start,
+				"ho_end" : ho_end,
+				"ho_use_count" : ho_use_count
+			}
+		
+			console.log(dataObj);
+			
+			$.ajax({
+				url: "<%=request.getContextPath()%>/eap/inserteap"
+				, type: "post"
+				, data: dataObj
+				, success: function(result) {
+					console.log("문서기안 DB등록 성공");
+					alert(result);
+					$("#menu_eap").get(0).click();
+				}
+			})
 		});
 	</script>
 		
