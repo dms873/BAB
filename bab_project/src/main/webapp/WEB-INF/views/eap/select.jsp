@@ -234,13 +234,7 @@
         	} else if(form == 's_spending_form') {
         		// 강제로 닫기버튼 클릭하기
         		$(".btn-close").trigger('click');
-        		$("#s_eap_content_box").html(
-        				'<div>'
-        				+'</div>'
-        				+ '<div id="s_eap_content_box_left">왼쪽</div>'
-						+ '<div id="s_eap_content_box_right">오른쪽</div>');
-        		$("#s_eap_content_box_left").load("<%=request.getContextPath()%>/eap/selectform/spending");
-        		$("#s_eap_content_box_right").load("<%=request.getContextPath()%>/eap/appline");
+        		<%-- $("#s_eap_content_box_left").load("<%=request.getContextPath()%>/eap/selectform/spending"); --%>
         	} else {
         		$("#s_document_form").html('<div class="alert alert-danger d-flex align-items-center" role="alert">'
         				  + '<i class="bi bi-exclamation-triangle-fill"></i>'

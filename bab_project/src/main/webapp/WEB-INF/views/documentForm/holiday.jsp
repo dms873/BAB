@@ -6,12 +6,9 @@
 <head>
 	<!-- 업로드케어 CDN -->
     <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.min.js"></script>
+    <script>UPLOADCARE_LOCALE = "ko"</script>
     <!-- datepicker CDN -->
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
-    
-    <script>
-    	UPLOADCARE_LOCALE = "ko"
-	</script>
 <meta charset="UTF-8">
 <!-- <title>휴가신청서 양식</title> -->
 <style>
@@ -107,7 +104,7 @@
 			    <a class="nav-link active" aria-current="page" href="#" id="s_eap_appLine">결재선</a>
 			  </li>
 			</ul>
-			<div id="s_modal_content">나는 결재선</div>
+			<div id="s_modal_content">결재선을 선택해주세요.</div>
 			<div id="s_btn_i" style="float: left;margin-left: 30px;display: flex;margin-top: 100px;align-content: center;flex-direction: column;">
 				<span id="s_remove_appLine">
 					<i style="font-size: 2em;cursor: pointer;" class="bi bi-arrow-left-square"></i>
@@ -199,7 +196,7 @@
 			</div>
 			
 			<c:forEach items="${info }" var="i">
-				<div style="float: left;width: 130px; margin-right: 5px;" id="s_eap_first">
+				<div style="float: left;width: 130px; margin-right: 5px;">
 					<table border="1" class="s_eap_draft_app">
 						<tr>
 							<th rowspan="3">승인</th>
@@ -228,7 +225,6 @@
 				</div>
 				
 				<div style="border: 1px solid lightgray; margin: 10px;"></div>
-				
 				<div style="margin: 0 10px;">
 				
 					<div style="padding: 10px 0;">
@@ -680,27 +676,6 @@
 			}
 		});
 		
-		// 신청 시작 기간 입력되어 있고 결재선 지정이 안되어 있다면
-		/* if($('#s_ho_start').val() != "" && $('div').hasClass('s_div') == false) {
-			alert('결재선 지정을 먼저 해주세요');
-			// 내용 지우기
-			$('#s_ho_start').val("");
-		} */
-		
-		// 신청 끝 기간 입력되어 있고 결재선 지정이 안되어 있다면
-		/* if($('#s_ho_end').val() != "" && $('div').hasClass('s_div') == false) {
-			alert('결재선 지정을 먼저 해주세요');
-			// 내용 지우기
-			$('#s_ho_end').val("");
-		} */
-		
-		// 신청 시작 기간이 비어있고 신청 종료 기간 입력 시
-		/* if($('#s_ho_start').val() == "" && $('#s_ho_end').val() != "") {
-			alert('신청 기간은 시작부터 선택해주세요.');
-			$('#s_ho_end').val("");
-			$('#s_ho_start').focus();
-		} */
-		
 		$('#s_end_time').change(function() {
 			// 날짜 계산
 			var start = new Date($('#s_ho_start').val() + 'T' + $('#s_start_time').val());
@@ -794,8 +769,8 @@
                 monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
                 //minDate: new Date(2018, 5 - 1, 14),
                 //maxDate: new Date(2018, 8 - 1, 24)
-                minDate: new Date(2020, 4 - 1, 1),
-                maxDate: new Date(2023, 8 - 1, 31),
+                // minDate: new Date(2020, 4 - 1, 1),
+                // maxDate: new Date(2023, 8 - 1, 31),
                 beforeShowDay: disableAllTheseDays2
 			});
 			
@@ -810,14 +785,6 @@
 			// 0=일, 1=월, 2=화, 4=목, 6=토 => 안나오게 할 것 
         }
     </script>
-	<script>
-	   <%-- 	$("#s_appLine_btn").click(function() {
-	   		console.log("holiday 결재선 지정 떠라");
-	   		$("#s_modal_content").load("<%=request.getContextPath()%>/organ/selectList");
-	   	}); --%>
-   </script>
-    
-    
 	
 
 </body>

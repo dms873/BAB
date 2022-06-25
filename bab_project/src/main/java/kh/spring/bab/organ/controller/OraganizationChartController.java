@@ -127,4 +127,41 @@ public class OraganizationChartController {
 		
 	}
 	
+	// 지출결의서 결재선 리스트에 있는 사원 번호를 가져와 결재선jsp에 이름, 부서, 직책 띄우기(ajax)
+	@PostMapping(value = "/applinelistsp", produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public ModelAndView selectApplineListSp(
+			ModelAndView mv
+			, @RequestParam(value = "emp_no[]", required = false) List<String> emp_noArr
+			) {
+		
+		System.out.println("emp_no : " + emp_noArr);
+		
+		List<Organ> list = new ArrayList<Organ>();
+		Organ result = null;
+		String df_code = "";
+		
+		for(String emp_no : emp_noArr) {
+			System.out.println(emp_no);
+			result = service.selectInfo(emp_no);
+			list.add(result);
+		}
+		mv.addObject("info", list);
+		System.out.println("list 결과 : " + list);
+		System.out.println("result 결과 : " + result);
+		
+		df_code = "B";
+		// 지출결의서 문서 번호 조회
+		Organ docNum = service.selectDoc(df_code);
+		mv.addObject("resultDoc", docNum);
+		
+		System.out.println("docNum 결과 : " + docNum);
+		
+		mv.setViewName("documentForm/spending");
+		System.out.println("mv 결과 : " + mv);
+		
+		return mv;
+		
+	}
+	
 }
