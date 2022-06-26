@@ -1,8 +1,14 @@
 package kh.spring.bab.eap.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,8 +16,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+
 import kh.spring.bab.attendance.domain.Attendance;
 import kh.spring.bab.eap.domain.Eap;
+import kh.spring.bab.eap.domain.Spending;
 import kh.spring.bab.eap.model.service.EapServiceImpl;
 
 @Controller
@@ -150,7 +160,7 @@ public class ElectronicApprovalController {
 	}
 	
 	// 결재선 리스트, 참조처 리스트 DB 저장
-	@PostMapping(value = "/insertapp", produces = "text/plain;charset=UTF-8")
+	@PostMapping(value = "/insertappsp", produces = "text/plain;charset=UTF-8")
 	@ResponseBody
 	public String insertapp(
 			Eap eap,
@@ -169,7 +179,7 @@ public class ElectronicApprovalController {
 		eap.setEap_first_dept(eap_first_dept);
 		eap.setEap_final_dept(eap_final_dept);
 		
-		int result = service.insertapp(eap);
+		int result = service.insertappsp(eap);
 		
 		System.out.println("결재선 리스트, 참조처 리스트 insert결과 : " + result);
 		
@@ -183,7 +193,7 @@ public class ElectronicApprovalController {
 		return msg;
 	}
 	
-	// 결재요청 클릭 시 DB다녀올 ajax
+	// 결재요청 클릭 시 DB다녀올 ajax(휴가신청서)
 	@PostMapping(value = "/inserteap", produces = "text/plain;charset=UTF-8")
 	@ResponseBody
 	public String inserteap(
@@ -225,6 +235,79 @@ public class ElectronicApprovalController {
 			}
 		
 		return msg;
+	}
+	
+	// 결재요청 클릭 시 DB다녀올 ajax(지출결의서)
+	@PostMapping(value = "/insertsp", produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public String insertsp(
+			@RequestParam(value = "sp_date", required = false) String sp_date
+			,  @RequestParam(value = "sp_detail", required = false) String sp_detail
+			,  @RequestParam(value = "sp_count", required = false) String sp_count
+			,  @RequestParam(value = "sp_amount", required = false) String sp_amount
+			,  @RequestParam(value = "sp_pay_code", required = false) String sp_pay_code
+			,  @RequestParam(value = "df_no", required = false) String df_no
+			,  @RequestParam(value = "eap_title", required = false) String eap_title
+			,  @RequestParam(value = "eap_content", required = false) String eap_content
+			, Spending sp
+			, Eap eap
+			) {
+		
+		System.out.println(sp_date);
+		System.out.println(sp_detail);
+		System.out.println(sp_count);
+		System.out.println(sp_amount);
+		sp_amount = removeComma(sp_amount);
+		System.out.println(sp_amount);
+		System.out.println(sp_pay_code);
+		System.out.println(df_no);
+		
+		sp.setSp_date(sp_date);
+		sp.setSp_detail(sp_detail);
+		sp.setSp_count(sp_count);
+		sp.setSp_amount(sp_amount);
+		sp.setSp_pay_code(sp_pay_code);
+		sp.setDf_no(df_no);
+		eap.setDf_no(df_no);
+		eap.setEap_title(eap_title);
+		eap.setEap_content(eap_content);
+		
+		// 지출테이블 insert
+		int resultSp = service.insertSp(sp);
+		
+		// 전자결재테이블 update
+		int resultEap = service.updateEapSp(eap);
+		
+		String msg = "";
+		if(resultEap > 0 && resultSp > 0) {
+			msg = "문서를 기안하였습니다.";
+		} else {
+			msg = "다시 확인하여 기안해주세요.";
+		}
+		
+		
+		// @RequestParam(value = "dataArr", required = false) ArrayList<Object> dataArr
+		// 객체+배열로 받아서 값 받아오는거 찾아보기
+		
+//		String[] arrayparam = req.getParameterValues("dataArr");
+//		System.out.println(arrayparam);
+//		for(int i = 0; i < arrayparam.length; i++) {
+//			System.out.println("배열찍어봐 : " + arrayparam[i]);
+//		}
+		
+//		Map<String, Object> result = new HashMap<String, Object>();
+//		Map<String, Object> map = new HashMap<String, Object>();
+		
+		
+//		for(String data : arrayparam) {
+//			System.out.println(data);
+//		}
+		return msg;
+	}
+	
+	// 콤마제거함수
+	public String removeComma(String data) {
+		return data.replaceAll("\\,", "");
 	}
 	
 	

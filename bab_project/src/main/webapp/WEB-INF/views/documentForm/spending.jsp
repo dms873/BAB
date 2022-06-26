@@ -7,8 +7,6 @@
 	<!-- 업로드케어 CDN -->
     <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.min.js"></script>
     <script>UPLOADCARE_LOCALE = "ko"</script>
-	<!-- datepicker CDN -->
-    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 <meta charset="UTF-8">
 <!-- <title>지출결의서 양식</title> -->
 <style>
@@ -253,12 +251,12 @@
 								<tbody id="s_default_tbody" class="s_default_tbody_cl">
 									<tr>
 										<th scope="row">
-											<input type="text" placeholder="연도-월-일" class="form-control" style="width: 150px; display: inline-block;" class="s_sp_date" id="s_sp_date" name="sp_date">
+											<input type="date" class="form-control s_sp_date" id="s_sp_date" name="sp_date">
 										</th>
-										<td><input type="text" class="form-control" name="sp_detail"></td>
-										<td><input type="number" id="sp_count" class="form-control sp_count" name="sp_count"></td>
-										<td><input type="text" class="form-control sp_amount" id="sp_amount" name="sp_amount" onkeyup="commas(this)" onblur="total()"></td>
-										<td><select class="form-select" aria-label="Default select example">
+										<td><input type="text" class="form-control s_sp_detail" name="sp_detail"></td>
+										<td><input type="number" id="sp_count" class="form-control s_sp_count" name="sp_count" onblur="total()"></td>
+										<td><input type="text" class="form-control s_sp_amount" id="sp_amount" name="sp_amount" onkeyup="commas(this)" onblur="total()"></td>
+										<td><select class="form-select s_select" aria-label="Default select example">
 												<option value="C">신용카드</option>
 												<option value="A">가상계좌</option>
 											</select>
@@ -275,8 +273,7 @@
 									</tr>
 								</tfoot>
 							</table>
-							<button id="s_add_sp_detail" class="btn btn-success"
-								onclick="addTr()">내역 추가</button>
+							<!-- <button id="s_add_sp_detail" class="btn btn-success" onclick="addTr()">내역 추가</button> -->
 						</div>
 
 						<div style="padding: 10px 0;">
@@ -367,12 +364,12 @@
     		// console.log("클릭되냐고~");
     		$(".s_default_tbody_cl").append(
 					'<tr>'
-				      + '<th scope="row"><input type="text" placeholder="연도-월-일" class="form-control" style="width: 150px; display: inline-block;" class="s_sp_date" id="s_sp_date" name="sp_date"></th>'
-				      + '<td><input type="text" class="form-control" name="sp_detail"></td>'
-				      + '<td><input type="number" id="sp_count" class="form-control sp_count" name="sp_count"></td>'
-				      + '<td><input type="text" class="form-control sp_amount" id="sp_amount" name="sp_amount" onkeyup="commas(this)" onblur="total()"></td>'
+				      + '<th scope="row"><input type="date" class="form-control s_sp_date" id="s_sp_date" name="sp_date"></th>'
+				      + '<td><input type="text" class="form-control s_sp_detail" name="sp_detail"></td>'
+				      + '<td><input type="number" id="sp_count" class="form-control s_sp_count" name="sp_count" onblur="total()"></td>'
+				      + '<td><input type="text" class="form-control s_sp_amount" id="sp_amount" name="sp_amount" onkeyup="commas(this)" onblur="total()"></td>'
 				      + '<td>'
-				      + '<select class="form-select" aria-label="Default select example">'
+				      + '<select class="form-select s_select" aria-label="Default select example">'
 				      		+ '<option value="C">신용카드</option>'
 				      		+ '<option value="A">가상계좌</option>'
 			      	  + '</select>'
@@ -383,27 +380,43 @@
 	</script>
 	
 	<script>
+		// 합계 구하기
 		function total() {
-			var sp_count = $(".sp_count").val();
-			var sp_amount = $(".sp_amount").val();
+			var spCnt = 0;
+			var spAmount = 0;
+			var total = 0;
+			var sum = 0;
+			// const number;
+			for(var i = 0; i < $('.s_sp_count').length; i++) {
+				spCnt = $(".s_sp_count").eq(i).val();
+				console.log(spCnt);
+				spAmount = $(".s_sp_amount").eq(i).val();
+				console.log(spAmount);
+				
+				spAmount = spAmount.replace(/,/g, "");
+				total = Number(spCnt * spAmount);
+				console.log(total);
+				
+				sum += total;
+			}
 			
-			console.log("sp_count : " + sp_count);
-			console.log("sp_amount : " + sp_amount);
+			console.log(sum);
 			
-			const number = sp_amount.replace(/,/g, "");
+			// const number = sp_amount.replace(/,/g, "");
 			
-			$("#s_total_price").text(Number(sp_count * number));
+			// $("#s_total_price").text(Number(sp_count * number));
+			$("#s_total_price").text(sum);
 			
-			var total = $("#s_total_price").text();
-			var total2 = total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			var total1 = $("#s_total_price").text();
+			var total2 = total1.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 			$('#s_total_price').text(total2);
 		};
 		
 	</script>
 	
 	<script>
-	    // 결재선 클릭 시
-	    $("#s_eap_appLine").click(function() {
+	    // 결재선 지정 클릭 시
+	    $("#s_appLine_btn").click(function() {
 	    	$("#s_modal_content").load("<%=request.getContextPath()%>/organ/selectList");
 	    });
    	</script>
@@ -624,7 +637,7 @@
 			}
 			
 			$.ajax({
-				url : "<%=request.getContextPath()%>/eap/insertapp"
+				url : "<%=request.getContextPath()%>/eap/insertappsp"
 					, type: "post"
 					, data: dataObj
 					, success: function(result) {
@@ -638,9 +651,78 @@
 	</script>
 	
 	<script>
-	$("#s_eap_app").click(function() {
-		console.log("결재요청 클릭");
-	});
+		$("#s_eap_app").click(function() {
+			console.log("결재요청 클릭");
+			var sp_date = "";
+			var sp_detail = "";
+			var sp_count = 0;
+			var sp_amount = 0;
+			var sp_pay_code = "";
+			var df_no = "";
+			var dataArr = [];
+			/* if($('.s_sp_count').length != 1) {
+				for(var i = 1; i < $('.s_sp_amount').length; i++) {
+					sp_date = $('.s_sp_date').eq(i).val();
+					console.log(sp_date);
+					sp_detail = $('.s_sp_detail').eq(i).val();
+					console.log(sp_detail);
+					sp_count = $('.s_sp_count').eq(i).val();
+					console.log(sp_count);
+					sp_amount = $('.s_sp_amount').eq(i).val();
+					console.log(sp_amount);
+					sp_pay_code = $('.s_select').eq(i).val();
+					console.log(sp_pay_code);
+					// var obj = {"sp_date":sp_date, "sp_detail":sp_detail, "sp_count":sp_count, "sp_amount":sp_amount, "sp_pay_code":sp_pay_code}
+					var arr = [];
+					arr.push(sp_date, sp_detail, sp_count, sp_amount, sp_pay_code)
+					dataArr.push(arr);
+					// dataArr.push(sp_date, sp_detail, sp_count, sp_amount, sp_pay_code);
+					var obj = {"sp_date":dataArr[0][0], "sp_detail":dataArr[0][1]}
+					console.log(obj);
+				}
+				console.log(dataArr);
+				// 배열 벗기기
+				// dataArr.flat();
+			} else {
+				sp_date = $('.s_sp_date').val();
+				console.log(sp_date);
+				sp_detail = $('.s_sp_detail').val();
+				console.log(sp_detail);
+				sp_count = $('.s_sp_count').val();
+				console.log(sp_count);
+				sp_amount = $('.s_sp_amount').val();
+				console.log(sp_amount);
+				sp_pay_code = $('.s_select').val();
+				console.log(sp_pay_code);
+				dataArr.push(sp_date, sp_detail, sp_count, sp_amount, sp_pay_code);
+				console.log(dataArr);
+			} */
+			
+			dataObj = {
+					"sp_date" : $('.s_sp_date').val(),
+					"sp_detail" : $('.s_sp_detail').val(),
+					"sp_count" : $('.s_sp_count').val(),
+					"sp_amount" : $('.s_sp_amount').val(),
+					"sp_pay_code" : $('.s_select').val(),
+					"df_no" : $('#s_dfNo').text(),
+					"eap_title" : $('#s_sp_tt').val(),
+					"eap_content" : $('#s_sp_co').val(),
+			}
+			
+			// 결재요청 클릭 시 DB다녀올 ajax
+			$.ajax({
+				url : "<%=request.getContextPath()%>/eap/insertsp"
+				, type : "post"
+				, data : dataObj
+				, success : function(result) {
+					console.log("성공");
+					alert(result);
+					$("#menu_eap").get(0).click();
+				}
+			});
+		});
+		
+		
 	</script>
 	
 	<script>
@@ -681,42 +763,37 @@
 				$('#s_sp_co').val("");
 			}
 		});
-	</script>
-	
-	<script>
-    	// datepicker위젯
-		$(function() {
-			$(".s_sp_date").datepicker({
-				timepicker: true,
-				changeMonth: true,
-                changeYear: true,
-                controlType: 'select',
-                timeFormat: 'HH:mm',
-                dateFormat: 'yy-mm-dd',
-                yearRange: '1930:2024',
-                dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
-                dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-                monthNamesShort: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
-                monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-                //minDate: new Date(2018, 5 - 1, 14),
-                //maxDate: new Date(2018, 8 - 1, 24)
-                // minDate: new Date(2020, 4 - 1, 1),
-                // maxDate: new Date(2023, 8 - 1, 31),
-                beforeShowDay: disableAllTheseDays2
-			});
-			
-			//초기값을 오늘 날짜로 설정해줘야 합니다.
-		    // $('#s_ho_start').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
-		    // $('#s_ho_end').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
-		});
 		
-	   function disableAllTheseDays2(date) {
-            var day = date.getDay();
-            return [(day != 0 && day != 6)];
-			// 0=일, 1=월, 2=화, 4=목, 6=토 => 안나오게 할 것 
-        }
-    </script>
-	
+		// 지출내역 입력 시
+		$(".s_sp_detail").keyup(function() {
+			// 결재선 지정이 안되어 있다면
+			if($('div').hasClass('s_div') == false) {
+				alert('결재선 지정을 먼저 해주세요');
+				// 입력한 내용 지우기
+				$('.s_sp_detail').val("");
+			}
+		})
+		
+		// 수량 입력 시
+		$(".s_sp_count").keyup(function() {
+			// 결재선 지정이 안되어 있다면
+			if($('div').hasClass('s_div') == false) {
+				alert('결재선 지정을 먼저 해주세요');
+				// 입력한 내용 지우기
+				$('.s_sp_count').val("");
+			}
+		})
+		
+		// 금액 입력 시
+		$(".s_sp_amount").keyup(function() {
+			// 결재선 지정이 안되어 있다면
+			if($('div').hasClass('s_div') == false) {
+				alert('결재선 지정을 먼저 해주세요');
+				// 입력한 내용 지우기
+				$('.s_sp_amount').val("");
+			}
+		})
+	</script>
 
 </body>
 </html>

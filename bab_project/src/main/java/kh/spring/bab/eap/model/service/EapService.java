@@ -2,6 +2,7 @@ package kh.spring.bab.eap.model.service;
 
 import kh.spring.bab.attendance.domain.Attendance;
 import kh.spring.bab.eap.domain.Eap;
+import kh.spring.bab.eap.domain.Spending;
 
 public interface EapService {
 	
@@ -26,14 +27,14 @@ public interface EapService {
 	
 	/**
 	 * @author : 손은진
-	 * @return : 결재선 리스트, 참조처 리스트 DB 저장 insert 결과
+	 * @return : 결재선 리스트, 참조처 리스트 DB 저장 insert 결과(휴가신청서)
 	 * @param : Eap vo
 	 * */
 	public int insertapp(Eap eap);
 	
 	/**
 	 * @author : 손은진
-	 * @return : 전자결재 테이블 update
+	 * @return : 전자결재 테이블 update(휴가신청서 작성 시)
 	 * @param : Eap vo
 	 * */
 	public int updateeap(Eap eap);
@@ -45,5 +46,25 @@ public interface EapService {
 	 * */
 	public int insertatt(Attendance att);
 	
+	/**
+	 * @author : 손은진
+	 * @return : 지출테이블 insert
+	 * @param : Spending vo
+	 * */
+	public int insertSp(Spending sp);
+	
+	/**
+	 * @author : 손은진
+	 * @return : 전자결재테이블 update(지출결의서 작성 시)
+	 * @param : Eap vo
+	 * */
+	public int updateEapSp(Eap eap);
+	
+	/**
+	 * @author : 손은진
+	 * @return : 결재선 리스트, 참조처 리스트 DB 저장 insert 결과(지출결의서)
+	 * @param : Eap vo
+	 * */
+	public int insertappsp(Eap eap);
 
 }

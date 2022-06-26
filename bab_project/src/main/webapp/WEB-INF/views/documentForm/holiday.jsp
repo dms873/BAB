@@ -333,8 +333,8 @@
 	</script>
 		
 	<script>
-	    // 결재선 클릭 시
-	    $("#s_eap_appLine").click(function() {
+	    // 결재선 지정 클릭 시
+	    $("#s_appLine_btn").click(function() {
 	    	$("#s_modal_content").load("<%=request.getContextPath()%>/organ/selectList");
 	    });
    	</script>

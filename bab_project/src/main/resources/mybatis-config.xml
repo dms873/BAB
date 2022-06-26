@@ -13,6 +13,7 @@
 		<typeAlias type="kh.spring.bab.eap.domain.Eap" alias="Eap"/>
 		<typeAlias type="kh.spring.bab.info.domain.Info" alias="Info"/>
 		<typeAlias type="kh.spring.bab.attendance.domain.Attendance" alias="Att"/>
+		<typeAlias type="kh.spring.bab.eap.domain.Spending" alias="Sp"/>
 	</typeAliases>
 	 
 	<mappers>

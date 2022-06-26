@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import kh.spring.bab.attendance.domain.Attendance;
 import kh.spring.bab.eap.domain.Eap;
+import kh.spring.bab.eap.domain.Spending;
 
 @Repository
 public class EapDao {
@@ -28,12 +29,12 @@ public class EapDao {
 		return sqlSession.selectOne("Eap.selectDoc", df_code);
 	}
 	
-	// 결재선 리스트, 참조처 리스트 DB 저장
+	// 결재선 리스트, 참조처 리스트 DB 저장(휴가신청서)
 	public int insertapp(Eap eap) {
 		return sqlSession.insert("Eap.insertapp", eap);
 	}
 	
-	// 전자결재 테이블 update
+	// 전자결재 테이블 update(휴가신청서 작성 시)
 	public int updateeap(Eap eap) {
 		return sqlSession.update("Eap.updateeap", eap);
 	}
@@ -41,6 +42,21 @@ public class EapDao {
 	// 휴가테이블 insert
 	public int insertatt(Attendance att) {
 		return sqlSession.update("Eap.insertatt", att);
+	}
+	
+	// 지출테이블 insert
+	public int insertSp(Spending sp) {
+		return sqlSession.insert("Eap.insertSp", sp);
+	}
+
+	// 전자결재테이블 update(지출결의서 작성 시)
+	public int updateEapSp(Eap eap) {
+		return sqlSession.update("Eap.updateEapSp", eap);
+	}
+	
+	// 결재선 리스트, 참조처 리스트 DB 저장(지출결의서)
+	public int insertappsp(Eap eap) {
+		return sqlSession.insert("Eap.insertappsp", eap);
 	}
 
 }
