@@ -55,7 +55,7 @@
     		</tr>
 			<tr class="y_insert_tr">
 				<td class="y_insert_td">작성자</td>
-				<td class="y_insert_td"><input type="text" class="form-control" value="아무개" name="name" readonly></td>
+				<td class="y_insert_td"><input type="text" class="form-control" value=${updateBoard.board_writer } name="name" readonly></td>
 			</tr>    		
     		<tr class="y_insert_tr">
     			<td class="y_insert_td">내용</td>

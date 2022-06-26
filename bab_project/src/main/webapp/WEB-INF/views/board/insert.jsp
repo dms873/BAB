@@ -1,3 +1,4 @@
+<%@page import="kh.spring.bab.employee.domain.Employee"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -37,6 +38,18 @@
   </head>
   <body>
   
+		<%
+		// 현재 세션 값 담기
+		String id = null;
+		String name = null;
+		
+		Employee vo = (Employee) request.getSession().getAttribute("login");
+		
+		name = vo.getEmp_name();
+	
+		%>
+  
+  
     <div class="row" style="margin: 0 25px;">
 		<div class="col-lg-12" >
 			<h1 class="page-header">글쓰기</h1>
@@ -55,7 +68,7 @@
     		</tr>
 			<tr class="y_insert_tr">
 				<td class="y_insert_td">작성자</td>
-				<td class="y_insert_td"><input type="text" class="form-control" value="이대표" id="board_writer" name="board_writer" readonly></td>
+				<td class="y_insert_td"><input type="text" class="form-control" value="<%=name %>" id="board_writer" name="board_writer" readonly></td>
 			</tr>    		
     		<tr class="y_insert_tr">
     			<td class="y_insert_td">내용</td>

@@ -194,28 +194,12 @@
 				data : {"type" : valueSelect, "keyword" : valueInput},
 				success : function(result) {
 					console.log(result);
-					
 					$("#s_content_box").html(result);
-					
-					/* $("#y_board_tbody").empty();
-					if(result.length>=1) {
-						result.forEach(function(item){
-							str = '<tr>'
-							str += "<td>" + item.board_no + "</td>";
-							str += "<td><a href = '/board/read?board_no=" + item.board_no + "'>" + item.title + "</a></td>";
-							str += "<td>"+item.writer+"</td>";
-							str += "<td>"+item.date+"</td>";
-							str += "</tr>"
-							$('#y_board_tbody').append(str);
-						}) 
-					}*/
 				}
 			})
 		}
 	});
 		
-		
-	
 	// 게시물 리스트 [제목] 클릭 시 상세보기 페이지 진입
 	$(".y_board_view").click(function(){
 		var bNo = $(this).parents("tr").children(".y_td_no").text();
@@ -228,6 +212,7 @@
 	$("#y_btn_insert").click(function() {
         $("#y_board_content").load("<%=request.getContextPath()%>/board/insert");
     });
+	
 	</script>
  </div>
 </body>

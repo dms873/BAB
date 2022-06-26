@@ -47,7 +47,7 @@
     			<td class="y_read_td" style="background: #ededed; width: 100px;">No</td>
     			<td class="y_read_td" id="y_read_no" >${readBoard.board_no }</td>
     			<td class="y_read_td" style="background: #ededed; width: 100px;">작성자</td>
-				<td class="y_read_td">이대표</td>
+				<td class="y_read_td">${readBoard.board_writer }</td>
     			
     		</tr>
 			<tr class="y_insert_tr">
