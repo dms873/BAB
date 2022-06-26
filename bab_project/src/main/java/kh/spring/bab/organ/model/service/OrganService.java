@@ -49,4 +49,10 @@ public interface OrganService {
 	
 	public Organ selectDoc(String df_code);
 
+	/**
+	 * @param : 로그인한 사원번호
+	 * @return : 결재선 리스트 띄울 때 같이 띄울 정보
+	 * @author : 손은진
+	 * */
+	public Organ empInfo(String emp_no);
 }

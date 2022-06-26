@@ -65,4 +65,9 @@ public class EapDao {
 	public List<Eap> selectBeforeDoc(String emp_no) {
 		return sqlSession.selectList("Eap.selectBeforeDoc", emp_no);
 	}
+	
+	// 양식 처음 로드 시 띄울 정보
+	public Eap empInfo(String emp_no) {
+		return sqlSession.selectOne("Eap.empInfo", emp_no);
+	}
 }

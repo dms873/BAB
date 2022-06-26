@@ -76,4 +76,10 @@ public class EapServiceImpl implements EapService {
 		return dao.selectBeforeDoc(emp_no);
 	}
 
+	// 양식 처음 로드 시 띄울 정보
+	@Override
+	public Eap empInfo(String emp_no) {
+		return dao.empInfo(emp_no);
+	}
+
 }

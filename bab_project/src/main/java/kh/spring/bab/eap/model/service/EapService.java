@@ -75,5 +75,12 @@ public interface EapService {
 	 * @param : emp_no(로그인한 사람의 사번)
 	 * */
 	public List<Eap> selectBeforeDoc(String emp_no);
+	
+	/**
+	 * @author : 손은진
+	 * @return : 양식 처음 로드 시 띄울 정보
+	 * @param : emp_no(로그인한 사람의 사번)
+	 * */
+	public Eap empInfo(String emp_no);
 
 }

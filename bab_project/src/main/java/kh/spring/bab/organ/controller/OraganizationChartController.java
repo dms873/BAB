@@ -2,6 +2,7 @@ package kh.spring.bab.organ.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import kh.spring.bab.employee.domain.Employee;
 import kh.spring.bab.organ.domain.Organ;
 import kh.spring.bab.organ.model.service.OrganServiceImpl;
 
@@ -93,6 +95,7 @@ public class OraganizationChartController {
 	public ModelAndView selectApplineList(
 			ModelAndView mv
 			, @RequestParam(value = "emp_no[]", required = false) List<String> emp_noArr
+			, HttpServletRequest req
 			) {
 		
 		logger.info("emp_no : " + emp_noArr);
@@ -117,6 +120,13 @@ public class OraganizationChartController {
 		
 		logger.info("docNum 결과 : " + docNum);
 		
+		// 로그인한 사람 정보 가져오기(사번)
+		Employee emp = (Employee) req.getSession().getAttribute("login");
+		String emp_no = emp.getEmp_no();
+		
+		Organ eap = service.empInfo(emp_no);
+		mv.addObject("eap", eap);
+		
 		mv.setViewName("documentForm/holiday");
 		// mv.setViewName("eap/selectLine");
 		logger.info("mv 결과 : " + mv);
@@ -131,6 +141,7 @@ public class OraganizationChartController {
 	public ModelAndView selectApplineListSp(
 			ModelAndView mv
 			, @RequestParam(value = "emp_no[]", required = false) List<String> emp_noArr
+			, HttpServletRequest req
 			) {
 		
 		logger.info("emp_no : " + emp_noArr);
@@ -154,6 +165,13 @@ public class OraganizationChartController {
 		mv.addObject("resultDoc", docNum);
 		
 		logger.info("docNum 결과 : " + docNum);
+		
+		// 로그인한 사람 정보 가져오기(사번)
+		Employee emp = (Employee) req.getSession().getAttribute("login");
+		String emp_no = emp.getEmp_no();
+		
+		Organ eap = service.empInfo(emp_no);
+		mv.addObject("eap", eap);
 		
 		mv.setViewName("documentForm/spending");
 		logger.info("mv 결과 : " + mv);

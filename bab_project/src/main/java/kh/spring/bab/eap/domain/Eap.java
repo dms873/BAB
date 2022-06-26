@@ -24,8 +24,10 @@ public class Eap {
 	private String df_no; // 문서양식번호
 	private String df_code; // 문서양식코드
 	private String dept_name; // 부서명
+	private String job_title; // 직위명
 	private String emp_name; // 사원명
 	private String df_title; // 문서명
+	
 	
 	@Override
 	public String toString() {
@@ -35,7 +37,7 @@ public class Eap {
 				+ eap_final_ap + ", eap_first_dept=" + eap_first_dept + ", eap_final_dept=" + eap_final_dept
 				+ ", eap_draft_date=" + eap_draft_date + ", eap_result_date=" + eap_result_date + ", eap_update_date="
 				+ eap_update_date + ", emp_no=" + emp_no + ", df_no=" + df_no + ", df_code=" + df_code + ", dept_name="
-				+ dept_name + ", emp_name=" + emp_name + ", df_title=" + df_title + "]";
+				+ dept_name + ", job_title=" + job_title + ", emp_name=" + emp_name + ", df_title=" + df_title + "]";
 	}
 	public String getEap_no() {
 		return eap_no;
@@ -163,5 +165,12 @@ public class Eap {
 	public void setDf_title(String df_title) {
 		this.df_title = df_title;
 	}
+	public String getJob_title() {
+		return job_title;
+	}
+	public void setJob_title(String job_title) {
+		this.job_title = job_title;
+	}
+	
 	
 }

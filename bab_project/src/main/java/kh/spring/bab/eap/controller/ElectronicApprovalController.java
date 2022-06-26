@@ -1,11 +1,7 @@
 package kh.spring.bab.eap.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +47,6 @@ public class ElectronicApprovalController {
 		String emp_no = emp.getEmp_no();
 		
 		List<Eap> beforeDoc = service.selectBeforeDoc(emp_no);
-		System.out.println("결과 : " + beforeDoc);
 		mv.addObject("beforeDoc", beforeDoc);
 		mv.setViewName("eap/beforedoc");
 		return mv;
@@ -124,7 +119,16 @@ public class ElectronicApprovalController {
 
 	// 문서 상세 조회
 	@GetMapping("/selectdoc")
-	public ModelAndView selectDoc(ModelAndView mv) {
+	public ModelAndView selectDoc(
+			ModelAndView mv,
+			HttpServletRequest req
+			
+			) {
+		
+		// 로그인한 사람 정보 가져오기(사번)
+		Employee emp = (Employee) req.getSession().getAttribute("login");
+		String emp_no = emp.getEmp_no();
+		
 		mv.setViewName("eap/selectdoc");
 		return mv;
 	}
@@ -141,7 +145,8 @@ public class ElectronicApprovalController {
 	@ResponseBody
 	public ModelAndView insertDoc(
 			ModelAndView mv,
-			@RequestParam(name = "form", required = false) String form
+			@RequestParam(name = "form", required = false) String form,
+			HttpServletRequest req
 			) {
 		
 		System.out.println("값 받아오나? : " + form);
@@ -155,6 +160,14 @@ public class ElectronicApprovalController {
 			df_code = "A";
 			resultDoc = service.selectDoc(df_code);
 			logger.info("==============" + resultDoc);
+			
+			// 로그인한 사람 정보 가져오기
+			Employee emp = (Employee) req.getSession().getAttribute("login");
+			String emp_no = emp.getEmp_no();
+			
+			Eap eap = service.empInfo(emp_no);
+			mv.addObject("eap", eap);
+			
 			// 문서양식번호 띄울 정보
 			mv.addObject("resultDoc", resultDoc);
 			mv.setViewName("documentForm/holiday");
@@ -162,6 +175,14 @@ public class ElectronicApprovalController {
 			result = service.insertSpDoc();
 			df_code = "B";
 			resultDoc = service.selectDoc(df_code);
+			
+			// 로그인한 사람 정보 가져오기
+			Employee emp = (Employee) req.getSession().getAttribute("login");
+			String emp_no = emp.getEmp_no();
+			
+			Eap eap = service.empInfo(emp_no);
+			mv.addObject("eap", eap);
+						
 			// 문서양식번호 띄울 정보
 			mv.addObject("resultDoc", resultDoc);
 			mv.setViewName("documentForm/spending");
@@ -198,6 +219,8 @@ public class ElectronicApprovalController {
 		
 		int result = service.insertappsp(eap);
 		
+		
+		
 		logger.info("결재선 리스트, 참조처 리스트 insert결과 : " + result);
 		
 		String msg = "";
@@ -215,6 +238,7 @@ public class ElectronicApprovalController {
 	@ResponseBody
 	public String insertapp(
 			Eap eap,
+			ModelAndView mv,
 			@RequestParam(name = "eap_first_ap", required = false) String eap_first_ap,
 			@RequestParam(name = "eap_mid_ap", required = false) String eap_mid_ap,
 			@RequestParam(name = "eap_final_ap", required = false) String eap_final_ap,
@@ -237,6 +261,7 @@ public class ElectronicApprovalController {
 		eap.setEmp_no(emp_no);
 		
 		int result = service.insertapp(eap);
+		
 		
 		logger.info("결재선 리스트, 참조처 리스트 insert결과 : " + result);
 		

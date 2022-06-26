@@ -166,15 +166,15 @@
 				<table border="1" id="s_eap_draft_info">
 					<tr>
 						<th>기안자</th>
-						<td>손은진</td>
+						<td>${eap.emp_name }</td>
 					</tr>
 					<tr>
 						<th>기안부서</th>
-						<td>회계팀</td>
+						<td>${eap.dept_name }</td>
 					</tr>
 					<tr>
 						<th>기안일</th>
-						<td>2022/05/26</td>
+						<td>${eap.eap_draft_date }</td>
 					</tr>
 					<tr>
 						<th>문서번호</th>
@@ -187,10 +187,10 @@
 				<table border="1" id="s_eap_draft">
 					<tr>
 						<th rowspan="2">신청</th>
-						<td>차장</td>
+						<td>${eap.job_title }</td>
 					</tr>
 					<tr>
-						<td>손은진</td>
+						<td>${eap.emp_name }</td>
 					</tr>
 				</table>
 			</div>
@@ -302,11 +302,11 @@
 			<div style="font-size: 1.2em;font-weight: bold; margin-bottom: 20px;">결재선</div>
 			<div style="padding-bottom: 20px; border-bottom: 1px solid lightgray;">
 				<div>
-					<span>회계팀</span>
-					<span>차장</span>
+					<span>${eap.dept_name }</span>
+					<span>${eap.job_title }</span>
 				</div>
 				<div>
-					<span>손은진</span>
+					<span>${eap.emp_name }</span>
 					<span style="color: crimson;font-weight: bold;">기안</span>
 				</div>
 			</div>

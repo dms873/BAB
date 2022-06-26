@@ -43,4 +43,9 @@ public class OrganDao {
 	public Organ selectDoc(String df_code) {
 		return sqlSession.selectOne("Organ.selectDoc", df_code);
 	}
+	
+	// 휴가 신청서 문서 번호 조회
+	public Organ empInfo(String emp_no) {
+		return sqlSession.selectOne("Organ.empInfo", emp_no);
+	}
 }

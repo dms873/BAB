@@ -49,6 +49,12 @@ public class OrganServiceImpl implements OrganService {
 	public Organ selectDoc(String df_code) {
 		return dao.selectDoc(df_code);
 	}
+
+	// 결재선 리스트 띄울 때 같이 띄울 정보
+	@Override
+	public Organ empInfo(String emp_no) {
+		return dao.empInfo(emp_no);
+	}
 	
 	
 }

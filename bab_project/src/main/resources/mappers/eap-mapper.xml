@@ -53,20 +53,29 @@
 	<!-- 결재선 리스트, 참조처 리스트 DB 저장(지출결의서) -->
 	<insert id="insertappsp" parameterType="Eap">
 		INSERT INTO ELECTRONIC_APPROVAL(EAP_NO, EAP_STA_CODE, EAP_FIRST_AP, EAP_MID_AP, EAP_FINAL_AP, EAP_FIRST_DEPT, EAP_FINAL_DEPT, EMP_NO, DF_NO) 
-		VALUES (EAP_SEQ.NEXTVAL, DEFAULT, #{eap_first_ap}, #{eap_mid_ap}, #{eap_final_ap}, #{eap_first_dept}, #{eap_final_dept}, #{eap_no}, (SELECT MAX(DF_NO) DF_NO FROM DOCUMENT_FORM WHERE DF_CODE = 'B'))
+		VALUES (EAP_SEQ.NEXTVAL, DEFAULT, #{eap_first_ap}, #{eap_mid_ap}, #{eap_final_ap}, #{eap_first_dept}, #{eap_final_dept}, #{emp_no}, (SELECT MAX(DF_NO) DF_NO FROM DOCUMENT_FORM WHERE DF_CODE = 'B'))
 	</insert>
 	
 	<!-- 결재대기문서 -->
 	<select id="selectBeforeDoc" parameterType="string" resultType="Eap">
 		SELECT TO_CHAR(EAP_DRAFT_DATE,'YYYY/MM/DD') EAP_DRAFT_DATE,
-	      (SELECT DEPT_NAME FROM DEPT JOIN EMPLOYEE USING(DEPT_CODE) WHERE EMP_NO = '2206131') DEPT_NAME, 
+	      (SELECT DEPT_NAME FROM DEPT JOIN EMPLOYEE USING(DEPT_CODE) WHERE EMP_NO = #{emp_no}) DEPT_NAME, 
 	      EMP_NAME, DF_TITLE, EAP_TITLE, EAP_CONTENT, EMP_NO, DF_NO, EAP_NO,
 	      DECODE(EAP_STA_CODE, 'C', '결재회수', 'S', '결재대기', 'O', '진행중', 'F', '결재완료', 'R', '반려') EAP_STA_CODE 
 		FROM ELECTRONIC_APPROVAL
 		JOIN DOCUMENT_FORM USING(DF_NO)
 		JOIN EMPLOYEE USING(EMP_NO)
-		WHERE EAP_STA_CODE = 'S'
+		WHERE EAP_STA_CODE = 'S' AND EMP_NO = #{emp_no}
 		ORDER BY EAP_DRAFT_DATE DESC, EAP_NO DESC
+	</select>
+	
+	<!-- 양식 처음 로드 시 띄울 정보 -->
+	<select id="empInfo" parameterType="string" resultType="Eap">
+		SELECT EMP_NO, EMP_NAME, 
+			(SELECT JOB_TITLE FROM JOB JOIN EMPLOYEE USING(JOB_CODE) WHERE EMP_NO = #{emp_no}) JOB_TITLE,
+			(SELECT DEPT_NAME FROM DEPT JOIN EMPLOYEE USING(DEPT_CODE) WHERE EMP_NO = #{emp_no}) DEPT_NAME, 
+			(SELECT TO_CHAR(SYSDATE,'YYYY/MM/DD') FROM DUAL) EAP_DRAFT_DATE 
+		FROM EMPLOYEE WHERE EMP_NO = #{emp_no}
 	</select>
 	
 </mapper>
