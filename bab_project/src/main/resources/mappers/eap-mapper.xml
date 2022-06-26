@@ -27,7 +27,7 @@
 	<!-- 결재선 리스트, 참조처 리스트 DB 저장(휴가신청서) -->
 	<insert id="insertapp" parameterType="Eap">
 		INSERT INTO ELECTRONIC_APPROVAL(EAP_NO, EAP_STA_CODE, EAP_FIRST_AP, EAP_MID_AP, EAP_FINAL_AP, EAP_FIRST_DEPT, EAP_FINAL_DEPT, EMP_NO, DF_NO) 
-		VALUES (EAP_SEQ.NEXTVAL, DEFAULT, #{eap_first_ap}, #{eap_mid_ap}, #{eap_final_ap}, #{eap_first_dept}, #{eap_final_dept}, '2206131', (SELECT MAX(DF_NO) DF_NO FROM DOCUMENT_FORM WHERE DF_CODE = 'A'))
+		VALUES (EAP_SEQ.NEXTVAL, DEFAULT, #{eap_first_ap}, #{eap_mid_ap}, #{eap_final_ap}, #{eap_first_dept}, #{eap_final_dept}, #{emp_no}, (SELECT MAX(DF_NO) DF_NO FROM DOCUMENT_FORM WHERE DF_CODE = 'A'))
 	</insert>
 	
 	<!-- 전자결재 테이블 update(휴가신청서 작성 시) -->
@@ -37,7 +37,7 @@
 	
 	<!-- 휴가 테이블 insert -->
 	<insert id="insertatt" parameterType="Att">
-		INSERT INTO HOLIDAY VALUES(HOLIDAY_SEQ.NEXTVAL, #{ho_code}, #{ho_start}, #{ho_end}, NULL, #{ho_use_count}, '2206131', #{df_no}) 
+		INSERT INTO HOLIDAY VALUES(HOLIDAY_SEQ.NEXTVAL, #{ho_code}, #{ho_start}, #{ho_end}, NULL, #{ho_use_count}, #{emp_no}, #{df_no}) 
 	</insert>
 	
 	<!-- 전자결재 테이블 update(지출결의서 작성 시) -->
@@ -53,7 +53,7 @@
 	<!-- 결재선 리스트, 참조처 리스트 DB 저장(지출결의서) -->
 	<insert id="insertappsp" parameterType="Eap">
 		INSERT INTO ELECTRONIC_APPROVAL(EAP_NO, EAP_STA_CODE, EAP_FIRST_AP, EAP_MID_AP, EAP_FINAL_AP, EAP_FIRST_DEPT, EAP_FINAL_DEPT, EMP_NO, DF_NO) 
-		VALUES (EAP_SEQ.NEXTVAL, DEFAULT, #{eap_first_ap}, #{eap_mid_ap}, #{eap_final_ap}, #{eap_first_dept}, #{eap_final_dept}, '2206131', (SELECT MAX(DF_NO) DF_NO FROM DOCUMENT_FORM WHERE DF_CODE = 'B'))
+		VALUES (EAP_SEQ.NEXTVAL, DEFAULT, #{eap_first_ap}, #{eap_mid_ap}, #{eap_final_ap}, #{eap_first_dept}, #{eap_final_dept}, #{eap_no}, (SELECT MAX(DF_NO) DF_NO FROM DOCUMENT_FORM WHERE DF_CODE = 'B'))
 	</insert>
 	
 	
