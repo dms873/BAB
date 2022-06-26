@@ -1,12 +1,9 @@
 package kh.spring.bab.eap.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,18 +12,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-
 import kh.spring.bab.attendance.domain.Attendance;
 import kh.spring.bab.eap.domain.Eap;
 import kh.spring.bab.eap.domain.Spending;
 import kh.spring.bab.eap.model.service.EapServiceImpl;
+import kh.spring.bab.employee.domain.Employee;
 
 @Controller
 @RequestMapping("eap")
 public class ElectronicApprovalController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(ElectronicApprovalController.class);
 	
 	@Autowired
 	private EapServiceImpl service;
@@ -78,7 +74,7 @@ public class ElectronicApprovalController {
 	@GetMapping("/selectform/spending")
 	public ModelAndView selectSpending(ModelAndView mv
 			, @RequestParam(name = "fileUrl", required = false) String fileUrl) {
-		System.out.println(fileUrl);
+		logger.info(fileUrl);
 		mv.setViewName("documentForm/spending");
 		return mv;
 	}
@@ -143,7 +139,7 @@ public class ElectronicApprovalController {
 			result = service.insertHoDoc();
 			df_code = "A";
 			resultDoc = service.selectDoc(df_code);
-			System.out.println("==============" + resultDoc);
+			logger.info("==============" + resultDoc);
 			// 문서양식번호 띄울 정보
 			mv.addObject("resultDoc", resultDoc);
 			mv.setViewName("documentForm/holiday");
@@ -159,16 +155,17 @@ public class ElectronicApprovalController {
 		return mv;
 	}
 	
-	// 결재선 리스트, 참조처 리스트 DB 저장
+	// 결재선 리스트, 참조처 리스트 DB 저장(지출결의서)
 	@PostMapping(value = "/insertappsp", produces = "text/plain;charset=UTF-8")
 	@ResponseBody
-	public String insertapp(
+	public String insertappsp(
 			Eap eap,
 			@RequestParam(name = "eap_first_ap", required = false) String eap_first_ap,
 			@RequestParam(name = "eap_mid_ap", required = false) String eap_mid_ap,
 			@RequestParam(name = "eap_final_ap", required = false) String eap_final_ap,
 			@RequestParam(name = "eap_first_dept", required = false) String eap_first_dept,
-			@RequestParam(name = "eap_final_dept", required = false) String eap_final_dept
+			@RequestParam(name = "eap_final_dept", required = false) String eap_final_dept,
+			HttpServletRequest req
 			) {
 		
 		System.out.println(eap_first_ap + ", " + eap_mid_ap + ", " + eap_final_ap + ", " + eap_first_dept + ", " + eap_final_ap);
@@ -179,9 +176,54 @@ public class ElectronicApprovalController {
 		eap.setEap_first_dept(eap_first_dept);
 		eap.setEap_final_dept(eap_final_dept);
 		
+		// 로그인한 사람 정보 가져오기(사번)
+		Employee emp = (Employee) req.getSession().getAttribute("login");
+		String emp_no = emp.getEmp_no();
+		eap.setEmp_no(emp_no);
+		
 		int result = service.insertappsp(eap);
 		
-		System.out.println("결재선 리스트, 참조처 리스트 insert결과 : " + result);
+		logger.info("결재선 리스트, 참조처 리스트 insert결과 : " + result);
+		
+		String msg = "";
+		if(result > 0) {
+			msg = "결재선이 지정되었습니다.";
+		} else {
+			msg = "결재선 지정에 실패하였습니다.";
+		}
+		
+		return msg;
+	}
+	
+	// 결재선 리스트, 참조처 리스트 DB 저장(휴가신청서)
+	@PostMapping(value = "/insertapp", produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public String insertapp(
+			Eap eap,
+			@RequestParam(name = "eap_first_ap", required = false) String eap_first_ap,
+			@RequestParam(name = "eap_mid_ap", required = false) String eap_mid_ap,
+			@RequestParam(name = "eap_final_ap", required = false) String eap_final_ap,
+			@RequestParam(name = "eap_first_dept", required = false) String eap_first_dept,
+			@RequestParam(name = "eap_final_dept", required = false) String eap_final_dept,
+			HttpServletRequest req
+			) {
+		
+		System.out.println(eap_first_ap + ", " + eap_mid_ap + ", " + eap_final_ap + ", " + eap_first_dept + ", " + eap_final_ap);
+		
+		eap.setEap_first_ap(eap_first_ap);
+		eap.setEap_mid_ap(eap_mid_ap);
+		eap.setEap_final_ap(eap_final_ap);
+		eap.setEap_first_dept(eap_first_dept);
+		eap.setEap_final_dept(eap_final_dept);
+		
+		// 로그인한 사람 정보 가져오기(사번)
+		Employee emp = (Employee) req.getSession().getAttribute("login");
+		String emp_no = emp.getEmp_no();
+		eap.setEmp_no(emp_no);
+		
+		int result = service.insertapp(eap);
+		
+		logger.info("결재선 리스트, 참조처 리스트 insert결과 : " + result);
 		
 		String msg = "";
 		if(result > 0) {
@@ -205,13 +247,13 @@ public class ElectronicApprovalController {
 			@RequestParam(name = "ho_code", required = false) String ho_code,
 			@RequestParam(name = "ho_start", required = false) String ho_start,
 			@RequestParam(name = "ho_end", required = false) String ho_end,
-			@RequestParam(name = "ho_use_count", required = false) String ho_use_count
-			
+			@RequestParam(name = "ho_use_count", required = false) String ho_use_count,
+			HttpServletRequest req
 			) {
 		
-			System.out.println("ho_code : " + ho_code);
-			System.out.println("eap_title : " + eap_title);
-			System.out.println("ho_use_count : " + ho_use_count);
+			logger.info("ho_code : " + ho_code);
+			logger.info("eap_title : " + eap_title);
+			logger.info("ho_use_count : " + ho_use_count);
 		
 			eap.setDf_no(df_no);
 			eap.setEap_title(eap_title);
@@ -221,6 +263,13 @@ public class ElectronicApprovalController {
 			att.setHo_start(ho_start);
 			att.setHo_end(ho_end);
 			att.setHo_use_count(ho_use_count);
+			
+			// 로그인한 사람 정보 가져오기(사번)
+			Employee emp = (Employee) req.getSession().getAttribute("login");
+			String emp_no = emp.getEmp_no();
+			
+			att.setEmp_no(emp_no);
+			eap.setEmp_no(emp_no);
 			
 			// 전자결재 테이블 update
 			int resultEap = service.updateeap(eap);
@@ -249,18 +298,13 @@ public class ElectronicApprovalController {
 			,  @RequestParam(value = "df_no", required = false) String df_no
 			,  @RequestParam(value = "eap_title", required = false) String eap_title
 			,  @RequestParam(value = "eap_content", required = false) String eap_content
-			, Spending sp
-			, Eap eap
+			,  Spending sp
+			,  Eap eap
+			,  HttpServletRequest req
 			) {
 		
-		System.out.println(sp_date);
-		System.out.println(sp_detail);
-		System.out.println(sp_count);
-		System.out.println(sp_amount);
+		// 콤마 제거
 		sp_amount = removeComma(sp_amount);
-		System.out.println(sp_amount);
-		System.out.println(sp_pay_code);
-		System.out.println(df_no);
 		
 		sp.setSp_date(sp_date);
 		sp.setSp_detail(sp_detail);
@@ -271,6 +315,11 @@ public class ElectronicApprovalController {
 		eap.setDf_no(df_no);
 		eap.setEap_title(eap_title);
 		eap.setEap_content(eap_content);
+		
+		// 로그인한 사람 정보 가져오기(사번)
+		Employee emp = (Employee) req.getSession().getAttribute("login");
+		String emp_no = emp.getEmp_no();
+		eap.setEmp_no(emp_no);
 		
 		// 지출테이블 insert
 		int resultSp = service.insertSp(sp);
