@@ -709,6 +709,7 @@
 					"eap_content" : $('#s_sp_co').val(),
 			}
 			
+			
 			// 결재요청 클릭 시 DB다녀올 ajax
 			$.ajax({
 				url : "<%=request.getContextPath()%>/eap/insertsp"

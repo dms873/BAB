@@ -1,5 +1,7 @@
 package kh.spring.bab.eap.model.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -59,4 +61,8 @@ public class EapDao {
 		return sqlSession.insert("Eap.insertappsp", eap);
 	}
 
+	// 결재대기문서
+	public List<Eap> selectBeforeDoc(String emp_no) {
+		return sqlSession.selectList("Eap.selectBeforeDoc", emp_no);
+	}
 }

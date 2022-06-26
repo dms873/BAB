@@ -23,6 +23,9 @@ public class Eap {
 	private String emp_no; // 사원번호
 	private String df_no; // 문서양식번호
 	private String df_code; // 문서양식코드
+	private String dept_name; // 부서명
+	private String emp_name; // 사원명
+	private String df_title; // 문서명
 	
 	@Override
 	public String toString() {
@@ -31,9 +34,9 @@ public class Eap {
 				+ eap_reject + ", eap_first_ap=" + eap_first_ap + ", eap_mid_ap=" + eap_mid_ap + ", eap_final_ap="
 				+ eap_final_ap + ", eap_first_dept=" + eap_first_dept + ", eap_final_dept=" + eap_final_dept
 				+ ", eap_draft_date=" + eap_draft_date + ", eap_result_date=" + eap_result_date + ", eap_update_date="
-				+ eap_update_date + ", emp_no=" + emp_no + ", df_no=" + df_no + ", df_code=" + df_code + "]";
+				+ eap_update_date + ", emp_no=" + emp_no + ", df_no=" + df_no + ", df_code=" + df_code + ", dept_name="
+				+ dept_name + ", emp_name=" + emp_name + ", df_title=" + df_title + "]";
 	}
-	
 	public String getEap_no() {
 		return eap_no;
 	}
@@ -141,6 +144,24 @@ public class Eap {
 	}
 	public void setDf_code(String df_code) {
 		this.df_code = df_code;
+	}
+	public String getDept_name() {
+		return dept_name;
+	}
+	public void setDept_name(String dept_name) {
+		this.dept_name = dept_name;
+	}
+	public String getEmp_name() {
+		return emp_name;
+	}
+	public void setEmp_name(String emp_name) {
+		this.emp_name = emp_name;
+	}
+	public String getDf_title() {
+		return df_title;
+	}
+	public void setDf_title(String df_title) {
+		this.df_title = df_title;
 	}
 	
 }

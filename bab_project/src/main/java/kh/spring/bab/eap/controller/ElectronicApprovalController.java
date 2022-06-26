@@ -1,5 +1,9 @@
 package kh.spring.bab.eap.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -37,7 +41,18 @@ public class ElectronicApprovalController {
 	
 	// 결재 대기 문서
 	@GetMapping("/beforedoc")
-	public ModelAndView selectBeforeDoc(ModelAndView mv) {
+	public ModelAndView selectBeforeDoc(
+			ModelAndView mv,
+			HttpServletRequest req
+			) {
+		
+		// 로그인한 사람 정보 가져오기(사번)
+		Employee emp = (Employee) req.getSession().getAttribute("login");
+		String emp_no = emp.getEmp_no();
+		
+		List<Eap> beforeDoc = service.selectBeforeDoc(emp_no);
+		System.out.println("결과 : " + beforeDoc);
+		mv.addObject("beforeDoc", beforeDoc);
 		mv.setViewName("eap/beforedoc");
 		return mv;
 	}
@@ -358,6 +373,7 @@ public class ElectronicApprovalController {
 	public String removeComma(String data) {
 		return data.replaceAll("\\,", "");
 	}
+	
 	
 	
 	

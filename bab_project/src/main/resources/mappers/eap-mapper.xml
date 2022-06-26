@@ -56,5 +56,17 @@
 		VALUES (EAP_SEQ.NEXTVAL, DEFAULT, #{eap_first_ap}, #{eap_mid_ap}, #{eap_final_ap}, #{eap_first_dept}, #{eap_final_dept}, #{eap_no}, (SELECT MAX(DF_NO) DF_NO FROM DOCUMENT_FORM WHERE DF_CODE = 'B'))
 	</insert>
 	
+	<!-- 결재대기문서 -->
+	<select id="selectBeforeDoc" parameterType="string" resultType="Eap">
+		SELECT TO_CHAR(EAP_DRAFT_DATE,'YYYY/MM/DD') EAP_DRAFT_DATE,
+	      (SELECT DEPT_NAME FROM DEPT JOIN EMPLOYEE USING(DEPT_CODE) WHERE EMP_NO = '2206131') DEPT_NAME, 
+	      EMP_NAME, DF_TITLE, EAP_TITLE, EAP_CONTENT, EMP_NO, DF_NO, EAP_NO,
+	      DECODE(EAP_STA_CODE, 'C', '결재회수', 'S', '결재대기', 'O', '진행중', 'F', '결재완료', 'R', '반려') EAP_STA_CODE 
+		FROM ELECTRONIC_APPROVAL
+		JOIN DOCUMENT_FORM USING(DF_NO)
+		JOIN EMPLOYEE USING(EMP_NO)
+		WHERE EAP_STA_CODE = 'S'
+		ORDER BY EAP_DRAFT_DATE DESC, EAP_NO DESC
+	</select>
 	
 </mapper>

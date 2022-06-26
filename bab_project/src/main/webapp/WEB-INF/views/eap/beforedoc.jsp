@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,26 +53,24 @@
 				    </tr>
 				  </thead>
 				  <tbody>
-				    <tr id="s_test">
-				      <th scope="row">1</th>
-				      <td>2022/05/26</td>
-				      <td>회계팀</td>
-				      <td>손은진</td>
-				      <td>지출결의서</td>
-				      <td>신규 직원채용 명함 신청의 건</td>
-				      <td><i class="bi bi-paperclip"></i></td>
-				      <td><button class="btn btn-success" style="font-size: .8em; width: 77px;">진행중</button></td>
-				    </tr>
-				    <tr>
-				      <th scope="row">2</th>
-				      <td>2022/05/26</td>
-				      <td>회계팀</td>
-				      <td>손은진</td>
-				      <td>휴가신청서</td>
-				      <td>개인 연차 신청의 건</td>
-				      <td></td>
-				      <td><button class="btn btn-warning" style="font-size: .8em;">결재대기</button></td>
-				    </tr>
+				  	<c:forEach items="${beforeDoc }" var="i">
+					    <tr>
+					      <th scope="row">${i.eap_no }</th>
+					      <td>${i.eap_draft_date }</td>
+					      <td>${i.dept_name }</td>
+					      <td>${i.emp_name }</td>
+					      <td>${i.df_title }</td>
+					      <td>${i.eap_title }</td>
+					      <td><i class="bi bi-paperclip"></i></td>
+					      <c:if test="${i.eap_sta_code eq '결재대기'}">
+					      	<td><button class="btn btn-warning" style="font-size: .8em;">결재대기</button></td>
+					      </c:if>
+					      <c:if test="${i.eap_sta_code eq '진행중'}">
+					      	<td><button class="btn btn-success" style="font-size: .8em; width: 77px;">진행중</button></td>
+					      </c:if>
+					      <!-- TODO) 결재회수, 반려, 결재완료 추가 예정 -->
+					    </tr>
+				    </c:forEach>
 				  </tbody>
 				</table>
 			</div>

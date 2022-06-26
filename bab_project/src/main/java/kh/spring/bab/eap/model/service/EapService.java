@@ -1,5 +1,7 @@
 package kh.spring.bab.eap.model.service;
 
+import java.util.List;
+
 import kh.spring.bab.attendance.domain.Attendance;
 import kh.spring.bab.eap.domain.Eap;
 import kh.spring.bab.eap.domain.Spending;
@@ -66,5 +68,12 @@ public interface EapService {
 	 * @param : Eap vo
 	 * */
 	public int insertappsp(Eap eap);
+	
+	/**
+	 * @author : 손은진
+	 * @return : 결재 대기 문서
+	 * @param : emp_no(로그인한 사람의 사번)
+	 * */
+	public List<Eap> selectBeforeDoc(String emp_no);
 
 }

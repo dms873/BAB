@@ -1,5 +1,7 @@
 package kh.spring.bab.eap.model.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -66,6 +68,12 @@ public class EapServiceImpl implements EapService {
 	@Override
 	public int insertappsp(Eap eap) {
 		return dao.insertappsp(eap);
+	}
+
+	// 결재대기문서
+	@Override
+	public List<Eap> selectBeforeDoc(String emp_no) {
+		return dao.selectBeforeDoc(emp_no);
 	}
 
 }
