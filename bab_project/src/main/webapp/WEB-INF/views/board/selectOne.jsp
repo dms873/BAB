@@ -38,6 +38,9 @@
 	</div>
     <button class="btn btn-secondary" id="y_btn_back" style="margin: 30px 20px 10px;">목록</button>
 	
+	<input id="y_hid_title" name="y_hid_title" type="hidden" value="${readBoard.board_title }">
+	<input id="y_hid_content" name="y_hid_content" type="hidden" value="${readBoard.board_content }">
+	
     <div style="padding: 20px;">
     	<table class="y_read_table">
     		<tr class="y_read_tr">
@@ -53,11 +56,12 @@
 				<td class="y_read_td" style="background: #ededed; width: 100px;">작성일</td>
 				<td class="y_read_td">${readBoard.board_date }</td>
 			</tr>    		
+			<tr class="y_insert_tr">
+				<td colspan="4" class="y_read_td" style="background: #ededed; width: 100px; text-align: center;">내용</td>
+			</tr>
     		<tr class="y_insert_tr">
     			<td colspan=4 class="y_read_td">
-				<input id="y_hid_title" name="y_hid_title" type="hidden" value="${readBoard.board_title }">
-				<input id="y_hid_content" name="y_hid_content" type="hidden" value="${readBoard.board_content }">
-    				<div id=y_read_content>
+    				<div id=y_read_content></div>
     					<script>
     						var content = $("#y_hid_content").val();
     						console.log("content : "+ content);
@@ -70,7 +74,6 @@
     						tmpStr = tmpStr.replaceAll("&amp;amp;","&");
     						document.getElementById('y_read_content').innerHTML=tmpStr;
     					</script>
-    				</div>
     			</td>
     		</tr>
     	</table>

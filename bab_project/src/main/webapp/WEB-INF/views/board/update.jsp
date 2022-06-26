@@ -24,9 +24,12 @@
    		 	border-left: none;
  		}
  		
-  		.ck.ck-content{
- 			height: 350px;
- 		} 
+  		.ck-editor__editable {
+  			height: 400px;
+  		}
+  		.ck-content {
+  			font-size: 12px;
+  		}
  		
     	
     </style>
@@ -64,8 +67,11 @@
     </div>
     
     
-    <script>
-      ClassicEditor.create( document.querySelector( '#editor' ) );
+     <script>
+      ClassicEditor.create( document.querySelector( '#editor' ), {
+    	  removePlugins: [ 'Heading' ],
+    	  language: { ui: 'ko' , content: 'ko' }
+      });
     </script>
     <script>
     
@@ -79,7 +85,7 @@
     	var bNo =$("#y_input_hidden").val();
     	console.log("bNo : "+ bNo);
     	var ttl = $("#board_title").val();
-    	var ctt = $(".ck.ck-content").text();
+    	var ctt = $('.ck.ck-content').html().replace(/<br data-cke-filler="true">/g, "&nbsp;");
     	console.log("ttl : " + ttl +", "+ "ctt : " + ctt);
     	var obj = { "board_no" : bNo, "board_title"  : ttl, "board_content" : ctt};
     	console.log("obj : " + obj)

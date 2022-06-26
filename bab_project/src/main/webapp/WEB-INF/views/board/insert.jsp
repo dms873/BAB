@@ -24,9 +24,12 @@
    		 	border-left: none;
  		}
  		
-  		.ck.ck-content{
- 			height: 350px;
- 		} 
+  		.ck-editor__editable {
+  			height: 400px;
+  		}
+  		.ck-content {
+  			font-size: 12px;
+  		}
  		
     	
     </style>
@@ -65,23 +68,20 @@
     
     
     <script>
-      ClassicEditor.create( document.querySelector( '#editor' ) );
+      ClassicEditor.create( document.querySelector( '#editor' ), {
+    	  removePlugins: [ 'Heading' ],
+    	  language: { ui: 'ko' , content: 'ko' }
+      });
     </script>
     <script>
-    $("#y_btn_back").click(function(){
-    	$("#menu_board").get(0).click();
-    });
-    
-  /* var $form = $("#y_board_insert");
-    $form.find(".btnChk").on("click",function(e){
-    	var inf = $form.serialize();
-    	var ctt = $(".ck.ck-content").text();
-    	console.log(inf+ctt); */
+	    $("#y_btn_back").click(function(){
+	    	$("#menu_board").get(0).click();
+	    });
     	
     	$("#y_btn_insertDo").click(function() {
     		var ttl = $("#board_title").val();
     		var wrt = $("#board_writer").val();
-    		var ctt = $(".ck.ck-content").text();
+    		var ctt = $('.ck.ck-content').html().replace(/<br data-cke-filler="true">/g, "&nbsp;");
     		var obj = { "board_title" : ttl, "board_writer" : wrt, "board_content" : ctt};
     		console.log("obj : "+obj);
     		
