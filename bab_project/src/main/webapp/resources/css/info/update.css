@@ -49,6 +49,10 @@
 .j_infod_addcontent {
 	height: 33px;
 }
+/*  */
+.uploadcare--widget__button_type_open{
+	margin-left:-180px;
+}
 /* input태그 */
 .j_infod_input {
 	height: 32px;

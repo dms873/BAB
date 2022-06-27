@@ -37,6 +37,9 @@
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<!-- kakao(daum) 주소 API CDN 추가 혜미-220624 -->
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<!-- Uploadcare CDN 추가 혜미-220627 -->
+    <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.min.js"></script>
+    <script>UPLOADCARE_LOCALE = "ko"</script>
     <!-- 공통 reset.css -->
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/reset.css">
 <meta charset="UTF-8">

@@ -22,9 +22,14 @@
 						<tr>
 							<td class="j_infod_title">프로필 사진<a class="j_infod_sym">*</a></td>
 							<td class="j_infod_content"><img
-								src="https://via.placeholder.com/60x60" id="j_infod_img"></td>
-							<td class="j_infod_content"><input type="file"
-								class="j_infod_btn" id="emp_profile"></td>
+								src="https://via.placeholder.com/60x60" id="j_infod_img" name="emp_file_path"></td>
+							<td class="j_infod_content">
+							<input type="hidden"
+								role="uploadcare-uploader"
+   								data-public-key="318e0db7c626903e59e3"
+    							data-tabs="file camera url"
+								id="emp_file_path">
+							</td>
 						</tr>
 						<tr>
 							<td class="j_infod_title">사번</td>
@@ -74,7 +79,7 @@
 						</tr>
 						<tr>
 							<td class="j_infod_addtitle"></td>
-							<td class="j_infod_addcontent"><input type="text"
+							<td class="j_infod_addcontent" style="width:68px"><input type="text"
 								id="emp_zipcode" name="emp_zipcode" class="j_infod_zipcode"
 								placeholder="우편번호" value="${update.emp_zipcode}"></td>
 							<td class="j_infod_addcontent">
@@ -329,6 +334,15 @@
 						}
 					}).open();
 		}
+	</script>
+	<script>
+	//uploadcare url불러오기
+	//role의 값이 uploadcare-uploader인 태그를 업로드 위젯으로 만들기
+	 const widget = uploadcare.Widget('[role=uploadcare-uploader]');
+	//그 위젯을 통해서 업로드가 끝났을 때 url 불러오기
+	 widget.onUploadComplete(info => {
+		 console.log(info.cdnUrl);
+	 });
 	</script>
 </body>
 </html>
