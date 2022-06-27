@@ -21,7 +21,8 @@ public class Info {
 //	EMP_DESKPHONE          NUMBER(4)     
 //	EMP_HIREDATE  NOT NULL TIMESTAMP(6)  
 //	DEPT_CODE     NOT NULL VARCHAR2(30)  
-//	JOB_CODE      NOT NULL VARCHAR2(30)  
+//	JOB_CODE      NOT NULL VARCHAR2(30)
+//	EMP_FILE_PATH          VARCHAR2(4000) 
 	
 	// 변수 이름짓기
 	private String emp_no;
@@ -38,21 +39,23 @@ public class Info {
 	private Timestamp emp_hiredate;
 	private String dept_code;
 	private String job_code;
+	private String emp_file_path;
 
 	// toString
 	@Override
 	public String toString() {
-		return "Employee [emp_no=" + emp_no + ", emp_name=" + emp_name + ", emp_id=" + emp_id + ", emp_pwd=" + emp_pwd
+		return "Info [emp_no=" + emp_no + ", emp_name=" + emp_name + ", emp_id=" + emp_id + ", emp_pwd=" + emp_pwd
 				+ ", emp_phone=" + emp_phone + ", emp_email=" + emp_email + ", emp_zipcode=" + emp_zipcode
 				+ ", emp_address=" + emp_address + ", emp_daddress=" + emp_daddress + ", emp_rnum=" + emp_rnum
 				+ ", emp_deskphone=" + emp_deskphone + ", emp_hiredate=" + emp_hiredate + ", dept_code=" + dept_code
-				+ ", job_code=" + job_code + "]";
+				+ ", job_code=" + job_code + ", emp_file_path=" + emp_file_path + "]";
 	}
 
 	// 게터세터
 	public String getEmp_no() {
 		return emp_no;
 	}
+
 
 	public void setEmp_no(String emp_no) {
 		this.emp_no = emp_no;
@@ -161,5 +164,15 @@ public class Info {
 	public void setJob_code(String job_code) {
 		this.job_code = job_code;
 	}
+
+	public String getEmp_file_path() {
+		return emp_file_path;
+	}
+
+	public void setEmp_file_path(String emp_file_path) {
+		this.emp_file_path = emp_file_path;
+	}
+	
+	
 
 }
