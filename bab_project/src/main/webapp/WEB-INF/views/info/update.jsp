@@ -22,13 +22,14 @@
 						<tr>
 							<td class="j_infod_title">프로필 사진<a class="j_infod_sym">*</a></td>
 							<td class="j_infod_content"><img
-								src="https://via.placeholder.com/60x60" id="j_infod_img" name="emp_file_path"></td>
+								src="${update.emp_file_path}" id="j_infod_img" name="emp_file_path"></td>
 							<td class="j_infod_content">
 							<input type="hidden"
 								role="uploadcare-uploader"
    								data-public-key="318e0db7c626903e59e3"
     							data-tabs="file camera url"
 								id="emp_file_path">
+							<input type="hidden" id="fileUrl" name="fileUrl">
 							</td>
 						</tr>
 						<tr>
@@ -117,6 +118,14 @@
 		</c:if>
 	</section>
 	<script>
+		//uploadcare url불러오기
+		//role의 값이 uploadcare-uploader인 태그를 업로드 위젯으로 만들기
+		 var widget = uploadcare.Widget('[role=uploadcare-uploader]');
+		//그 위젯을 통해서 업로드가 끝났을 때 url 불러오기
+		 widget.onUploadComplete(info => {
+			$("#fileUrl").val(info.cdnUrl);
+		 });
+	
         //내정보수정_업데이트 ajax
         $("#j_infod_submit").click(function() {
         	
@@ -268,6 +277,8 @@
                 return false;
 			}
         	
+
+        	
         	if($("#emp_pwd").val() == $("#emp_repwd").val()){
             var param = {
             	"emp_no": $("#emp_no").val(),
@@ -276,7 +287,8 @@
                 "emp_phone": $("#emp_phone").val(),
                 "emp_zipcode": $("#emp_zipcode").val(),
                 "emp_address": $("#emp_address").val(),
-                "emp_daddress": $("#emp_daddress").val()    
+                "emp_daddress": $("#emp_daddress").val(),
+                "emp_file_path": $("#fileUrl").val()
             }
             console.log(param);
             $.ajax({
@@ -334,15 +346,6 @@
 						}
 					}).open();
 		}
-	</script>
-	<script>
-	//uploadcare url불러오기
-	//role의 값이 uploadcare-uploader인 태그를 업로드 위젯으로 만들기
-	 const widget = uploadcare.Widget('[role=uploadcare-uploader]');
-	//그 위젯을 통해서 업로드가 끝났을 때 url 불러오기
-	 widget.onUploadComplete(info => {
-		 console.log(info.cdnUrl);
-	 });
 	</script>
 </body>
 </html>

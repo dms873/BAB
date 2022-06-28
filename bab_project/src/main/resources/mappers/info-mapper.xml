@@ -11,7 +11,7 @@
 	<!--내정보수정 업데이트  -->
 	<update id="update" parameterType="Info">
 		update employee set
-		emp_pwd=#{emp_pwd}, emp_email=#{emp_email}, emp_phone=#{emp_phone},
+		emp_file_path=#{emp_file_path}, emp_pwd=#{emp_pwd}, emp_email=#{emp_email}, emp_phone=#{emp_phone},
 		emp_zipcode=#{emp_zipcode}, emp_address=#{emp_address}, emp_daddress=#{emp_daddress}
 		where emp_no=#{emp_no}
 	</update>
