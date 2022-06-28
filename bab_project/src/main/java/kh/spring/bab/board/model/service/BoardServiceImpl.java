@@ -20,26 +20,31 @@ public class BoardServiceImpl implements BoardService {
 			return dao.selectBoard(currentPage, pageSize, board);
 		};
 		
+		// 공지사항 총 갯수
 		@Override
 		public int selectTotalCnt() {
 			return dao.selectTotalCnt();
 		}
 		
+		// 공지사항 상세보기
 		@Override
 		public Board readBoard(String board_no) {
 			return dao.readBoard(board_no);
 		}
 		
+		// 공지사항 글 쓰기
 		@Override
 		public int insertBoard(Board board) {
 			return dao.insertBoard(board);
 		}
 		
+		// 공지사항 수정
 		@Override
 		public int updateBoard(Board board) {
 			return dao.updateBoard(board);
 		}
 		
+		// 공지사항 삭제
 		@Override
 		public int deleteBoard(String board_no) {
 			return dao.deleteBoard(board_no);
