@@ -78,4 +78,45 @@
 		FROM EMPLOYEE WHERE EMP_NO = #{emp_no}
 	</select>
 	
+	<!-- 문서 상세 조회(휴가신청서) -->
+	<select id="readHoDoc" parameterType="string" resultType="Eap">
+		SELECT * FROM EMPLOYEE
+		  JOIN ELECTRONIC_APPROVAL USING(EMP_NO) 
+		  JOIN DEPT USING(DEPT_CODE)
+		  JOIN JOB USING(JOB_CODE)
+		WHERE DF_NO = #{df_no}
+	</select>
+	
+	<!-- 첫번째 승인자 정보 -->
+	<select id="selectFirstAp" resultType="Eap">
+		SELECT DEPT_NAME, JOB_TITLE, EMP_NAME 
+		  FROM EMPLOYEE
+		  JOIN DEPT USING(DEPT_CODE)
+		  JOIN JOB USING(JOB_CODE)
+		 WHERE EMP_NAME = (SELECT EAP_FIRST_AP FROM ELECTRONIC_APPROVAL WHERE DF_NO = #{df_no})
+	</select>
+	
+	<!-- 두번째 승인자 정보 -->
+	<select id="selectMidAp" resultType="Eap">
+		SELECT DEPT_NAME, JOB_TITLE, EMP_NAME 
+		  FROM EMPLOYEE
+		  JOIN DEPT USING(DEPT_CODE)
+		  JOIN JOB USING(JOB_CODE)
+		 WHERE EMP_NAME = (SELECT EAP_MID_AP FROM ELECTRONIC_APPROVAL WHERE DF_NO = #{df_no})
+	</select>
+	
+	<!-- 세번째 승인자 정보 -->
+	<select id="selectFinalAp" resultType="Eap">
+		SELECT DEPT_NAME, JOB_TITLE, EMP_NAME 
+		  FROM EMPLOYEE
+		  JOIN DEPT USING(DEPT_CODE)
+		  JOIN JOB USING(JOB_CODE)
+		 WHERE EMP_NAME = (SELECT EAP_FINAL_AP FROM ELECTRONIC_APPROVAL WHERE DF_NO = #{df_no})
+	</select>
+	
+	<!-- 휴가신청서에 저장된 정보 가져오기 -->
+	<select id="selectHoInfo" resultType="Att">
+		SELECT * FROM HOLIDAY WHERE DF_NO = #{df_no}
+	</select>
+	
 </mapper>

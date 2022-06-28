@@ -82,4 +82,34 @@ public class EapServiceImpl implements EapService {
 		return dao.empInfo(emp_no);
 	}
 
+	// 문서 상세 조회(휴가신청서)
+	@Override
+	public Eap readHoDoc(String df_no) {
+		return dao.readHoDoc(df_no);
+	}
+
+	// 첫번째 승인자 정보
+	@Override
+	public Eap selectFirstAp(Eap result) {
+		return dao.selectFirstAp(result);
+	}
+	
+	// 두번째 승인자 정보
+	@Override
+	public Eap selectMidAp(Eap result) {
+		return dao.selectMidAp(result);
+	}
+	
+	// 세번째 승인자 정보
+	@Override
+	public Eap selectFinalAp(Eap result) {
+		return dao.selectFinalAp(result);
+	}
+	
+	// 휴가신청서에 저장된 정보 가져오기
+	@Override
+	public Attendance selectHoInfo(Attendance att) {
+		return dao.selectHoInfo(att);
+	}
+
 }

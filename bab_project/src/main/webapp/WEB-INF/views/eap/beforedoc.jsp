@@ -133,7 +133,7 @@
     		var dfNo = tdArr[0]; 
     		
     		// 링크로 넘기기
-    		<%-- $("#s_eap_content_box").load("<%=request.getContextPath()%>/eap/selectdoc?df_no=" + dfNo); --%>
+    		$("#s_eap_content_box").load("<%=request.getContextPath()%>/eap/selectdoc?df_no=" + dfNo);
     		
     	});
     </script>

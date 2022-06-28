@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import kh.spring.bab.attendance.domain.Attendance;
 import kh.spring.bab.eap.domain.Eap;
 import kh.spring.bab.eap.domain.Spending;
@@ -121,15 +122,57 @@ public class ElectronicApprovalController {
 	@GetMapping("/selectdoc")
 	public ModelAndView selectDoc(
 			ModelAndView mv,
-			HttpServletRequest req
-			
+			HttpServletRequest req,
+			@RequestParam(name = "df_no", required = false) String df_no,
+			Eap eap,
+			Attendance att,
+			RedirectAttributes rttr
 			) {
+		
+		if(df_no == null) {
+			rttr.addFlashAttribute("msg", "번호가 없습니다. 다시 선택해주세요");
+			mv.setViewName("redirect:/eap/beforedoc");
+		}
+		
+		logger.info("뭐가 찍히니 ? " + df_no.substring(5,6));
+		
+		// 휴가신청서면
+		if(df_no.substring(5,6).equals("A")) {
+			logger.info("여기 탔나요 ???");
+			Eap result = service.readHoDoc(df_no);
+			mv.addObject("readHoDoc", result);
+			logger.info("첫번째 승인자 : " + result.getEap_first_ap());
+			// 첫번째 승인자 정보
+			if(result.getEap_first_ap() != null) {
+				Eap result2 = service.selectFirstAp(result);
+				mv.addObject("firstAp", result2);
+			} 
+			// 두번째 승인자 정보
+			if(result.getEap_mid_ap() != null) {
+				Eap result3 = service.selectMidAp(result);
+				mv.addObject("midAp", result3);
+				logger.info("두번째 승인자 정보 : " + result3);
+			} 
+			// 세번째 승인자 정보
+			if(result.getEap_final_ap() != null) {
+				Eap result4 = service.selectFinalAp(result);
+				mv.addObject("finalAp", result4);
+				logger.info("세번째 승인자 정보 : " + result4);
+			}
+			// 휴가신청서에 저장된 정보가져오기
+			att.setDf_no(result.getDf_no());
+			Attendance result5 = service.selectHoInfo(att);
+			mv.addObject("hoInfo", result5);
+			mv.setViewName("eap/holidaydoc");
+		} else { // 지출결의서면
+			// mv.addObject("readSpDoc", service.readSpDoc(df_no));
+			// mv.setViewName("eap/spendingdoc");
+		}
 		
 		// 로그인한 사람 정보 가져오기(사번)
 		Employee emp = (Employee) req.getSession().getAttribute("login");
 		String emp_no = emp.getEmp_no();
 		
-		mv.setViewName("eap/selectdoc");
 		return mv;
 	}
 	

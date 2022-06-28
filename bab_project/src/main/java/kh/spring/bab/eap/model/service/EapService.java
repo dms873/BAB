@@ -82,5 +82,40 @@ public interface EapService {
 	 * @param : emp_no(로그인한 사람의 사번)
 	 * */
 	public Eap empInfo(String emp_no);
+	
+	/**
+	 * @author : 손은진
+	 * @return : 문서 상세 조회(휴가신청서)
+	 * @param : df_no(문서번호)
+	 * */
+	public Eap readHoDoc(String df_no);
+	
+	/**
+	 * @author : 손은진
+	 * @return : 첫번째 승인자 정보
+	 * @param : result(상세조회 후 저장된 Eap)
+	 * */
+	public Eap selectFirstAp(Eap result);
+	
+	/**
+	 * @author : 손은진
+	 * @return : 두번째 승인자 정보
+	 * @param : result(상세조회 후 저장된 Eap)
+	 * */
+	public Eap selectMidAp(Eap result);
+	
+	/**
+	 * @author : 손은진
+	 * @return : 세번째 승인자 정보
+	 * @param : result(상세조회 후 저장된 Eap)
+	 * */
+	public Eap selectFinalAp(Eap result);
+	
+	/**
+	 * @author : 손은진
+	 * @return : 휴가신청서에 저장된 정보 가져오기
+	 * @param : att vo
+	 * */
+	public Attendance selectHoInfo(Attendance att);
 
 }

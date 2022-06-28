@@ -70,4 +70,29 @@ public class EapDao {
 	public Eap empInfo(String emp_no) {
 		return sqlSession.selectOne("Eap.empInfo", emp_no);
 	}
+	
+	// 문서 상세 조회(휴가신청서)
+	public Eap readHoDoc(String df_no) {
+		return sqlSession.selectOne("Eap.readHoDoc", df_no);
+	}
+	
+	// 첫번째 승인자 정보
+	public Eap selectFirstAp(Eap result) {
+		return sqlSession.selectOne("Eap.selectFirstAp", result);
+	}
+	
+	// 첫번째 승인자 정보
+	public Eap selectMidAp(Eap result) {
+		return sqlSession.selectOne("Eap.selectMidAp", result);
+	}
+		
+	// 첫번째 승인자 정보
+	public Eap selectFinalAp(Eap result) {
+		return sqlSession.selectOne("Eap.selectFinalAp", result);
+	}
+	
+	// 휴가신청서에 저장된 정보 가져오기
+	public Attendance selectHoInfo(Attendance att) {
+		return sqlSession.selectOne("Eap.selectHoInfo", att);
+	}
 }
