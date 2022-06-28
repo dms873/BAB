@@ -278,7 +278,7 @@
 
 						<div style="padding: 10px 0;">
 							<div class="s_frm_title">3. 기타</div>
-							<div>문의사항은 BAB 손은진(010-1234-5678)에게 연락바랍니다. 끝.</div>
+							<div>문의사항은 BAB ${eap.emp_name }(${eap.emp_phone })에게 연락바랍니다. 끝.</div>
 						</div>
 
 						<div style="padding: 10px 0;">

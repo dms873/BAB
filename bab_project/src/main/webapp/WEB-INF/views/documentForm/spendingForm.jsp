@@ -100,7 +100,7 @@
 				    </tr>
 				    </tfoot>
 				</table>
-				<button id="s_add_sp_detail" class="btn btn-success" onclick="addTr()">내역 추가</button>
+				<!-- <button id="s_add_sp_detail" class="btn btn-success" onclick="addTr()">내역 추가</button> -->
 			</div>
 			
 			<div style="padding: 10px 0;">
