@@ -15,13 +15,14 @@ public class Organ {
 	private String emp_phone;
 	private String df_no;
 	private String eap_draft_date;
+	private String emp_file_path;
 	
 	@Override
 	public String toString() {
 		return "Organ [emp_name=" + emp_name + ", emp_no=" + emp_no + ", dept_name=" + dept_name + ", dept_code="
 				+ dept_code + ", job_title=" + job_title + ", emp_deskphone=" + emp_deskphone + ", emp_email="
 				+ emp_email + ", emp_phone=" + emp_phone + ", df_no=" + df_no + ", eap_draft_date=" + eap_draft_date
-				+ "]";
+				+ ", emp_file_path=" + emp_file_path + "]";
 	}
 
 	public String getEmp_name() {
@@ -102,5 +103,13 @@ public class Organ {
 
 	public void setEap_draft_date(String eap_draft_date) {
 		this.eap_draft_date = eap_draft_date;
+	}
+
+	public String getEmp_file_path() {
+		return emp_file_path;
+	}
+
+	public void setEmp_file_path(String emp_file_path) {
+		this.emp_file_path = emp_file_path;
 	}
 }

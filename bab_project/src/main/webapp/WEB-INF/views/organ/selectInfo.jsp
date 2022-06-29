@@ -12,8 +12,13 @@
 	<c:if test="${empty selectInfo }">
 		<div style="color: grey;text-align: center;line-height: 800px;">조직도에서 사원을 선택하시면 상세조회가 가능합니다.</div>
 	</c:if>
-	<c:if test="${!empty selectInfo }">
-	<img src="https://media.discordapp.net/attachments/692994434526085184/981215903570092132/unknown.png">
+	<c:if test="${not empty selectInfo }">
+		<c:if test="${empty selectInfo.emp_file_path }">
+			<img src="https://media.discordapp.net/attachments/692994434526085184/981215903570092132/unknown.png">
+	    </c:if>
+		<c:if test="${not empty selectInfo.emp_file_path }">
+			<img style="border-radius: 50%; width: 180px; height: 180px;" src="${selectInfo.emp_file_path }">
+		</c:if>
 	    <table id="s_organ_table">
 	        <tr>
 	            <th>이름</th>
