@@ -16,8 +16,14 @@ public class ContactServiceImpl implements ContactService {
 	
 		// 주소록 조회
 		@Override
-		public List<Contact> selectContact() {
-			return dao.selectContact();
+		public List<Contact> selectContact(int currentPage, int pageSize, Contact contact) {
+			return dao.selectContact(currentPage, pageSize, contact);
+		}
+		
+		// 주소록 목록 개수
+		@Override
+		public int selectTotalCnt() {
+			return dao.selectTotalCnt();
 		}
 		
 		// 주소록 초성 검색

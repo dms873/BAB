@@ -2,6 +2,7 @@ package kh.spring.bab.contact.model.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -14,8 +15,12 @@ public class ContactDao {
 	@Autowired
 	private SqlSession sqlsession;
 	
-	public List<Contact> selectContact() {
-		return sqlsession.selectList("Contact.selectList");
+	public List<Contact> selectContact(int currentPage, int pageSize, Contact contact) {
+		return sqlsession.selectList("Contact.selectContact", contact, new RowBounds((currentPage-1)*pageSize, pageSize));
+	}
+	
+	public int selectTotalCnt() {
+		return sqlsession.selectOne("Contact.selectTotalCnt");
 	}
 	
 	public List<Contact> selectBtn() {

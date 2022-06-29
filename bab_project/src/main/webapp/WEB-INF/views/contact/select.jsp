@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,9 +23,9 @@
 		<!-- search{s} -->
 		<div class="select_outer" style="display: flex; justify-content: flex-end;">
 			<select class="form-select mb-3" style="width: 100px;">
-				<option value="title">제목</option>
-				<option value="content">내용</option>
-				<option value="writer">작성자</option>
+				<option value="title">이름</option>
+				<option value="content">부서</option>
+				<option value="writer">직급</option>
 			</select> <input type="text" class="form-control" name="keyword" id="keyword" style="width: 270px; height: 38px; margin: 0 6px;">
 			<button class="btn btn-sm btn-primary" name="btnSearch"
 				id="y_btn_search" style="height: 38px;">검색</button>
@@ -32,11 +33,22 @@
 	</div>
 	<!-- search{e} -->
 
-		<div id='test'>
-			<button>ㅅ</button>
-			<button>ㅇ</button>
-			<button>ㅈ</button>
-			<button>ㅌ</button>
+		<div id='test' style="text-align: center; ">
+			<button type="button" class="btn btn-light">ㄱ</button>
+			<button type="button" class="btn btn-light">ㄴ</button>
+			<button type="button" class="btn btn-light">ㄷ</button>
+			<button type="button" class="btn btn-light">ㄹ</button>
+			<button type="button" class="btn btn-light">ㅁ</button>
+			<button type="button" class="btn btn-light">ㅂ</button>
+			<button type="button" class="btn btn-light">ㅅ</button>
+			<button type="button" class="btn btn-light">ㅇ</button>
+			<button type="button" class="btn btn-light">ㅈ</button>
+			<button type="button" class="btn btn-light">ㅊ</button>
+			<button type="button" class="btn btn-light">ㅋ</button>
+			<button type="button" class="btn btn-light">ㅌ</button>
+			<button type="button" class="btn btn-light">ㅍ</button>
+			<button type="button" class="btn btn-light">ㅎ</button>
+			
 		</div>
 	
 	<div class="container y_outer_div" style="display: flex; justify-content: center;">
@@ -46,7 +58,6 @@
 				<td>No</td>
 				<td>이름</td>
 				<td>부서</td>
-				<td>소속</td>
 				<td>직급</td>
 				<td>전화번호</td>
 				<td>내선번호</td>
@@ -54,66 +65,19 @@
 				<td>이메일</td>
 				<td>주소</td>
 			</tr>
+			<c:forEach items="${selectContact }" var="i">
 			<tr>
-				<td>1</td>
-				<td>손은진</td>
-				<td>회계팀</td>
-				<td>BAB</td>
-				<td>차장</td>
-				<td>010-1234-5678</td>
-				<td>4567</td>
-				<td>2019-01-24</td>
-				<td>dms873@naver.com</td>
-				<td>경기도 의정부시</td>
+				<td>${i.rownum }</td>
+				<td>${i.emp_name }</td>
+				<td>${i.dept_name }</td>
+				<td>${i.job_title }</td>
+				<td>${i.emp_phone }</td>
+				<td>${i.emp_deskphone }</td>
+				<td>${i.emp_hiredate }</td>
+				<td>${i.emp_email }</td>
+				<td>${i.emp_address }</td>
 			</tr>
-			<tr>
-				<td>2</td>
-				<td>장혜미</td>
-				<td>기획팀</td>
-				<td>BAB</td>
-				<td>대리</td>
-				<td>010-5678-1234</td>
-				<td>1234</td>
-				<td>2020-04-15</td>
-				<td>hyemi5242@gmail.com</td>
-				<td>경기도 의정부시</td>
-			</tr>
-			<tr>
-				<td>3</td>
-				<td>윤영원</td>
-				<td>영업팀</td>
-				<td>BAB</td>
-				<td>과장</td>
-				<td>010-4787-1565</td>
-				<td>4433</td>
-				<td>2022-02-15</td>
-				<td>22yongwon@gmail.com</td>
-				<td>서울시 강동구 천호동</td>
-			</tr>
-			<tr>
-				<td>4</td>
-				<td>서지훈</td>
-				<td>개발팀</td>
-				<td>파견</td>
-				<td>*</td>
-				<td>010-1518-8784</td>
-				<td>5987</td>
-				<td>2020-06-25</td>
-				<td>wlgns@gmail.com</td>
-				<td>서울시 강서구 목동</td>
-			</tr>
-			<tr>
-				<td>5</td>
-				<td>이해람</td>
-				<td>개발팀</td>
-				<td>파견</td>
-				<td>*</td>
-				<td>010-5487-1154</td>
-				<td>6748</td>
-				<td>2021-11-05</td>
-				<td>wlgofka@gmail.com</td>
-				<td>서울시 동대문구 장안동</td>
-			</tr>
+			</c:forEach>
 </tbody>
 		</table>
 	</div>
@@ -121,41 +85,66 @@
 
 		<nav aria-label="Page navigation example" style="display: flex; justify-content: center; margin-top: 50px;">
 			<ul class="pagination">
-				<li class="page-item"><a class="page-link" href="#"
+				<c:if test="${startPage > 1 }">
+				<li class="page-item pre"><a class="page-link" href="#"
 					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 				</a></li>
-				<li class="page-item"><a class="page-link" href="#">1</a></li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
-				<li class="page-item"><a class="page-link" href="#"
+				</c:if>
+				<c:forEach begin="${startPage }" end="${endPage }" var="i">
+				<li class="page-item num"><a class="page-link" href="#">${i }</a></li>
+				</c:forEach>
+				<c:if test="${endPage < pageCnt }">
+				<li class="page-item next"><a class="page-link" href="#"
 					aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 				</a></li>
+				</c:if>
 			</ul>
 		</nav>
 		
 
 	<script>
+	
+	// 페이징 처리
+		
+		$(".page-item.num .page-link").click(function(event) {
+			console.log(event.target.innerText);
+			
+			var pageNum = event.target.innerText;
+			$("#s_content_box").load("<%=request.getContextPath()%>/contact/select?page="+pageNum);
+		})
+		
+		$(".page-item.pre .page-link").click(function(event){
+			//이전 페이지 최소값 -1 -> 이전 페이지로 이동
+			const num = Math.min(...[...$('.page-link')].map(v=>v.innerText*1).filter(v=>v>0))-1;
+			$("#s_content_box").load("<%=request.getContextPath()%>/contact/select?page="+num);
+		
+		})
+		
+		$(".page-item.next .page-link").click(function(event){
+			//다음 페이지 최대값 +1 -> 다음 페이지로 이동
+			const num = Math.max(...[...$('.page-link')].map(v=>v.innerText*1).filter(v=>v>0))+1;
+			$("#s_content_box").load("<%=request.getContextPath()%>/contact/select?page="+num);
+		})
+	
+	
 	// 검색할 배열
-	        const arr = [
-		            { name: "손은진",boo:'기획팀' },
-		            { name: "장혜미",boo:'영업팀' },
-		            { name: "윤영원",boo:'기획팀' },
-		            { name: "서지훈",boo:'영업팀' },
-		            { name: "이해람",boo:'회계팀' },
-		            { name: "박정환",boo:'기획팀' },
-		            { name: "김혜린",boo:'회계팀' },
-		            { name: "홍샛별",boo:'회계팀' },
-		        ];
 	
-	//const arr2 = arr.map(item =>({...item,diassembled:Hangul.disassemble(item.name)[0]}))
-	
-	const arr2 = arr.map(function(item){
+	fetch('http://localhost:8090/bab/board/test').then(res=>res.json()).then(res=>{
+
+		//const {selectBoard:arrs} = res.map(v=>Object.keys(v))
+		
+		const arr = res.selectBoard.map(v=>Object.keys(v).reduce((res,vv)=>{
+    		res[vv.split('board_')[1]] = v[vv]+''
+    		return res
+    	},{}))
+			
+			const arr2 = arr.map(function(item){
 		const res = item;
-		res.diassembled = Hangul.disassemble(item.name)[0]
+		res.diassembled = Hangul.disassemble(item.writer)[0]
 		return res;
-	})
+		})
 	
-	const COLUMN = [0,'name','boo',3,4,5,6,7,8,9]
+	const COLUMN = ['content','writer','no','title','undefined','date',6,7,8,9]
 	
 	
 	document.querySelector('#test').addEventListener('click',function(e){
@@ -185,6 +174,12 @@
 				})
 		}
 	})
+	
+	})
+	
+	//const arr2 = arr.map(item =>({...item,diassembled:Hangul.disassemble(item.name)[0]}))
+	
+
 
 	
 	

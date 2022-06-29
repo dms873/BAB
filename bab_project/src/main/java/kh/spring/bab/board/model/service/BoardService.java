@@ -12,7 +12,7 @@ public interface BoardService {
 	
 	// 공지사항 조회
 		/**
-		 *  @param :
+		 *  @param : currentPage, pageSize, board
 		 *  @return : dao.selectBoard(board, currentPag, pageSize)
 		 *  @author : 윤영원
 		 **/
@@ -31,7 +31,7 @@ public interface BoardService {
 	
 	// 공지사항 등록
 		/**
-		 *  @param : Board
+		 *  @param : board
 		 *  @return : dao.insertBoard(board)
 		 *  @author : 윤영원
 		 **/
@@ -39,7 +39,7 @@ public interface BoardService {
 	
 	// 공지사항 수정
 		/**
-		 *  @param : Board
+		 *  @param : board
 		 *  @return : dao.updateBoard(board)
 		 *  @author : 윤영원
 		 **/
@@ -47,7 +47,7 @@ public interface BoardService {
 	
 	// 공지사항 삭제
 			/**
-			 *  @param : board_no[i]
+			 *  @param : board_no
 			 *  @return : dao.deleteBoard(board)
 			 *  @author : 윤영원
 			 **/

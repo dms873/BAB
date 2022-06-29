@@ -1,4 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="Contact">
+
+<select id="selectContact" resultType="Contact">
+	select rownum, a1.* from (select e.emp_name , d.dept_name, j.job_title, e.emp_phone, e.emp_deskphone, to_char(e.emp_hiredate, 'yyyy-mm-dd') emp_hiredate, e.emp_email, e.emp_address from employee e join dept d
+	using (dept_code)
+	join job j
+	using (job_code)) a1
+	where 1=1
+	<choose>
+		<when test="type != null and type.equals('emp_name')">
+		and emp_name like '%' || #{keyword} || '%'
+		</when>
+		<when test="type != null and type.equals('dept_name')">
+		and dept_name like '%' || #{keyword} || '%'
+		</when>
+		<when test="type != null and type.equals('job_title')">
+		and job_title like '%' || #{keyword} || '%'
+		</when>
+	</choose>
+	order by rownum
+</select>
+
+<select id="selectTotalCnt" resultType="_int">
+	select count(*) from employee
+</select>
 </mapper>
