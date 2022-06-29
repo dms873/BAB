@@ -149,4 +149,15 @@
 		UPDATE ELECTRONIC_APPROVAL SET EAP_STA_CODE = 'C' WHERE DF_NO = #{df_no}
 	</update>
 	
+	<!-- 문서 수정(지출결의서) -->
+	<update id="updateSpDoc" parameterType="Sp">
+		UPDATE SPENDING SET SP_DATE = #{sp_date}, SP_DETAIL = #{sp_detail}, SP_COUNT = #{sp_count}, SP_AMOUNT = #{sp_amount}, SP_PAY_CODE = #{sp_pay_code} WHERE DF_NO = #{df_no}
+	</update>
+	
+	<!-- 문서 수정(전자결재 테이블) -->
+	<update id="updateEap" parameterType="Eap">
+		UPDATE ELECTRONIC_APPROVAL SET EAP_TITLE = #{eap_title}, EAP_CONTENT = #{eap_content}, EAP_FILE_PATH = #{eap_file_path},
+		EAP_DRAFT_DATE = SYSTIMESTAMP  WHERE DF_NO = #{df_no} 
+	</update>
+	
 </mapper>

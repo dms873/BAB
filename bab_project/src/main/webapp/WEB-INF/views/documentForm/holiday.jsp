@@ -9,6 +9,7 @@
     <script>UPLOADCARE_LOCALE = "ko"</script>
     <!-- datepicker CDN -->
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
 <meta charset="UTF-8">
 <!-- <title>휴가신청서 양식</title> -->
 <style>

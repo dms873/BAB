@@ -145,5 +145,19 @@ public interface EapService {
 	 * @param : df_no(문서번호)
 	 * */
 	public int cancelDoc(String df_no);
+	
+	/**
+	 * @author : 손은진
+	 * @return : 문서 수정(지출결의서)
+	 * @param : sp vo
+	 * */
+	public int updateSpDoc(Spending sp);
+	
+	/**
+	 * @author : 손은진
+	 * @return : 문서 수정(전자결재 테이블)
+	 * @param : eap vo
+	 * */
+	public int updateEap(Eap eap);
 
 }

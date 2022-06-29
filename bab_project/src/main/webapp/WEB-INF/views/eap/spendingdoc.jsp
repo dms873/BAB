@@ -85,9 +85,9 @@
 </head>
 <body>
 
-	<div>
-		<span><a id="s_eap_app" href="#">결재회수 | </a></span>
-		<span><a id="s_appLine_btn" href="#">문서 수정 | </a></span>
+	<div id="s_btn">
+		<span><a id="s_eap_cancle" href="#">결재회수 | </a></span>
+		<span><a id="s_eap_update" href="#">문서 수정 | </a></span>
 		<span><a id="s_opinion_btn" href="#">의견 | </a></span>
 		<span><a id="s_list_btn" href="#" onclick="list()">목록</a></span>
 	</div>
@@ -199,7 +199,7 @@
 			
 		
 				<div style="padding: 50px 10px 20px; clear: both;">
-					<div style="display: inline-block; font-size: 1.2em; font-weight: bold;">제목 : <span>${readSpDoc.eap_title }</span></div> 
+					<div style="display: inline-block; font-size: 1.2em; font-weight: bold;">제목 : <span id="s_sp_tt">${readSpDoc.eap_title }</span></div> 
 				</div>
 				
 				<div style="border: 1px solid lightgray; margin: 10px;"></div>
@@ -216,7 +216,7 @@
 								<thead>
 									<tr>
 										<th scope="col" style="width: 130px;">날짜</th>
-										<th scope="col" style="width: 500px;">내역</th>
+										<th scope="col" style="width: 450px;">내역</th>
 										<th scope="col" style="width: 70px;">수량</th>
 										<th scope="col" style="width: 150px;">금액</th>
 										<th scope="col" style="width: 130px;">결제수단</th>
@@ -225,16 +225,20 @@
 								<tbody id="s_default_tbody" class="s_default_tbody_cl">
 									<tr>
 										<td scope="row">
+											<div id="s_sp_date">
 											<!-- 지출날짜 timestamp라서 년월일만 출력 -->
 											<c:set var="sp_date" value="${spInfo.sp_date }"/>
 											${fn:substring(sp_date,0,10) }
+											</div>
 										</td>
-										<td>${spInfo.sp_detail }</td>
-										<td id="num1">${spInfo.sp_count }</td>
-										<td id="num2">${spInfo.sp_amount }</td>
+										<td><div id="s_sp_detail">${spInfo.sp_detail }</div></td>
+										<td><div id="num1">${spInfo.sp_count }</div></td>
+										<td><div id="num2">${spInfo.sp_amount }</div></td>
 										<td>
-											<c:if test="${spInfo.sp_pay_code eq 'C'}">신용카드</c:if>
-											<c:if test="${spInfo.sp_pay_code eq 'A'}">가상계좌</c:if>
+											<div id="s_select">
+												<c:if test="${spInfo.sp_pay_code eq 'C'}">신용카드</c:if>
+												<c:if test="${spInfo.sp_pay_code eq 'A'}">가상계좌</c:if>
+											</div>
 										</td>
 									</tr>
 
@@ -257,12 +261,13 @@
 					<div style="padding: 10px 0;">
 						<div class="s_frm_title">파일첨부</div>
 						<c:if test="${not empty readSpDoc.eap_file_path }">
-							<img style="width: 450px;" src="${readSpDoc.eap_file_path }">
+							<img style="width: 450px;" id="s_img" src="${readSpDoc.eap_file_path }">
 							<div style="color: dimgray; font-size: .9em;">* 다운로드를 희망하시면 마우스 오른쪽을 클릭 후 이미지를 저장해주세요.</div>
 						</c:if>
 						<c:if test="${empty readSpDoc.eap_file_path }">
 							<div>- 無</div>
 						</c:if>
+						<div id="s_file_upload" style="margin-top: 5px;"></div>
 					</div>
 				</div>
 			</div>
@@ -333,7 +338,7 @@
 	
 	<script>
 		// 결재 회수 ajax
-		$("#s_eap_app").click(function() {
+		$("#s_eap_cancle").click(function() {
 			$.ajax({
 				url: "<%=request.getContextPath()%>/eap/canceldoc",
 				type: "post",
@@ -344,10 +349,98 @@
 				}
 			});
 		});
+		
+		// 문서 수정 클릭 시
+		$("#s_eap_update").click(function() {
+			// 제목
+			$('#s_sp_tt').replaceWith('<input type="text" style="display: inline-block; width: 583px; margin-left: 5px;" class="form-control" value="${readSpDoc.eap_title }" id="s_sp_tt">');
+			// 내용
+			$('#s_eap_content').replaceWith('<textarea class="form-control" style="resize: none;" id="s_sp_co">${readSpDoc.eap_content }</textarea>')
+			var date = "${spInfo.sp_date }";
+			// 년월일만 출력
+			date = date.substr(0,10);
+			console.log(date);
+			// 날짜
+			$('#s_sp_date').replaceWith('<input type="date" class="form-control s_sp_date" id="s_sp_date" name="sp_date" style="width: 135px;">');
+			$("#s_sp_date").attr('value', date);
+			// 내역
+			$('#s_sp_detail').replaceWith('<input type="text" class="form-control s_sp_detail" name="sp_detail" value="${spInfo.sp_detail }">');
+			// 수량
+			$('#num1').replaceWith('<input type="number" id="num1" class="form-control s_sp_count" name="sp_count" style="width: 50px;" value="${spInfo.sp_count }">');
+			// 금액
+			// 콤마제거
+			var num2 = "${spInfo.sp_amount}";
+			num2 = num2.replace(",", "");
+			$('#num2').replaceWith('<input type="number" id="num2" class="form-control sp_amount" onblur="total()" name="sp_amount">');
+			$("#num2").attr('value', num2);
+			// 결제방식
+			$('#s_select').replaceWith('<select class="form-select s_select" aria-label="Default select example" style="width: 115px;"><option value="C">신용카드</option><option value="A">가상계좌</option></select>')
+			// 파일첨부
+			$('#s_file_upload').append('<input type="hidden" role="uploadcare-uploader" data-public-key="991bc66817ca4103d3ee" data-tabs="file url" id="eap_file_path"/>');
+			$('#s_file_upload').after('<input type="hidden" name="fileUrl" id="fileUrl">');
+			$("#s_btn").empty();
+			$("#s_btn").append('<span><a id="s_doc_update" href="#" onclick="update()">문서 수정 | </a></span>');
+			$("#s_btn").append('<span><a id="s_list_btn" href="#" onclick="list()">목록</a></span>');
+			
+			/* 이미지등록 */
+			var singleWidget = uploadcare.SingleWidget('[role=uploadcare-uploader]');
+		
+			singleWidget.onUploadComplete(function(info) {
+				$("#fileUrl").val(info.cdnUrl);
+				console.log("파일URL : " + $("#fileUrl").val(info.cdnUrl));
+				console.log(JSON.stringify($("#fileUrl").val(info.cdnUrl)));
+			});
+		});
 	</script>
 	
-	<!-- 합계 -->
 	<script>
+		// 문서 수정 클릭 시
+		function update() {
+			console.log("클릭 안되니? 독업데이트야?");
+			dataObj = {
+					"sp_date" : $('.s_sp_date').val(),
+					"sp_detail" : $('.s_sp_detail').val(),
+					"sp_count" : $('#num1').val(),
+					"sp_amount" : $('#num2').val(),
+					"sp_pay_code" : $('.s_select').val(),
+					"df_no" : $('#s_dfNo').text(),
+					"eap_title" : $('#s_sp_tt').val(),
+					"eap_content" : $('#s_sp_co').val(),
+					"eap_file_path": $("#fileUrl").val(),
+					"s_img": $("#s_img").attr("src")
+			}
+			
+			
+			// 문서 수정 클릭 시 DB다녀올 ajax
+			$.ajax({
+				url : "<%=request.getContextPath()%>/eap/updatesp"
+				, type : "post"
+				, data : dataObj
+				, success : function(result) {
+					console.log("성공");
+					alert(result);
+					$("#s_before_doc").trigger("click");
+				}
+			});
+		}
+	
+	</script>
+	
+	
+	<script>
+		// 수정 시 합계 함수
+		function total() {
+			console.log("탔나용 ? ? ?");
+			const num1 = $("#num1").val();
+			const numberStr = $("#num2").val();
+			// 콤마 제거
+			const num2 = numberStr.replace(",", "");
+			const multi = num1 * num2; 
+			const total = multi.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			$("#s_total_price").text(total);
+		}
+		
+		// 로드 시 합계
 		$(function() {
 			console.log("탔나용 ? ? ?");
 			const num1 = $("#num1").text();

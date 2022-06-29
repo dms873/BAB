@@ -136,4 +136,16 @@ public class EapServiceImpl implements EapService {
 		return dao.cancelDoc(df_no);
 	}
 
+	// 문서 수정(지출결의서)
+	@Override
+	public int updateSpDoc(Spending sp) {
+		return dao.updateSpDoc(sp);
+	}
+
+	// 문서 수정(전자결재 테이블)
+	@Override
+	public int updateEap(Eap eap) {
+		return dao.updateEap(eap);
+	}
+
 }

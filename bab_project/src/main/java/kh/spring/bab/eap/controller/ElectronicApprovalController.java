@@ -492,6 +492,54 @@ public class ElectronicApprovalController {
 		return msg;
 	}
 	
+	// 문서 수정(지출결의서) Ajax
+	@PostMapping(value = "/updatesp", produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public String updateSpDoc(
+			@RequestParam(value = "sp_date", required = false) String sp_date
+			,  @RequestParam(value = "sp_detail", required = false) String sp_detail
+			,  @RequestParam(value = "sp_count", required = false) String sp_count
+			,  @RequestParam(value = "sp_amount", required = false) String sp_amount
+			,  @RequestParam(value = "sp_pay_code", required = false) String sp_pay_code
+			,  @RequestParam(value = "df_no", required = false) String df_no
+			,  @RequestParam(value = "eap_title", required = false) String eap_title
+			,  @RequestParam(value = "eap_content", required = false) String eap_content
+			,  @RequestParam(value = "eap_file_path", required = false) String eap_file_path
+			,  @RequestParam(value = "s_img", required = false) String s_img
+			,  Spending sp
+			,  Eap eap
+			) {
+		
+		sp.setSp_date(sp_date);
+		sp.setSp_detail(sp_detail);
+		sp.setSp_count(sp_count);
+		sp_amount = removeComma(sp_amount);
+		sp.setSp_amount(sp_amount);
+		sp.setSp_pay_code(sp_pay_code);
+		sp.setDf_no(df_no);
+		eap.setDf_no(df_no);
+		eap.setEap_title(eap_title);
+		eap.setEap_content(eap_content);
+		if(eap_file_path != null && eap_file_path != "") {
+			eap.setEap_file_path(eap_file_path);
+		} else {
+			eap.setEap_file_path(s_img);
+		}
+		// logger.info("야 !!!!!!!!!!!!!!! : " + eap.getEap_file_path());
+		
+		int resultSp = service.updateSpDoc(sp);
+		int resultEap = service.updateEap(eap);
+		
+		String msg = "";
+		if(resultSp > 0 && resultEap > 0) {
+			msg = "문서가 정상적으로 수정되었습니다.";
+		} else {
+			msg = "문서 수정에 실패하였습니다.";
+		}
+		
+		return msg;
+	}
+	
 	// 콤마제거함수
 	public String removeComma(String data) {
 		return data.replaceAll("\\,", "");

@@ -86,8 +86,8 @@
 <body>
 
 	<div>
-		<span><a id="s_eap_app" href="#">결재회수 | </a></span>
-		<span><a id="s_appLine_btn" href="#">문서 수정 | </a></span>
+		<span><a id="s_eap_cancle" href="#">결재회수 | </a></span>
+		<span><a id="s_eap_update" href="#">문서 수정 | </a></span>
 		<span><a id="s_opinion_btn" href="#">의견 | </a></span>
 		<span><a id="s_list_btn" href="#" onclick="list()">목록</a></span>
 	</div>
@@ -331,7 +331,7 @@
 	
 	<script>
 		// 결재 회수 ajax
-		$("#s_eap_app").click(function() {
+		$("#s_eap_cancle").click(function() {
 			$.ajax({
 				url: "<%=request.getContextPath()%>/eap/canceldoc",
 				type: "post",

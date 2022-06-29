@@ -115,4 +115,14 @@ public class EapDao {
 	public int cancelDoc(String df_no) {
 		return sqlSession.update("Eap.cancelDoc", df_no);
 	}
+	
+	// 문서 수정(지출결의서)
+	public int updateSpDoc(Spending sp) {
+		return sqlSession.update("Eap.updateSpDoc", sp);
+	}
+
+	// 문서 수정(전자결재 테이블)
+	public int updateEap(Eap eap) {
+		return sqlSession.update("Eap.updateEap", eap);
+	}
 }
