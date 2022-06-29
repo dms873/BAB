@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -83,11 +84,14 @@
                     </div>
                     <div style="float: right; width: 200px;">
                         <div>
+                        <!--로그인세션 받아와서 정보 출력 혜미 수정-220629  -->
+                        <c:if test="${info != null}">
                             <div style="float:left; margin:0 25px;">
-                                <img src="https://media.discordapp.net/attachments/692994434526085184/981215903570092132/unknown.png"
-                                    style="width: 50px;">
-                                <div style="font-size: .8em;">손은진님</div>
+                                <img src="${info.emp_file_path}"
+                                    style="width: 50px; height: 50px; border-radius: 25px;">
+                                <div style="font-size: .8em;">${info.emp_name}님</div>
                             </div>
+                        </c:if>
                             <div style="line-height: 60px;">
                                 <button type="button" class="btn btn-secondary" style="font-size: .8em;"
                                 onclick="location.href='<%=request.getContextPath()%>/employee/logout'">로그아웃</button>
