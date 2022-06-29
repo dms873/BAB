@@ -21,33 +21,33 @@
 
 	<div style="margin: 20px 0;">
 		<!-- search{s} -->
-		<div class="select_outer" style="display: flex; justify-content: flex-end;">
-			<select class="form-select mb-3" style="width: 100px;">
-				<option value="title">이름</option>
-				<option value="content">부서</option>
-				<option value="writer">직급</option>
-			</select> <input type="text" class="form-control" name="keyword" id="keyword" style="width: 270px; height: 38px; margin: 0 6px;">
+		<div class="select_outer" style="display: flex; justify-content: center;">
+			<select id="select_search" name="select_search" class="form-select mb-3" style="width: 100px;">
+				<option value="emp_name">이름</option>
+				<option value="dept_name">부서</option>
+				<option value="job_title">직급</option>
+			</select> <input type="text" class="form-control" name="search_bar" id="search_bar" style="width: 270px; height: 38px; margin: 0 6px;">
 			<button class="btn btn-sm btn-primary" name="btnSearch"
 				id="y_btn_search" style="height: 38px;">검색</button>
 		</div>
 	</div>
 	<!-- search{e} -->
 
-		<div id='test' style="text-align: center; ">
-			<button type="button" class="btn btn-light">ㄱ</button>
-			<button type="button" class="btn btn-light">ㄴ</button>
-			<button type="button" class="btn btn-light">ㄷ</button>
-			<button type="button" class="btn btn-light">ㄹ</button>
-			<button type="button" class="btn btn-light">ㅁ</button>
-			<button type="button" class="btn btn-light">ㅂ</button>
-			<button type="button" class="btn btn-light">ㅅ</button>
-			<button type="button" class="btn btn-light">ㅇ</button>
-			<button type="button" class="btn btn-light">ㅈ</button>
-			<button type="button" class="btn btn-light">ㅊ</button>
-			<button type="button" class="btn btn-light">ㅋ</button>
-			<button type="button" class="btn btn-light">ㅌ</button>
-			<button type="button" class="btn btn-light">ㅍ</button>
-			<button type="button" class="btn btn-light">ㅎ</button>
+		<div id='y_hangle_btn' style="text-align: center; ">
+			<button type="button" class="btn btn-light hangle">ㄱ</button>
+			<button type="button" class="btn btn-light hangle">ㄴ</button>
+			<button type="button" class="btn btn-light hangle">ㄷ</button>
+			<button type="button" class="btn btn-light hangle">ㄹ</button>
+			<button type="button" class="btn btn-light hangle">ㅁ</button>
+			<button type="button" class="btn btn-light hangle">ㅂ</button>
+			<button type="button" class="btn btn-light hangle">ㅅ</button>
+			<button type="button" class="btn btn-light hangle">ㅇ</button>
+			<button type="button" class="btn btn-light hangle">ㅈ</button>
+			<button type="button" class="btn btn-light hangle">ㅊ</button>
+			<button type="button" class="btn btn-light hangle">ㅋ</button>
+			<button type="button" class="btn btn-light hangle">ㅌ</button>
+			<button type="button" class="btn btn-light hangle">ㅍ</button>
+			<button type="button" class="btn btn-light hangle">ㅎ</button>
 			
 		</div>
 	
@@ -104,6 +104,30 @@
 
 	<script>
 	
+	// 검색
+	$("#y_btn_search").click(function(){
+		var valueSelect = $("#select_search option:selected").val();
+		var valueInput = $("#search_bar").val();
+		console.log("valueSelect : " + valueSelect);
+		console.log("valueInput : " + valueInput);
+
+		//if(valueInput == "") {
+			if(false) {
+			alert("글을 입력해주세요.")
+		} else {
+			$.ajax({
+				url : "<%= request.getContextPath() %>/contact/select",
+				type : "get",
+				data : {"type" : valueSelect, "keyword" : valueInput},
+				success : function(result) {
+					console.log(result);
+					$("#s_content_box").html(result);
+				}
+			})
+		}
+	});
+	
+	
 	// 페이징 처리
 		
 		$(".page-item.num .page-link").click(function(event) {
@@ -128,26 +152,29 @@
 	
 	
 	// 검색할 배열
-	
-	fetch('http://localhost:8090/bab/board/test').then(res=>res.json()).then(res=>{
-
-		//const {selectBoard:arrs} = res.map(v=>Object.keys(v))
+	// controller에서 fetch로 값을 받아옴 (json형태의 data)
+	fetch('http://localhost:8090/bab/contact/selectBtn').then(res=>res.json()).then(res=>{
 		
-		const arr = res.selectBoard.map(v=>Object.keys(v).reduce((res,vv)=>{
-    		res[vv.split('board_')[1]] = v[vv]+''
+    	// 가져온 값을 배열 형태로 만들고 리턴한 값을 arr에 담아줌
+    	const arr = res.selectContact.map(v=>Object.keys(v).reduce((res,vv)=>{
+    		res[vv] = v[vv]+''
     		return res
-    	},{}))
-			
-			const arr2 = arr.map(function(item){
+    	},{}));
+    	
+		//29개의 rownum : ~ emp_name : ~ -> 각 줄당 emp_name 값을 api처리
+		//arr2에 arr을 담아주는데 값이 같이 바뀌므로 arr = arr2
+		const arr2 = arr.map(function(item){
 		const res = item;
-		res.diassembled = Hangul.disassemble(item.writer)[0]
+		res.diassembled = Hangul.disassemble(item.emp_name)[0]
 		return res;
 		})
+		console.log(arr2);
+		console.log(arr);
+		
+	const COLUMN = ['rownum','emp_name','dept_name','job_title','emp_phone','emp_deskphone','emp_hiredate','emp_email','emp_address']
 	
-	const COLUMN = ['content','writer','no','title','undefined','date',6,7,8,9]
-	
-	
-	document.querySelector('#test').addEventListener('click',function(e){
+	// tagName이 Button인 초성 버튼 클랙했을때 기존 리스트 삭제
+	document.querySelector('#y_hangle_btn').addEventListener('click',function(e){
 	const $tbody =  document.querySelector('#my-tbody')
 			if(e.target.tagName === 'BUTTON'){
 			const dataRows = [...$tbody.children].slice(1)
@@ -155,9 +182,10 @@
 			
 			const $el = e.target;
 			
+			//search는 해당 버튼의 초성
 			const search = $el.innerText;
-			
-				//arr.filter(item => item.diassembled === search)
+			console.log("search : " + search)
+				// api로 가져온 초성과 search 값이 같은것들을 남겨둔다.
 				arr.filter(function(item){
 					return item.diassembled === search
 				})
@@ -177,11 +205,10 @@
 	
 	})
 	
-	//const arr2 = arr.map(item =>({...item,diassembled:Hangul.disassemble(item.name)[0]}))
-	
-
-
-	
+	// 초성 버튼 클릭 시 퍼지네이션 숨기기
+	$(".hangle").click(function(){
+		$(".pagination").hide();
+	})
 	
 	</script>
     </div>

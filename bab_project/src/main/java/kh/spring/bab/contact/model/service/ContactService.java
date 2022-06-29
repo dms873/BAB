@@ -29,7 +29,7 @@ public interface ContactService {
 	// 주소록 초성검색 리스트
 			/**
 			 *  @param :
-			 *  @return : dao.selectTotalCnt()
+			 *  @return : dao.selectBtn()
 			 *  @author : 윤영원
 			 **/
 	public List<Contact> selectBtn();

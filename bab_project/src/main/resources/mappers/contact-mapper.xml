@@ -25,4 +25,12 @@
 <select id="selectTotalCnt" resultType="_int">
 	select count(*) from employee
 </select>
+
+<select id="selectBtn" resultType="Contact">
+	select rownum, a1.* from (select e.emp_name , d.dept_name, j.job_title, e.emp_phone, e.emp_deskphone, to_char(e.emp_hiredate, 'yyyy-mm-dd') emp_hiredate, e.emp_email, e.emp_address from employee e join dept d
+	using (dept_code)
+	join job j
+	using (job_code)) a1
+	order by rownum
+</select>
 </mapper>

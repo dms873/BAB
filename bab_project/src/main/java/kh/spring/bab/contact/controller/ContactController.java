@@ -77,7 +77,7 @@ public class ContactController {
 	@ResponseBody
 	public ModelMap selectBtn() {
 		ModelMap mv= new ModelMap();
-		mv.addAttribute("selectBoard", service.selectBtn());
+		mv.addAttribute("selectContact", service.selectBtn());
 		return mv;
 	}
 	
