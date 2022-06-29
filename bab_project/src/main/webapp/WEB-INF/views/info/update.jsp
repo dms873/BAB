@@ -29,7 +29,8 @@
    								data-public-key="318e0db7c626903e59e3"
     							data-tabs="file camera url"
 								id="emp_file_path">
-							<input type="hidden" id="fileUrl" name="fileUrl">
+							<input type="hidden" id="fileUrl" name="fileUrl"
+							value="${update.emp_file_path}">
 							</td>
 						</tr>
 						<tr>
@@ -133,10 +134,10 @@
         	var repwdCk = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{3,15}$/;
         	var phoneCk = /^01([0])-([0-9]{4})-([0-9]{4})$/;
         	
-        	/* //프로필사진 공란 체크
-        	if($("#emp_profile").val()==""){
+        	//프로필사진 공란 체크
+        	if($("#fileUrl").val()==""){
 				swal({
-                    title: "비밀번호는 필수 입력 사항입니다.",
+                    title: "프로필 사진은 필수 입력 사항입니다.",
                     text: "확인 후 입력 바랍니다.",
                     icon: "error",
                     closeOnClickOutside: false,
@@ -144,7 +145,7 @@
                 })
                 $("#emp_pwd").focus();
                 return false;
-			} */
+			}
         	
         	//새 비밀번호 공란 체크
         	if($("#emp_pwd").val()==""){
@@ -308,7 +309,7 @@
                     } else {
                         swal({
                             title: "내 정보 수정 완료!!",
-                            text: "그룹웨어 메인페이지로 이동합니다.",
+                            text: "정보가 수정되어 재로그인 부탁드립니다.",
                             icon: "success",
                             closeOnClickOutside: false,
                             closeOnEsc: false
@@ -316,7 +317,7 @@
                         .then((willDelete) => {
   						  if (willDelete) {
   							//뒤로가기 시 내정보수정 페이지로 바로 진입 못하게 하려고 replace로 덮어쓰기함
-  						    location.replace("<%=request.getContextPath()%>/main")
+  						    location.replace("<%=request.getContextPath()%>/employee/logout")
   						  }
   						})
                     }
