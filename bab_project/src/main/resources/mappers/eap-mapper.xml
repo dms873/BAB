@@ -32,7 +32,7 @@
 	
 	<!-- 전자결재 테이블 update(휴가신청서 작성 시) -->
 	<update id="updateeap" parameterType="Eap">
-		UPDATE ELECTRONIC_APPROVAL SET EAP_STEP = 1, EAP_TITLE = #{eap_title}, EAP_CONTENT = #{eap_content}, EAP_DRAFT_DATE = SYSTIMESTAMP WHERE DF_NO = #{df_no}  
+		UPDATE ELECTRONIC_APPROVAL SET EAP_STEP = 1, EAP_TITLE = #{eap_title}, EAP_CONTENT = #{eap_content}, EAP_FILE_PATH = #{eap_file_path}, EAP_DRAFT_DATE = SYSTIMESTAMP WHERE DF_NO = #{df_no}  
 	</update>
 	
 	<!-- 휴가 테이블 insert -->
@@ -42,7 +42,7 @@
 	
 	<!-- 전자결재 테이블 update(지출결의서 작성 시) -->
 	<update id="updateEapSp" parameterType="Eap">
-		UPDATE ELECTRONIC_APPROVAL SET EAP_STEP = 1, EAP_TITLE = #{eap_title}, EAP_CONTENT = #{eap_content}, EAP_DRAFT_DATE = SYSTIMESTAMP WHERE DF_NO = #{df_no}  
+		UPDATE ELECTRONIC_APPROVAL SET EAP_STEP = 1, EAP_TITLE = #{eap_title}, EAP_CONTENT = #{eap_content}, EAP_FILE_PATH = #{eap_file_path}, EAP_DRAFT_DATE = SYSTIMESTAMP WHERE DF_NO = #{df_no}  
 	</update>
 	
 	<!-- 지출테이블 insert -->
@@ -132,5 +132,21 @@
 	<select id="selectSpInfo" resultType="Sp">
 		SELECT * FROM SPENDING WHERE DF_NO = #{df_no}
 	</select>
+	
+	<!-- 남은 휴가일수 확인 : TODO 추후 결재완료로 수정!!! -->
+	<select id="readHoCnt" parameterType="string" resultType="double">
+		SELECT (C.EMP_HO_CR_CNT - SUM(A.HO_USE_COUNT))AS 잔여일수 
+		  FROM HOLIDAY A, ELECTRONIC_APPROVAL B, EMPLOYEE C 
+		 WHERE A.DF_NO = B.DF_NO 
+		   AND A.EMP_NO = C.EMP_NO 
+		   AND B.EAP_STA_CODE = 'S'
+		   AND A.EMP_NO = #{emp_no}
+		GROUP BY EMP_HO_CR_CNT
+	</select>
+	
+	<!-- 결재 회수 클릭 시 결재상태 회수로 변경 -->
+	<update id="cancelDoc" parameterType="string">
+		UPDATE ELECTRONIC_APPROVAL SET EAP_STA_CODE = 'C' WHERE DF_NO = #{df_no}
+	</update>
 	
 </mapper>

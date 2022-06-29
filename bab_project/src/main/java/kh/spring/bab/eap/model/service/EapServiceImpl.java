@@ -123,5 +123,17 @@ public class EapServiceImpl implements EapService {
 	public Spending selectSpInfo(Spending sp) {
 		return dao.selectSpInfo(sp);
 	}
+	
+	// 남은 휴가일수 확인
+	@Override
+	public Double readHoCnt(String emp_no) {
+		return dao.readHoCnt(emp_no);
+	}
+
+	// 결재 회수
+	@Override
+	public int cancelDoc(String df_no) {
+		return dao.cancelDoc(df_no);
+	}
 
 }

@@ -254,14 +254,13 @@
 					
 					<div style="padding: 10px 0;">
 						<div class="s_frm_title">파일첨부</div>
-						<!-- <input type="file" class="form-control"> -->
-						<div id="s_file_upload">
-							<input type="hidden"
-							    role="uploadcare-uploader"
-							    data-public-key="991bc66817ca4103d3ee"
-							    data-tabs="file url"/>
-					    </div>
-						<input type="hidden" name="fileUrl" id="fileUrl">
+						<c:if test="${not empty readHoDoc.eap_file_path }">
+							<img style="width: 450px;" src="${readHoDoc.eap_file_path }">
+							<div style="color: dimgray; font-size: .9em;">* 다운로드를 희망하시면 마우스 오른쪽을 클릭 후 이미지를 저장해주세요.</div>
+						</c:if>
+						<c:if test="${empty readHoDoc.eap_file_path }">
+							<div>- 無</div>
+						</c:if>
 					</div>
 				</div>
 			</div>
@@ -329,6 +328,21 @@
 			
 		</div>
 	</div>
+	
+	<script>
+		// 결재 회수 ajax
+		$("#s_eap_app").click(function() {
+			$.ajax({
+				url: "<%=request.getContextPath()%>/eap/canceldoc",
+				type: "post",
+				data: {"df_no": $("#s_dfNo").text()},
+				success: function(result) {
+					alert(result);
+					$('#s_before_doc').trigger('click');
+				}
+			});
+		});
+	</script>
 	
 	<script>
 		// 결재선 지정 시 결재상태에 따라 글씨색 변경

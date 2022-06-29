@@ -237,6 +237,10 @@ public class ElectronicApprovalController {
 			Eap eap = service.empInfo(emp_no);
 			mv.addObject("eap", eap);
 			
+			// 남은 휴가일수 확인
+			Double checkHo = service.readHoCnt(emp_no);
+			mv.addObject("checkHo", checkHo);
+			
 			// 문서양식번호 띄울 정보
 			mv.addObject("resultDoc", resultDoc);
 			mv.setViewName("documentForm/holiday");
@@ -331,7 +335,6 @@ public class ElectronicApprovalController {
 		
 		int result = service.insertapp(eap);
 		
-		
 		logger.info("결재선 리스트, 참조처 리스트 insert결과 : " + result);
 		
 		String msg = "";
@@ -357,6 +360,7 @@ public class ElectronicApprovalController {
 			@RequestParam(name = "ho_start", required = false) String ho_start,
 			@RequestParam(name = "ho_end", required = false) String ho_end,
 			@RequestParam(name = "ho_use_count", required = false) String ho_use_count,
+			@RequestParam(value = "eap_file_path", required = false) String eap_file_path,
 			HttpServletRequest req
 			) {
 		
@@ -367,6 +371,7 @@ public class ElectronicApprovalController {
 			eap.setDf_no(df_no);
 			eap.setEap_title(eap_title);
 			eap.setEap_content(eap_content);
+			eap.setEap_file_path(eap_file_path);
 			att.setDf_no(df_no);
 			att.setHo_code(ho_code);
 			att.setHo_start(ho_start);
@@ -407,10 +412,13 @@ public class ElectronicApprovalController {
 			,  @RequestParam(value = "df_no", required = false) String df_no
 			,  @RequestParam(value = "eap_title", required = false) String eap_title
 			,  @RequestParam(value = "eap_content", required = false) String eap_content
+			,  @RequestParam(value = "eap_file_path", required = false) String eap_file_path
 			,  Spending sp
 			,  Eap eap
 			,  HttpServletRequest req
 			) {
+		
+		logger.info("파일url 불러와지니 ? : " + eap_file_path);
 		
 		// 콤마 제거
 		sp_amount = removeComma(sp_amount);
@@ -424,6 +432,7 @@ public class ElectronicApprovalController {
 		eap.setDf_no(df_no);
 		eap.setEap_title(eap_title);
 		eap.setEap_content(eap_content);
+		eap.setEap_file_path(eap_file_path);
 		
 		// 로그인한 사람 정보 가져오기(사번)
 		Employee emp = (Employee) req.getSession().getAttribute("login");
@@ -460,6 +469,26 @@ public class ElectronicApprovalController {
 //		for(String data : arrayparam) {
 //			System.out.println(data);
 //		}
+		return msg;
+	}
+	
+	// 결재 회수 Ajax
+	@PostMapping(value = "/canceldoc", produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public String cancelDoc(
+			@RequestParam(value = "df_no", required = false) String df_no
+			) {
+		
+		// 결재 회수
+		int result = service.cancelDoc(df_no);
+		
+		String msg = "";
+		if(result > 0) {
+			msg = "문서가 정상적으로 회수되었습니다.";
+		} else {
+			msg = "문서 회수에 실패하였습니다.";
+		}
+		
 		return msg;
 	}
 	

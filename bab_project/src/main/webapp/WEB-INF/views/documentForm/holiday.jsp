@@ -250,6 +250,7 @@
 					
 					<div style="padding: 10px 0;">
 						<div class="s_frm_title">3. 신청기간</div>
+						<div style="margin: 5px 0;">사용 가능한 휴가일수는 ${checkHo }일 입니다.</div>
 						<div>
 							<input type="text" placeholder="신청 시작 기간을 선택해주세요" class="form-control" style="width: 250px; display: inline-block;" id="s_ho_start">
 							<input type="time" class="form-control" style="width: 150px; display: inline-block;" id="s_start_time" min="09:00:00" max="22:00:00"> 부터
@@ -273,7 +274,7 @@
 							<input type="hidden"
 							    role="uploadcare-uploader"
 							    data-public-key="991bc66817ca4103d3ee"
-							    data-tabs="file url"/>
+							    data-tabs="file url" id="eap_file_path"/>
 					    </div>
 						<input type="hidden" name="fileUrl" id="fileUrl">
 					</div>
@@ -313,6 +314,19 @@
 			
 		</div>
 	</div>
+	
+	<script>
+		/* 이미지등록 */
+		var singleWidget = uploadcare.SingleWidget('[role=uploadcare-uploader]');
+	
+		singleWidget.onUploadComplete(function(info) {
+			$("#fileUrl").val(info.cdnUrl);
+			console.log("파일URL : " + $("#fileUrl").val(info.cdnUrl));
+			console.log(JSON.stringify($("#fileUrl").val(info.cdnUrl)));
+		});
+		
+		
+	</script>
 	
 	<script>
 		

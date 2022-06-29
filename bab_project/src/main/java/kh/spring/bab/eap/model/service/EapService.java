@@ -131,5 +131,19 @@ public interface EapService {
 	 * @param : sp vo
 	 * */
 	public Spending selectSpInfo(Spending sp);
+	
+	/**
+	 * @author : 손은진
+	 * @return : 남은 휴가일수 확인
+	 * @param : emp_no(로그인한 사람의 사번)
+	 * */
+	public Double readHoCnt(String emp_no);
+	
+	/**
+	 * @author : 손은진
+	 * @return : 결재 회수
+	 * @param : df_no(문서번호)
+	 * */
+	public int cancelDoc(String df_no);
 
 }

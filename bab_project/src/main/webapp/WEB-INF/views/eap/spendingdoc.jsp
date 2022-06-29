@@ -9,7 +9,7 @@
     <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.min.js"></script>
     <script>UPLOADCARE_LOCALE = "ko"</script>
 <meta charset="UTF-8">
-<!-- <title>전자결재(휴가신청서)상세조회</title> -->
+<!-- <title>전자결재(지출결의서)상세조회</title> -->
 <style>
 	.s_frm_title {
 	    font-size: 1em;
@@ -207,7 +207,7 @@
 					
 					<div style="padding: 10px 0;">
 						<div class="s_frm_title">1. 지출 내용</div>
-						<div>${readSpDoc.eap_content }</div>
+						<div id="s_eap_content">${readSpDoc.eap_content }</div>
 					</div>
 					
 					<div style="padding: 10px 0;">
@@ -216,7 +216,7 @@
 								<thead>
 									<tr>
 										<th scope="col" style="width: 130px;">날짜</th>
-										<th scope="col" style="width: 300px;">내역</th>
+										<th scope="col" style="width: 500px;">내역</th>
 										<th scope="col" style="width: 70px;">수량</th>
 										<th scope="col" style="width: 150px;">금액</th>
 										<th scope="col" style="width: 130px;">결제수단</th>
@@ -256,14 +256,13 @@
 					
 					<div style="padding: 10px 0;">
 						<div class="s_frm_title">파일첨부</div>
-						<!-- <input type="file" class="form-control"> -->
-						<div id="s_file_upload">
-							<input type="hidden"
-							    role="uploadcare-uploader"
-							    data-public-key="991bc66817ca4103d3ee"
-							    data-tabs="file url"/>
-					    </div>
-						<input type="hidden" name="fileUrl" id="fileUrl">
+						<c:if test="${not empty readSpDoc.eap_file_path }">
+							<img style="width: 450px;" src="${readSpDoc.eap_file_path }">
+							<div style="color: dimgray; font-size: .9em;">* 다운로드를 희망하시면 마우스 오른쪽을 클릭 후 이미지를 저장해주세요.</div>
+						</c:if>
+						<c:if test="${empty readSpDoc.eap_file_path }">
+							<div>- 無</div>
+						</c:if>
 					</div>
 				</div>
 			</div>
@@ -331,6 +330,21 @@
 			
 		</div>
 	</div>
+	
+	<script>
+		// 결재 회수 ajax
+		$("#s_eap_app").click(function() {
+			$.ajax({
+				url: "<%=request.getContextPath()%>/eap/canceldoc",
+				type: "post",
+				data: {"df_no": $("#s_dfNo").text()},
+				success: function(result) {
+					alert(result);
+					$('#s_before_doc').trigger('click');
+				}
+			});
+		});
+	</script>
 	
 	<!-- 합계 -->
 	<script>

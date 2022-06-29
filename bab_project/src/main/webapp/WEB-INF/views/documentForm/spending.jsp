@@ -285,7 +285,8 @@
 							<!-- <input type="file" class="form-control"> -->
 							<div id="s_file_upload">
 								<input type="hidden" role="uploadcare-uploader"
-									data-public-key="991bc66817ca4103d3ee" data-tabs="file url" />
+									data-public-key="991bc66817ca4103d3ee" data-tabs="file url" 
+							    	id="eap_file_path"/>
 							</div>
 							<input type="hidden" name="fileUrl" id="fileUrl">
 						</div>
@@ -706,6 +707,7 @@
 					"df_no" : $('#s_dfNo').text(),
 					"eap_title" : $('#s_sp_tt').val(),
 					"eap_content" : $('#s_sp_co').val(),
+					"eap_file_path": $("#fileUrl").val(),
 			}
 			
 			

@@ -105,4 +105,14 @@ public class EapDao {
 	public Spending selectSpInfo(Spending sp) {
 		return sqlSession.selectOne("Eap.selectSpInfo", sp);
 	}
+	
+	// 남은 휴가일수 확인
+	public Double readHoCnt(String emp_no) {
+		return sqlSession.selectOne("Eap.readHoCnt", emp_no);
+	}
+	
+	// 결재 회수
+	public int cancelDoc(String df_no) {
+		return sqlSession.update("Eap.cancelDoc", df_no);
+	}
 }

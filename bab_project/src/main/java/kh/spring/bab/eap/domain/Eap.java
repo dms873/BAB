@@ -28,6 +28,7 @@ public class Eap {
 	private String emp_name; // 사원명
 	private String df_title; // 문서명
 	private String emp_phone; // 사원전화번호
+	private String eap_file_path; // 파일 경로
 	
 	@Override
 	public String toString() {
@@ -38,7 +39,7 @@ public class Eap {
 				+ ", eap_draft_date=" + eap_draft_date + ", eap_result_date=" + eap_result_date + ", eap_update_date="
 				+ eap_update_date + ", emp_no=" + emp_no + ", df_no=" + df_no + ", df_code=" + df_code + ", dept_name="
 				+ dept_name + ", job_title=" + job_title + ", emp_name=" + emp_name + ", df_title=" + df_title
-				+ ", emp_phone=" + emp_phone + "]";
+				+ ", emp_phone=" + emp_phone + ", eap_file_path=" + eap_file_path + "]";
 	}
 	public String getEap_no() {
 		return eap_no;
@@ -178,6 +179,11 @@ public class Eap {
 	public void setEmp_phone(String emp_phone) {
 		this.emp_phone = emp_phone;
 	}
-	
+	public String getEap_file_path() {
+		return eap_file_path;
+	}
+	public void setEap_file_path(String eap_file_path) {
+		this.eap_file_path = eap_file_path;
+	}
 	
 }
