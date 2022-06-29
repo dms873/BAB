@@ -1,5 +1,6 @@
 package kh.spring.bab.eap.controller;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
@@ -126,6 +127,7 @@ public class ElectronicApprovalController {
 			@RequestParam(name = "df_no", required = false) String df_no,
 			Eap eap,
 			Attendance att,
+			Spending sp,
 			RedirectAttributes rttr
 			) {
 		
@@ -165,8 +167,32 @@ public class ElectronicApprovalController {
 			mv.addObject("hoInfo", result5);
 			mv.setViewName("eap/holidaydoc");
 		} else { // 지출결의서면
-			// mv.addObject("readSpDoc", service.readSpDoc(df_no));
-			// mv.setViewName("eap/spendingdoc");
+			Eap result = service.readSpDoc(df_no);
+			mv.addObject("readSpDoc", result);
+			// 첫번째 승인자 정보
+			if(result.getEap_first_ap() != null) {
+				Eap result2 = service.selectFirstAp(result);
+				mv.addObject("firstAp", result2);
+			} 
+			// 두번째 승인자 정보
+			if(result.getEap_mid_ap() != null) {
+				Eap result3 = service.selectMidAp(result);
+				mv.addObject("midAp", result3);
+				logger.info("두번째 승인자 정보 : " + result3);
+			} 
+			// 세번째 승인자 정보
+			if(result.getEap_final_ap() != null) {
+				Eap result4 = service.selectFinalAp(result);
+				mv.addObject("finalAp", result4);
+				logger.info("세번째 승인자 정보 : " + result4);
+			}
+			// 지출결의서에 저장된 정보가져오기
+			sp.setDf_no(result.getDf_no());
+			Spending result5 = service.selectSpInfo(sp);
+			// logger.info(result5.getSp_amount());
+			result5.setSp_amount(addComma(Integer.parseInt(result5.getSp_amount())));
+			mv.addObject("spInfo", result5);
+			mv.setViewName("eap/spendingdoc");
 		}
 		
 		// 로그인한 사람 정보 가져오기(사번)
@@ -442,8 +468,9 @@ public class ElectronicApprovalController {
 		return data.replaceAll("\\,", "");
 	}
 	
-	
-	
-	
-	
+	// 콤마추가함수
+	public String addComma(int data) {
+		DecimalFormat formatter = new DecimalFormat("###,###");
+		return formatter.format(data);
+	}
 }

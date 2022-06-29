@@ -111,5 +111,17 @@ public class EapServiceImpl implements EapService {
 	public Attendance selectHoInfo(Attendance att) {
 		return dao.selectHoInfo(att);
 	}
+	
+	// 문서 상세 조회(지출결의서)
+	@Override
+	public Eap readSpDoc(String df_no) {
+		return dao.readHoDoc(df_no);
+	}
+	
+	// 지출결의서에 저장된 정보 가져오기
+	@Override
+	public Spending selectSpInfo(Spending sp) {
+		return dao.selectSpInfo(sp);
+	}
 
 }

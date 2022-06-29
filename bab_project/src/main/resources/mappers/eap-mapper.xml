@@ -119,4 +119,18 @@
 		SELECT * FROM HOLIDAY WHERE DF_NO = #{df_no}
 	</select>
 	
+	<!-- 문서 상세 조회(지출결의서) -->
+	<select id="readSpDoc" parameterType="string" resultType="Eap">
+		SELECT * FROM EMPLOYEE
+		  JOIN ELECTRONIC_APPROVAL USING(EMP_NO) 
+		  JOIN DEPT USING(DEPT_CODE)
+		  JOIN JOB USING(JOB_CODE)
+		WHERE DF_NO = #{df_no}
+	</select>
+	
+	<!-- 지출결의서에 저장된 정보 가져오기 -->
+	<select id="selectSpInfo" resultType="Sp">
+		SELECT * FROM SPENDING WHERE DF_NO = #{df_no}
+	</select>
+	
 </mapper>

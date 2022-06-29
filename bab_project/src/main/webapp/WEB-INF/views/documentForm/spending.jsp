@@ -267,8 +267,7 @@
 								<tfoot>
 									<tr>
 										<th colspan="3">합계</th>
-										<td colspan="2">\ <span id="s_total_price"></span> (VAT
-											포함)
+										<td colspan="2">\ <span id="s_total_price"></span> (VAT포함)
 										</td>
 									</tr>
 								</tfoot>

@@ -117,5 +117,19 @@ public interface EapService {
 	 * @param : att vo
 	 * */
 	public Attendance selectHoInfo(Attendance att);
+	
+	/**
+	 * @author : 손은진
+	 * @return : 문서 상세 조회(지출결의서)
+	 * @param : df_no(문서번호)
+	 * */
+	public Eap readSpDoc(String df_no);
+	
+	/**
+	 * @author : 손은진
+	 * @return : 지출결의서에 저장된 정보 가져오기
+	 * @param : sp vo
+	 * */
+	public Spending selectSpInfo(Spending sp);
 
 }
