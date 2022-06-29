@@ -125,4 +125,9 @@ public class EapDao {
 	public int updateEap(Eap eap) {
 		return sqlSession.update("Eap.updateEap", eap);
 	}
+	
+	// 문서 수정(휴가신청서)
+	public int updateHpDoc(Attendance att) {
+		return sqlSession.update("Eap.updateHpDoc", att);
+	}
 }

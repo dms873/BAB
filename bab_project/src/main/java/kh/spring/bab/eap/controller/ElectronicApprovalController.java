@@ -540,6 +540,52 @@ public class ElectronicApprovalController {
 		return msg;
 	}
 	
+	// 문서 수정(휴가신청서) Ajax
+	@PostMapping(value = "/updateho", produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public String updateHoDoc(
+			Eap eap,
+			Attendance att,
+			@RequestParam(name = "df_no", required = false) String df_no,
+			@RequestParam(name = "eap_title", required = false) String eap_title,
+			@RequestParam(name = "eap_content", required = false) String eap_content,
+			@RequestParam(name = "ho_code", required = false) String ho_code,
+			@RequestParam(name = "ho_start", required = false) String ho_start,
+			@RequestParam(name = "ho_end", required = false) String ho_end,
+			@RequestParam(name = "ho_use_count", required = false) String ho_use_count,
+			@RequestParam(value = "eap_file_path", required = false) String eap_file_path,
+			@RequestParam(value = "s_img", required = false) String s_img
+			) {
+		
+		eap.setDf_no(df_no);
+		eap.setEap_title(eap_title);
+		eap.setEap_content(eap_content);
+		eap.setEap_file_path(eap_file_path);
+		att.setDf_no(df_no);
+		att.setHo_code(ho_code);
+		att.setHo_start(ho_start);
+		att.setHo_end(ho_end);
+		att.setHo_use_count(ho_use_count);
+		if(eap_file_path != null && eap_file_path != "") {
+			eap.setEap_file_path(eap_file_path);
+		} else {
+			eap.setEap_file_path(s_img);
+		}
+		
+		int resultHo = service.updateHpDoc(att);
+		int resultEap = service.updateEap(eap);
+		
+		String msg = "";
+		if(resultHo > 0 && resultEap > 0) {
+			msg = "문서가 정상적으로 수정되었습니다.";
+		} else {
+			msg = "문서 수정에 실패하였습니다.";
+		}
+		
+		return msg;
+	}
+	
+	
 	// 콤마제거함수
 	public String removeComma(String data) {
 		return data.replaceAll("\\,", "");

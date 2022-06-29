@@ -159,5 +159,12 @@ public interface EapService {
 	 * @param : eap vo
 	 * */
 	public int updateEap(Eap eap);
+	
+	/**
+	 * @author : 손은진
+	 * @return : 문서 수정(휴가신청서)
+	 * @param : att vo
+	 * */
+	public int updateHpDoc(Attendance att);
 
 }

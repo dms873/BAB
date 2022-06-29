@@ -147,5 +147,11 @@ public class EapServiceImpl implements EapService {
 	public int updateEap(Eap eap) {
 		return dao.updateEap(eap);
 	}
+	
+	// 문서 수정(휴가신청서)
+	@Override
+	public int updateHpDoc(Attendance att) {
+		return dao.updateHpDoc(att);
+	}
 
 }

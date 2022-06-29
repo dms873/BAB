@@ -160,4 +160,9 @@
 		EAP_DRAFT_DATE = SYSTIMESTAMP  WHERE DF_NO = #{df_no} 
 	</update>
 	
+	<!-- 문서 수정(휴가신청서) -->
+	<update id="updateHpDoc" parameterType="Att">
+		UPDATE HOLIDAY SET HO_CODE = #{ho_code}, HO_START = #{ho_start}, HO_END = #{ho_end}, HO_USE_COUNT = #{ho_use_count} WHERE DF_NO = #{df_no}
+	</update>
+	
 </mapper>

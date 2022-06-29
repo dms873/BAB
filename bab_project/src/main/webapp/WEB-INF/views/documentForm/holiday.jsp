@@ -654,20 +654,6 @@
 	singleWidget.onUploadComplete(function(info) {
 		$("#fileUrl").val(info.cdnUrl);
 	});
-	
-	// 파일 첨부 버튼 2개 생겨서 한 개 없앰..
-	/* if($('.uploadcare--widget.uploadcare--widget_status_ready').length > 2) {
-    	$(".uploadcare--widget uploadcare--widget_status_ready").css('display','none');
-	} */
-	$(document).ready(function() {
-		if($('.uploadcare--widget.uploadcare--widget_status_ready').length > 1) {
-			console.log("들어왔니?  ?? ? ? ?? ");
-			for(var i = 1; i < $('.uploadcare--widget.uploadcare--widget_status_ready').length; i++) {
-				document.getElementsByClassName('uploadcare--widget_status_ready')[i].style.display = 'none';
-			}
-		}
-	});
-	
 	</script>
 	
 	<script>

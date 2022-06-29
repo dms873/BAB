@@ -88,7 +88,7 @@
 	<div id="s_btn">
 		<span><a id="s_eap_cancle" href="#">결재회수 | </a></span>
 		<span><a id="s_eap_update" href="#">문서 수정 | </a></span>
-		<span><a id="s_opinion_btn" href="#">의견 | </a></span>
+		<span><a id="s_opinion_btn" href="#" onclick="opinion()">의견 | </a></span>
 		<span><a id="s_list_btn" href="#" onclick="list()">목록</a></span>
 	</div>
 	
@@ -422,6 +422,17 @@
 					$("#s_before_doc").trigger("click");
 				}
 			});
+		}
+		
+		// 의견 클릭 시
+		function opinion() {
+			var rejectMsg = "${readSpDoc.eap_reject}";
+			console.log(rejectMsg);
+			if(rejectMsg == null || rejectMsg == "") {
+				alert("반려 사유가 없습니다.");
+			} else {
+				alert(rejectMsg);
+			}
 		}
 	
 	</script>
