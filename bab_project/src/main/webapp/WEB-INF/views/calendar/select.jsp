@@ -75,12 +75,33 @@
 
 	</section>
 	<script>
-		//Fullcalandar API
+		//Fullcalandar API	
 		$(function() {
 			//배열형태
 			var calendarEl = $('#j_cal_frame')[0];
 			var calendar = new FullCalendar.Calendar(calendarEl, {
-				initialView : 'dayGridMonth'
+				headerToolbar : {
+					left : 'prev,next today',
+					center : 'title',
+					right : 'dayGridMonth,timeGridDay'
+				},
+				locale : 'ko',
+				initialView : 'dayGridMonth',
+				events : [ {
+					id : '',
+					title : '일정',
+					start : '2022-06-30T13:00',
+					end : '2022-06-30T19:00',
+					borderColor : 'red'
+				} ],
+				//TODO:일정클릭 시 이벤트
+			/* 	eventClick : function(info) {
+					if (confirm("'" + info.event.title
+							+ "' 매니저의 일정을 삭제하시겠습니까 ?")) {
+						// 확인 클릭 시
+						info.event.remove();
+					}
+				}, */
 			});
 			calendar.render();
 		});

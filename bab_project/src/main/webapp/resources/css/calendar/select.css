@@ -50,10 +50,6 @@
 	justify-content: center;
 	margin-top: 50px;
 }
-/* 캘린더 상단 년월 */
-#fc-dom-1 {
-	margin-left: 580px;
-}
 /* 필수 입력 항목 */
 .j_cal_sym {
 	color: red;
