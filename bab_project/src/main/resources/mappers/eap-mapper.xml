@@ -58,7 +58,7 @@
 	
 	<!-- 결재대기문서 -->
 	<select id="selectBeforeDoc" parameterType="string" resultType="Eap">
-		SELECT TO_CHAR(EAP_DRAFT_DATE,'YYYY/MM/DD') EAP_DRAFT_DATE,
+		SELECT TO_CHAR(EAP_DRAFT_DATE,'YYYY/MM/DD') EAP_DRAFT_DATE, EAP_FILE_PATH,
 	      (SELECT DEPT_NAME FROM DEPT JOIN EMPLOYEE USING(DEPT_CODE) WHERE EMP_NO = #{emp_no}) DEPT_NAME, 
 	      EMP_NAME, DF_TITLE, EAP_TITLE, EAP_CONTENT, EMP_NO, DF_NO, EAP_NO,
 	      DECODE(EAP_STA_CODE, 'C', '결재회수', 'S', '결재대기', 'O', '진행중', 'F', '결재완료', 'R', '반려') EAP_STA_CODE 
@@ -178,5 +178,60 @@
 		WHERE EAP_STA_CODE = 'S' AND EMP_NO = #{emp_no} AND EAP_TITLE IS NOT NULL
 		ORDER BY EAP_DRAFT_DATE DESC, EAP_NO DESC)
 	</select>
+	
+	<!-- 결재 수신 문서 -->
+	<select id="selectReceiptDoc" parameterType="string" resultType="Eap">
+		SELECT A.*, B.DEPT_NAME FROM (
+			SELECT TO_CHAR(EAP_DRAFT_DATE,'YYYY/MM/DD') EAP_DRAFT_DATE,
+			      EAP_FILE_PATH, EMP_NAME, DF_TITLE, EAP_TITLE, EAP_CONTENT, EMP_NO, EAP_NO,
+			      DECODE(EAP_STA_CODE, 'C', '결재회수', 'S', '결재대기', 'O', '진행중', 'F', '결재완료', 'R', '반려') EAP_STA_CODE, DF_NO
+			  FROM ELECTRONIC_APPROVAL 
+			  JOIN DOCUMENT_FORM USING(DF_NO)
+			  JOIN EMPLOYEE USING(EMP_NO)
+			  WHERE (EAP_STA_CODE = 'S' OR EAP_STA_CODE = 'O') AND EAP_TITLE IS NOT NULL AND 
+			        (EAP_STEP = 1 AND EAP_FIRST_AP = (SELECT EMP_NAME FROM EMPLOYEE WHERE EMP_NO = #{emp_no}) 
+			                    OR (EAP_STEP = 2 AND EAP_MID_AP = (SELECT EMP_NAME FROM EMPLOYEE WHERE EMP_NO = #{emp_no})) 
+			                    OR (EAP_STEP = 3 AND EAP_FINAL_AP = (SELECT EMP_NAME FROM EMPLOYEE WHERE EMP_NO = #{emp_no})))
+			ORDER BY EAP_DRAFT_DATE DESC, EAP_NO DESC) A, (SELECT EMP_NO, DEPT_NAME FROM DEPT JOIN EMPLOYEE USING(DEPT_CODE))B
+		WHERE A.EMP_NO = B.EMP_NO
+	</select>
+	
+	<!-- 결재 수신 문서 개수 -->
+	<select id="reDocCnt" parameterType="string" resultType="_int">
+		SELECT COUNT(*) 
+		  FROM (SELECT A.*, B.DEPT_NAME FROM (
+			SELECT TO_CHAR(EAP_DRAFT_DATE,'YYYY/MM/DD') EAP_DRAFT_DATE,
+			      EAP_FILE_PATH, EMP_NAME, DF_TITLE, EAP_TITLE, EAP_CONTENT, EMP_NO, EAP_NO,
+			      DECODE(EAP_STA_CODE, 'C', '결재회수', 'S', '결재대기', 'O', '진행중', 'F', '결재완료', 'R', '반려') EAP_STA_CODE, DF_NO
+			  FROM ELECTRONIC_APPROVAL 
+			  JOIN DOCUMENT_FORM USING(DF_NO)
+			  JOIN EMPLOYEE USING(EMP_NO)
+			  WHERE (EAP_STA_CODE = 'S' OR EAP_STA_CODE = 'O') AND EAP_TITLE IS NOT NULL AND 
+			        (EAP_STEP = 1 AND EAP_FIRST_AP = (SELECT EMP_NAME FROM EMPLOYEE WHERE EMP_NO = #{emp_no}) 
+			                    OR (EAP_STEP = 2 AND EAP_MID_AP = (SELECT EMP_NAME FROM EMPLOYEE WHERE EMP_NO = #{emp_no})) 
+			                    OR (EAP_STEP = 3 AND EAP_FINAL_AP = (SELECT EMP_NAME FROM EMPLOYEE WHERE EMP_NO = #{emp_no})))
+			ORDER BY EAP_DRAFT_DATE DESC, EAP_NO DESC) A, (SELECT EMP_NO, DEPT_NAME FROM DEPT JOIN EMPLOYEE USING(DEPT_CODE))B
+		WHERE A.EMP_NO = B.EMP_NO)
+	</select>
+	
+	<!-- 결재 승인(결재자가 1명일 때) -->
+	<update id="updateOneApp" parameterType="Eap">
+		UPDATE ELECTRONIC_APPROVAL SET EAP_STEP = #{eap_step}, EAP_STA_CODE = #{eap_sta_code}, EAP_RES_CODE = #{eap_res_code}, EAP_RESULT_DATE = SYSTIMESTAMP WHERE DF_NO = #{df_no}
+	</update>
+	
+	<!-- 결재 승인(결재자가 2명 이상일 때) -->
+	<update id="updateEapApp" parameterType="Eap">
+		UPDATE ELECTRONIC_APPROVAL SET EAP_STEP = #{eap_step}, EAP_STA_CODE = #{eap_sta_code}, EAP_RES_CODE = #{eap_res_code}, EAP_RESULT_DATE = SYSTIMESTAMP WHERE DF_NO = #{df_no}
+	</update>
+	
+	<!-- 결재 반려(결재자가 1명일 때) -->
+	<update id="updateOneRej" parameterType="Eap">
+		UPDATE ELECTRONIC_APPROVAL SET EAP_STEP = #{eap_step}, EAP_STA_CODE = #{eap_sta_code}, EAP_RES_CODE = #{eap_res_code}, EAP_REJECT = #{eap_reject}, EAP_RESULT_DATE = SYSTIMESTAMP WHERE DF_NO = #{df_no}
+	</update>
+	
+	<!-- 결재 반려(결재자가 2명 이상일 때) -->
+	<update id="updateEapRej" parameterType="Eap">
+		UPDATE ELECTRONIC_APPROVAL SET EAP_STEP = #{eap_step}, EAP_STA_CODE = 'R', EAP_RES_CODE = 'R', EAP_REJECT = #{eap_reject}, EAP_RESULT_DATE = SYSTIMESTAMP WHERE DF_NO = #{df_no}
+	</update>
 	
 </mapper>

@@ -1,3 +1,4 @@
+<%@page import="kh.spring.bab.employee.domain.Employee"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -88,11 +89,27 @@
 </head>
 <body>
 
+	<%
+		// 로그인 한 정보
+		String empNo = null;
+		Employee vo = (Employee) request.getSession().getAttribute("login"); 
+		empNo = vo.getEmp_no();
+	%>
+	<!-- check라는 변수명에 el태그를 값으로 넣어 -->
+	<c:set var="check" value="${readHoDoc.emp_no }"/>
+	
 	<div id="s_btn">
-		<span><a id="s_eap_cancle" href="#">결재회수 | </a></span>
-		<span><a id="s_eap_update" href="#">문서 수정 | </a></span>
-		<span><a id="s_opinion_btn" href="#" onclick="opinion()">의견 | </a></span>
-		<span><a id="s_list_btn" href="#" onclick="list()">목록</a></span>
+		<!-- pageContext.getAttribute(변수명).toString()으로 꺼내서 사용 -->
+		<% if(empNo.equals(pageContext.getAttribute("check").toString()) == true) { %>
+			<span><a id="s_eap_cancle" href="#">결재회수 | </a></span>
+			<span><a id="s_eap_update" href="#">문서 수정 | </a></span>
+			<span><a id="s_opinion_btn" href="#" onclick="opinion()">의견 | </a></span>
+			<span><a id="s_list_btn" href="#" onclick="belist()">목록</a></span>
+		<% } else { %>
+			<span><a id="s_approval_btn" href="#">결재 승인 | </a></span>
+			<span><a id="s_reject_btn" href="#">결재 반려 | </a></span>
+			<span><a id="s_list_btn" href="#" onclick="relist()">목록</a></span>
+		<% } %>
 	</div>
 	
 	<div id="s_eap_content_box_left">
@@ -396,7 +413,7 @@
 			$('#s_file_upload').append('<input type="hidden" role="uploadcare-uploader" data-public-key="991bc66817ca4103d3ee" data-tabs="file url" id="eap_file_path"/>');
 			$('#s_file_upload').after('<input type="hidden" name="fileUrl" id="fileUrl">');
 			$("#s_btn").empty();
-			$("#s_btn").append('<span><a id="s_doc_update" href="#" onclick="update()">문서 수정 | </a></span>');
+			$("#s_btn").append('<span><a id="s_doc_update" href="#" onclick="update()">수정 완료 | </a></span>');
 			$("#s_btn").append('<span><a id="s_list_btn" href="#" onclick="list()">목록</a></span>');
 			
 			/* 이미지등록 */
@@ -567,8 +584,13 @@
 	
 	<script>
 		// 결재 대기 문서 메뉴 클릭(목록으로)
-		function list() {
+		function belist() {
 			$('#s_before_doc').trigger('click');
+		}
+		
+		// 결재 수신 문서 메뉴 클릭(목록으로)
+		function relist() {
+			$('#s_receipt_doc').trigger('click');
 		}
 	</script>
 </body>

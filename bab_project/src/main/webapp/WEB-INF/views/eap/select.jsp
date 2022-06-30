@@ -91,7 +91,11 @@
                 	<c:if test="${beDocCnt ne 0 }">${beDocCnt }</c:if>
 					<c:if test="${beDocCnt eq 0 }"></c:if>
 				</span>
-                <div style="display: inline-block; margin-right: 10px;" id="s_receipt_doc" class="s_hover_event">결재 수신 문서</div><span style="font-weight: bold; color: red;">2</span>
+                <div style="display: inline-block; margin-right: 5px;" id="s_receipt_doc" class="s_hover_event">결재 수신 문서</div>
+                <span style="font-weight: bold; color: red;">
+                	<c:if test="${reDocCnt ne 0 }">${reDocCnt }</c:if>
+					<c:if test="${reDocCnt eq 0 }"></c:if>
+                </span>
 
                 <div style="margin-top: 30px; font-weight: bold; font-size: 1.2em; color: rgb(1, 3, 38);">문서함</div>
                 <div id="s_insert_doc" class="s_hover_event">기안 문서함</div>

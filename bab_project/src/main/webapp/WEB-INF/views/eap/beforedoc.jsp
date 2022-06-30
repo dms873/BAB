@@ -69,7 +69,11 @@
 						      <td>${i.emp_name }</td>
 						      <td>${i.df_title }</td>
 						      <td>${i.eap_title }</td>
-						      <td><i class="bi bi-paperclip"></i></td>
+						      <td>
+						      	<c:if test="${not empty i.eap_file_path }">
+						      		<i class="bi bi-paperclip"></i>
+						      	</c:if>
+					      	  </td>
 						      <c:if test="${i.eap_sta_code eq '결재대기'}">
 						      	<td><button class="btn btn-warning" style="font-size: .8em;">결재대기</button></td>
 						      </c:if>
@@ -137,14 +141,5 @@
     		
     	});
     </script>
-    
-    <script>
-    	$("#s_test").click(function() {
-    		console.log("클릭됨??");
-    		$("#s_eap_content_box").load("<%=request.getContextPath()%>/eap/selectdoc");
-    	});
-    </script>
-    
-
 </body>
 </html>

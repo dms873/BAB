@@ -173,5 +173,47 @@ public interface EapService {
 	 * @param : emp_no(로그인한 사람의 사번)
 	 * */
 	public int beDocCnt(String emp_no);
+	
+	/**
+	 * @author : 손은진
+	 * @return : 결재 수신 문서
+	 * @param : emp_no(로그인한 사람의 사번)
+	 * */
+	public List<Eap> selectReceiptDoc(String emp_no);
+	
+	/**
+	 * @author : 손은진
+	 * @return : 결재 수신 문서 개수
+	 * @param : emp_no(로그인한 사람의 사번)
+	 * */
+	public int reDocCnt(String emp_no);
+	
+	/**
+	 * @author : 손은진
+	 * @return : 결재 승인(결재자가 1명일 때)
+	 * @param : eap vo
+	 * */
+	public int updateOneApp(Eap eap);
+	
+	/**
+	 * @author : 손은진
+	 * @return : 결재 승인(결재자가 2명 이상일 때)
+	 * @param : eap vo
+	 * */
+	public int updateEapApp(Eap eap);
+	
+	/**
+	 * @author : 손은진
+	 * @return : 결재 반려(결재자가 1명일 때)
+	 * @param : eap vo
+	 * */
+	public int updateOneRej(Eap eap);
+	
+	/**
+	 * @author : 손은진
+	 * @return : 결재 반려(결재자가 2명 이상일 때)
+	 * @param : eap vo
+	 * */
+	public int updateEapRej(Eap eap);
 
 }

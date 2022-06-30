@@ -36,18 +36,20 @@ public class ElectronicApprovalController {
 			HttpServletRequest req
 			) {
 		
-		// 로그인한 사람 정보 가져오기(사번)
+		// 로그인한 사람 정보 가져오기(사번, 이름)
 		Employee emp = (Employee) req.getSession().getAttribute("login");
 		String emp_no = emp.getEmp_no();
-		
-		logger.info("이얍 ▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶ " + emp_no);
+		// String emp_name = emp.getEmp_name();
+		System.out.println("emp_name : " + emp.getEmp_name());
 		
 		// 결재 대기 문서 개수
 		int beDocCnt = service.beDocCnt(emp_no);
-		
-		logger.info("이얍 ▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶ " + beDocCnt);
-		
 		mv.addObject("beDocCnt", beDocCnt);
+		
+		// 결재 수신 문서 개수
+		int reDocCnt = service.reDocCnt(emp_no);
+		mv.addObject("reDocCnt", reDocCnt);
+		
 		
 		mv.setViewName("eap/select");
 		
@@ -73,7 +75,18 @@ public class ElectronicApprovalController {
 	
 	// 결재 수신 문서
 	@GetMapping("/receiptdoc")
-	public ModelAndView selectBReceiptDoc(ModelAndView mv) {
+	public ModelAndView selectBReceiptDoc(
+			ModelAndView mv,
+			HttpServletRequest req
+			) {
+		
+		// 로그인한 사람 정보 가져오기(사번)
+		Employee emp = (Employee) req.getSession().getAttribute("login");
+		String emp_no = emp.getEmp_no();
+		
+		List<Eap> receiptDoc = service.selectReceiptDoc(emp_no);
+		mv.addObject("receiptDoc", receiptDoc);
+				
 		mv.setViewName("eap/receiptdoc");
 		return mv;
 	}
@@ -600,6 +613,126 @@ public class ElectronicApprovalController {
 		}
 		
 		return msg;
+	}
+	
+	// 결재 승인(결재자가 1명일 때)
+	@PostMapping(value = "/updateoneapp", produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public String updateOneApp(
+				@RequestParam(value = "eap_step", required = false) String eap_step,
+				@RequestParam(value = "eap_sta_code", required = false) String eap_sta_code,
+				@RequestParam(value = "eap_res_code", required = false) String eap_res_code,
+				@RequestParam(value = "df_no", required = false) String df_no,
+				Eap eap
+			) {
+		
+		eap.setEap_step(eap_step);
+		eap.setEap_sta_code(eap_sta_code);
+		eap.setEap_res_code(eap_res_code);
+		eap.setDf_no(df_no);
+		
+		int result = service.updateOneApp(eap);
+		
+		
+		String msg = "";
+		if(result > 0) {
+			msg = "승인이 완료되었습니다.";
+		} else {
+			msg = "승인에 실패하였습니다.";
+		}
+		
+		return msg;
+		
+	}
+	
+	// 결재 승인(결재자가 2명 이상일 때)
+	@PostMapping(value = "/updateeapapp", produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public String updateEapApp(
+				@RequestParam(value = "eap_step", required = false) String eap_step,
+				@RequestParam(value = "eap_sta_code", required = false) String eap_sta_code,
+				@RequestParam(value = "eap_res_code", required = false) String eap_res_code,
+				@RequestParam(value = "df_no", required = false) String df_no,
+				Eap eap
+			) {
+		
+		eap.setEap_step(eap_step);
+		eap.setEap_sta_code(eap_sta_code);
+		eap.setEap_res_code(eap_res_code);
+		eap.setDf_no(df_no);
+		
+		int result = service.updateEapApp(eap);
+		
+		
+		String msg = "";
+		if(result > 0) {
+			msg = "승인이 완료되었습니다.";
+		} else {
+			msg = "승인에 실패하였습니다.";
+		}
+		
+		return msg;
+		
+	}
+	
+	// 결재 반려(결재자가 1명일 때)
+	@PostMapping(value = "/updateonerej", produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public String updateOneRej(
+				@RequestParam(value = "eap_step", required = false) String eap_step,
+				@RequestParam(value = "eap_sta_code", required = false) String eap_sta_code,
+				@RequestParam(value = "eap_res_code", required = false) String eap_res_code,
+				@RequestParam(value = "eap_reject", required = false) String eap_reject,
+				@RequestParam(value = "df_no", required = false) String df_no,
+				Eap eap
+			) {
+		
+		eap.setEap_step(eap_step);
+		eap.setEap_sta_code(eap_sta_code);
+		eap.setEap_res_code(eap_res_code);
+		eap.setEap_reject(eap_reject);
+		eap.setDf_no(df_no);
+		
+		int result = service.updateOneRej(eap);
+		
+		
+		String msg = "";
+		if(result > 0) {
+			msg = "반려되었습니다.";
+		} else {
+			msg = "실패하였습니다.";
+		}
+		
+		return msg;
+		
+	}
+	
+	// 결재 반려(결재자가 2명 이상일 때)
+	@PostMapping(value = "/updateeaprej", produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public String updateEapRej(
+				@RequestParam(value = "eap_step", required = false) String eap_step,
+				@RequestParam(value = "eap_reject", required = false) String eap_reject,
+				@RequestParam(value = "df_no", required = false) String df_no,
+				Eap eap
+			) {
+		
+		eap.setEap_step(eap_step);
+		eap.setEap_reject(eap_reject);
+		eap.setDf_no(df_no);
+		
+		int result = service.updateEapRej(eap);
+		
+		
+		String msg = "";
+		if(result > 0) {
+			msg = "반려되었습니다.";
+		} else {
+			msg = "실패하였습니다.";
+		}
+		
+		return msg;
+		
 	}
 	
 	

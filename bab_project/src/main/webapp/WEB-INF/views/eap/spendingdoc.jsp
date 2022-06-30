@@ -1,3 +1,4 @@
+<%@page import="kh.spring.bab.employee.domain.Employee"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -85,11 +86,29 @@
 </head>
 <body>
 
+	<%
+		// 로그인 한 정보
+		String empNo = null;
+		String empName = null;
+		Employee vo = (Employee) request.getSession().getAttribute("login"); 
+		empNo = vo.getEmp_no();
+		empName = vo.getEmp_name();
+	%>
+	<!-- check라는 변수명에 el태그를 값으로 넣어 -->
+	<c:set var="check" value="${readSpDoc.emp_no }"/>
+	
 	<div id="s_btn">
-		<span><a id="s_eap_cancle" href="#">결재회수 | </a></span>
-		<span><a id="s_eap_update" href="#">문서 수정 | </a></span>
-		<span><a id="s_opinion_btn" href="#" onclick="opinion()">의견 | </a></span>
-		<span><a id="s_list_btn" href="#" onclick="list()">목록</a></span>
+		<!-- pageContext.getAttribute(변수명).toString()으로 꺼내서 사용 가능 -->
+		<% if(empNo.equals(pageContext.getAttribute("check").toString()) == true) { %>
+			<span><a id="s_eap_cancle" href="#">결재회수 | </a></span>
+			<span><a id="s_eap_update" href="#">문서 수정 | </a></span>
+			<span><a id="s_opinion_btn" href="#" onclick="opinion()">의견 | </a></span>
+			<span><a id="s_list_btn" href="#" onclick="belist()">목록</a></span>
+		<% } else { %>
+			<span><a id="s_approval_btn" href="#" onclick="approval()">결재 승인 | </a></span>
+			<span><a id="s_reject_btn" href="#" data-bs-toggle="modal" data-bs-target="#Modal">결재 반려 | </a></span>
+			<span><a id="s_list_btn" href="#" onclick="relist()">목록</a></span>
+		<% } %>
 	</div>
 	
 	<div id="s_eap_content_box_left">
@@ -146,9 +165,19 @@
 						</tr>
 						<tr>
 							<td>
-								<c:if test="${readSpDoc.eap_sta_code eq 'S'}">
+								<!-- 결재선 단계가 1이고 결재 상태 코드가 진행중이거나 대기중일 때(대기상태) -->
+								<c:if test="${readSpDoc.eap_step == 1 && readSpDoc.eap_sta_code eq 'O' || readSpDoc.eap_sta_code eq 'S'}">
 									<img src="https://media.discordapp.net/attachments/692994434526085184/988792844099678208/stamp_6.png" style="width: 50px;">
 								</c:if>
+								<!-- 결재선 단계가 1 이상이고 결재 상태 코드가 진행중이거나 결재완료일 때(승인상태) -->
+								<c:if test="${readSpDoc.eap_step >= 1 && readSpDoc.eap_sta_code eq 'O' || readSpDoc.eap_sta_code eq 'F'}">
+									<img src="https://media.discordapp.net/attachments/692994434526085184/988792589799026709/stamp_5.png" style="width: 50px;">
+								</c:if>
+								<!-- 결재선 단계가 1 이고 결재 상태 코드가 반려일 때(반려상태) -->
+								<c:if test="${readSpDoc.eap_step == 1 && readSpDoc.eap_sta_code eq 'R'}">
+									<img src="https://media.discordapp.net/attachments/692994434526085184/992095931640057866/stamp_7.png" style="width: 50px;">
+								</c:if>
+								
 							</td>
 						</tr>
 					</table>
@@ -167,8 +196,17 @@
 						</tr>
 						<tr>
 							<td>
-								<c:if test="${readSpDoc.eap_sta_code eq 'S'}">
+								<!-- 결재선 단계가 1이고 결재 상태 코드가 진행중이거나 대기중일 때(대기상태) -->
+								<c:if test="${readSpDoc.eap_step == 1 && readSpDoc.eap_sta_code eq 'O' || readSpDoc.eap_sta_code eq 'S'}">
 									<img src="https://media.discordapp.net/attachments/692994434526085184/988792844099678208/stamp_6.png" style="width: 50px;">
+								</c:if>
+								<!-- 결재선 단계가 2 이상이고 결재 상태 코드가 진행중이거나 결재완료일 때(승인상태) -->
+								<c:if test="${readSpDoc.eap_step >= 2 && readSpDoc.eap_sta_code eq 'O' || readSpDoc.eap_sta_code eq 'F'}">
+									<img src="https://media.discordapp.net/attachments/692994434526085184/988792589799026709/stamp_5.png" style="width: 50px;">
+								</c:if>
+								<!-- 결재선 단계가 2 이고 결재 상태 코드가 반려일 때(반려상태) -->
+								<c:if test="${readSpDoc.eap_step == 2 && readSpDoc.eap_sta_code eq 'R'}">
+									<img src="https://media.discordapp.net/attachments/692994434526085184/992095931640057866/stamp_7.png" style="width: 50px;">
 								</c:if>
 							</td>
 						</tr>
@@ -188,8 +226,21 @@
 						</tr>
 						<tr>
 							<td>
-								<c:if test="${readSpDoc.eap_sta_code eq 'S'}">
+								<!-- 결재선 단계가 1이상이고 결재 상태 코드가 진행중이거나 대기중일 때(대기상태) -->
+								<c:if test="${readSpDoc.eap_step >= 1 && readSpDoc.eap_sta_code eq 'O' || readSpDoc.eap_sta_code eq 'S'}">
 									<img src="https://media.discordapp.net/attachments/692994434526085184/988792844099678208/stamp_6.png" style="width: 50px;">
+								</c:if>
+								<!-- 결재선 단계가 2이상이고 결재 상태 코드가 진행중이거나 대기중일 때(대기상태) -->
+								<%-- <c:if test="${readSpDoc.eap_step >= 2 && readSpDoc.eap_sta_code eq 'O' || readSpDoc.eap_sta_code eq 'S'}">
+									<img src="https://media.discordapp.net/attachments/692994434526085184/988792844099678208/stamp_6.png" style="width: 50px;">
+								</c:if> --%>
+								<!-- 결재선 단계가 3이고 결재 상태 코드가 결재완료일 때(승인상태) -->
+								<c:if test="${readSpDoc.eap_step == 3 && readSpDoc.eap_sta_code eq 'F'}">
+									<img src="https://media.discordapp.net/attachments/692994434526085184/988792589799026709/stamp_5.png" style="width: 50px;">
+								</c:if>
+								<!-- 결재선 단계가 3 이고 결재 상태 코드가 반려일 때(반려상태) -->
+								<c:if test="${readSpDoc.eap_step == 3 && readSpDoc.eap_sta_code eq 'R'}">
+									<img src="https://media.discordapp.net/attachments/692994434526085184/992095931640057866/stamp_7.png" style="width: 50px;">
 								</c:if>
 							</td>
 						</tr>
@@ -296,8 +347,17 @@
 					</div>
 					<div>
 						<span>${firstAp.emp_name }</span>
-						<c:if test="${readSpDoc.eap_step eq 1 && readSpDoc.eap_sta_code eq 'S' }">
+						<!-- 결재선 단계가 1이고 결재 상태 코드가 진행중이거나 대기중일 때(대기상태) -->
+						<c:if test="${readSpDoc.eap_step == 1 && readSpDoc.eap_sta_code eq 'O' || readSpDoc.eap_sta_code eq 'S' }">
 							<span class="s_span_fw">대기</span>
+						</c:if>
+						<!-- 결재선 단계가 1이상이고 결재 상태 코드가 진행중이거나 결재완료일 때(승인상태) -->
+						<c:if test="${readSpDoc.eap_step >= 1 && readSpDoc.eap_sta_code eq 'O' || readSpDoc.eap_sta_code eq 'F' }">
+							<span class="s_span_fw">결재</span>
+						</c:if>
+						<!-- 결재선 단계가 1이고 결재 상태 코드가 반려일 때(반려상태) -->
+						<c:if test="${readSpDoc.eap_step == 1 && readSpDoc.eap_sta_code eq 'R' }">
+							<span class="s_span_fw">반려</span>
 						</c:if>
 					</div>
 				</div>
@@ -311,8 +371,21 @@
 					</div>
 					<div>
 						<span>${midAp.emp_name }</span>
-						<c:if test="${(readSpDoc.eap_step eq 1 || readSpDoc.eap_step eq 2) && readSpDoc.eap_sta_code eq 'S' }">
+						<!-- 결재선 단계가 1이고 결재 상태 코드가 진행중이거나 대기중일 때(대기상태) -->
+						<c:if test="${readSpDoc.eap_step == 1 && readSpDoc.eap_sta_code eq 'O' || readSpDoc.eap_sta_code eq 'S' }">
 							<span class="s_span_fw">대기</span>
+						</c:if>
+						<!-- 결재선 단계가 2이고 결재 상태 코드가 진행중이거나 결재완료일 때(승인상태) -->
+						<c:if test="${readSpDoc.eap_step == 2 && readSpDoc.eap_sta_code eq 'O' || readSpDoc.eap_sta_code eq 'F' }">
+							<span class="s_span_fw">결재</span>
+						</c:if>
+						<!-- 결재선 단계가 3이고 결재 상태 코드가 진행중이거나 결재완료일 때(승인상태) -->
+						<c:if test="${readSpDoc.eap_step == 3 && readSpDoc.eap_sta_code eq 'O' || readSpDoc.eap_sta_code eq 'F' }">
+							<span class="s_span_fw">결재</span>
+						</c:if>
+						<!-- 결재선 단계가 2이고 결재 상태 코드가 반려일 때(반려상태) -->
+						<c:if test="${readSpDoc.eap_step == 2 && readSpDoc.eap_sta_code eq 'R' }">
+							<span class="s_span_fw">반려</span>
 						</c:if>
 					</div>
 				</div>
@@ -326,14 +399,47 @@
 					</div>
 					<div>
 						<span>${finalAp.emp_name }</span>
-						<c:if test="${(readSpDoc.eap_step eq 1 || readSpDoc.eap_step eq 2 || readSpDoc.eap_step eq 3) && readSpDoc.eap_sta_code eq 'S' }">
+						<!-- 결재선 단계가 1이상이고 결재 상태 코드가 진행중이거나 대기중일 때(대기상태) -->
+						<c:if test="${readSpDoc.eap_step >= 1 && readSpDoc.eap_sta_code eq 'O' || readSpDoc.eap_sta_code eq 'S' }">
 							<span class="s_span_fw">대기</span>
+						</c:if>
+						<!-- 결재선 단계가 2이상이고 결재 상태 코드가 진행중이거나 대기중일 때(대기상태) -->
+						<%-- <c:if test="${readSpDoc.eap_step >= 2 && readSpDoc.eap_sta_code eq 'O' || readSpDoc.eap_sta_code eq 'S' }">
+							<span class="s_span_fw">대기</span>
+						</c:if> --%>
+						<!-- 결재선 단계가 3이고 결재 상태 코드가 결재완료일 때(승인상태) -->
+						<c:if test="${readSpDoc.eap_step == 3 && readSpDoc.eap_sta_code eq 'F' }">
+							<span class="s_span_fw">결재</span>
+						</c:if>
+						<!-- 결재선 단계가 3이고 결재 상태 코드가 반려일 때(반려상태) -->
+						<c:if test="${readSpDoc.eap_step == 3 && readSpDoc.eap_sta_code eq 'R' }">
+							<span class="s_span_fw">반려</span>
 						</c:if>
 					</div>
 				</div>
 			</c:if>
 			
 		</div>
+	</div>
+	
+	<!-- 결재 반려 Modal -->
+	<div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content" style="left: 200px;width: 700px;">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">결재 반려</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	      	<div style="font-size:1.1em; font-weight: bold; color: darkblue; margin-bottom: 10px;">반려 사유를 입력해주세요.</div>
+	        <input type="text" name="eap_reject" class="form-control" required id="s_reject_val">
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+	        <button type="button" class="btn btn-primary" onclick="reject()">확인</button>
+	      </div>
+	    </div>
+	  </div>
 	</div>
 	
 	<script>
@@ -379,7 +485,7 @@
 			$('#s_file_upload').append('<input type="hidden" role="uploadcare-uploader" data-public-key="991bc66817ca4103d3ee" data-tabs="file url" id="eap_file_path"/>');
 			$('#s_file_upload').after('<input type="hidden" name="fileUrl" id="fileUrl">');
 			$("#s_btn").empty();
-			$("#s_btn").append('<span><a id="s_doc_update" href="#" onclick="update()">문서 수정 | </a></span>');
+			$("#s_btn").append('<span><a id="s_doc_update" href="#" onclick="update()">수정 완료 | </a></span>');
 			$("#s_btn").append('<span><a id="s_list_btn" href="#" onclick="list()">목록</a></span>');
 			
 			/* 이미지등록 */
@@ -471,17 +577,319 @@
 			if($(".s_span_fw").eq(i).text() == '결재') {
 				console.log("반복문 if문 탔니?");
 				$(".s_span_fw").eq(i).css('color', 'green');
-			} else {
+			} else if($(".s_span_fw").eq(i).text() == '대기') {
 				console.log("반복문 else문 탔니?");
 				$(".s_span_fw").eq(i).css('color', 'gray');
+			} else if($(".s_span_fw").eq(i).text() == '반려') {
+				$(".s_span_fw").eq(i).css('color', '#709F51');
+			}
+		}
+	</script>
+	
+	<script>
+		// 결재 반려
+		function reject() {
+			var objdata = {};
+			// 결재자 몇 명인지 구하기
+			var apPerson = $('.s_div').length;
+			
+			// 결재자가 1명일 때
+			if(apPerson == 1) {
+				objdata = {
+						"eap_step" : 1,
+						"eap_sta_code" : 'F',
+						"eap_res_code" : 'A',
+						"eap_reject" : $("#s_reject_val").val(),
+						"df_no" : $('#s_dfNo').text()
+				}
+				
+				$.ajax({
+					url : "<%=request.getContextPath()%>/eap/updateonerej"
+					, type : "post"
+					, data : objdata
+					, success : function(result) {
+						console.log("성공");
+						alert(result);
+						$("#menu_eap").get(0).click();
+					}
+				});
+			}
+			
+			// 결재자가 2명일 때
+			if(apPerson == 2) {
+				// 결재선에 있는 사원 이름
+				var lineName = "";
+				// 로그인 한 사람의 이름
+				var checkName = "<%=empName%>";
+				// 몇 번째 결재자인지 확인하는 변수
+				var line = 0;
+				console.log(apPerson);
+				// 결재자 길이만큼 for문 실행
+				for(var i = 0; i < apPerson; i++) {
+					// 결재선에 있는 사원 이름 변수에 담기
+					lineName = $('.s_div').eq(i).children().last().children().first().text();
+					console.log(lineName);
+					console.log(checkName);
+					// 결재선에 있는 이름과 로그인 한 사람의 이름이 같다면
+					if(lineName == checkName) {
+						// 몇 번째 결재자인지 담아주고 반복문 빠져나오기
+						line = i+1;
+						break;
+					}
+				}
+				
+				// 첫 번째 결재자라면
+				if(line == 1) {
+					objdata = {
+							"eap_step" : 1,
+							"eap_reject" : $("#s_reject_val").val(),
+							"df_no" : $('#s_dfNo').text()
+					}
+					// 두 번째 결재자라면
+				} else if(line == 2) {
+					objdata = {
+							"eap_step" : 2,
+							"eap_reject" : $("#s_reject_val").val(),
+							"df_no" : $('#s_dfNo').text()
+					}
+				}
+				
+				$.ajax({
+					url : "<%=request.getContextPath()%>/eap/updateeaprej"
+						, type : "post"
+						, data : objdata
+						, success : function(result) {
+							console.log("성공");
+							alert(result);
+							$(".btn-close").trigger('click');
+							$("#menu_eap").get(0).click();
+					}
+				});
+			}
+			
+			// 결재자가 3명일 때
+			if(apPerson == 3) {
+				// 결재선에 있는 사원 이름
+				var lineName = "";
+				// 로그인 한 사람의 이름
+				var checkName = "<%=empName%>";
+				// 몇 번째 결재자인지 확인하는 변수
+				var line = 0;
+				console.log(apPerson);
+				// 결재자 길이만큼 for문 실행
+				for(var i = 0; i < apPerson; i++) {
+					// 결재선에 있는 사원 이름 변수에 담기
+					lineName = $('.s_div').eq(i).children().last().children().first().text();
+					console.log(lineName);
+					console.log(checkName);
+					// 결재선에 있는 이름과 로그인 한 사람의 이름이 같다면
+					if(lineName == checkName) {
+						// 몇 번째 결재자인지 담아주고 반복문 빠져나오기
+						line = i+1;
+						break;
+					}
+				}
+				
+				// 첫 번째 결재자라면
+				if(line == 1) {
+					objdata = {
+							"eap_step" : 1,
+							"eap_reject" : $("#s_reject_val").val(),
+							"df_no" : $('#s_dfNo').text()
+					}
+					// 두 번째 결재자라면
+				} else if(line == 2) {
+					objdata = {
+							"eap_step" : 2,
+							"eap_reject" : $("#s_reject_val").val(),
+							"df_no" : $('#s_dfNo').text()
+					}
+					// 세 번째 결재자라면
+				} else if(line == 3) {
+					objdata = {
+							"eap_step" : 3,
+							"eap_reject" : $("#s_reject_val").val(),
+							"df_no" : $('#s_dfNo').text()
+					}
+				}
+				
+				$.ajax({
+					url : "<%=request.getContextPath()%>/eap/updateeaprej"
+						, type : "post"
+						, data : objdata
+						, success : function(result) {
+							console.log("성공");
+							alert(result);
+							$(".btn-close").trigger('click');
+							$("#menu_eap").get(0).click();
+					}
+				});
+			}
+			
+		}
+		
+		// 결재 승인 메뉴 클릭
+		function approval() {
+			var result = confirm('승인하시겠습니까?');
+			if(result) {
+				var objdata = {};
+				// 결재자 몇 명인지 구하기
+				var apPerson = $('.s_div').length;
+				
+				// 결재자가 1명일 때
+				if(apPerson == 1) {
+					objdata = {
+							"eap_step" : 1,
+							"eap_sta_code" : 'F',
+							"eap_res_code" : 'A',
+							"df_no" : $('#s_dfNo').text()
+					}
+					
+					$.ajax({
+						url : "<%=request.getContextPath()%>/eap/updateoneapp"
+							, type : "post"
+							, data : objdata
+							, success : function(result) {
+								console.log("성공");
+								alert(result);
+								$(".btn-close").trigger('click');
+								$("#menu_eap").get(0).click();
+								// $("#s_receipt_doc").trigger("click");
+						}
+					});
+				}
+				
+				// 결재자가 2명 일 때
+				if(apPerson == 2) {
+					console.log("2명일때");
+					// 결재선에 있는 사원 이름
+					var lineName = "";
+					// 로그인 한 사람의 이름
+					var checkName = "<%=empName%>";
+					// 몇 번째 결재자인지 확인하는 변수
+					var line = 0;
+					console.log(apPerson);
+					// 결재자 길이만큼 for문 실행
+					for(var i = 0; i < apPerson; i++) {
+						// 결재선에 있는 사원 이름 변수에 담기
+						lineName = $('.s_div').eq(i).children().last().children().first().text();
+						console.log(lineName);
+						console.log(checkName);
+						// 결재선에 있는 이름과 로그인 한 사람의 이름이 같다면
+						if(lineName == checkName) {
+							// 몇 번째 결재자인지 담아주고 반복문 빠져나오기
+							line = i+1;
+							break;
+						}
+					}
+					
+					console.log("line 나와 ▶▶▶▶▶▶▶▶ " + line);
+					// 첫 번째 결재자라면
+					if(line == 1) {
+						objdata = {
+								"eap_step" : 2,
+								"eap_sta_code" : 'O',
+								"df_no" : $('#s_dfNo').text()
+						}
+						
+						// 두 번째 결재자라면
+					} else if(line == 2) {
+						objdata = {
+								"eap_step" : 2,
+								"eap_sta_code" : 'F',
+								"eap_res_code" : 'A',
+								"df_no" : $('#s_dfNo').text()
+						}
+					}
+					
+					$.ajax({
+						url : "<%=request.getContextPath()%>/eap/updateeapapp"
+							, type : "post"
+							, data : objdata
+							, success : function(result) {
+								console.log("성공");
+								alert(result);
+								$("#menu_eap").get(0).click();
+						}
+					});
+				}
+				
+				// 결재자가 3명 일 때
+				if(apPerson == 3) {
+					console.log("3명일때");
+					// 결재선에 있는 사원 이름
+					var lineName = "";
+					// 로그인 한 사람의 이름
+					var checkName = "<%=empName%>";
+					// 몇 번째 결재자인지 확인하는 변수
+					var line = 0;
+					console.log(apPerson);
+					// 결재자 길이만큼 for문 실행
+					for(var i = 0; i < apPerson; i++) {
+						// 결재선에 있는 사원 이름 변수에 담기
+						lineName = $('.s_div').eq(i).children().last().children().first().text();
+						console.log(lineName);
+						console.log(checkName);
+						// 결재선에 있는 이름과 로그인 한 사람의 이름이 같다면
+						if(lineName == checkName) {
+							// 몇 번째 결재자인지 담아주고 반복문 빠져나오기
+							line = i+1;
+							break;
+						}
+					}
+					
+					console.log("line 나와 ▶▶▶▶▶▶▶▶ " + line);
+					// 첫 번째 결재자라면
+					if(line == 1) {
+						objdata = {
+								"eap_step" : 2,
+								"eap_sta_code" : 'O',
+								"df_no" : $('#s_dfNo').text()
+						}
+						
+						// 두 번째 결재자라면
+					} else if(line == 2) {
+						objdata = {
+								"eap_step" : 3,
+								"eap_sta_code" : 'O',
+								"df_no" : $('#s_dfNo').text()
+						}
+						// 세 번째 결재자라면
+					} else if(line == 3) {
+						objdata = {
+								"eap_step" : 3,
+								"eap_sta_code" : 'F',
+								"eap_res_code" : 'A',
+								"df_no" : $('#s_dfNo').text()
+						}
+					}
+					
+					$.ajax({
+						url : "<%=request.getContextPath()%>/eap/updateeapapp"
+							, type : "post"
+							, data : objdata
+							, success : function(result) {
+								console.log("성공");
+								alert(result);
+								$("#menu_eap").get(0).click();
+						}
+					});
+				}
+			} else {
+				alert("취소되었습니다.");
 			}
 		}
 	</script>
 	
 	<script>
 		// 결재 대기 문서 메뉴 클릭(목록으로)
-		function list() {
+		function belist() {
 			$('#s_before_doc').trigger('click');
+		}
+		
+		// 결재 수신 문서 메뉴 클릭(목록으로)
+		function relist() {
+			$('#s_receipt_doc').trigger('click');
 		}
 	</script>
 </body>

@@ -160,4 +160,40 @@ public class EapServiceImpl implements EapService {
 		return dao.beDocCnt(emp_no);
 	}
 
+	// 결재 수신 문서
+	@Override
+	public List<Eap> selectReceiptDoc(String emp_no) {
+		return dao.selectReceiptDoc(emp_no);
+	}
+	
+	// 결재 수신 문서 개수
+	@Override
+	public int reDocCnt(String emp_no) {
+		return dao.reDocCnt(emp_no);
+	}
+
+	// 결재 승인(결재자가 1명일 때)
+	@Override
+	public int updateOneApp(Eap eap) {
+		return dao.updateOneApp(eap);
+	}
+	
+	// 결재 승인(결재자가 2명 이상일 때)
+	@Override
+	public int updateEapApp(Eap eap) {
+		return dao.updateEapApp(eap);
+	}
+	
+	// 결재 반려(결재자가 1명일 때)
+	@Override
+	public int updateOneRej(Eap eap) {
+		return dao.updateOneRej(eap);
+	}
+	
+	// 결재 반려(결재자가 2명 이상일 때)
+	@Override
+	public int updateEapRej(Eap eap) {
+		return dao.updateEapRej(eap);
+	}
+
 }

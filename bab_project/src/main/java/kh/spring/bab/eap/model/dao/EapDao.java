@@ -135,4 +135,35 @@ public class EapDao {
 	public int beDocCnt(String emp_no) {
 		return sqlSession.selectOne("Eap.beDocCnt", emp_no);
 	}
+	
+	// 결재 수신 문서
+	public List<Eap> selectReceiptDoc(String emp_no) {
+		return sqlSession.selectList("Eap.selectReceiptDoc", emp_no);
+	}
+	
+	// 결재 수신 문서 개수
+	public int reDocCnt(String emp_no) {
+		return sqlSession.selectOne("Eap.reDocCnt", emp_no);
+	}
+	
+	// 결재 승인(결재자가 1명일 때)
+	public int updateOneApp(Eap eap) {
+		return sqlSession.update("Eap.updateOneApp", eap);
+	}
+	
+	// 결재 승인(결재자가 2명 이상일 때)
+	public int updateEapApp(Eap eap) {
+		return sqlSession.update("Eap.updateEapApp", eap);
+	}
+	
+	// 결재 반려(결재자가 1명일 때)
+	public int updateOneRej(Eap eap) {
+		return sqlSession.update("Eap.updateOneRej", eap);
+	}
+	
+	// 결재 반려(결재자가 2명 이상일 때)
+	public int updateEapRej(Eap eap) {
+		return sqlSession.update("Eap.updateEapRej", eap);
+	}
+
 }
