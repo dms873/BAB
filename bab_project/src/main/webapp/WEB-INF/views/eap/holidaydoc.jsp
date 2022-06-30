@@ -241,12 +241,12 @@
 							<div style="display: inline-block;">
 								<!-- 신청기간 timestamp라서 년월일 시분만 출력 -->
 								<c:set var="ho_start" value="${hoInfo.ho_start }"/>
-								<span>${fn:substring(ho_start,0,16) }</span>부터 
+								<span id="s_start">${fn:substring(ho_start,0,16) }</span>부터 
 							</div>
 							<div style="display: inline-block;">
 								<!-- 신청기간 timestamp라서 년월일 시분만 출력 -->
 								<c:set var="ho_end" value="${hoInfo.ho_end }"/>
-								<span>${fn:substring(ho_end,0,16) }</span>까지 
+								<span id="s_end">${fn:substring(ho_end,0,16) }</span>까지 
 							</div>
 							<div style="display: inline-block;">(총 <span id="s_date_cal">${hoInfo.ho_use_count }</span>일)</div>
 						</div>
@@ -362,6 +362,22 @@
 					+ '<label class="form-check-label" for="flexRadioDefault2">반차</label></div>');
 			// 내용
 			$("#s_eap_content").replaceWith('<textarea class="form-control" style="resize: none;" id="s_ho_co">${readHoDoc.eap_content }</textarea>');
+			
+			/* "ho_start" : $('#s_start').text(),
+			"ho_end" : $('#s_end').text(), */
+			
+			// 시작날짜, 시간 추출
+			var start = $('#s_start').text();
+			var startTime = start.substr(11);
+			start = start.substr(0,10);
+			
+			// 종료 날짜, 시간 추출
+			var end = $('#s_end').text();
+			var endTime = end.substr(11);
+			end = end.substr(0,10);
+			console.log(startTime);
+			console.log(endTime);
+			
 			// 신청기간
 			$("#s_ho_dt").replaceWith('<div>'
 					+ '<input type="text" placeholder="신청 시작 기간을 선택해주세요" class="form-control" style="width: 250px; display: inline-block;" id="s_ho_start">'
@@ -372,6 +388,10 @@
 					+ '<input type="time" class="form-control" style="width: 150px; margin-left: 5px; display: inline-block;" id="s_end_time" min="09:00:00" max="22:00:00"> 까지'
 					+ '<div style="display: inline-block;">(총 <span id="s_date_cal">0</span>일)</div>'
 				+ '</div>');
+			$("#s_ho_start").attr('value', start);
+			document.getElementById('s_start_time').value = startTime;
+			$("#s_ho_end").attr('value', end);
+			document.getElementById('s_end_time').value = endTime;
 			// 파일첨부
 			$('#s_file_upload').append('<input type="hidden" role="uploadcare-uploader" data-public-key="991bc66817ca4103d3ee" data-tabs="file url" id="eap_file_path"/>');
 			$('#s_file_upload').after('<input type="hidden" name="fileUrl" id="fileUrl">');
@@ -420,8 +440,8 @@
 				// 0=일, 1=월, 2=화, 4=목, 6=토 => 안나오게 할 것 
 	        }
 		   
-		   $('#s_end_time').change(function() {
-				// 날짜 계산
+		   function checkDate() {
+			// 날짜 계산
 				var start = new Date($('#s_ho_start').val() + 'T' + $('#s_start_time').val());
 				var end = new Date($('#s_ho_end').val() + 'T' + $('#s_end_time').val());
 				// 일수 구하기
@@ -472,9 +492,18 @@
 					console.log("날짜 계산 else문탔을까?");
 					$('#s_date_cal').text('0');
 				}
-			}) 
-		});
-		
+		   }
+		   
+	   // 로드 시 날짜 계산
+	   $(function() {
+		   checkDate();
+  	   });
+	   
+	   // 수정 시 날짜 계산
+	   $("#s_end_time").change(function() {
+		   checkDate();
+	   });
+	});
 	</script>
 	
 	<script>
@@ -486,8 +515,10 @@
 					"eap_title" : $('#s_ho_tt').val(),
 					"eap_content" : $('#s_ho_co').val(),
 					"ho_code" : $('input[type=radio]:checked').val(),
+					//"ho_start" : $('#s_start').text(),
 					"ho_start" : $('#s_ho_start').val() + " " + $('#s_start_time').val(),
 					"ho_end" : $('#s_ho_end').val() + " " + $('#s_end_time').val(),
+					//"ho_end" : $('#s_end').text(),
 					"ho_use_count" : $('#s_date_cal').text(),
 					"eap_file_path": $("#fileUrl").val(),
 					"s_img": $("#s_img").attr("src")

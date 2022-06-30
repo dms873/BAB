@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -85,7 +86,11 @@
 				</div>
 
                 <div style="margin-top: 30px; font-weight: bold; font-size: 1.2em; color: rgb(1, 3, 38);">결재하기</div>
-                <div style="display: inline-block; margin-right: 10px;" id="s_before_doc" class="s_hover_event">결재 대기 문서</div><span style="font-weight: bold; color: red;">2</span>
+                <div style="display: inline-block; margin-right: 5px;" id="s_before_doc" class="s_hover_event">결재 대기 문서</div>
+                <span style="font-weight: bold; color: red;">
+                	<c:if test="${beDocCnt ne 0 }">${beDocCnt }</c:if>
+					<c:if test="${beDocCnt eq 0 }"></c:if>
+				</span>
                 <div style="display: inline-block; margin-right: 10px;" id="s_receipt_doc" class="s_hover_event">결재 수신 문서</div><span style="font-weight: bold; color: red;">2</span>
 
                 <div style="margin-top: 30px; font-weight: bold; font-size: 1.2em; color: rgb(1, 3, 38);">문서함</div>

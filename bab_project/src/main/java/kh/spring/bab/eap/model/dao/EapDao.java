@@ -130,4 +130,9 @@ public class EapDao {
 	public int updateHpDoc(Attendance att) {
 		return sqlSession.update("Eap.updateHpDoc", att);
 	}
+	
+	// 결재 대기 문서 개수
+	public int beDocCnt(String emp_no) {
+		return sqlSession.selectOne("Eap.beDocCnt", emp_no);
+	}
 }

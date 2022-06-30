@@ -166,5 +166,12 @@ public interface EapService {
 	 * @param : att vo
 	 * */
 	public int updateHpDoc(Attendance att);
+	
+	/**
+	 * @author : 손은진
+	 * @return : 결재 대기 문서 개수
+	 * @param : emp_no(로그인한 사람의 사번)
+	 * */
+	public int beDocCnt(String emp_no);
 
 }

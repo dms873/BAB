@@ -153,5 +153,11 @@ public class EapServiceImpl implements EapService {
 	public int updateHpDoc(Attendance att) {
 		return dao.updateHpDoc(att);
 	}
+	
+	// 결재 대기 문서 개수
+	@Override
+	public int beDocCnt(String emp_no) {
+		return dao.beDocCnt(emp_no);
+	}
 
 }

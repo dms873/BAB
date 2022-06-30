@@ -31,7 +31,24 @@ public class ElectronicApprovalController {
 
 	// 전자결재 홈
 	@GetMapping("/main")
-	public ModelAndView select(ModelAndView mv) {
+	public ModelAndView select(
+			ModelAndView mv,
+			HttpServletRequest req
+			) {
+		
+		// 로그인한 사람 정보 가져오기(사번)
+		Employee emp = (Employee) req.getSession().getAttribute("login");
+		String emp_no = emp.getEmp_no();
+		
+		logger.info("이얍 ▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶ " + emp_no);
+		
+		// 결재 대기 문서 개수
+		int beDocCnt = service.beDocCnt(emp_no);
+		
+		logger.info("이얍 ▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶▶ " + beDocCnt);
+		
+		mv.addObject("beDocCnt", beDocCnt);
+		
 		mv.setViewName("eap/select");
 		
 		return mv;
