@@ -133,7 +133,7 @@
 		SELECT * FROM SPENDING WHERE DF_NO = #{df_no}
 	</select>
 	
-	<!-- 남은 휴가일수 확인 : TODO 추후 결재완료로 수정!!! -->
+	<!-- 남은 휴가일수 확인 : TODO 추후 수정! -->
 	<select id="readHoCnt" parameterType="string" resultType="double">
 		SELECT (C.EMP_HO_CR_CNT - SUM(A.HO_USE_COUNT))AS 잔여일수 
 		  FROM HOLIDAY A, ELECTRONIC_APPROVAL B, EMPLOYEE C 

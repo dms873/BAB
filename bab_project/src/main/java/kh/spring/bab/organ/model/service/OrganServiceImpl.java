@@ -56,5 +56,10 @@ public class OrganServiceImpl implements OrganService {
 		return dao.empInfo(emp_no);
 	}
 	
+	// 남은 휴가일수 확인
+	@Override
+	public Double readHoCnt(String emp_no) {
+		return dao.readHoCnt(emp_no);
+	}
 	
 }

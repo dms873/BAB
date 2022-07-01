@@ -200,8 +200,12 @@
 								<c:if test="${readSpDoc.eap_step == 1 && readSpDoc.eap_sta_code eq 'O' || readSpDoc.eap_sta_code eq 'S'}">
 									<img src="https://media.discordapp.net/attachments/692994434526085184/988792844099678208/stamp_6.png" style="width: 50px;">
 								</c:if>
-								<!-- 결재선 단계가 2 이상이고 결재 상태 코드가 진행중이거나 결재완료일 때(승인상태) -->
-								<c:if test="${readSpDoc.eap_step >= 2 && readSpDoc.eap_sta_code eq 'O' || readSpDoc.eap_sta_code eq 'F'}">
+								<!-- 결재선 단계가 2이고 결재 상태 코드가 진행중이거나 결재완료일 때(대기상태) -->
+								<c:if test="${readSpDoc.eap_step == 2 && readSpDoc.eap_sta_code eq 'O' }">
+									<img src="https://media.discordapp.net/attachments/692994434526085184/988792844099678208/stamp_6.png" style="width: 50px;">
+								</c:if>
+								<!-- 결재선 단계가 3이고 결재 상태 코드가 진행중이거나 결재완료일 때(승인상태) -->
+								<c:if test="${readSpDoc.eap_step == 3 && readSpDoc.eap_sta_code eq 'O' || readSpDoc.eap_sta_code eq 'F'}">
 									<img src="https://media.discordapp.net/attachments/692994434526085184/988792589799026709/stamp_5.png" style="width: 50px;">
 								</c:if>
 								<!-- 결재선 단계가 2 이고 결재 상태 코드가 반려일 때(반려상태) -->
@@ -375,9 +379,9 @@
 						<c:if test="${readSpDoc.eap_step == 1 && readSpDoc.eap_sta_code eq 'O' || readSpDoc.eap_sta_code eq 'S' }">
 							<span class="s_span_fw">대기</span>
 						</c:if>
-						<!-- 결재선 단계가 2이고 결재 상태 코드가 진행중이거나 결재완료일 때(승인상태) -->
-						<c:if test="${readSpDoc.eap_step == 2 && readSpDoc.eap_sta_code eq 'O' || readSpDoc.eap_sta_code eq 'F' }">
-							<span class="s_span_fw">결재</span>
+						<!-- 결재선 단계가 2이고 결재 상태 코드가 진행중이거나 결재완료일 때(대기상태) -->
+						<c:if test="${readSpDoc.eap_step == 2 && readSpDoc.eap_sta_code eq 'O' }">
+							<span class="s_span_fw">대기</span>
 						</c:if>
 						<!-- 결재선 단계가 3이고 결재 상태 코드가 진행중이거나 결재완료일 때(승인상태) -->
 						<c:if test="${readSpDoc.eap_step == 3 && readSpDoc.eap_sta_code eq 'O' || readSpDoc.eap_sta_code eq 'F' }">
@@ -451,7 +455,7 @@
 				data: {"df_no": $("#s_dfNo").text()},
 				success: function(result) {
 					alert(result);
-					$('#s_before_doc').trigger('click');
+					$("#menu_eap").get(0).click();
 				}
 			});
 		});

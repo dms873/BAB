@@ -52,5 +52,16 @@
 		FROM EMPLOYEE 
 		WHERE EMP_NO = #{emp_no}
 	</select>
+	
+	<!-- 남은 휴가일수 확인 : TODO 추후 수정! -->
+	<select id="readHoCnt" parameterType="string" resultType="double">
+		SELECT (C.EMP_HO_CR_CNT - SUM(A.HO_USE_COUNT))AS 잔여일수 
+		  FROM HOLIDAY A, ELECTRONIC_APPROVAL B, EMPLOYEE C 
+		 WHERE A.DF_NO = B.DF_NO 
+		   AND A.EMP_NO = C.EMP_NO 
+		   AND B.EAP_STA_CODE = 'S'
+		   AND A.EMP_NO = #{emp_no}
+		GROUP BY EMP_HO_CR_CNT
+	</select>
 
 </mapper>

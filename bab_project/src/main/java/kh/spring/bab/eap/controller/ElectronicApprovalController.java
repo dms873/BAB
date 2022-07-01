@@ -365,6 +365,10 @@ public class ElectronicApprovalController {
 		
 		int result = service.insertapp(eap);
 		
+		// 남은 휴가일수 확인
+		Double checkHo = service.readHoCnt(emp_no);
+		mv.addObject("checkHo", checkHo);
+		
 		logger.info("결재선 리스트, 참조처 리스트 insert결과 : " + result);
 		
 		String msg = "";

@@ -123,6 +123,10 @@ public class OraganizationChartController {
 		// 로그인한 사람 정보 가져오기(사번)
 		Employee emp = (Employee) req.getSession().getAttribute("login");
 		String emp_no = emp.getEmp_no();
+				
+		// 남은 휴가일수 확인
+		Double checkHo = service.readHoCnt(emp_no);
+		mv.addObject("checkHo", checkHo);
 		
 		Organ eap = service.empInfo(emp_no);
 		mv.addObject("eap", eap);

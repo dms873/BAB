@@ -55,4 +55,11 @@ public interface OrganService {
 	 * @author : 손은진
 	 * */
 	public Organ empInfo(String emp_no);
+	
+	/**
+	 * @author : 손은진
+	 * @return : 남은 휴가일수 확인
+	 * @param : emp_no(로그인한 사람의 사번)
+	 * */
+	public Double readHoCnt(String emp_no);
 }

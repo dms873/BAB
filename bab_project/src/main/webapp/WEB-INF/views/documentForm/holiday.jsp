@@ -628,7 +628,8 @@
 				"ho_code" : ho_code,
 				"ho_start" : ho_start,
 				"ho_end" : ho_end,
-				"ho_use_count" : ho_use_count
+				"ho_use_count" : ho_use_count,
+				"eap_file_path": $("#fileUrl").val()
 			}
 		
 			console.log(dataObj);

@@ -48,4 +48,9 @@ public class OrganDao {
 	public Organ empInfo(String emp_no) {
 		return sqlSession.selectOne("Organ.empInfo", emp_no);
 	}
+	
+	// 남은 휴가일수 확인
+	public Double readHoCnt(String emp_no) {
+		return sqlSession.selectOne("Organ.readHoCnt", emp_no);
+	}
 }
