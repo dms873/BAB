@@ -32,38 +32,46 @@
 							aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
-						<form>
+						<form action="<%=request.getContextPath()%>/calendar/insert"
+							method="post">
 							<table id="j_cal_table">
 								<tr>
 									<td class="j_cal_title">일정명<a class="j_cal_sym">*</a>
 									</td>
-									<td class="j_cal_content" colspan="5"><input type="text"
-										name="emp_no" class="j_cal_input" required></td>
+									<td class="j_cal_content" colspan="3"><input type="text" id="cal_title"
+										name="cal_title" class="j_cal_input"></td>
 								</tr>
 								<tr>
 									<td class="j_cal_title">일시<a class="j_cal_sym">*</a>
 									</td>
-									<td class="j_cal_content"><input type="text" name="emp_id"
-										class="j_cal_date" id="datepicker1" required></td>
-									<td class="j_cal_content"><input type="text" name="emp_id"
-										class="j_cal_time" placeholder="00:00" required></td>
+									<td class="j_cal_content"><input type="datetime-local" id="cal_start"
+										name="cal_start" class="j_cal_date"></td>
 									<td class="j_cal_content"><a>~</a></td>
-									<td class="j_cal_content"><input type="text" name="emp_id"
-										class="j_cal_date" id="datepicker2" required></td>
-									<td class="j_cal_content"><input type="text" name="emp_id"
-										class="j_cal_time" placeholder="00:00" required></td>
+									<td class="j_cal_content"><input type="datetime-local" id="cal_end"
+										name="cal_end" class="j_cal_date"></td>
 								</tr>
 								<tr>
 									<td class="j_cal_title1">내용</td>
-									<td class="j_cal_content1" colspan="5"><textarea name=""
-											class="j_cal_input" id="j_cal_input1"></textarea></td>
+									<td class="j_cal_content1" colspan="3"><textarea id="cal_content"
+										name="cal_content" class="j_cal_input j_cal_input1"></textarea></td>
 								</tr>
 								<tr>
-									<td colspan="6" class="j_cal_content"></td>
+									<td class="j_cal_title">색상<a class="j_cal_sym">*</a>
+									</td>
+									<td class="j_cal_content" colspan="3">
+										<div class="j_cal_color"><input type="color" id="cal_color" name="cal_color">
+										&nbsp;&#128072;클릭하여 색상을 선택해주세요.</div>
+									</td>
 								</tr>
+								<c:if test="${login != null}">
 								<tr>
-									<td colspan="6" class="j_cal_content">
-										<button type="submit" id="j_cal_submit">저장</button>
+									<td colspan="4" class="j_cal_content">
+									<input type="hidden" id="emp_no" name="emp_no" value="${login.emp_no}" ></td>
+								</tr>
+								</c:if>
+								<tr>
+									<td colspan="4" class="j_cal_content">
+										<button type="button" id="j_cal_submit">저장</button>
 									</td>
 								</tr>
 							</table>
@@ -90,14 +98,14 @@
 				events : [ {
 					id : '',
 					title : '일정',
-					start : '2022-06-30T13:00',
+					start : '2022-06-29T13:00',
 					end : '2022-06-30T19:00',
-					borderColor : 'red'
-				} ],
+					color : 'pink'
+				}] 
 				//TODO:일정클릭 시 이벤트
 			/* 	eventClick : function(info) {
 					if (confirm("'" + info.event.title
-							+ "' 매니저의 일정을 삭제하시겠습니까 ?")) {
+							+ "' 일정을 삭제하시겠습니까 ?")) {
 						// 확인 클릭 시
 						info.event.remove();
 					}
@@ -105,18 +113,117 @@
 			});
 			calendar.render();
 		});
-
+		
+		 //submit버튼 클릭 시
+        $("#j_cal_submit").click(function() {
+        	
+        	//일정명 공란 체크
+        	if($("#cal_title").val()==""){
+				swal({
+                    title: "일정명은 필수 입력 사항입니다.",
+                    text: "확인 후 입력 바랍니다.",
+                    icon: "error",
+                    closeOnClickOutside: false,
+                    closeOnEsc: false
+                })
+                $("#cal_title").focus();
+                return false;
+			}
+        	
+        	//시작일 공란 체크
+        	if($("#cal_start").val()==""){
+				swal({
+                    title: "시작일은 필수 입력 사항입니다.",
+                    text: "확인 후 입력 바랍니다.",
+                    icon: "error",
+                    closeOnClickOutside: false,
+                    closeOnEsc: false
+                })
+                $("#cal_start").focus();
+                return false;
+			}
+        	
+        	//종료일 공란 체크
+        	if($("#cal_end").val()==""){
+				swal({
+                    title: "종료일은 필수 입력 사항입니다.",
+                    text: "확인 후 입력 바랍니다.",
+                    icon: "error",
+                    closeOnClickOutside: false,
+                    closeOnEsc: false
+                })
+                $("#cal_end").focus();
+                return false;
+			}
+        	
+        	//색상 공란 체크
+        	if($("#cal_color").val()==""){
+				swal({
+                    title: "색상은 필수 선택 사항입니다.",
+                    text: "확인 후 입력 바랍니다.",
+                    icon: "error",
+                    closeOnClickOutside: false,
+                    closeOnEsc: false
+                })
+                $("#cal_color").focus();
+                return false;
+			}
+        	
+        	//데이터 전송 ajax
+        	if($("#cal_start").val() < $("#cal_end").val()){
+                var param = {
+                	"cal_title": $("#cal_title").val(),
+                    "cal_start": $("#cal_start").val(),
+                    "cal_end": $("#cal_end").val(),
+                    "cal_content": $("#cal_content").val(),
+                    "cal_color": $("#cal_color").val(),
+                    "emp_no":$("#emp_no").val()
+                }
+                console.log(param);
+                $.ajax({
+                    url: "<%=request.getContextPath()%>/calendar/insert",
+                    data: param,
+                    type: "post",
+                    success: function(result) {
+                    	console.log(result.check);
+                    	if (result.check == 0) {
+                            swal({
+                                title: "입력하신 정보가 일치하지 않습니다.",
+                                text: "확인 후 다시 입력 바랍니다.",
+                                icon: "error",
+                                closeOnClickOutside: false,
+                                closeOnEsc: false
+                            })
+                        } else {
+                            swal({
+                                title: "일정등록 완료!!",
+                                text: "그룹웨어 메인 화면으로 이동합니다.",
+                                icon: "success",
+                                closeOnClickOutside: false,
+                                closeOnEsc: false
+                            })
+                            .then((willDelete) => {
+      						  if (willDelete) {
+      							  /*TODO:어디로 이동할지.....  */
+      							  location.reload();
+      							<%-- $("#s_content_box").load("<%=request.getContextPath()%>/calendar/select"); --%>
+      						  }
+      						})
+                        }
+                    }
+                })}else{
+                	 swal({
+                         title: "일자선택이 올바르지 않습니다. ",
+                         text: "종료일을 시작일보다 뒷 날짜로 선택 바랍니다.",
+                         icon: "error",
+                         closeOnClickOutside: false,
+                         closeOnEsc: false
+                     })
+                }
+        });
 		//모달 Bootstrap
 		$("#j_cal_btn").click(function() {
 			$("#j_myModal").modal("show");
-		});
-
-		// datepicker위젯
-		$(function() {
-			$("#datepicker1, #datepicker2").datepicker({
-				//날짜형식 바꿈
-				dateFormat : "yy/mm/dd"
-			});
 		});
 	</script>
 </body>

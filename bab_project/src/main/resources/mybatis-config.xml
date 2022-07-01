@@ -15,6 +15,7 @@
 		<typeAlias type="kh.spring.bab.info.domain.Info" alias="Info"/>
 		<typeAlias type="kh.spring.bab.attendance.domain.Attendance" alias="Att"/>
 		<typeAlias type="kh.spring.bab.eap.domain.Spending" alias="Sp"/>
+		<typeAlias type="kh.spring.bab.calendar.domain.Calendar" alias="Calendar"/>
 	</typeAliases>
 	 
 	<mappers>
@@ -24,6 +25,7 @@
 		<mapper resource="mappers/eap-mapper.xml"/>
 		<mapper resource="mappers/info-mapper.xml"/>
 		<mapper resource="mappers/contact-mapper.xml"/>
+		<mapper resource="mappers/calendar-mapper.xml"/>
 	</mappers>
 
 </configuration>

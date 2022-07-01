@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Calendar">
+
+	<!--캘린더 등록  -->
+	<insert id="insert" parameterType="Calendar">
+		insert into calendar
+		values (calendar_seq.nextval, #{cal_title}, #{cal_start}, #{cal_end}, #{cal_content}, #{emp_no}, #{cal_color})
+	</insert>
+</mapper>
