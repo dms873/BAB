@@ -257,13 +257,18 @@
             $("#s_content_box").load("<%=request.getContextPath()%>/eap/main");
         });
         
-        // 근태관리 추가 : 손은진(220614)
-        $("#menu_attendance").click(function() {
-            $("#s_content_box").load("<%=request.getContextPath()%>/attendance/select");
+        // 메일 추가 : 윤영원(220701)
+        $("#menu_mail").click(function() {
+            $("#s_content_box").load("<%=request.getContextPath()%>/mail/main");
         });
         // 공지사항 추가 : 윤영원(220615)
         $("#menu_board").click(function() {
             $("#s_content_box").load("<%=request.getContextPath()%>/board/select");
+        });
+        
+        // 근태관리 추가 : 손은진(220614)
+        $("#menu_attendance").click(function() {
+            $("#s_content_box").load("<%=request.getContextPath()%>/attendance/select");
         });
         /*캘린더 추가 혜미-220612  */
         $("#menu_calendar").click(function() {
