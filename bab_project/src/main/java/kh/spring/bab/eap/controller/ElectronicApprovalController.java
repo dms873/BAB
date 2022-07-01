@@ -130,21 +130,54 @@ public class ElectronicApprovalController {
 	
 	// 기안 문서함
 	@GetMapping("/selectinsertdoc")
-	public ModelAndView selectInsertDoc(ModelAndView mv) {
+	public ModelAndView selectInsertDoc(
+			ModelAndView mv,
+			HttpServletRequest req
+			) {
+		
+		// 로그인한 사람 정보 가져오기(사번)
+		Employee emp = (Employee) req.getSession().getAttribute("login");
+		String emp_no = emp.getEmp_no();
+		
+		List<Eap> result = service.selectInsertDoc(emp_no);
+		
+		mv.addObject("insertdoc", result);
 		mv.setViewName("eap/selectinsertdoc");
 		return mv;
 	}
 	
 	// 결재 문서함
 	@GetMapping("/selectresultdoc")
-	public ModelAndView selectResultDoc(ModelAndView mv) {
+	public ModelAndView selectResultDoc(
+			ModelAndView mv,
+			HttpServletRequest req
+			) {
+		
+		// 로그인한 사람 정보 가져오기(사번)
+		Employee emp = (Employee) req.getSession().getAttribute("login");
+		String emp_no = emp.getEmp_no();
+		
+		List<Eap> result = service.selectResultDoc(emp_no);
+		
+		mv.addObject("resultdoc", result);
 		mv.setViewName("eap/selectresultdoc");
 		return mv;
 	}
 	
 	// 참조 문서함
 	@GetMapping("/selectreferencedoc")
-	public ModelAndView selectReferenceDoc(ModelAndView mv) {
+	public ModelAndView selectReferenceDoc(
+			ModelAndView mv,
+			HttpServletRequest req
+			) {
+		
+		// 로그인한 사람 정보 가져오기(사번)
+		Employee emp = (Employee) req.getSession().getAttribute("login");
+		String emp_no = emp.getEmp_no();
+		
+		List<Eap> result = service.selectReferenceDoc(emp_no);
+		
+		mv.addObject("referencedoc", result);
 		mv.setViewName("eap/selectreferencedoc");
 		return mv;
 	}

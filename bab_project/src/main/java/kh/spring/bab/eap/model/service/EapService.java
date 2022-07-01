@@ -215,5 +215,26 @@ public interface EapService {
 	 * @param : eap vo
 	 * */
 	public int updateEapRej(Eap eap);
+	
+	/**
+	 * @author : 손은진
+	 * @return : 기안 문서함
+	 * @param : emp_no(로그인한 사람의 사번)
+	 * */
+	public List<Eap> selectInsertDoc(String emp_no);
+	
+	/**
+	 * @author : 손은진
+	 * @return : 결재 문서함
+	 * @param : emp_no(로그인한 사람의 사번)
+	 * */
+	public List<Eap> selectResultDoc(String emp_no);
+	
+	/**
+	 * @author : 손은진
+	 * @return : 참조 문서함
+	 * @param : emp_no(로그인한 사람의 사번)
+	 * */
+	public List<Eap> selectReferenceDoc(String emp_no);
 
 }

@@ -165,5 +165,20 @@ public class EapDao {
 	public int updateEapRej(Eap eap) {
 		return sqlSession.update("Eap.updateEapRej", eap);
 	}
+	
+	// 기안 문서함
+	public List<Eap> selectInsertDoc(String emp_no) {
+		return sqlSession.selectList("Eap.selectInsertDoc", emp_no);
+	}
+	
+	// 결재 문서함
+	public List<Eap> selectResultDoc(String emp_no) {
+		return sqlSession.selectList("Eap.selectResultDoc", emp_no);
+	}
+	
+	// 참조 문서함
+	public List<Eap> selectReferenceDoc(String emp_no) {
+		return sqlSession.selectList("Eap.selectReferenceDoc", emp_no);
+	}
 
 }

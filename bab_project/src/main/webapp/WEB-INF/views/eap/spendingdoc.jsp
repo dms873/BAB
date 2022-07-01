@@ -96,10 +96,28 @@
 	%>
 	<!-- check라는 변수명에 el태그를 값으로 넣어 -->
 	<c:set var="check" value="${readSpDoc.emp_no }"/>
-	
+	<!-- 결재상태 체크 변수 선언 -->
+	<c:set var="eapStaCheck" value="${readSpDoc.eap_sta_code }"></c:set>
+	<!-- 기안자 이름 체크 변수 선언 -->
+	<c:set var="eapNameCheck" value="${readSpDoc.emp_name }"></c:set>
 	<div id="s_btn">
 		<!-- pageContext.getAttribute(변수명).toString()으로 꺼내서 사용 가능 -->
-		<% if(empNo.equals(pageContext.getAttribute("check").toString()) == true) { %>
+		<!-- 기안자와 로그인한 사람의 이름이 같고 반려상태일 때 -->
+		<% if(empName.equals(pageContext.getAttribute("eapNameCheck").toString()) == true && pageContext.getAttribute("eapStaCheck").toString().equals("R")) { %>
+			<span><a id="s_opinion_btn" href="#" onclick="opinion()">의견 | </a></span>
+			<span><a id="s_list_btn" href="#" onclick="inlist()">목록</a></span>
+			<!-- 기안자와 로그인한 사람의 이름이 같고 결재완료일 때 -->
+		<% } else if(empName.equals(pageContext.getAttribute("eapNameCheck").toString()) == true && pageContext.getAttribute("eapStaCheck").toString().equals("F")) { %>
+			<span><a id="s_list_btn" href="#" onclick="inlist()">| 목록 |</a></span>
+			<!-- 기안자와 로그인한 사람의 이름이 다르고 반려일 때 -->
+		<% } else if(empName.equals(pageContext.getAttribute("eapNameCheck").toString()) == false && pageContext.getAttribute("eapStaCheck").toString().equals("R")) { %>
+			<span><a id="s_opinion_btn" href="#" onclick="opinion()">의견 | </a></span>
+			<span><a id="s_list_btn" href="#" onclick="relist()">목록</a></span>
+			<!-- 기안자와 로그인한 사람의 이름이 다르고 결재완료일 때 -->
+		<% } else if(empName.equals(pageContext.getAttribute("eapNameCheck").toString()) == false && pageContext.getAttribute("eapStaCheck").toString().equals("F")) { %>
+			<span><a id="s_list_btn" href="#" onclick="relist()">| 목록 |</a></span>
+			<!-- 로그인한 사람의 사번과 결재자의 사번이 같을 때 -->
+		<% } else if(empNo.equals(pageContext.getAttribute("check").toString()) == true) { %>
 			<span><a id="s_eap_cancle" href="#">결재회수 | </a></span>
 			<span><a id="s_eap_update" href="#">문서 수정 | </a></span>
 			<span><a id="s_opinion_btn" href="#" onclick="opinion()">의견 | </a></span>
@@ -204,6 +222,10 @@
 								<c:if test="${readSpDoc.eap_step == 2 && readSpDoc.eap_sta_code eq 'O' }">
 									<img src="https://media.discordapp.net/attachments/692994434526085184/988792844099678208/stamp_6.png" style="width: 50px;">
 								</c:if>
+								<!-- 결재선 단계가 1이고 결재 상태 코드가 반려일 때(앞에서 이미 반려상태) -->
+								<c:if test="${readSpDoc.eap_step == 1 && readSpDoc.eap_sta_code eq 'R' }">
+									<img src="https://media.discordapp.net/attachments/692994434526085184/988792844099678208/stamp_6.png" style="width: 50px;">
+								</c:if>
 								<!-- 결재선 단계가 3이고 결재 상태 코드가 진행중이거나 결재완료일 때(승인상태) -->
 								<c:if test="${readSpDoc.eap_step == 3 && readSpDoc.eap_sta_code eq 'O' || readSpDoc.eap_sta_code eq 'F'}">
 									<img src="https://media.discordapp.net/attachments/692994434526085184/988792589799026709/stamp_5.png" style="width: 50px;">
@@ -234,10 +256,10 @@
 								<c:if test="${readSpDoc.eap_step >= 1 && readSpDoc.eap_sta_code eq 'O' || readSpDoc.eap_sta_code eq 'S'}">
 									<img src="https://media.discordapp.net/attachments/692994434526085184/988792844099678208/stamp_6.png" style="width: 50px;">
 								</c:if>
-								<!-- 결재선 단계가 2이상이고 결재 상태 코드가 진행중이거나 대기중일 때(대기상태) -->
-								<%-- <c:if test="${readSpDoc.eap_step >= 2 && readSpDoc.eap_sta_code eq 'O' || readSpDoc.eap_sta_code eq 'S'}">
+								<!-- 결재선 단계가 2보다 작고 결재 상태 코드가 반려일 때(앞에서 이미 반려상태) -->
+								<c:if test="${readSpDoc.eap_step <= 2 && readSpDoc.eap_sta_code eq 'R' }">
 									<img src="https://media.discordapp.net/attachments/692994434526085184/988792844099678208/stamp_6.png" style="width: 50px;">
-								</c:if> --%>
+								</c:if>
 								<!-- 결재선 단계가 3이고 결재 상태 코드가 결재완료일 때(승인상태) -->
 								<c:if test="${readSpDoc.eap_step == 3 && readSpDoc.eap_sta_code eq 'F'}">
 									<img src="https://media.discordapp.net/attachments/692994434526085184/988792589799026709/stamp_5.png" style="width: 50px;">
@@ -383,6 +405,10 @@
 						<c:if test="${readSpDoc.eap_step == 2 && readSpDoc.eap_sta_code eq 'O' }">
 							<span class="s_span_fw">대기</span>
 						</c:if>
+						<!-- 결재선 단계가 1이고 결재 상태 코드가 반려일 때(앞에서 이미 반려상태) -->
+						<c:if test="${readSpDoc.eap_step == 1 && readSpDoc.eap_sta_code eq 'R' }">
+							<span class="s_span_fw">대기</span>
+						</c:if>
 						<!-- 결재선 단계가 3이고 결재 상태 코드가 진행중이거나 결재완료일 때(승인상태) -->
 						<c:if test="${readSpDoc.eap_step == 3 && readSpDoc.eap_sta_code eq 'O' || readSpDoc.eap_sta_code eq 'F' }">
 							<span class="s_span_fw">결재</span>
@@ -407,10 +433,10 @@
 						<c:if test="${readSpDoc.eap_step >= 1 && readSpDoc.eap_sta_code eq 'O' || readSpDoc.eap_sta_code eq 'S' }">
 							<span class="s_span_fw">대기</span>
 						</c:if>
-						<!-- 결재선 단계가 2이상이고 결재 상태 코드가 진행중이거나 대기중일 때(대기상태) -->
-						<%-- <c:if test="${readSpDoc.eap_step >= 2 && readSpDoc.eap_sta_code eq 'O' || readSpDoc.eap_sta_code eq 'S' }">
+						<!-- 결재선 단계가 2보다 작고 결재 상태 코드가 반려일 때(앞에서 이미 반려상태) -->
+						<c:if test="${readSpDoc.eap_step <= 2 && readSpDoc.eap_sta_code eq 'R' }">
 							<span class="s_span_fw">대기</span>
-						</c:if> --%>
+						</c:if>
 						<!-- 결재선 단계가 3이고 결재 상태 코드가 결재완료일 때(승인상태) -->
 						<c:if test="${readSpDoc.eap_step == 3 && readSpDoc.eap_sta_code eq 'F' }">
 							<span class="s_span_fw">결재</span>
@@ -894,6 +920,21 @@
 		// 결재 수신 문서 메뉴 클릭(목록으로)
 		function relist() {
 			$('#s_receipt_doc').trigger('click');
+		}
+		
+		// 기안 문서함 메뉴 클릭(목록으로)
+		function inlist() {
+			$('#s_insert_doc').trigger('click');
+		}
+		
+		// 결재 문서함 메뉴 클릭(목록으로)
+		function relist() {
+			$('#s_result_doc').trigger('click');
+		}
+		
+		// 참조 문서함 메뉴 클릭(목록으로)
+		function referlist() {
+			$('#s_reference_doc').trigger('click');
 		}
 	</script>
 </body>

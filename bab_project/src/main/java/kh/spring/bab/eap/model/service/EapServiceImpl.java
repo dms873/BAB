@@ -195,5 +195,23 @@ public class EapServiceImpl implements EapService {
 	public int updateEapRej(Eap eap) {
 		return dao.updateEapRej(eap);
 	}
+	
+	// 기안 문서함
+	@Override
+	public List<Eap> selectInsertDoc(String emp_no) {
+		return dao.selectInsertDoc(emp_no);
+	}
+	
+	// 결재 문서함
+	@Override
+	public List<Eap> selectResultDoc(String emp_no) {
+		return dao.selectResultDoc(emp_no);
+	}
+	
+	// 참조 문서함
+	@Override
+	public List<Eap> selectReferenceDoc(String emp_no) {
+		return dao.selectReferenceDoc(emp_no);
+	}
 
 }
