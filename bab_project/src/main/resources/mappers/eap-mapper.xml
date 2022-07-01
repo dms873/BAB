@@ -66,7 +66,35 @@
 		JOIN DOCUMENT_FORM USING(DF_NO)
 		JOIN EMPLOYEE USING(EMP_NO)
 		WHERE EAP_STA_CODE = 'S' AND EMP_NO = #{emp_no} AND EAP_TITLE IS NOT NULL
+		<choose>
+			<when test="type != null and type.equals('eap_title')">
+			AND EAP_TITLE LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test="type != null and type.equals('df_title')">
+			AND DF_TITLE LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test="type != null and type.equals('emp_name')">
+			AND EMP_NAME LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test="type != null and type.equals('dept_name')">
+			AND DEPT_NAME LIKE '%' || #{keyword} || '%'
+			</when>
+		</choose>
 		ORDER BY EAP_DRAFT_DATE DESC, EAP_NO DESC
+	</select>
+	
+	<!-- 결재 대기 문서 리스트 개수 -->
+	<select id="beforeTotalCnt" parameterType="string" resultType="_int">
+		SELECT COUNT(*) 
+		  FROM (SELECT TO_CHAR(EAP_DRAFT_DATE,'YYYY/MM/DD') EAP_DRAFT_DATE,
+		      (SELECT DEPT_NAME FROM DEPT JOIN EMPLOYEE USING(DEPT_CODE) WHERE EMP_NO = #{emp_no}) DEPT_NAME, EAP_FILE_PATH,
+		      EMP_NAME, DF_TITLE, EAP_TITLE, EAP_CONTENT, EMP_NO, EAP_NO,
+		      DECODE(EAP_STA_CODE, 'C', '결재회수', 'S', '결재대기', 'O', '진행중', 'F', '결재완료', 'R', '반려') EAP_STA_CODE, DF_NO 
+		FROM ELECTRONIC_APPROVAL
+		JOIN DOCUMENT_FORM USING(DF_NO)
+		JOIN EMPLOYEE USING(EMP_NO)
+		WHERE EAP_STA_CODE = 'S' AND EMP_NO = #{emp_no} AND EAP_TITLE IS NOT NULL
+		ORDER BY EAP_DRAFT_DATE DESC, EAP_NO DESC)
 	</select>
 	
 	<!-- 양식 처음 로드 시 띄울 정보 -->
@@ -165,7 +193,7 @@
 		UPDATE HOLIDAY SET HO_CODE = #{ho_code}, HO_START = #{ho_start}, HO_END = #{ho_end}, HO_USE_COUNT = #{ho_use_count} WHERE DF_NO = #{df_no}
 	</update>
 	
-	<!-- 결재 대기 문서 개수 -->
+	<!-- 서브메뉴에 띄울 결재 대기 문서 개수 -->
 	<select id="beDocCnt" parameterType="string" resultType="_int">
 		SELECT COUNT(*) 
 		  FROM (SELECT TO_CHAR(EAP_DRAFT_DATE,'YYYY/MM/DD') EAP_DRAFT_DATE,
@@ -194,9 +222,41 @@
 			                    OR (EAP_STEP = 3 AND EAP_FINAL_AP = (SELECT EMP_NAME FROM EMPLOYEE WHERE EMP_NO = #{emp_no})))
 			ORDER BY EAP_DRAFT_DATE DESC, EAP_NO DESC) A, (SELECT EMP_NO, DEPT_NAME FROM DEPT JOIN EMPLOYEE USING(DEPT_CODE))B
 		WHERE A.EMP_NO = B.EMP_NO
+		<choose>
+			<when test="type != null and type.equals('eap_title')">
+			AND EAP_TITLE LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test="type != null and type.equals('df_title')">
+			AND DF_TITLE LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test="type != null and type.equals('emp_name')">
+			AND EMP_NAME LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test="type != null and type.equals('dept_name')">
+			AND DEPT_NAME LIKE '%' || #{keyword} || '%'
+			</when>
+		</choose>
 	</select>
 	
-	<!-- 결재 수신 문서 개수 -->
+	<!-- 결재 수신 문서 리스트 개수 -->
+	<select id="receiptTotalCnt" parameterType="string" resultType="_int">
+		SELECT COUNT(*) 
+		  FROM (SELECT A.*, B.DEPT_NAME FROM (
+			SELECT TO_CHAR(EAP_DRAFT_DATE,'YYYY/MM/DD') EAP_DRAFT_DATE,
+			      EAP_FILE_PATH, EMP_NAME, DF_TITLE, EAP_TITLE, EAP_CONTENT, EMP_NO, EAP_NO,
+			      DECODE(EAP_STA_CODE, 'C', '결재회수', 'S', '결재대기', 'O', '진행중', 'F', '결재완료', 'R', '반려') EAP_STA_CODE, DF_NO
+			  FROM ELECTRONIC_APPROVAL 
+			  JOIN DOCUMENT_FORM USING(DF_NO)
+			  JOIN EMPLOYEE USING(EMP_NO)
+			  WHERE (EAP_STA_CODE = 'S' OR EAP_STA_CODE = 'O') AND EAP_TITLE IS NOT NULL AND 
+			        (EAP_STEP = 1 AND EAP_FIRST_AP = (SELECT EMP_NAME FROM EMPLOYEE WHERE EMP_NO = #{emp_no}) 
+			                    OR (EAP_STEP = 2 AND EAP_MID_AP = (SELECT EMP_NAME FROM EMPLOYEE WHERE EMP_NO = #{emp_no})) 
+			                    OR (EAP_STEP = 3 AND EAP_FINAL_AP = (SELECT EMP_NAME FROM EMPLOYEE WHERE EMP_NO = #{emp_no})))
+			ORDER BY EAP_DRAFT_DATE DESC, EAP_NO DESC) A, (SELECT EMP_NO, DEPT_NAME FROM DEPT JOIN EMPLOYEE USING(DEPT_CODE))B
+		WHERE A.EMP_NO = B.EMP_NO)
+	</select>
+	
+	<!-- 서브 메뉴에 띄울 결재 수신 문서 개수 -->
 	<select id="reDocCnt" parameterType="string" resultType="_int">
 		SELECT COUNT(*) 
 		  FROM (SELECT A.*, B.DEPT_NAME FROM (
@@ -244,7 +304,35 @@
 		JOIN DOCUMENT_FORM USING(DF_NO)
 		JOIN EMPLOYEE USING(EMP_NO)
 		WHERE EAP_STA_CODE IN ('F', 'R') AND EMP_NO = #{emp_no} AND EAP_TITLE IS NOT NULL
+		<choose>
+			<when test="type != null and type.equals('eap_title')">
+			AND EAP_TITLE LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test="type != null and type.equals('df_title')">
+			AND DF_TITLE LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test="type != null and type.equals('emp_name')">
+			AND EMP_NAME LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test="type != null and type.equals('dept_name')">
+			AND DEPT_NAME LIKE '%' || #{keyword} || '%'
+			</when>
+		</choose>
 		ORDER BY EAP_DRAFT_DATE DESC, EAP_NO DESC
+	</select>
+	
+	<!-- 기안 문서함 리스트 개수 -->
+	<select id="insertTotalCnt" resultType="_int" parameterType="Eap">
+		SELECT COUNT(*) 
+		FROM (SELECT DF_NO, TO_CHAR(EAP_DRAFT_DATE, 'YYYY/MM/DD') EAP_DRAFT_DATE, 
+				(SELECT DEPT_NAME FROM DEPT JOIN EMPLOYEE USING(DEPT_CODE) WHERE EMP_NO = #{emp_no}) DEPT_NAME, EAP_FILE_PATH,
+			    EMP_NAME, DF_TITLE, EAP_TITLE, EAP_CONTENT, EMP_NO, EAP_NO, 
+			    DECODE(EAP_STA_CODE, 'C', '결재회수', 'S', '결재대기', 'O', '진행중', 'F', '결재완료', 'R', '반려') EAP_STA_CODE
+			FROM ELECTRONIC_APPROVAL
+			JOIN DOCUMENT_FORM USING(DF_NO)
+			JOIN EMPLOYEE USING(EMP_NO)
+			WHERE EAP_STA_CODE IN ('F', 'R') AND EMP_NO = #{emp_no} AND EAP_TITLE IS NOT NULL
+			ORDER BY EAP_DRAFT_DATE DESC, EAP_NO DESC)
 	</select>
 	
 	<!-- 결재 문서함 -->
@@ -263,6 +351,39 @@
 				ORDER BY EAP_DRAFT_DATE DESC, EAP_NO DESC) A, 
 			 (SELECT EMP_NO, DEPT_NAME FROM DEPT JOIN EMPLOYEE USING(DEPT_CODE)) B
 		WHERE A.EMP_NO = B.EMP_NO
+		<choose>
+			<when test="type != null and type.equals('eap_title')">
+			AND EAP_TITLE LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test="type != null and type.equals('df_title')">
+			AND DF_TITLE LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test="type != null and type.equals('emp_name')">
+			AND EMP_NAME LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test="type != null and type.equals('dept_name')">
+			AND DEPT_NAME LIKE '%' || #{keyword} || '%'
+			</when>
+		</choose>
+	</select>
+	
+	<!-- 결재 문서함 리스트 개수 -->
+	<select id="resultTotalCnt" resultType="_int" parameterType="Eap">
+		SELECT COUNT(*) 
+		FROM (SELECT A.*,B.DEPT_NAME 
+				FROM (SELECT TO_CHAR(EAP_DRAFT_DATE,'YYYY/MM/DD') EAP_DRAFT_DATE,
+					      EAP_FILE_PATH, EMP_NAME, DF_TITLE, EAP_TITLE, EAP_CONTENT, EMP_NO, EAP_NO,
+					      DECODE(EAP_STA_CODE, 'C', '결재회수', 'S', '결재대기', 'O', '진행중', 'F', '결재완료', 'R', '반려') EAP_STA_CODE, DF_NO
+					  FROM ELECTRONIC_APPROVAL 
+					  JOIN DOCUMENT_FORM USING(DF_NO)
+					  JOIN EMPLOYEE USING(EMP_NO)
+					  WHERE (EAP_STA_CODE IN ('F', 'R')) AND EAP_TITLE IS NOT NULL AND 
+					        (EAP_STEP = 1 AND EAP_FIRST_AP = (SELECT EMP_NAME FROM EMPLOYEE WHERE EMP_NO = #{emp_no}) 
+					                    OR (EAP_STEP > 1 AND EAP_MID_AP = (SELECT EMP_NAME FROM EMPLOYEE WHERE EMP_NO = #{emp_no})) 
+					                    OR (EAP_STEP > 2 AND EAP_FINAL_AP = (SELECT EMP_NAME FROM EMPLOYEE WHERE EMP_NO = #{emp_no})))
+						ORDER BY EAP_DRAFT_DATE DESC, EAP_NO DESC) A, 
+					 (SELECT EMP_NO, DEPT_NAME FROM DEPT JOIN EMPLOYEE USING(DEPT_CODE)) B
+		WHERE A.EMP_NO = B.EMP_NO)
 	</select>
 	
 	<!-- 참조 문서함 -->
@@ -280,6 +401,69 @@
 		            AND EAP_STA_CODE = 'F'
 		        ORDER BY EAP_DRAFT_DATE DESC) A, 
 	        (SELECT EMP_NO, DEPT_NAME FROM DEPT JOIN EMPLOYEE USING(DEPT_CODE)) B
+		WHERE A.EMP_NO = B.EMP_NO
+		<choose>
+			<when test="type != null and type.equals('eap_title')">
+			AND EAP_TITLE LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test="type != null and type.equals('df_title')">
+			AND DF_TITLE LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test="type != null and type.equals('emp_name')">
+			AND EMP_NAME LIKE '%' || #{keyword} || '%'
+			</when>
+			<when test="type != null and type.equals('dept_name')">
+			AND DEPT_NAME LIKE '%' || #{keyword} || '%'
+			</when>
+		</choose>
+	</select>
+	
+	<!-- 참조 문서함 리스트 개수 -->
+	<select id="referenceTotalCnt" resultType="_int" parameterType="Eap">
+		SELECT COUNT(*) 
+		FROM (SELECT A.*, B.DEPT_NAME FROM(
+		        SELECT TO_CHAR(EAP_DRAFT_DATE,'YYYY/MM/DD') EAP_DRAFT_DATE, EAP_RESULT_DATE,
+		          EAP_FILE_PATH, EMP_NAME, DF_TITLE, EAP_TITLE, EAP_CONTENT, EMP_NO, EAP_NO,
+		          DECODE(EAP_STA_CODE, 'C', '결재회수', 'S', '결재대기', 'O', '진행중', 'F', '결재완료', 'R', '반려') EAP_STA_CODE, DF_NO
+		        FROM ELECTRONIC_APPROVAL 
+		        JOIN DOCUMENT_FORM USING(DF_NO)
+		        JOIN EMPLOYEE USING(EMP_NO)
+		        WHERE (EAP_FIRST_DEPT IS NOT NULL OR EAP_FINAL_DEPT IS NOT NULL) 
+		            AND (EAP_FIRST_DEPT = (SELECT DEPT_NAME FROM EMPLOYEE JOIN DEPT USING(DEPT_CODE) WHERE EMP_NO = #{emp_no}) 
+		            OR EAP_FINAL_DEPT = (SELECT DEPT_NAME FROM EMPLOYEE JOIN DEPT USING(DEPT_CODE) WHERE EMP_NO = #{emp_no}))
+		            AND EAP_STA_CODE = 'F'
+		        ORDER BY EAP_DRAFT_DATE DESC) A, 
+		        (SELECT EMP_NO, DEPT_NAME FROM DEPT JOIN EMPLOYEE USING(DEPT_CODE)) B
+		WHERE A.EMP_NO = B.EMP_NO)
+	</select>
+	
+	<!-- 전자결재 홈 전자 결재 대기 -->
+	<select id="selectHomeBeDoc" parameterType="string" resultType="Eap">
+		SELECT TO_CHAR(EAP_DRAFT_DATE,'YYYY/MM/DD') EAP_DRAFT_DATE, EAP_FILE_PATH,
+	      (SELECT DEPT_NAME FROM DEPT JOIN EMPLOYEE USING(DEPT_CODE) WHERE EMP_NO = #{emp_no}) DEPT_NAME, 
+	      EMP_NAME, DF_TITLE, EAP_TITLE, EAP_CONTENT, EMP_NO, DF_NO, EAP_NO,
+	      DECODE(EAP_STA_CODE, 'C', '결재회수', 'S', '결재대기', 'O', '진행중', 'F', '결재완료', 'R', '반려') EAP_STA_CODE 
+		FROM ELECTRONIC_APPROVAL
+		JOIN DOCUMENT_FORM USING(DF_NO)
+		JOIN EMPLOYEE USING(EMP_NO)
+		WHERE EAP_STA_CODE = 'S' AND EMP_NO = #{emp_no} AND EAP_TITLE IS NOT NULL
+		ORDER BY EAP_DRAFT_DATE DESC, EAP_NO DESC
+	</select>
+	
+	<!-- 전자결재 홈 기안 진행 문서 -->
+	<select id="selectHomeRcDoc" parameterType="string" resultType="Eap">
+		SELECT A.*, B.DEPT_NAME FROM (
+			SELECT TO_CHAR(EAP_DRAFT_DATE,'YYYY/MM/DD') EAP_DRAFT_DATE,
+			      EAP_FILE_PATH, EMP_NAME, DF_TITLE, EAP_TITLE, EAP_CONTENT, EMP_NO, EAP_NO,
+			      DECODE(EAP_STA_CODE, 'C', '결재회수', 'S', '결재대기', 'O', '진행중', 'F', '결재완료', 'R', '반려') EAP_STA_CODE, DF_NO
+			  FROM ELECTRONIC_APPROVAL 
+			  JOIN DOCUMENT_FORM USING(DF_NO)
+			  JOIN EMPLOYEE USING(EMP_NO)
+			  WHERE (EAP_STA_CODE = 'S' OR EAP_STA_CODE = 'O') AND EAP_TITLE IS NOT NULL AND 
+			        (EAP_STEP = 1 AND EAP_FIRST_AP = (SELECT EMP_NAME FROM EMPLOYEE WHERE EMP_NO = #{emp_no}) 
+			                    OR (EAP_STEP = 2 AND EAP_MID_AP = (SELECT EMP_NAME FROM EMPLOYEE WHERE EMP_NO = #{emp_no})) 
+			                    OR (EAP_STEP = 3 AND EAP_FINAL_AP = (SELECT EMP_NAME FROM EMPLOYEE WHERE EMP_NO = #{emp_no})))
+			ORDER BY EAP_DRAFT_DATE DESC, EAP_NO DESC) A, (SELECT EMP_NO, DEPT_NAME FROM DEPT JOIN EMPLOYEE USING(DEPT_CODE))B
 		WHERE A.EMP_NO = B.EMP_NO
 	</select>
 	

@@ -46,6 +46,14 @@ public class ElectronicApprovalController {
 		int beDocCnt = service.beDocCnt(emp_no);
 		mv.addObject("beDocCnt", beDocCnt);
 		
+		// 전자 결재 대기
+		List<Eap> homeBeDoc = service.selectHomeBeDoc(emp_no);
+		mv.addObject("homeBeDoc", homeBeDoc);
+		
+		// 기안 진행 문서
+		List<Eap> homeRcDoc = service.selectHomeRcDoc(emp_no);
+		mv.addObject("homeRcDoc", homeRcDoc);
+		
 		// 결재 수신 문서 개수
 		int reDocCnt = service.reDocCnt(emp_no);
 		mv.addObject("reDocCnt", reDocCnt);
@@ -60,14 +68,48 @@ public class ElectronicApprovalController {
 	@GetMapping("/beforedoc")
 	public ModelAndView selectBeforeDoc(
 			ModelAndView mv,
-			HttpServletRequest req
+			HttpServletRequest req,
+			@RequestParam(name="page", defaultValue = "1") int currentPage,
+			@RequestParam(name="type", required = false) String type,
+			@RequestParam(name="keyword", required = false) String keyword,
+			Eap eap
 			) {
 		
 		// 로그인한 사람 정보 가져오기(사번)
 		Employee emp = (Employee) req.getSession().getAttribute("login");
 		String emp_no = emp.getEmp_no();
 		
-		List<Eap> beforeDoc = service.selectBeforeDoc(emp_no);
+		eap.setEmp_no(emp_no);
+		eap.setType(type);
+		eap.setKeyword(keyword);
+		
+		final int pageSize = 3;
+		final int pageBlock = 2;
+		
+		List<Eap> beforeDoc = service.selectBeforeDoc(currentPage, pageSize, eap);
+		
+		int totalCnt = keyword == "" || keyword == null ? service.beforeTotalCnt(eap) : beforeDoc.size();
+		
+		// paging 처리
+		int pageCnt = totalCnt / pageSize + (totalCnt % pageSize == 0 ? 0 : 1);
+		int startPage = 1;
+		int endPage = 1;
+		// int endPage = pageBlock;
+		if (currentPage % pageBlock == 0) {
+			startPage = ((currentPage / pageBlock) - 1) * pageBlock + 1;
+		} else {
+			startPage = (currentPage / pageBlock) * pageBlock + 1;
+		}
+		endPage = startPage + pageBlock - 1;
+		if (endPage > pageCnt) {
+			endPage = pageCnt;
+		}
+		
+		mv.addObject("startPage", startPage);
+		mv.addObject("endPage", endPage);
+		mv.addObject("pageCnt", pageCnt);
+		mv.addObject("totalCnt", totalCnt);
+		mv.addObject("currentPage", currentPage);
 		mv.addObject("beforeDoc", beforeDoc);
 		mv.setViewName("eap/beforedoc");
 		return mv;
@@ -77,16 +119,49 @@ public class ElectronicApprovalController {
 	@GetMapping("/receiptdoc")
 	public ModelAndView selectBReceiptDoc(
 			ModelAndView mv,
-			HttpServletRequest req
+			HttpServletRequest req,
+			@RequestParam(name="page", defaultValue = "1") int currentPage,
+			@RequestParam(name="type", required = false) String type,
+			@RequestParam(name="keyword", required = false) String keyword,
+			Eap eap
 			) {
 		
 		// 로그인한 사람 정보 가져오기(사번)
 		Employee emp = (Employee) req.getSession().getAttribute("login");
 		String emp_no = emp.getEmp_no();
 		
-		List<Eap> receiptDoc = service.selectReceiptDoc(emp_no);
+		eap.setEmp_no(emp_no);
+		eap.setType(type);
+		eap.setKeyword(keyword);
+		
+		final int pageSize = 3;
+		final int pageBlock = 2;
+		
+		List<Eap> receiptDoc = service.selectReceiptDoc(currentPage, pageSize, eap);
+		
+		int totalCnt = keyword == "" || keyword == null ? service.receiptTotalCnt(eap) : receiptDoc.size();
+		
+		// paging 처리
+		int pageCnt = totalCnt / pageSize + (totalCnt % pageSize == 0 ? 0 : 1);
+		int startPage = 1;
+		int endPage = 1;
+		// int endPage = pageBlock;
+		if (currentPage % pageBlock == 0) {
+			startPage = ((currentPage / pageBlock) - 1) * pageBlock + 1;
+		} else {
+			startPage = (currentPage / pageBlock) * pageBlock + 1;
+		}
+		endPage = startPage + pageBlock - 1;
+		if (endPage > pageCnt) {
+			endPage = pageCnt;
+		}
+		
+		mv.addObject("startPage", startPage);
+		mv.addObject("endPage", endPage);
+		mv.addObject("pageCnt", pageCnt);
+		mv.addObject("totalCnt", totalCnt);
+		mv.addObject("currentPage", currentPage);
 		mv.addObject("receiptDoc", receiptDoc);
-				
 		mv.setViewName("eap/receiptdoc");
 		return mv;
 	}
@@ -132,15 +207,48 @@ public class ElectronicApprovalController {
 	@GetMapping("/selectinsertdoc")
 	public ModelAndView selectInsertDoc(
 			ModelAndView mv,
-			HttpServletRequest req
+			HttpServletRequest req,
+			@RequestParam(name="page", defaultValue = "1") int currentPage,
+			@RequestParam(name="type", required = false) String type,
+			@RequestParam(name="keyword", required = false) String keyword,
+			Eap eap
 			) {
 		
 		// 로그인한 사람 정보 가져오기(사번)
 		Employee emp = (Employee) req.getSession().getAttribute("login");
 		String emp_no = emp.getEmp_no();
 		
-		List<Eap> result = service.selectInsertDoc(emp_no);
+		eap.setEmp_no(emp_no);
+		eap.setType(type);
+		eap.setKeyword(keyword);
 		
+		final int pageSize = 3;
+		final int pageBlock = 2;
+		
+		List<Eap> result = service.selectInsertDoc(currentPage, pageSize, eap);
+		
+		int totalCnt = keyword == "" || keyword == null ? service.insertTotalCnt(eap) : result.size();
+		
+		// paging 처리
+		int pageCnt = totalCnt / pageSize + (totalCnt % pageSize == 0 ? 0 : 1);
+		int startPage = 1;
+		int endPage = 1;
+		// int endPage = pageBlock;
+		if (currentPage % pageBlock == 0) {
+			startPage = ((currentPage / pageBlock) - 1) * pageBlock + 1;
+		} else {
+			startPage = (currentPage / pageBlock) * pageBlock + 1;
+		}
+		endPage = startPage + pageBlock - 1;
+		if (endPage > pageCnt) {
+			endPage = pageCnt;
+		}
+		
+		mv.addObject("startPage", startPage);
+		mv.addObject("endPage", endPage);
+		mv.addObject("pageCnt", pageCnt);
+		mv.addObject("totalCnt", totalCnt);
+		mv.addObject("currentPage", currentPage);
 		mv.addObject("insertdoc", result);
 		mv.setViewName("eap/selectinsertdoc");
 		return mv;
@@ -150,15 +258,48 @@ public class ElectronicApprovalController {
 	@GetMapping("/selectresultdoc")
 	public ModelAndView selectResultDoc(
 			ModelAndView mv,
-			HttpServletRequest req
+			HttpServletRequest req,
+			@RequestParam(name="page", defaultValue = "1") int currentPage,
+			@RequestParam(name="type", required = false) String type,
+			@RequestParam(name="keyword", required = false) String keyword,
+			Eap eap
 			) {
 		
 		// 로그인한 사람 정보 가져오기(사번)
 		Employee emp = (Employee) req.getSession().getAttribute("login");
 		String emp_no = emp.getEmp_no();
 		
-		List<Eap> result = service.selectResultDoc(emp_no);
+		eap.setEmp_no(emp_no);
+		eap.setType(type);
+		eap.setKeyword(keyword);
 		
+		final int pageSize = 3;
+		final int pageBlock = 2;
+		
+		List<Eap> result = service.selectResultDoc(currentPage, pageSize, eap);
+		
+		int totalCnt = keyword == "" || keyword == null ? service.referenceTotalCnt(eap) : result.size();
+		
+		// paging 처리
+		int pageCnt = totalCnt / pageSize + (totalCnt % pageSize == 0 ? 0 : 1);
+		int startPage = 1;
+		int endPage = 1;
+		// int endPage = pageBlock;
+		if (currentPage % pageBlock == 0) {
+			startPage = ((currentPage / pageBlock) - 1) * pageBlock + 1;
+		} else {
+			startPage = (currentPage / pageBlock) * pageBlock + 1;
+		}
+		endPage = startPage + pageBlock - 1;
+		if (endPage > pageCnt) {
+			endPage = pageCnt;
+		}
+		
+		mv.addObject("startPage", startPage);
+		mv.addObject("endPage", endPage);
+		mv.addObject("pageCnt", pageCnt);
+		mv.addObject("totalCnt", totalCnt);
+		mv.addObject("currentPage", currentPage);
 		mv.addObject("resultdoc", result);
 		mv.setViewName("eap/selectresultdoc");
 		return mv;
@@ -168,15 +309,48 @@ public class ElectronicApprovalController {
 	@GetMapping("/selectreferencedoc")
 	public ModelAndView selectReferenceDoc(
 			ModelAndView mv,
-			HttpServletRequest req
+			HttpServletRequest req, 
+			@RequestParam(name="page", defaultValue = "1") int currentPage,
+			@RequestParam(name="type", required = false) String type,
+			@RequestParam(name="keyword", required = false) String keyword,
+			Eap eap
 			) {
 		
 		// 로그인한 사람 정보 가져오기(사번)
 		Employee emp = (Employee) req.getSession().getAttribute("login");
 		String emp_no = emp.getEmp_no();
 		
-		List<Eap> result = service.selectReferenceDoc(emp_no);
+		eap.setEmp_no(emp_no);
+		eap.setType(type);
+		eap.setKeyword(keyword);
 		
+		final int pageSize = 3;
+		final int pageBlock = 2;
+		
+		List<Eap> result = service.selectReferenceDoc(currentPage, pageSize, eap);
+		
+		int totalCnt = keyword == "" || keyword == null ? service.referenceTotalCnt(eap) : result.size();
+		
+		// paging 처리
+		int pageCnt = totalCnt / pageSize + (totalCnt % pageSize == 0 ? 0 : 1);
+		int startPage = 1;
+		int endPage = 1;
+		// int endPage = pageBlock;
+		if (currentPage % pageBlock == 0) {
+			startPage = ((currentPage / pageBlock) - 1) * pageBlock + 1;
+		} else {
+			startPage = (currentPage / pageBlock) * pageBlock + 1;
+		}
+		endPage = startPage + pageBlock - 1;
+		if (endPage > pageCnt) {
+			endPage = pageCnt;
+		}
+		
+		mv.addObject("startPage", startPage);
+		mv.addObject("endPage", endPage);
+		mv.addObject("pageCnt", pageCnt);
+		mv.addObject("totalCnt", totalCnt);
+		mv.addObject("currentPage", currentPage);
 		mv.addObject("referencedoc", result);
 		mv.setViewName("eap/selectreferencedoc");
 		return mv;

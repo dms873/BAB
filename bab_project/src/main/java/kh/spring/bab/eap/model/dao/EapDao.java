@@ -2,6 +2,7 @@ package kh.spring.bab.eap.model.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -62,8 +63,13 @@ public class EapDao {
 	}
 
 	// 결재대기문서
-	public List<Eap> selectBeforeDoc(String emp_no) {
-		return sqlSession.selectList("Eap.selectBeforeDoc", emp_no);
+	public List<Eap> selectBeforeDoc(int currentPage, int pageSize, Eap eap) {
+		return sqlSession.selectList("Eap.selectBeforeDoc", eap, new RowBounds((currentPage-1)*pageSize, pageSize));
+	}
+	
+	// 결재 대기 문서 리스트 개수
+	public int beforeTotalCnt(Eap eap) {
+		return sqlSession.selectOne("Eap.beforeTotalCnt", eap);
 	}
 	
 	// 양식 처음 로드 시 띄울 정보
@@ -131,17 +137,22 @@ public class EapDao {
 		return sqlSession.update("Eap.updateHpDoc", att);
 	}
 	
-	// 결재 대기 문서 개수
+	// 서브메뉴에 띄울 결재 대기 문서 개수
 	public int beDocCnt(String emp_no) {
 		return sqlSession.selectOne("Eap.beDocCnt", emp_no);
 	}
 	
 	// 결재 수신 문서
-	public List<Eap> selectReceiptDoc(String emp_no) {
-		return sqlSession.selectList("Eap.selectReceiptDoc", emp_no);
+	public List<Eap> selectReceiptDoc(int currentPage, int pageSize, Eap eap) {
+		return sqlSession.selectList("Eap.selectReceiptDoc", eap, new RowBounds((currentPage-1)*pageSize, pageSize));
 	}
 	
-	// 결재 수신 문서 개수
+	// 결재 수신 문서 리스트 개수
+	public int receiptTotalCnt(Eap eap) {
+		return sqlSession.selectOne("Eap.receiptTotalCnt", eap);
+	}
+	
+	// 서브 메뉴에 띄울 결재 수신 문서 개수
 	public int reDocCnt(String emp_no) {
 		return sqlSession.selectOne("Eap.reDocCnt", emp_no);
 	}
@@ -167,18 +178,43 @@ public class EapDao {
 	}
 	
 	// 기안 문서함
-	public List<Eap> selectInsertDoc(String emp_no) {
-		return sqlSession.selectList("Eap.selectInsertDoc", emp_no);
+	public List<Eap> selectInsertDoc(int currentPage, int pageSize, Eap eap) {
+		return sqlSession.selectList("Eap.selectInsertDoc", eap, new RowBounds((currentPage-1)*pageSize, pageSize));
+	}
+	
+	// 기안 문서함 리스트 개수
+	public int insertTotalCnt(Eap eap) {
+		return sqlSession.selectOne("Eap.insertTotalCnt", eap);
 	}
 	
 	// 결재 문서함
-	public List<Eap> selectResultDoc(String emp_no) {
-		return sqlSession.selectList("Eap.selectResultDoc", emp_no);
+	public List<Eap> selectResultDoc(int currentPage, int pageSize, Eap eap) {
+		return sqlSession.selectList("Eap.selectResultDoc", eap, new RowBounds((currentPage-1)*pageSize, pageSize));
+	}
+	
+	// 결재 문서함 리스트 개수
+	public int resultTotalCnt(Eap eap) {
+		return sqlSession.selectOne("Eap.resultTotalCnt", eap);
 	}
 	
 	// 참조 문서함
-	public List<Eap> selectReferenceDoc(String emp_no) {
-		return sqlSession.selectList("Eap.selectReferenceDoc", emp_no);
+	public List<Eap> selectReferenceDoc(int currentPage, int pageSize, Eap eap) {
+		return sqlSession.selectList("Eap.selectReferenceDoc", eap, new RowBounds((currentPage-1)*pageSize, pageSize));
+	}
+	
+	// 참조 문서함 리스트 개수
+	public int referenceTotalCnt(Eap eap) {
+		return sqlSession.selectOne("Eap.referenceTotalCnt", eap);
+	}
+	
+	// 전자결재 홈 전자 결재 대기
+	public List<Eap> selectHomeBeDoc(String emp_no) {
+		return sqlSession.selectList("Eap.selectHomeBeDoc", emp_no);
+	}
+	
+	// 전자결재 홈 기안 진행 문서
+	public List<Eap> selectHomeRcDoc(String emp_no) {
+		return sqlSession.selectList("Eap.selectHomeRcDoc", emp_no);
 	}
 
 }

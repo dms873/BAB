@@ -118,6 +118,9 @@
 			<span><a id="s_list_btn" href="#" onclick="relist()">목록</a></span>
 			<!-- 기안자와 로그인한 사람의 이름이 다르고 결재완료일 때 -->
 		<% } else if(empName.equals(pageContext.getAttribute("eapNameCheck").toString()) == false && pageContext.getAttribute("eapStaCheck").toString().equals("F")) { %>
+			<span><a id="s_list_btn" href="#" onclick="resultlist()">| 목록 |</a></span>
+			<!-- 기안자와 로그인한 사람의 이름이 다르고 진행중일 때 -->
+		<% } else if(empName.equals(pageContext.getAttribute("eapNameCheck").toString()) == false && pageContext.getAttribute("eapStaCheck").toString().equals("O")) { %>
 			<span><a id="s_list_btn" href="#" onclick="relist()">| 목록 |</a></span>
 			<!-- 로그인한 사람의 사번과 결재자의 사번이 같을 때 -->
 		<% } else if(empNo.equals(pageContext.getAttribute("check").toString()) == true) { %>
@@ -1014,7 +1017,7 @@
 		}
 		
 		// 결재 문서함 메뉴 클릭(목록으로)
-		function relist() {
+		function resultlist() {
 			$('#s_result_doc').trigger('click');
 		}
 	</script>

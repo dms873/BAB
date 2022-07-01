@@ -72,8 +72,14 @@ public class EapServiceImpl implements EapService {
 
 	// 결재대기문서
 	@Override
-	public List<Eap> selectBeforeDoc(String emp_no) {
-		return dao.selectBeforeDoc(emp_no);
+	public List<Eap> selectBeforeDoc(int currentPage, int pageSize, Eap eap) {
+		return dao.selectBeforeDoc(currentPage, pageSize, eap);
+	}
+	
+	// 결재 대기 문서 리스트 개수
+	@Override
+	public int beforeTotalCnt(Eap eap) {
+		return dao.beforeTotalCnt(eap);
 	}
 
 	// 양식 처음 로드 시 띄울 정보
@@ -154,7 +160,7 @@ public class EapServiceImpl implements EapService {
 		return dao.updateHpDoc(att);
 	}
 	
-	// 결재 대기 문서 개수
+	// 서브메뉴에 띄울 결재 대기 문서 개수
 	@Override
 	public int beDocCnt(String emp_no) {
 		return dao.beDocCnt(emp_no);
@@ -162,11 +168,17 @@ public class EapServiceImpl implements EapService {
 
 	// 결재 수신 문서
 	@Override
-	public List<Eap> selectReceiptDoc(String emp_no) {
-		return dao.selectReceiptDoc(emp_no);
+	public List<Eap> selectReceiptDoc(int currentPage, int pageSize, Eap eap) {
+		return dao.selectReceiptDoc(currentPage, pageSize, eap);
 	}
 	
-	// 결재 수신 문서 개수
+	// 결재 수신 문서 리스트 개수
+	@Override
+	public int receiptTotalCnt(Eap eap) {
+		return dao.receiptTotalCnt(eap);
+	}
+	
+	// 서브 메뉴에 띄울 결재 수신 문서 개수
 	@Override
 	public int reDocCnt(String emp_no) {
 		return dao.reDocCnt(emp_no);
@@ -198,20 +210,50 @@ public class EapServiceImpl implements EapService {
 	
 	// 기안 문서함
 	@Override
-	public List<Eap> selectInsertDoc(String emp_no) {
-		return dao.selectInsertDoc(emp_no);
+	public List<Eap> selectInsertDoc(int currentPage, int pageSize, Eap eap) {
+		return dao.selectInsertDoc(currentPage, pageSize, eap);
+	}
+	
+	// 기안 문서함 리스트 개수
+	@Override
+	public int insertTotalCnt(Eap eap) {
+		return dao.insertTotalCnt(eap);
 	}
 	
 	// 결재 문서함
 	@Override
-	public List<Eap> selectResultDoc(String emp_no) {
-		return dao.selectResultDoc(emp_no);
+	public List<Eap> selectResultDoc(int currentPage, int pageSize, Eap eap) {
+		return dao.selectResultDoc(currentPage, pageSize, eap);
+	}
+	
+	// 결재 문서함 리스트 개수
+	@Override
+	public int resultTotalCnt(Eap eap) {
+		return dao.resultTotalCnt(eap);
 	}
 	
 	// 참조 문서함
 	@Override
-	public List<Eap> selectReferenceDoc(String emp_no) {
-		return dao.selectReferenceDoc(emp_no);
+	public List<Eap> selectReferenceDoc(int currentPage, int pageSize, Eap eap) {
+		return dao.selectReferenceDoc(currentPage, pageSize, eap);
+	}
+	
+	// 참조 문서함 리스트 개수
+	@Override
+	public int referenceTotalCnt(Eap eap) {
+		return dao.referenceTotalCnt(eap);
+	}
+	
+	// 전자결재 홈 전자 결재 대기
+	@Override
+	public List<Eap> selectHomeBeDoc(String emp_no) {
+		return dao.selectHomeBeDoc(emp_no);
+	}
+	
+	// 전자결재 홈 기안 진행 문서
+	@Override
+	public List<Eap> selectHomeRcDoc(String emp_no) {
+		return dao.selectHomeRcDoc(emp_no);
 	}
 
 }

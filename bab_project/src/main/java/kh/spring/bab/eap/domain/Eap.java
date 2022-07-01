@@ -30,6 +30,10 @@ public class Eap {
 	private String emp_phone; // 사원전화번호
 	private String eap_file_path; // 파일 경로
 	
+	// 검색필터
+	private String type; // 검색타입
+	private String keyword; // 검색내용
+	
 	@Override
 	public String toString() {
 		return "Eap [eap_no=" + eap_no + ", eap_step=" + eap_step + ", eap_title=" + eap_title + ", eap_content="
@@ -39,7 +43,8 @@ public class Eap {
 				+ ", eap_draft_date=" + eap_draft_date + ", eap_result_date=" + eap_result_date + ", eap_update_date="
 				+ eap_update_date + ", emp_no=" + emp_no + ", df_no=" + df_no + ", df_code=" + df_code + ", dept_name="
 				+ dept_name + ", job_title=" + job_title + ", emp_name=" + emp_name + ", df_title=" + df_title
-				+ ", emp_phone=" + emp_phone + ", eap_file_path=" + eap_file_path + "]";
+				+ ", emp_phone=" + emp_phone + ", eap_file_path=" + eap_file_path + ", type=" + type + ", keyword="
+				+ keyword + "]";
 	}
 	public String getEap_no() {
 		return eap_no;
@@ -184,6 +189,18 @@ public class Eap {
 	}
 	public void setEap_file_path(String eap_file_path) {
 		this.eap_file_path = eap_file_path;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public String getKeyword() {
+		return keyword;
+	}
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 	
 }

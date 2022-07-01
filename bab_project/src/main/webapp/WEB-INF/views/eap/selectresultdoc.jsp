@@ -12,6 +12,13 @@
 		font-weight: bold;
 		margin-bottom: 15px;
 	}
+	
+	.s_search_notice {
+	    font-size: 1.1em;
+	    color: red;
+	    font-weight: bold;
+	    margin: 30px 0;
+	}
 </style>
 </head>
 <body>
@@ -22,20 +29,17 @@
 		</div>
 		<div style="padding: 30px;">
 	        <!-- 검색 -->
-			<nav class="navbar navbar-light"
-				style="float: right; margin-bottom: 20px;">
-				<div class="container-fluid">
-					<form action="AdminReviewList" method="get" id="frm" class="d-flex">
-						<select name="f" style="width: 200px; float: right; margin-right: 10px;"
-							class="form-select" aria-label="Default select example">
-							<option value="eap_title" selected="selected">제목</option>
-							<option value="df_code">결재양식</option>
-							<option value="emp_name">기안자</option>
-							<option value="dept_name">기안부서</option>
-						</select> 
-						<input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search" value="${query }">
-						<button id="s_search_btn" class="btn btn-outline-success" type="submit">Search</button>
-					</form>
+			<nav class="navbar navbar-light" style="float: right; margin-bottom: 20px;">
+				<div class="container-fluid" style="margin: 30px 0;">
+					<select name="select_search" style="width: 120px; float: right; margin-right: 10px;" id="select_search"
+						class="form-select" aria-label="Default select example">
+						<option value="eap_title" selected="selected">제목</option>
+						<option value="df_title">결재양식</option>
+						<option value="emp_name">기안자</option>
+						<option value="dept_name">기안부서</option>
+					</select> 
+					<input class="form-control me-2" type="search" name="search_bar" id="search_bar" placeholder="Search" aria-label="Search" style="width: 300px;">
+					<button id="s_search_btn" class="btn btn-outline-success" type="submit">Search</button>
 				</div>
 			</nav>
 			<div style="clear: both;">
@@ -78,28 +82,79 @@
 				    </c:forEach>
 				  </tbody>
 				</table>
+				<c:if test="${empty resultdoc }">
+					<div style="text-align: center;">
+						<div class="s_search_notice">검색 결과가 없습니다.</div>
+						<button class="btn btn-primary" onclick="relist()">목록으로</button>
+					</div>
+				</c:if>
 			</div>
 			<div style="margin-top: 100px; display: flex; justify-content: center;">
 				<nav aria-label="Page navigation example">
 				  <ul class="pagination">
-				    <li class="page-item">
-				      <a class="page-link" href="#" aria-label="Previous">
-				        <span aria-hidden="true">&laquo;</span>
-				      </a>
-				    </li>
-				    <li class="page-item"><a class="page-link" href="#">1</a></li>
-				    <li class="page-item"><a class="page-link" href="#">2</a></li>
-				    <li class="page-item"><a class="page-link" href="#">3</a></li>
-				    <li class="page-item">
-				      <a class="page-link" href="#" aria-label="Next">
-				        <span aria-hidden="true">&raquo;</span>
-				      </a>
-				    </li>
-				  </ul>
+					<c:if test="${startPage > 1 }">
+						<li class="page-item pre">
+							<a class="page-link" href="#" aria-label="Previous"> 
+								<span aria-hidden="true">&laquo;</span>
+							</a>
+						</li>
+						</c:if>
+						<c:forEach begin="${startPage }" end="${endPage }" var="i">
+							<li class="page-item num"><a class="page-link" href="#">${i }</a></li>
+						</c:forEach>
+						<c:if test="${endPage < pageCnt }">
+						<li class="page-item next">
+							<a class="page-link" href="#" aria-label="Next"> 
+								<span aria-hidden="true">&raquo;</span>
+							</a>
+						</li>
+						</c:if>
+					</ul>
 				</nav>
 			</div>
 		</div>
     </div>
+    
+    <script>
+		// 페이징 처리
+		$(".page-item.num .page-link").click(function(event) {
+			console.log(event.target.innerText);
+			
+			var pageNum = event.target.innerText;
+			$("#s_eap_content_box").load("<%=request.getContextPath()%>/eap/selectreferencedoc?page="+pageNum);
+		})
+		
+		$(".page-item.pre .page-link").click(function(event){
+			//이전 페이지 최소값 -1 -> 이전 페이지로 이동
+			const num = Math.min(...[...$('.page-link')].map(v=>v.innerText*1).filter(v=>v>0))-1;
+			$("#s_eap_content_box").load("<%=request.getContextPath()%>/eap/selectreferencedoc?page="+num);
+		
+		})
+		
+		$(".page-item.next .page-link").click(function(event){
+			//다음 페이지 최대값 +1 -> 다음 페이지로 이동
+			const num = Math.max(...[...$('.page-link')].map(v=>v.innerText*1).filter(v=>v>0))+1;
+			$("#s_eap_content_box").load("<%=request.getContextPath()%>/eap/selectreferencedoc?page="+num);
+		});
+		
+		// 검색
+		$("#s_search_btn").click(function() {
+			var valueSelect = $("#select_search option:selected").val();
+			var valueInput = $("#search_bar").val();
+			console.log("valueSelect : " + valueSelect);
+			console.log("valueInput : " + valueInput);
+			
+			$.ajax({
+				url : "<%= request.getContextPath() %>/eap/selectresultdoc",
+				type : "get",
+				data : {"type" : valueSelect, "keyword" : valueInput},
+				success : function(result) {
+					console.log(result);
+					$("#s_eap_content_box").html(result);
+				}
+			});
+		});
+    </script>
     
     <!-- 상세문서조회 -->
     <script>
@@ -124,6 +179,13 @@
     		$("#s_eap_content_box").load("<%=request.getContextPath()%>/eap/selectdoc?df_no=" + dfNo);
     		
     	});
+    </script>
+    
+    <script>
+	 	// 결재 문서함 메뉴 클릭(목록으로)
+		function relist() {
+			$('#s_result_doc').trigger('click');
+		}
     </script>
 
 </body>

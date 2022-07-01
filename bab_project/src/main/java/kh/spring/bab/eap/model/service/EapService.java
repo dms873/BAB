@@ -72,9 +72,16 @@ public interface EapService {
 	/**
 	 * @author : 손은진
 	 * @return : 결재 대기 문서
-	 * @param : emp_no(로그인한 사람의 사번)
+	 * @param : currentPage, pageSize, Eap vo
 	 * */
-	public List<Eap> selectBeforeDoc(String emp_no);
+	public List<Eap> selectBeforeDoc(int currentPage, int pageSize, Eap eap);
+	
+	/**
+	 * @author : 손은진
+	 * @return : 결재 대기 문서 리스트 개수
+	 * @param : Eap vo
+	 * */
+	public int beforeTotalCnt(Eap eap);
 	
 	/**
 	 * @author : 손은진
@@ -169,7 +176,7 @@ public interface EapService {
 	
 	/**
 	 * @author : 손은진
-	 * @return : 결재 대기 문서 개수
+	 * @return : 서브 메뉴에 띄울 결재 대기 문서 개수
 	 * @param : emp_no(로그인한 사람의 사번)
 	 * */
 	public int beDocCnt(String emp_no);
@@ -177,13 +184,20 @@ public interface EapService {
 	/**
 	 * @author : 손은진
 	 * @return : 결재 수신 문서
-	 * @param : emp_no(로그인한 사람의 사번)
+	 * @param : currentPage, pageSize, Eap vo
 	 * */
-	public List<Eap> selectReceiptDoc(String emp_no);
+	public List<Eap> selectReceiptDoc(int currentPage, int pageSize, Eap eap);
 	
 	/**
 	 * @author : 손은진
-	 * @return : 결재 수신 문서 개수
+	 * @return : 결재 수신 문서 리스트 개수
+	 * @param : Eap vo
+	 * */
+	public int receiptTotalCnt(Eap eap);
+	
+	/**
+	 * @author : 손은진
+	 * @return : 서브 메뉴에 띄울 결재 수신 문서 개수
 	 * @param : emp_no(로그인한 사람의 사번)
 	 * */
 	public int reDocCnt(String emp_no);
@@ -219,22 +233,57 @@ public interface EapService {
 	/**
 	 * @author : 손은진
 	 * @return : 기안 문서함
-	 * @param : emp_no(로그인한 사람의 사번)
+	 * @param : currentPage, pageSize, Eap vo
 	 * */
-	public List<Eap> selectInsertDoc(String emp_no);
+	public List<Eap> selectInsertDoc(int currentPage, int pageSize, Eap eap);
+	
+	/**
+	 * @author : 손은진
+	 * @return : 기안 문서함 리스트 개수
+	 * @param : Eap vo
+	 * */
+	public int insertTotalCnt(Eap eap);
 	
 	/**
 	 * @author : 손은진
 	 * @return : 결재 문서함
-	 * @param : emp_no(로그인한 사람의 사번)
+	 * @param : currentPage, pageSize, Eap vo
 	 * */
-	public List<Eap> selectResultDoc(String emp_no);
+	public List<Eap> selectResultDoc(int currentPage, int pageSize, Eap eap);
+	
+	/**
+	 * @author : 손은진
+	 * @return : 결재 문서함 리스트 개수
+	 * @param : Eap vo
+	 * */
+	public int resultTotalCnt(Eap eap);
 	
 	/**
 	 * @author : 손은진
 	 * @return : 참조 문서함
+	 * @param : currentPage, pageSize, Eap vo
+	 * */
+	public List<Eap> selectReferenceDoc(int currentPage, int pageSize, Eap eap);
+	
+	/**
+	 * @author : 손은진
+	 * @return : 참조 문서함 리스트 개수
+	 * @param : Eap vo
+	 * */
+	public int referenceTotalCnt(Eap eap);
+	
+	/**
+	 * @author : 손은진
+	 * @return : 전자결재 홈 전자 결재 대기
 	 * @param : emp_no(로그인한 사람의 사번)
 	 * */
-	public List<Eap> selectReferenceDoc(String emp_no);
+	public List<Eap> selectHomeBeDoc(String emp_no);
+	
+	/**
+	 * @author : 손은진
+	 * @return : 전자결재 홈 기안 진행 문서
+	 * @param : emp_no(로그인한 사람의 사번)
+	 * */
+	public List<Eap> selectHomeRcDoc(String emp_no);
 
 }
