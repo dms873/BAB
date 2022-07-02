@@ -322,8 +322,6 @@
 	
 		singleWidget.onUploadComplete(function(info) {
 			$("#fileUrl").val(info.cdnUrl);
-			console.log("파일URL : " + $("#fileUrl").val(info.cdnUrl));
-			console.log(JSON.stringify($("#fileUrl").val(info.cdnUrl)));
 		});
 		
 		
@@ -333,12 +331,9 @@
 		
 		// 결재선 지정 시 결재상태에 따라 글씨색 변경
 		for(var i = 0; i < 3; i++) {
-			console.log("eq(" + i + ")번째 값 : " + $(".s_span_fw").eq(i).text());
 			if($(".s_span_fw").eq(i).text() == '결재') {
-				console.log("반복문 if문 탔니?");
 				$(".s_span_fw").eq(i).css('color', 'green');
 			} else {
-				console.log("반복문 else문 탔니?");
 				$(".s_span_fw").eq(i).css('color', 'gray');
 			}
 		}
@@ -359,25 +354,20 @@
         var arr = [];
         // 결재선에서 '->' 클릭 시
 		$("#s_add_appLine").click(function() {
-			console.log("추가");
 			var empNo = $(".jstree-clicked").text().slice(-8, $(".jstree-clicked").text().length-1);
 			var text = $(".jstree-clicked").text();
-            console.log("이 값 넣어야함 : " + text);
             var name = $('.jstree-clicked').text().substr(0,3);
-            console.log("이름 : " + name);
             var job = $('.jstree-clicked').text().substr(4,2); // 부사장 '부사'로 되어 수정
             var result = $('.jstree-clicked').text().substr(4,2).match("^부사") // 부사로 시작하지 않으면 null 리턴
             if(result != null) {
             	job = $('.jstree-clicked').text().substr(4,3);
             }
             
-            console.log("직위 : " + job);
             var deptText = $('.jstree-clicked').parent().parent().parent().text().substr(0,3);
             // 임원 부서가 '임원이'로 되어 수정
             if($('.jstree-clicked').parent().parent().parent().text().substr(0,3).length <= 3) {
          	    deptText = $('.jstree-clicked').parent().parent().parent().text().substr(0,2);
          	}
-           console.log("부서 : " + deptText);
            var deptName = $(".jstree-clicked").text();
              
              
@@ -396,19 +386,8 @@
 			// 결재선 리스트 추가
              if($('.jstree-clicked').text().length > 3) {
               if($(".s_appLine_tbody_cl tr").length < 3) {
-            	  console.log("결재선 추가")
             	  arr.push({"name":name,"deptText":deptText,"job":job,"empNo":empNo})
-            	  console.log(arr);
 	              fn_arr(arr);
-            	  /* $(".s_appLine_tbody_cl").append(
-  	               		 '<tr>'
-  	               		+ '<td>' + cnt + '</td>'
-  	               		+ '<td class="s_td_name">' + name + '</td>'
-  	               		+ '<td>' + deptText + '</td>'
-  	               		+ '<td class="s_td_job">' + job + '</td>'
-  	               		+ '</tr>'
-  	               		+ '<input type="hidden" name="emp_no" class="emp_no" value="' + empNo + '">'
-  	               	); */
               } else {
               	alert("결재선은 최대 3명까지 추가가 가능합니다.");
               }
@@ -431,7 +410,6 @@
         
         // 직책 순으로 정렬하는 함수
 		function fn_arr(arr){
-        	console.log(arr);
         	var cnt = 1;
         	var aprvList ="";
         	$(".s_appLine_tbody_cl").empty();
@@ -439,21 +417,14 @@
 			var numArr = [];
 			var nArr = arr.slice();
 			
-			console.log(nArr);
-			
 			for(var i = 0; i < nArr.length; i++) { // 부장, 차장, 대리 순이라면
 				numArr.push(jobArr.indexOf(nArr[i].job)); // 4,3,1이 들어감
-				console.log(numArr);
 			}
 			
 			numArr.sort();  // 1,3,4
 			for(var i=0; i<numArr.length; i++){
-				console.log("i : " + i);
 				for(var j=0; j<arr.length; j++){
-					console.log("j : " + j);
 					if(nArr[j].job==jobArr[numArr[i]]){
-						console.log(nArr[j].job)
-						console.log(numArr[i])
 						aprvList += '<tr>'
   	               				 + '<td>' + cnt + '</td>'
   	               				 + '<td class="s_td_name">' + nArr[j].name + '</td>'
@@ -474,18 +445,11 @@
         function fn_remove(arr) {
         	arr.splice(0); // arr 모두 삭제
         	$(".s_appLine_tbody_cl").children().remove(); // 테이블에 생성된 자식들 모두 삭제
-        	console.log(arr);
         }
 		
         // 결재선 쪽 <- 눌렀을 때
 		$("#s_remove_appLine").click(function() {
-			console.log("삭제");
 			fn_remove(arr);
-			// $(".s_appLine_tbody_cl").children().last().remove();
-			// if(cnt == 1) {
-			// 	return;
-			// }
-			// cnt--;
 		});
 		
 		// 참조처 쪽 <- 눌렀을 때
@@ -499,16 +463,10 @@
 		
 		// 모달에서 확인 클릭 시 
 		$("#s_add_appLine_list").click(function() {
-			
-			console.log("확인");
-			
-			
 			var empNoArr = [];
 			for(var i = 0; i < $(".emp_no").length; i++) {
 				empNoArr.push($(".emp_no").eq(i).val());
 			}
-			console.log(empNoArr);
-			
 		var obj = {"emp_no" : empNoArr};
 
 			// 결재선 리스트에 있는 사원 번호를 가져와 결재선jsp에 이름, 부서, 직책 띄우기(ajax)
@@ -517,7 +475,6 @@
 				, type: "post"
 				, data: obj
 				, success: function(result) {
-					console.log("결재선리스트 result : " + result);
 					$(".btn-close").trigger('click');
 					$("#s_eap_content_box").html(result);
 				}
@@ -527,15 +484,10 @@
 			for(var i = 0; i < $('.s_td_name').length; i++) {
 				var tdName = $('.s_td_name').eq(i).text();
 				arr.push(tdName);
-				console.log("이름 담긴 모습 : " + arr);
-				console.log("길이 : " + arr.length);
 			}
 			var str1 = arr[0];
 			var str2 = arr[1];
 			var str3 = arr[2];
-			console.log("첫번째 결재자 : " + str1);
-			console.log("두번째 결재자 : " + str2);
-			console.log("세번째 결재자 : " + str3);
 			
 			if(str1 == undefined) {
 				alert("결재선에 1명 이상 선택해주세요.");
@@ -546,9 +498,6 @@
 			if(str3 == undefined) {
 				str3 = null;
 			} 
-			console.log("첫번째 결재자 결과 : " + str1);
-			console.log("두번째 결재자 결과 : " + str2);
-			console.log("세번째 결재자 결과 : " + str3);
 			// str1 => eap_first_ap에 저장
 			// str2 => eap_mid_ap에 저장
 			// str3 => eap_final_ap에 저장
@@ -557,8 +506,6 @@
 			for(var i = 0; i < $('.s_td_deptName').length; i++) {
 				var tdDeptName = $('.s_td_deptName').eq(i).text();
 				arrDept.push(tdDeptName);
-				console.log("참조처 부서 담긴 모습 : " + arrDept);
-				console.log("참조처 길이 : " + arrDept.length);
 			}
 			var deptStr1 = arrDept[0];
 			var deptStr2 = arrDept[1];
@@ -570,8 +517,6 @@
 				deptStr2 = null;
 			}
 			
-			console.log("첫번째 부서 결과 : " + deptStr1);
-			console.log("두번째 부서 결과 : " + deptStr2);
 			// deptStr1 => eap_first_dept에 저장
 			// deptStr2 => eap_final_dept에 저장
 			
@@ -589,10 +534,7 @@
 					, type: "post"
 					, data: dataObj
 					, success: function(result) {
-						console.log("인서트 성공 result : " + result);
 						alert(result);
-						// $(".btn-close").trigger('click');
-						// $("#s_eap_content_box").html(result);
 					}
 			});
 			
@@ -605,20 +547,12 @@
 	<script>
 	
 		$("#s_eap_app").click(function() {
-			console.log("결재요청 클릭");
 			var eap_title = $('#s_ho_tt').val();
 			var eap_content = $('#s_ho_co').val();
 			var ho_code = $('input[type=radio]:checked').val();
 			var ho_start = $('#s_ho_start').val() + " " + $('#s_start_time').val();
 			var ho_end = $('#s_ho_end').val() + " " + $('#s_end_time').val();
 			var ho_use_count = $('#s_date_cal').text();
-			
-			console.log(eap_title);
-			console.log(eap_content);
-			console.log(ho_code);
-			console.log(ho_start);
-			console.log(ho_end);
-			console.log(ho_use_count);
 		
 			// ajax에 보낼 obj
 			var dataObj = {
@@ -632,14 +566,11 @@
 				"eap_file_path": $("#fileUrl").val()
 			}
 		
-			console.log(dataObj);
-			
 			$.ajax({
 				url: "<%=request.getContextPath()%>/eap/inserteap"
 				, type: "post"
 				, data: dataObj
 				, success: function(result) {
-					console.log("문서기안 DB등록 성공");
 					alert(result);
 					$("#menu_eap").get(0).click();
 				}
@@ -686,13 +617,10 @@
 			var diffDay = (end.getTime() - start.getTime()) / (1000*60*60*24);
 			// 시간 구하기(휴식시간 1시간 제외)
 			var diffTime = (end.getTime() - start.getTime()) / (1000*60*60) -1;
-			console.log(typeof(diffTime));
 			
 			if((0 < diffDay && diffDay < 1) && (0 < diffTime && diffTime < 8)) {
-				console.log("날짜 계산 if문탔을까?");
 				$('#s_date_cal').text('0.5'); // 반차
 			} else if(diffTime >= 1 && diffTime >= 8) {
-				console.log("날짜 계산 else if문탔을까?");
 				
 				// 평일 계산할 cnt 선언
 				let cnt = 0;
@@ -700,18 +628,13 @@
 					let tmpDate = start;
 					// 시작시간이 끝나는시간보다 크면
 					if(tmpDate.getTime() > end.getTime()) {
-						console.log("cnt : " + cnt);
 						break;
 					} else { // 아니면
 						let tmp = tmpDate.getDay();
-						// 주말일 때 
-						if(tmp == 0 || tmp == 6) {
-							console.log("주말이다");
-						} else { // 평일일 때
-							console.log("평일이다");
-							// 평일 cnt 올려주기
+						// 평일일 때 
+						if(tmp != 0 && tmp != 6) {
 							cnt++;
-						}
+						} 
 						tmpDate.setDate(start.getDate() + 1);
 					}
 				}
@@ -720,32 +643,11 @@
 				let diff = Math.abs(end.getTime() - start.getTime());
 				diff = Math.ceil(diff / (1000 * 3600 * 24));
 				
-				console.log("diff : " + diff);
-				console.log("diff 타입 : " + typeof(diff));
-				
 				// cnt string으로 변환하여 일수 나타내기
 				var cntStr = String(cnt);
 				$('#s_date_cal').text(cntStr);
 				
-				
-				/* 
-				console.log(diffDay);
-				var diffDayStr = String(diffDay);
-				console.log(typeof(diffDayStr));
-				console.log(diffDayStr);
-				if(diffDayStr >= '0.375' && diffDayStr < '1') {
-					$('#s_date_cal').text('1');
-				} else {
-					if(diffDayStr.indexOf('.') == 1) { // 시간 소수점이 있으면
-						// 소수점 기준 앞자리만 뽑아서 넣기
-						var checkDay = diffDayStr.substring(0, diffDayStr.indexOf('.'));
-						$('#s_date_cal').text(checkDay); // 연차 일수
-					} else { // 없으면
-						$('#s_date_cal').text(diffDayStr); // 그 숫자 그대로 넣기
-					}
-				} */
 			} else {
-				console.log("날짜 계산 else문탔을까?");
 				$('#s_date_cal').text('0');
 			}
 		}) 
@@ -769,16 +671,8 @@
                 dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
                 monthNamesShort: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
                 monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-                //minDate: new Date(2018, 5 - 1, 14),
-                //maxDate: new Date(2018, 8 - 1, 24)
-                // minDate: new Date(2020, 4 - 1, 1),
-                // maxDate: new Date(2023, 8 - 1, 31),
                 beforeShowDay: disableAllTheseDays2
 			});
-			
-			//초기값을 오늘 날짜로 설정해줘야 합니다.
-		    // $('#s_ho_start').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
-		    // $('#s_ho_end').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
 		});
 		
 	   function disableAllTheseDays2(date) {

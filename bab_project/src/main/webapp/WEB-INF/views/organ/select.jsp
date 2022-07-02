@@ -100,7 +100,6 @@
           					"text": result[i].dept_name
          					})
           			}
-          			console.log("결과 담김 ? : " + JSON.stringify(json));
           		}
             });
 			// 배열+객체 형태로 받아온 값을 배열만 벗기기
@@ -112,8 +111,6 @@
         		, type: 'post'
         		, dataType: 'json'
         		, success: function(result) {
-//         			console.log("성공 : " + result);
-        			console.log(result.length);
       					// 사원 정보
 	        			for(var i = 0; i<result.length; i++){
 	        				json.push({
@@ -125,21 +122,16 @@
         			            });
        					}
       					fnCreateJstree(json);
-	        			console.log("전체 : " + JSON.stringify(json));
 	        			
 	        			// 조직도의 사원정보 상세보기
 	        			$("#tree").click(function() {
 	        		        $('ul li a').click(function() {
-        		    			console.log("이 값을 넘겨 : "+ $(this).text().slice(-8, $(this).text().length - 1));
         		    			var emp_no = $(this).text().slice(-8, $(this).text().length - 1);
-        		    			console.log("이거 !!! " + typeof(emp_no));
 	        					$.ajax({
 	        						url: '<%=request.getContextPath()%>/organ/selectdetailinfo'
 	        						, data: {"emp_no":emp_no}
 	        						, type: 'post'
 	        						, success: function(result) {
-	        							console.log("성공 !!!!!!!!!!");
-	        							console.log("result : " + result);
 	        							// 결과 값이 selectInfo.jsp여서 content자리를 html(result)로 바꿈!
 	        							$("#s_dt_info_content").html(result);
 	        						}
@@ -182,7 +174,6 @@
 		(function($) {
 			$("#search").keyup(function() {
 				var text = $("#search").val();
-				console.log(text + " 검색되잖아");
 				$('#tree').jstree(true).search(text);
 			});
 		} (jQuery))

@@ -108,16 +108,10 @@
 				<div>문의사항은 BAB 손은진(010-1234-5678)에게 연락바랍니다. 끝.</div>
 			</div>
 			
-			<!-- <div style="padding: 10px 0;">
-					<div class="s_frm_title">파일첨부</div>
-					<input type="file" class="form-control">
-			</div> -->
-		
 		</div>
 	</div>
     <script>
     	function addTr() {
-    		// console.log("클릭되냐고~");
     		$(".s_default_tbody_cl").prepend(
 					'<tr>'
 				      + '<th scope="row"><input type="date" class="form-control" name="sp_date"></th>'
@@ -133,33 +127,6 @@
 				    + '</tr>'	
 				);
     	}
-	</script>
-	
-	<script>
-		/* function total() {
-			// 두 번째 로드 시 값 안불러와지는 이유는 뭘까? ㅎㅎ
-			console.log("sp_amount의 값 클래스 : " + $(".sp_amount").val());
-			console.log("sp_amount의 값 클래스 name : " + $("input[name='sp_amount']").val());
-			console.log("sp_amount의 값 클래스 도큐먼트 : " + document.getElementsByClassName('sp_amount')[0].value);
-			console.log("sp_count의 값 클래스 : " + $(".sp_count").val());
-			console.log("sp_amount의 값 아이디 : " + $("#sp_amount").val());
-			console.log("sp_count의 값 아이디 : " + $("#sp_count").val());
-			console.log("s_total_price의 text : " + $("#s_total_price").text());
-			var sp_count = $(".sp_count").val();
-			var sp_amount = $(".sp_amount").val();
-			
-			console.log("sp_count : " + sp_count);
-			console.log("sp_amount : " + sp_amount);
-			
-			const number = sp_amount.replace(/,/g, "");
-			
-			$("#s_total_price").text(Number(sp_count * number));
-			
-			var total = $("#s_total_price").text();
-			var total2 = total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-			$('#s_total_price').text(total2);
-		}; */
-		
 	</script>
 	
 	<script>

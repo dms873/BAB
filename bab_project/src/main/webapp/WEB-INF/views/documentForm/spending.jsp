@@ -334,8 +334,6 @@
 	
 		singleWidget.onUploadComplete(function(info) {
 			$("#fileUrl").val(info.cdnUrl);
-			console.log("파일URL : " + $("#fileUrl").val(info.cdnUrl));
-			console.log(JSON.stringify($("#fileUrl").val(info.cdnUrl)));
 		});
 		
 		
@@ -345,12 +343,9 @@
 		
 		// 결재선 지정 시 결재상태에 따라 글씨색 변경
 		for(var i = 0; i < 3; i++) {
-			console.log("eq(" + i + ")번째 값 : " + $(".s_span_fw").eq(i).text());
 			if($(".s_span_fw").eq(i).text() == '결재') {
-				console.log("반복문 if문 탔니?");
 				$(".s_span_fw").eq(i).css('color', 'green');
 			} else {
-				console.log("반복문 else문 탔니?");
 				$(".s_span_fw").eq(i).css('color', 'gray');
 			}
 		}
@@ -361,7 +356,6 @@
 	
     <script>
     	function addTr() {
-    		// console.log("클릭되냐고~");
     		$(".s_default_tbody_cl").append(
 					'<tr>'
 				      + '<th scope="row"><input type="date" class="form-control s_sp_date" id="s_sp_date" name="sp_date"></th>'
@@ -389,22 +383,14 @@
 			// const number;
 			for(var i = 0; i < $('.s_sp_count').length; i++) {
 				spCnt = $(".s_sp_count").eq(i).val();
-				console.log(spCnt);
 				spAmount = $(".s_sp_amount").eq(i).val();
-				console.log(spAmount);
 				
 				spAmount = spAmount.replace(/,/g, "");
 				total = Number(spCnt * spAmount);
-				console.log(total);
 				
 				sum += total;
 			}
 			
-			console.log(sum);
-			
-			// const number = sp_amount.replace(/,/g, "");
-			
-			// $("#s_total_price").text(Number(sp_count * number));
 			$("#s_total_price").text(sum);
 			
 			var total1 = $("#s_total_price").text();
@@ -426,25 +412,20 @@
         var arr = [];
         // 결재선에서 '->' 클릭 시
 		$("#s_add_appLine").click(function() {
-			console.log("추가");
 			var empNo = $(".jstree-clicked").text().slice(-8, $(".jstree-clicked").text().length-1);
 			var text = $(".jstree-clicked").text();
-            console.log("이 값 넣어야함 : " + text);
             var name = $('.jstree-clicked').text().substr(0,3);
-            console.log("이름 : " + name);
             var job = $('.jstree-clicked').text().substr(4,2); // 부사장 '부사'로 되어 수정
             var result = $('.jstree-clicked').text().substr(4,2).match("^부사") // 부사로 시작하지 않으면 null 리턴
             if(result != null) {
             	job = $('.jstree-clicked').text().substr(4,3);
             }
             
-            console.log("직위 : " + job);
             var deptText = $('.jstree-clicked').parent().parent().parent().text().substr(0,3);
             // 임원 부서가 '임원이'로 되어 수정
             if($('.jstree-clicked').parent().parent().parent().text().substr(0,3).length <= 3) {
          	    deptText = $('.jstree-clicked').parent().parent().parent().text().substr(0,2);
          	}
-           console.log("부서 : " + deptText);
            var deptName = $(".jstree-clicked").text();
              
              
@@ -463,9 +444,7 @@
 			// 결재선 리스트 추가
              if($('.jstree-clicked').text().length > 3) {
               if($(".s_appLine_tbody_cl tr").length < 3) {
-            	  console.log("결재선 추가")
             	  arr.push({"name":name,"deptText":deptText,"job":job,"empNo":empNo})
-            	  console.log(arr);
 	              fn_arr(arr);
               } else {
               	alert("결재선은 최대 3명까지 추가가 가능합니다.");
@@ -489,7 +468,6 @@
         
         // 직책 순으로 정렬하는 함수
 		function fn_arr(arr){
-        	console.log(arr);
         	var cnt = 1;
         	var aprvList ="";
         	$(".s_appLine_tbody_cl").empty();
@@ -497,21 +475,14 @@
 			var numArr = [];
 			var nArr = arr.slice();
 			
-			console.log(nArr);
-			
 			for(var i = 0; i < nArr.length; i++) { // 부장, 차장, 대리 순이라면
 				numArr.push(jobArr.indexOf(nArr[i].job)); // 4,3,1이 들어감
-				console.log(numArr);
 			}
 			
 			numArr.sort();  // 1,3,4
 			for(var i=0; i<numArr.length; i++){
-				console.log("i : " + i);
 				for(var j=0; j<arr.length; j++){
-					console.log("j : " + j);
 					if(nArr[j].job==jobArr[numArr[i]]){
-						console.log(nArr[j].job)
-						console.log(numArr[i])
 						aprvList += '<tr>'
   	               				 + '<td>' + cnt + '</td>'
   	               				 + '<td class="s_td_name">' + nArr[j].name + '</td>'
@@ -532,12 +503,10 @@
         function fn_remove(arr) {
         	arr.splice(0); // arr 모두 삭제
         	$(".s_appLine_tbody_cl").children().remove(); // 테이블에 생성된 자식들 모두 삭제
-        	console.log(arr);
         }
 		
         // 결재선 쪽 <- 눌렀을 때
 		$("#s_remove_appLine").click(function() {
-			console.log("삭제");
 			fn_remove(arr);
 		});
 		
@@ -553,13 +522,10 @@
 		// 모달에서 확인 클릭 시 
 		$("#s_add_appLine_list").click(function() {
 			
-			console.log("확인");
-			
 			var empNoArr = [];
 			for(var i = 0; i < $(".emp_no").length; i++) {
 				empNoArr.push($(".emp_no").eq(i).val());
 			}
-			console.log(empNoArr);
 			
 		var obj = {"emp_no" : empNoArr};
 
@@ -569,7 +535,6 @@
 				, type: "post"
 				, data: obj
 				, success: function(result) {
-					console.log("결재선리스트 result : " + result);
 					$(".btn-close").trigger('click');
 					$("#s_eap_content_box").html(result);
 				}
@@ -579,15 +544,10 @@
 			for(var i = 0; i < $('.s_td_name').length; i++) {
 				var tdName = $('.s_td_name').eq(i).text();
 				arr.push(tdName);
-				console.log("이름 담긴 모습 : " + arr);
-				console.log("길이 : " + arr.length);
 			}
 			var str1 = arr[0];
 			var str2 = arr[1];
 			var str3 = arr[2];
-			console.log("첫번째 결재자 : " + str1);
-			console.log("두번째 결재자 : " + str2);
-			console.log("세번째 결재자 : " + str3);
 			
 			if(str1 == undefined) {
 				alert("결재선에 1명 이상 선택해주세요.");
@@ -598,9 +558,6 @@
 			if(str3 == undefined) {
 				str3 = null;
 			} 
-			console.log("첫번째 결재자 결과 : " + str1);
-			console.log("두번째 결재자 결과 : " + str2);
-			console.log("세번째 결재자 결과 : " + str3);
 			// str1 => eap_first_ap에 저장
 			// str2 => eap_mid_ap에 저장
 			// str3 => eap_final_ap에 저장
@@ -609,8 +566,6 @@
 			for(var i = 0; i < $('.s_td_deptName').length; i++) {
 				var tdDeptName = $('.s_td_deptName').eq(i).text();
 				arrDept.push(tdDeptName);
-				console.log("참조처 부서 담긴 모습 : " + arrDept);
-				console.log("참조처 길이 : " + arrDept.length);
 			}
 			var deptStr1 = arrDept[0];
 			var deptStr2 = arrDept[1];
@@ -622,8 +577,6 @@
 				deptStr2 = null;
 			}
 			
-			console.log("첫번째 부서 결과 : " + deptStr1);
-			console.log("두번째 부서 결과 : " + deptStr2);
 			// deptStr1 => eap_first_dept에 저장
 			// deptStr2 => eap_final_dept에 저장
 			
@@ -641,7 +594,6 @@
 					, type: "post"
 					, data: dataObj
 					, success: function(result) {
-						console.log("인서트 성공 result : " + result);
 						alert(result);
 						// $(".btn-close").trigger('click');
 						// $("#s_eap_content_box").html(result);
@@ -652,7 +604,6 @@
 	
 	<script>
 		$("#s_eap_app").click(function() {
-			console.log("결재요청 클릭");
 			var sp_date = "";
 			var sp_detail = "";
 			var sp_count = 0;
@@ -660,43 +611,6 @@
 			var sp_pay_code = "";
 			var df_no = "";
 			var dataArr = [];
-			/* if($('.s_sp_count').length != 1) {
-				for(var i = 1; i < $('.s_sp_amount').length; i++) {
-					sp_date = $('.s_sp_date').eq(i).val();
-					console.log(sp_date);
-					sp_detail = $('.s_sp_detail').eq(i).val();
-					console.log(sp_detail);
-					sp_count = $('.s_sp_count').eq(i).val();
-					console.log(sp_count);
-					sp_amount = $('.s_sp_amount').eq(i).val();
-					console.log(sp_amount);
-					sp_pay_code = $('.s_select').eq(i).val();
-					console.log(sp_pay_code);
-					// var obj = {"sp_date":sp_date, "sp_detail":sp_detail, "sp_count":sp_count, "sp_amount":sp_amount, "sp_pay_code":sp_pay_code}
-					var arr = [];
-					arr.push(sp_date, sp_detail, sp_count, sp_amount, sp_pay_code)
-					dataArr.push(arr);
-					// dataArr.push(sp_date, sp_detail, sp_count, sp_amount, sp_pay_code);
-					var obj = {"sp_date":dataArr[0][0], "sp_detail":dataArr[0][1]}
-					console.log(obj);
-				}
-				console.log(dataArr);
-				// 배열 벗기기
-				// dataArr.flat();
-			} else {
-				sp_date = $('.s_sp_date').val();
-				console.log(sp_date);
-				sp_detail = $('.s_sp_detail').val();
-				console.log(sp_detail);
-				sp_count = $('.s_sp_count').val();
-				console.log(sp_count);
-				sp_amount = $('.s_sp_amount').val();
-				console.log(sp_amount);
-				sp_pay_code = $('.s_select').val();
-				console.log(sp_pay_code);
-				dataArr.push(sp_date, sp_detail, sp_count, sp_amount, sp_pay_code);
-				console.log(dataArr);
-			} */
 			
 			dataObj = {
 					"sp_date" : $('.s_sp_date').val(),
@@ -717,7 +631,6 @@
 				, type : "post"
 				, data : dataObj
 				, success : function(result) {
-					console.log("성공");
 					alert(result);
 					$("#menu_eap").get(0).click();
 				}

@@ -21,7 +21,7 @@
 	}
 	
 	.s_search_notice {
-	    font-size: 1.1em;
+	    font-size: 1.2em;
 	    color: red;
 	    font-weight: bold;
 	    margin: 30px 0;
@@ -134,8 +134,6 @@
     <script>
 		// 페이징 처리
 		$(".page-item.num .page-link").click(function(event) {
-			console.log(event.target.innerText);
-			
 			var pageNum = event.target.innerText;
 			$("#s_eap_content_box").load("<%=request.getContextPath()%>/eap/selectreferencedoc?page="+pageNum);
 		})
@@ -155,18 +153,32 @@
 		
 		// 검색
 		$("#s_search_btn").click(function() {
+			
+			var check = "${empty receiptDoc }";
+			var check2 = "${not empty receiptDoc }";
+			
 			var valueSelect = $("#select_search option:selected").val();
 			var valueInput = $("#search_bar").val();
-			console.log("valueSelect : " + valueSelect);
-			console.log("valueInput : " + valueInput);
 			
 			$.ajax({
 				url : "<%= request.getContextPath() %>/eap/receiptdoc",
 				type : "get",
 				data : {"type" : valueSelect, "keyword" : valueInput},
 				success : function(result) {
-					console.log(result);
-					$("#s_eap_content_box").html(result);
+					if(check == 'true') {
+						$('#s_notice').replaceWith('<div style="text-align: center;">'
+									+ '<div class="s_search_notice">검색 결과가 없습니다.</div>'
+									+ '<button class="btn btn-primary" onclick="relist()">목록으로</button>'
+								+ '</div>');
+					} else if(check2 == 'true') {
+						$("#s_eap_content_box").html(result);
+						$('#s_notice').replaceWith('<div style="text-align: center;">'
+				                  + '<div class="s_search_notice">검색 결과가 없습니다.</div>'
+				                  + '<button class="btn btn-primary" onclick="relist()">목록으로</button>'
+				               + '</div>');
+					} else {
+						$("#s_eap_content_box").html(result);
+					}
 				}
 			});
 		});
@@ -186,8 +198,6 @@
     			tdArr.push(td.eq(i).text());
     		})
     		
-    		console.log("tdArr : " + tdArr);
-    		console.log("배열에 담긴 값 : " + tdArr[0]);
     		// 그 중 첫 번째 담긴 결재번호 필요
     		var dfNo = tdArr[0]; 
     		

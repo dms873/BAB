@@ -108,20 +108,20 @@
 		<!-- 기안자와 로그인한 사람의 이름이 같고 반려상태일 때 -->
 		<% if(empName.equals(pageContext.getAttribute("eapNameCheck").toString()) == true && pageContext.getAttribute("eapStaCheck").toString().equals("R")) { %>
 			<span><a id="s_opinion_btn" href="#" onclick="opinion()">의견 | </a></span>
-			<span><a id="s_list_btn" href="#" onclick="inlist()">목록</a></span>
+			<span><a id="s_list_btn" href="#" onclick="list()">목록</a></span>
 			<!-- 기안자와 로그인한 사람의 이름이 같고 결재완료일 때 -->
 		<% } else if(empName.equals(pageContext.getAttribute("eapNameCheck").toString()) == true && pageContext.getAttribute("eapStaCheck").toString().equals("F")) { %>
-			<span><a id="s_list_btn" href="#" onclick="inlist()">| 목록 |</a></span>
+			<span><a id="s_list_btn" href="#" onclick="list()">| 목록 |</a></span>
 			<!-- 기안자와 로그인한 사람의 이름이 다르고 반려일 때 -->
 		<% } else if(empName.equals(pageContext.getAttribute("eapNameCheck").toString()) == false && pageContext.getAttribute("eapStaCheck").toString().equals("R")) { %>
 			<span><a id="s_opinion_btn" href="#" onclick="opinion()">의견 | </a></span>
-			<span><a id="s_list_btn" href="#" onclick="relist()">목록</a></span>
+			<span><a id="s_list_btn" href="#" onclick="list()">목록</a></span>
 			<!-- 기안자와 로그인한 사람의 이름이 다르고 결재완료일 때 -->
 		<% } else if(empName.equals(pageContext.getAttribute("eapNameCheck").toString()) == false && pageContext.getAttribute("eapStaCheck").toString().equals("F")) { %>
-			<span><a id="s_list_btn" href="#" onclick="resultlist()">| 목록 |</a></span>
+			<span><a id="s_list_btn" href="#" onclick="list()">| 목록 |</a></span>
 			<!-- 기안자와 로그인한 사람의 이름이 다르고 진행중일 때 -->
 		<% } else if(empName.equals(pageContext.getAttribute("eapNameCheck").toString()) == false && pageContext.getAttribute("eapStaCheck").toString().equals("O")) { %>
-			<span><a id="s_list_btn" href="#" onclick="relist()">| 목록 |</a></span>
+			<span><a id="s_list_btn" href="#" onclick="list()">| 목록 |</a></span>
 			<!-- 로그인한 사람의 사번과 결재자의 사번이 같을 때 -->
 		<% } else if(empNo.equals(pageContext.getAttribute("check").toString()) == true) { %>
 			<span><a id="s_eap_cancle" href="#">결재회수 | </a></span>
@@ -513,8 +513,6 @@
 			var end = $('#s_end').text();
 			var endTime = end.substr(11);
 			end = end.substr(0,10);
-			console.log(startTime);
-			console.log(endTime);
 			
 			// 신청기간
 			$("#s_ho_dt").replaceWith('<div>'
@@ -542,8 +540,6 @@
 		
 			singleWidget.onUploadComplete(function(info) {
 				$("#fileUrl").val(info.cdnUrl);
-				console.log("파일URL : " + $("#fileUrl").val(info.cdnUrl));
-				console.log(JSON.stringify($("#fileUrl").val(info.cdnUrl)));
 			});
 			
 			// datepicker위젯
@@ -586,13 +582,10 @@
 				var diffDay = (end.getTime() - start.getTime()) / (1000*60*60*24);
 				// 시간 구하기(휴식시간 1시간 제외)
 				var diffTime = (end.getTime() - start.getTime()) / (1000*60*60) -1;
-				console.log(typeof(diffTime));
 				
 				if((0 < diffDay && diffDay < 1) && (0 < diffTime && diffTime < 8)) {
-					console.log("날짜 계산 if문탔을까?");
 					$('#s_date_cal').text('0.5'); // 반차
 				} else if(diffTime >= 1 && diffTime >= 8) {
-					console.log("날짜 계산 else if문탔을까?");
 					
 					// 평일 계산할 cnt 선언
 					let cnt = 0;
@@ -600,18 +593,13 @@
 						let tmpDate = start;
 						// 시작시간이 끝나는시간보다 크면
 						if(tmpDate.getTime() > end.getTime()) {
-							console.log("cnt : " + cnt);
 							break;
 						} else { // 아니면
 							let tmp = tmpDate.getDay();
-							// 주말일 때 
-							if(tmp == 0 || tmp == 6) {
-								console.log("주말이다");
-							} else { // 평일일 때
-								console.log("평일이다");
-								// 평일 cnt 올려주기
+							// 평일일 때 
+							if(tmp != 0 && tmp != 6) {
 								cnt++;
-							}
+							} 
 							tmpDate.setDate(start.getDate() + 1);
 						}
 					}
@@ -620,14 +608,10 @@
 					let diff = Math.abs(end.getTime() - start.getTime());
 					diff = Math.ceil(diff / (1000 * 3600 * 24));
 					
-					console.log("diff : " + diff);
-					console.log("diff 타입 : " + typeof(diff));
-					
 					// cnt string으로 변환하여 일수 나타내기
 					var cntStr = String(cnt);
 					$('#s_date_cal').text(cntStr);
 				} else {
-					console.log("날짜 계산 else문탔을까?");
 					$('#s_date_cal').text('0');
 				}
 		   }
@@ -647,7 +631,6 @@
 	<script>
 		// 문서 수정 클릭 시
 		function update() {
-			console.log("클릭 안되니? 독업데이트야?");
 			dataObj = {
 					"df_no" : $("#s_dfNo").text(),
 					"eap_title" : $('#s_ho_tt').val(),
@@ -669,7 +652,6 @@
 				, type : "post"
 				, data : dataObj
 				, success : function(result) {
-					console.log("성공");
 					alert(result);
 					$("#s_before_doc").trigger("click");
 				}
@@ -679,7 +661,6 @@
 		// 의견 클릭 시
 		function opinion() {
 			var rejectMsg = "${readHoDoc.eap_reject}";
-			console.log(rejectMsg);
 			if(rejectMsg == null || rejectMsg == "") {
 				alert("반려 사유가 없습니다.");
 			} else {
@@ -692,12 +673,9 @@
 	<script>
 		// 결재선 지정 시 결재상태에 따라 글씨색 변경
 		for(var i = 0; i < 3; i++) {
-			console.log("eq(" + i + ")번째 값 : " + $(".s_span_fw").eq(i).text());
 			if($(".s_span_fw").eq(i).text() == '결재') {
-				console.log("반복문 if문 탔니?");
 				$(".s_span_fw").eq(i).css('color', 'green');
 			} else if($(".s_span_fw").eq(i).text() == '대기') {
-				console.log("반복문 else문 탔니?");
 				$(".s_span_fw").eq(i).css('color', 'gray');
 			} else if($(".s_span_fw").eq(i).text() == '반려') {
 				$(".s_span_fw").eq(i).css('color', '#709F51');
@@ -727,7 +705,6 @@
 					, type : "post"
 					, data : objdata
 					, success : function(result) {
-						console.log("성공");
 						alert(result);
 						$("#menu_eap").get(0).click();
 					}
@@ -742,13 +719,10 @@
 				var checkName = "<%=empName%>";
 				// 몇 번째 결재자인지 확인하는 변수
 				var line = 0;
-				console.log(apPerson);
 				// 결재자 길이만큼 for문 실행
 				for(var i = 0; i < apPerson; i++) {
 					// 결재선에 있는 사원 이름 변수에 담기
 					lineName = $('.s_div').eq(i).children().last().children().first().text();
-					console.log(lineName);
-					console.log(checkName);
 					// 결재선에 있는 이름과 로그인 한 사람의 이름이 같다면
 					if(lineName == checkName) {
 						// 몇 번째 결재자인지 담아주고 반복문 빠져나오기
@@ -778,7 +752,6 @@
 						, type : "post"
 						, data : objdata
 						, success : function(result) {
-							console.log("성공");
 							alert(result);
 							$(".btn-close").trigger('click');
 							$("#menu_eap").get(0).click();
@@ -794,13 +767,10 @@
 				var checkName = "<%=empName%>";
 				// 몇 번째 결재자인지 확인하는 변수
 				var line = 0;
-				console.log(apPerson);
 				// 결재자 길이만큼 for문 실행
 				for(var i = 0; i < apPerson; i++) {
 					// 결재선에 있는 사원 이름 변수에 담기
 					lineName = $('.s_div').eq(i).children().last().children().first().text();
-					console.log(lineName);
-					console.log(checkName);
 					// 결재선에 있는 이름과 로그인 한 사람의 이름이 같다면
 					if(lineName == checkName) {
 						// 몇 번째 결재자인지 담아주고 반복문 빠져나오기
@@ -837,7 +807,6 @@
 						, type : "post"
 						, data : objdata
 						, success : function(result) {
-							console.log("성공");
 							alert(result);
 							$(".btn-close").trigger('click');
 							$("#menu_eap").get(0).click();
@@ -869,7 +838,6 @@
 							, type : "post"
 							, data : objdata
 							, success : function(result) {
-								console.log("성공");
 								alert(result);
 								$(".btn-close").trigger('click');
 								$("#menu_eap").get(0).click();
@@ -880,20 +848,16 @@
 				
 				// 결재자가 2명 일 때
 				if(apPerson == 2) {
-					console.log("2명일때");
 					// 결재선에 있는 사원 이름
 					var lineName = "";
 					// 로그인 한 사람의 이름
 					var checkName = "<%=empName%>";
 					// 몇 번째 결재자인지 확인하는 변수
 					var line = 0;
-					console.log(apPerson);
 					// 결재자 길이만큼 for문 실행
 					for(var i = 0; i < apPerson; i++) {
 						// 결재선에 있는 사원 이름 변수에 담기
 						lineName = $('.s_div').eq(i).children().last().children().first().text();
-						console.log(lineName);
-						console.log(checkName);
 						// 결재선에 있는 이름과 로그인 한 사람의 이름이 같다면
 						if(lineName == checkName) {
 							// 몇 번째 결재자인지 담아주고 반복문 빠져나오기
@@ -902,7 +866,6 @@
 						}
 					}
 					
-					console.log("line 나와 ▶▶▶▶▶▶▶▶ " + line);
 					// 첫 번째 결재자라면
 					if(line == 1) {
 						objdata = {
@@ -926,7 +889,6 @@
 							, type : "post"
 							, data : objdata
 							, success : function(result) {
-								console.log("성공");
 								alert(result);
 								$("#menu_eap").get(0).click();
 						}
@@ -935,20 +897,16 @@
 				
 				// 결재자가 3명 일 때
 				if(apPerson == 3) {
-					console.log("3명일때");
 					// 결재선에 있는 사원 이름
 					var lineName = "";
 					// 로그인 한 사람의 이름
 					var checkName = "<%=empName%>";
 					// 몇 번째 결재자인지 확인하는 변수
 					var line = 0;
-					console.log(apPerson);
 					// 결재자 길이만큼 for문 실행
 					for(var i = 0; i < apPerson; i++) {
 						// 결재선에 있는 사원 이름 변수에 담기
 						lineName = $('.s_div').eq(i).children().last().children().first().text();
-						console.log(lineName);
-						console.log(checkName);
 						// 결재선에 있는 이름과 로그인 한 사람의 이름이 같다면
 						if(lineName == checkName) {
 							// 몇 번째 결재자인지 담아주고 반복문 빠져나오기
@@ -957,7 +915,6 @@
 						}
 					}
 					
-					console.log("line 나와 ▶▶▶▶▶▶▶▶ " + line);
 					// 첫 번째 결재자라면
 					if(line == 1) {
 						objdata = {
@@ -988,7 +945,6 @@
 							, type : "post"
 							, data : objdata
 							, success : function(result) {
-								console.log("성공");
 								alert(result);
 								$("#menu_eap").get(0).click();
 						}
@@ -1011,14 +967,15 @@
 			$('#s_receipt_doc').trigger('click');
 		}
 		
-		// 기안 문서함 메뉴 클릭(목록으로)
-		function inlist() {
-			$('#s_insert_doc').trigger('click');
-		}
-		
-		// 결재 문서함 메뉴 클릭(목록으로)
-		function resultlist() {
-			$('#s_result_doc').trigger('click');
+		// 선택된 메뉴 클릭(목록으로)
+		function list() {
+			if($("#s_insert_doc").css("color") == 'rgb(5, 131, 242)'){
+				$('#s_insert_doc').trigger('click');	
+			} else if($("#s_result_doc").css("color") == 'rgb(5, 131, 242)') {
+				$('#s_result_doc').trigger('click');
+			} else if($("#s_reference_doc").css("color") == 'rgb(5, 131, 242)') {
+				$('#s_reference_doc').trigger('click');
+			}
 		}
 	</script>
 </body>

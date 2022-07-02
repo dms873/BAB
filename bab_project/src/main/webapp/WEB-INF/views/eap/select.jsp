@@ -246,7 +246,6 @@
     <script>
     	// 양식선택
     	$("#s_document_form_select").on('change', function() {
-    		console.log(this.value);
     		// value값이 휴가신청서면
     		if(this.value == "s_holiday_form") {
 	    		$("#s_document_form").load("<%=request.getContextPath()%>/eap/selectform/holidayForm");
@@ -286,7 +285,6 @@
         	// 결재 양식 선택에 있는 option의 text를 form변수에 담아줌
         	var form = $("#s_document_form_select option:selected").text();
         	if(form == '양식을 선택해주세요') {
-        		console.log("양식 선택");
         	} else {
 	        	$.ajax({
 	        		url: "<%=request.getContextPath()%>/eap/insertdoc"
@@ -294,7 +292,6 @@
 	        		, data: {"form": form}
 	        		, type: "post"
 	        		, success: function(result) {
-	        			console.log("result : " + result);
 	        			// 받아온 결과가 jsp라서 그 자리 html을 result로 넣어줌
 	        			$("#s_eap_content_box").html(result);
 	        		}
@@ -318,8 +315,6 @@
     			tdArr.push(td.eq(i).text());
     		})
     		
-    		console.log("tdArr : " + tdArr);
-    		console.log("배열에 담긴 값 : " + tdArr[0]);
     		// 그 중 첫 번째 담긴 결재번호 필요
     		var dfNo = tdArr[0]; 
     		
