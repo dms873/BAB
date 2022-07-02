@@ -84,6 +84,50 @@
 		height: 900px;
 	}
 </style>
+<!-- SweetAlert -->
+<style>
+	/*모달창  */
+	.swal-modal {
+		background-color: white;
+		border: 3px solid white;
+	}
+	/*ok버튼  */
+	.swal-button--danger {
+		background-color: #0583F2;
+		color: white;
+	}
+	/*cancel버튼  */
+	.swal-button--cancel {
+		background-color: red;
+		color: white;
+	}
+	/*ok버튼  */
+	.swal-button--confirm {
+		background-color: #0583F2;
+		color: white;
+	}
+	/*아이콘 테두리  */
+	.swal-icon--info {
+		border-color: #0583F2;
+	}
+	/*아이콘 i 윗부분  */
+	.swal-icon--info:after {
+		background-color: #0583F2;
+	}
+	/*아이콘 i 아랫부분  */
+	.swal-icon--info:before {
+		background-color: #0583F2;
+	}
+	/*타이틀  */
+	.swal-title {
+		font-size: 20px;
+		color: black;
+	}
+	/*텍스트  */
+	.swal-text {
+		color: black;
+	}
+</style>
 </head>
 <body>
 
@@ -373,13 +417,25 @@
              
            for(var i = 0; i < $('.s_td_name').length; i++) {
         	   if($(".s_td_name").eq(i).text() == name) {
-					alert("결재선에 이미 선택되어 있습니다.");
+        		   swal({
+                       title: "",
+                       text: "결재선에 이미 선택되어 있습니다.",
+                       icon: "error",
+                       closeOnClickOutside: false,
+                       closeOnEsc: false
+                   });
 					return;
 				}
 			}
 			for(var i = 0; i < $('.s_td_deptName').length; i++) {
 				if($('.s_td_deptName').eq(i).text() == deptName) {
-					alert("참조처에 이미 선택되어 있습니다.");
+					swal({
+	                       title: "",
+	                       text: "참조처에 이미 선택되어 있습니다.",
+	                       icon: "error",
+	                       closeOnClickOutside: false,
+	                       closeOnEsc: false
+	                   });
 					return;
 				}
 			}
@@ -389,7 +445,13 @@
             	  arr.push({"name":name,"deptText":deptText,"job":job,"empNo":empNo})
 	              fn_arr(arr);
               } else {
-              	alert("결재선은 최대 3명까지 추가가 가능합니다.");
+            	  swal({
+                      title: "",
+                      text: "결재선은 최대 3명까지 추가가 가능합니다.",
+                      icon: "error",
+                      closeOnClickOutside: false,
+                      closeOnEsc: false
+                  });
               }
              } else if($('.jstree-clicked').text().length <= 3) {
             	// 참조처 리스트 추가
@@ -402,7 +464,13 @@
            	  );
            	  	deptCnt++;
           	   } else {
-          		   alert("참조처는 최대 2개 부서까지 추가가 가능합니다.");
+	          		 swal({
+	                     title: "",
+	                     text: "참조처는 최대 2개 부서까지 추가가 가능합니다.",
+	                     icon: "error",
+	                     closeOnClickOutside: false,
+	                     closeOnEsc: false
+	                 });
           	   }
              }
 			
@@ -490,7 +558,13 @@
 			var str3 = arr[2];
 			
 			if(str1 == undefined) {
-				alert("결재선에 1명 이상 선택해주세요.");
+				swal({
+                    title: "",
+                    text: "결재선에 1명 이상 선택해주세요.",
+                    icon: "error",
+                    closeOnClickOutside: false,
+                    closeOnEsc: false
+                });
 			}
 			if(str2 == undefined) {
 				str2 = null;
@@ -534,7 +608,13 @@
 					, type: "post"
 					, data: dataObj
 					, success: function(result) {
-						alert(result);
+						swal({
+		                    title: "",
+		                    text: result,
+		                    icon: "success",
+		                    closeOnClickOutside: false,
+		                    closeOnEsc: false
+		                });
 					}
 			});
 			
@@ -571,7 +651,13 @@
 				, type: "post"
 				, data: dataObj
 				, success: function(result) {
-					alert(result);
+					swal({
+	                    title: "",
+	                    text: result,
+	                    icon: "success",
+	                    closeOnClickOutside: false,
+	                    closeOnEsc: false
+	                });
 					$("#menu_eap").get(0).click();
 				}
 			})
@@ -593,7 +679,13 @@
 		$('#s_ho_tt').keyup(function() {
 			// 결재선 지정이 안되어 있다면
 			if($('div').hasClass('s_div') == false) {
-				alert('결재선 지정을 먼저 해주세요');
+				swal({
+                    title: "",
+                    text: "결재선 지정을 먼저 해주세요",
+                    icon: "error",
+                    closeOnClickOutside: false,
+                    closeOnEsc: false
+                });
 				// 입력한 내용 지우기
 				$('#s_ho_tt').val("");
 			}
@@ -603,7 +695,13 @@
 		$('#s_ho_co').keyup(function() {
 			// 결재선 지정이 안되어 있다면
 			if($('div').hasClass('s_div') == false) {
-				alert('결재선 지정을 먼저 해주세요');
+				swal({
+                    title: "",
+                    text: "결재선 지정을 먼저 해주세요",
+                    icon: "error",
+                    closeOnClickOutside: false,
+                    closeOnEsc: false
+                });
 				// 입력한 내용 지우기
 				$('#s_ho_co').val("");
 			}

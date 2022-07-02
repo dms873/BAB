@@ -114,8 +114,8 @@
             <div style="border: 1px solid lightgray;height: 1000px;width: 1150px;margin-top: 20px;margin-left: 10px;border-radius: 10px;padding: 20px;" id="s_eap_content_box">
             	
                 <div class="s_eap_home">
-	                <div class="s_eap_tt">전자 결재 대기</div>
-		                <table class="table table-hover" style="vertical-align: middle; text-align: center;">
+	                <div class="s_eap_tt" id="s_be_tt" style="cursor: pointer;">전자 결재 대기</div>
+		                <table class="table" style="vertical-align: middle; text-align: center;">
 						  <thead>
 						    <tr>
 						      <th scope="col">문서번호</th>
@@ -128,7 +128,7 @@
 						  </thead>
 						  <tbody>
 						  	<c:forEach items="${homeBeDoc }" var="i">
-							    <tr class="s_tr_readList">
+							    <tr class="s_be_readList">
 							      <th scope="row">${i.df_no }</th>
 							      <td>${i.eap_draft_date }</td>
 							      <td>${i.df_title }</td>
@@ -139,16 +139,16 @@
 								      </c:if>
 							      </td>
 							      <c:if test="${i.eap_sta_code eq '결재대기'}">
-							      	<td><button class="btn btn-warning" style="font-size: .8em;">결재대기</button></td>
+							      	<td><button class="btn btn-warning" style="font-size: .8em; cursor: auto;">결재대기</button></td>
 							      </c:if>
 							      <c:if test="${i.eap_sta_code eq '진행중'}">
-							      	<td><button class="btn btn-success" style="font-size: .8em; width: 77px;">진행중</button></td>
+							      	<td><button class="btn btn-success" style="font-size: .8em; width: 77px; cursor: auto;">진행중</button></td>
 							      </c:if>
 							      <c:if test="${i.eap_sta_code eq '반려'}">
-							      	<td><button class="btn btn-danger" style="font-size: .8em; width: 77px;">반려</button></td>
+							      	<td><button class="btn btn-danger" style="font-size: .8em; width: 77px; cursor: auto;">반려</button></td>
 							      </c:if>
 							      <c:if test="${i.eap_sta_code eq '결재완료'}">
-							      	<td><button class="btn btn-secondary" style="font-size: .8em; width: 77px;">완료</button></td>
+							      	<td><button class="btn btn-secondary" style="font-size: .8em; width: 77px; cursor: auto;">완료</button></td>
 							      </c:if>
 							    </tr>
 						    </c:forEach>
@@ -160,8 +160,8 @@
 					</div>
 					
 					<div class="s_eap_home">
-		                <div class="s_eap_tt">기안 진행 문서</div>
-		                <table class="table table-hover" style="vertical-align: middle; text-align: center;">
+		                <div class="s_eap_tt" id="s_re_tt" style="cursor: pointer;">기안 진행 문서</div>
+		                <table class="table" style="vertical-align: middle; text-align: center;">
 						  <thead>
 						    <tr>
 						      <th scope="col">NO</th>
@@ -174,7 +174,7 @@
 						  </thead>
 						  <tbody>
 						    <c:forEach items="${homeRcDoc }" var="i">
-							    <tr class="s_tr_readList">
+							    <tr class="s_re_readList">
 							      <th scope="row">${i.df_no }</th>
 							      <td>${i.eap_draft_date }</td>
 							      <td>${i.df_title }</td>
@@ -185,16 +185,16 @@
 								      </c:if>
 							      </td>
 							      <c:if test="${i.eap_sta_code eq '결재대기'}">
-							      	<td><button class="btn btn-warning" style="font-size: .8em;">결재대기</button></td>
+							      	<td><button class="btn btn-warning" style="font-size: .8em; cursor: auto;">결재대기</button></td>
 							      </c:if>
 							      <c:if test="${i.eap_sta_code eq '진행중'}">
-							      	<td><button class="btn btn-success" style="font-size: .8em; width: 77px;">진행중</button></td>
+							      	<td><button class="btn btn-success" style="font-size: .8em; width: 77px; cursor: auto;">진행중</button></td>
 							      </c:if>
 							      <c:if test="${i.eap_sta_code eq '반려'}">
-							      	<td><button class="btn btn-danger" style="font-size: .8em; width: 77px;">반려</button></td>
+							      	<td><button class="btn btn-danger" style="font-size: .8em; width: 77px; cursor: auto;">반려</button></td>
 							      </c:if>
 							      <c:if test="${i.eap_sta_code eq '결재완료'}">
-							      	<td><button class="btn btn-secondary" style="font-size: .8em; width: 77px;">완료</button></td>
+							      	<td><button class="btn btn-secondary" style="font-size: .8em; width: 77px; cursor: auto;">완료</button></td>
 							      </c:if>
 							    </tr>
 						    </c:forEach>
@@ -301,26 +301,17 @@
     	
     </script>
     
-     <!-- 상세문서조회 -->
     <script>
-    	$(".s_tr_readList").click(function() {
-    		// 배열 선언
-    		var tdArr = new Array();
-    		// 현재 클릭된 행(tr의 td)
-    		var tr = $(this);
-    		var td = tr.children();
-    		
-    		// 반복문을 통해 배열에 값을 담아 사용
-    		td.each(function(i) {
-    			tdArr.push(td.eq(i).text());
-    		})
-    		
-    		// 그 중 첫 번째 담긴 결재번호 필요
-    		var dfNo = tdArr[0]; 
-    		
-    		// 링크로 넘기기
-    		$("#s_eap_content_box").load("<%=request.getContextPath()%>/eap/selectdoc?df_no=" + dfNo);
-    		
+    	// 홈에서 전자 결재 대기 글씨 클릭 시
+    	$("#s_be_tt").click(function() {
+    		// 서브메뉴 결재 대기 문서 클릭
+    		$('#s_before_doc').trigger('click');    		
+    	});
+    	
+    	// 홈에서 기안 진행 문서 글씨 클릭 시
+    	$("#s_re_tt").click(function() {
+    		// 서브메뉴 결재 수신 문서 클릭
+    		$('#s_receipt_doc').trigger('click');    		
     	});
     </script>
 </body>

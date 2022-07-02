@@ -86,6 +86,50 @@
 		height: 900px;
 	}
 </style>
+<!-- SweetAlert -->
+<style>
+	/*모달창  */
+	.swal-modal {
+		background-color: white;
+		border: 3px solid white;
+	}
+	/*ok버튼  */
+	.swal-button--danger {
+		background-color: #0583F2;
+		color: white;
+	}
+	/*cancel버튼  */
+	.swal-button--cancel {
+		background-color: red;
+		color: white;
+	}
+	/*ok버튼  */
+	.swal-button--confirm {
+		background-color: #0583F2;
+		color: white;
+	}
+	/*아이콘 테두리  */
+	.swal-icon--info {
+		border-color: #0583F2;
+	}
+	/*아이콘 i 윗부분  */
+	.swal-icon--info:after {
+		background-color: #0583F2;
+	}
+	/*아이콘 i 아랫부분  */
+	.swal-icon--info:before {
+		background-color: #0583F2;
+	}
+	/*타이틀  */
+	.swal-title {
+		font-size: 20px;
+		color: black;
+	}
+	/*텍스트  */
+	.swal-text {
+		color: black;
+	}
+</style>
 </head>
 <body>
 
@@ -96,6 +140,7 @@
 		Employee vo = (Employee) request.getSession().getAttribute("login"); 
 		empNo = vo.getEmp_no();
 		empName = vo.getEmp_name();
+		
 	%>
 	<!-- check라는 변수명에 el태그를 값으로 넣어 -->
 	<c:set var="check" value="${readHoDoc.emp_no }"/>
@@ -103,35 +148,38 @@
 	<c:set var="eapStaCheck" value="${readHoDoc.eap_sta_code }"></c:set>
 	<!-- 기안자 이름 체크 변수 선언 -->
 	<c:set var="eapNameCheck" value="${readHoDoc.emp_name }"></c:set>
+	
+	<% 
+		// 메뉴 if문에 들어갈 변수 선언
+		boolean emp_name = empName.equals(pageContext.getAttribute("eapNameCheck").toString());
+		String eap_sta_check = pageContext.getAttribute("eapStaCheck").toString();
+	%>
 	<div id="s_btn">
 		<!-- pageContext.getAttribute(변수명).toString()으로 꺼내서 사용 가능 -->
 		<!-- 기안자와 로그인한 사람의 이름이 같고 반려상태일 때 -->
-		<% if(empName.equals(pageContext.getAttribute("eapNameCheck").toString()) == true && pageContext.getAttribute("eapStaCheck").toString().equals("R")) { %>
+		<% if(emp_name == true && eap_sta_check.equals("R")) { %>
 			<span><a id="s_opinion_btn" href="#" onclick="opinion()">의견 | </a></span>
 			<span><a id="s_list_btn" href="#" onclick="list()">목록</a></span>
-			<!-- 기안자와 로그인한 사람의 이름이 같고 결재완료일 때 -->
-		<% } else if(empName.equals(pageContext.getAttribute("eapNameCheck").toString()) == true && pageContext.getAttribute("eapStaCheck").toString().equals("F")) { %>
+			<!-- 기안자와 로그인한 사람의 이름이 같고 결재완료 또는 진행중일 때 -->
+		<% } else if(emp_name == true && (eap_sta_check.equals("F") || eap_sta_check.equals("O"))) { %>
 			<span><a id="s_list_btn" href="#" onclick="list()">| 목록 |</a></span>
 			<!-- 기안자와 로그인한 사람의 이름이 다르고 반려일 때 -->
-		<% } else if(empName.equals(pageContext.getAttribute("eapNameCheck").toString()) == false && pageContext.getAttribute("eapStaCheck").toString().equals("R")) { %>
+		<% } else if(emp_name == false && eap_sta_check.equals("R")) { %>
 			<span><a id="s_opinion_btn" href="#" onclick="opinion()">의견 | </a></span>
 			<span><a id="s_list_btn" href="#" onclick="list()">목록</a></span>
 			<!-- 기안자와 로그인한 사람의 이름이 다르고 결재완료일 때 -->
-		<% } else if(empName.equals(pageContext.getAttribute("eapNameCheck").toString()) == false && pageContext.getAttribute("eapStaCheck").toString().equals("F")) { %>
-			<span><a id="s_list_btn" href="#" onclick="list()">| 목록 |</a></span>
-			<!-- 기안자와 로그인한 사람의 이름이 다르고 진행중일 때 -->
-		<% } else if(empName.equals(pageContext.getAttribute("eapNameCheck").toString()) == false && pageContext.getAttribute("eapStaCheck").toString().equals("O")) { %>
+		<% } else if(emp_name == false && eap_sta_check.equals("F")) { %>
 			<span><a id="s_list_btn" href="#" onclick="list()">| 목록 |</a></span>
 			<!-- 로그인한 사람의 사번과 결재자의 사번이 같을 때 -->
 		<% } else if(empNo.equals(pageContext.getAttribute("check").toString()) == true) { %>
 			<span><a id="s_eap_cancle" href="#">결재회수 | </a></span>
 			<span><a id="s_eap_update" href="#">문서 수정 | </a></span>
 			<span><a id="s_opinion_btn" href="#" onclick="opinion()">의견 | </a></span>
-			<span><a id="s_list_btn" href="#" onclick="belist()">목록</a></span>
+			<span><a id="s_list_btn" href="#" onclick="list()">목록</a></span>
 		<% } else { %>
 			<span><a id="s_approval_btn" href="#" onclick="approval()">결재 승인 | </a></span>
 			<span><a id="s_reject_btn" href="#" data-bs-toggle="modal" data-bs-target="#Modal">결재 반려 | </a></span>
-			<span><a id="s_list_btn" href="#" onclick="relist()">목록</a></span>
+			<span><a id="s_list_btn" href="#" onclick="list()">목록</a></span>
 		<% } %>
 	</div>
 	
@@ -481,7 +529,13 @@
 				type: "post",
 				data: {"df_no": $("#s_dfNo").text()},
 				success: function(result) {
-					alert(result);
+					swal({
+	                    title: "",
+	                    text: result,
+	                    icon: "error",
+	                    closeOnClickOutside: false,
+	                    closeOnEsc: false
+	                });
 					$("#menu_eap").get(0).click();
 				}
 			});
@@ -652,7 +706,13 @@
 				, type : "post"
 				, data : dataObj
 				, success : function(result) {
-					alert(result);
+					swal({
+	                    title: "",
+	                    text: result,
+	                    icon: "error",
+	                    closeOnClickOutside: false,
+	                    closeOnEsc: false
+	                });
 					$("#s_before_doc").trigger("click");
 				}
 			});
@@ -662,9 +722,21 @@
 		function opinion() {
 			var rejectMsg = "${readHoDoc.eap_reject}";
 			if(rejectMsg == null || rejectMsg == "") {
-				alert("반려 사유가 없습니다.");
+				swal({
+                    title: "반려 사유",
+                    text: "반려 사유가 없습니다.",
+                    icon: "error",
+                    closeOnClickOutside: false,
+                    closeOnEsc: false
+                });
 			} else {
-				alert(rejectMsg);
+				swal({
+                    title: "반려 사유",
+                    text: rejectMsg,
+                    icon: "info",
+                    closeOnClickOutside: false,
+                    closeOnEsc: false
+                })
 			}
 		}
 	
@@ -705,7 +777,13 @@
 					, type : "post"
 					, data : objdata
 					, success : function(result) {
-						alert(result);
+						swal({
+		                    title: "",
+		                    text: result,
+		                    icon: "error",
+		                    closeOnClickOutside: false,
+		                    closeOnEsc: false
+		                });
 						$("#menu_eap").get(0).click();
 					}
 				});
@@ -752,7 +830,13 @@
 						, type : "post"
 						, data : objdata
 						, success : function(result) {
-							alert(result);
+							swal({
+			                    title: "",
+			                    text: result,
+			                    icon: "success",
+			                    closeOnClickOutside: false,
+			                    closeOnEsc: false
+			                });
 							$(".btn-close").trigger('click');
 							$("#menu_eap").get(0).click();
 					}
@@ -807,7 +891,13 @@
 						, type : "post"
 						, data : objdata
 						, success : function(result) {
-							alert(result);
+							swal({
+			                    title: "",
+			                    text: result,
+			                    icon: "success",
+			                    closeOnClickOutside: false,
+			                    closeOnEsc: false
+			                });
 							$(".btn-close").trigger('click');
 							$("#menu_eap").get(0).click();
 					}
@@ -818,163 +908,194 @@
 		
 		// 결재 승인 메뉴 클릭
 		function approval() {
-			var result = confirm('승인하시겠습니까?');
-			if(result) {
-				var objdata = {};
-				// 결재자 몇 명인지 구하기
-				var apPerson = $('.s_div').length;
-				
-				// 결재자가 1명일 때
-				if(apPerson == 1) {
-					objdata = {
-							"eap_step" : 1,
-							"eap_sta_code" : 'F',
-							"eap_res_code" : 'A',
-							"df_no" : $('#s_dfNo').text()
-					}
+			swal({
+                title: "결재 승인",
+                text: "승인하시겠습니까?",
+                icon: "warning",
+                confirmButtonClass : "btn-danger",
+                buttons: ["취소", "확인"],
+                closeOnClickOutside: false,
+                closeOnEsc: false
+            }).then((확인) => {
+            	if(확인) {
+	            	var objdata = {};
+					// 결재자 몇 명인지 구하기
+					var apPerson = $('.s_div').length;
 					
-					$.ajax({
-						url : "<%=request.getContextPath()%>/eap/updateoneapp"
-							, type : "post"
-							, data : objdata
-							, success : function(result) {
-								alert(result);
-								$(".btn-close").trigger('click');
-								$("#menu_eap").get(0).click();
-								// $("#s_receipt_doc").trigger("click");
-						}
-					});
-				}
-				
-				// 결재자가 2명 일 때
-				if(apPerson == 2) {
-					// 결재선에 있는 사원 이름
-					var lineName = "";
-					// 로그인 한 사람의 이름
-					var checkName = "<%=empName%>";
-					// 몇 번째 결재자인지 확인하는 변수
-					var line = 0;
-					// 결재자 길이만큼 for문 실행
-					for(var i = 0; i < apPerson; i++) {
-						// 결재선에 있는 사원 이름 변수에 담기
-						lineName = $('.s_div').eq(i).children().last().children().first().text();
-						// 결재선에 있는 이름과 로그인 한 사람의 이름이 같다면
-						if(lineName == checkName) {
-							// 몇 번째 결재자인지 담아주고 반복문 빠져나오기
-							line = i+1;
-							break;
-						}
-					}
-					
-					// 첫 번째 결재자라면
-					if(line == 1) {
+					// 결재자가 1명일 때
+					if(apPerson == 1) {
 						objdata = {
-								"eap_step" : 2,
-								"eap_sta_code" : 'O',
-								"df_no" : $('#s_dfNo').text()
-						}
-						
-						// 두 번째 결재자라면
-					} else if(line == 2) {
-						objdata = {
-								"eap_step" : 2,
+								"eap_step" : 1,
 								"eap_sta_code" : 'F',
 								"eap_res_code" : 'A',
 								"df_no" : $('#s_dfNo').text()
 						}
+						
+						$.ajax({
+							url : "<%=request.getContextPath()%>/eap/updateoneapp"
+								, type : "post"
+								, data : objdata
+								, success : function(result) {
+									swal({
+					                    title: "",
+					                    text: result,
+					                    icon: "success",
+					                    closeOnClickOutside: false,
+					                    closeOnEsc: false
+					                });
+									$(".btn-close").trigger('click');
+									$("#menu_eap").get(0).click();
+							}
+						});
 					}
 					
-					$.ajax({
-						url : "<%=request.getContextPath()%>/eap/updateeapapp"
-							, type : "post"
-							, data : objdata
-							, success : function(result) {
-								alert(result);
-								$("#menu_eap").get(0).click();
-						}
-					});
-				}
-				
-				// 결재자가 3명 일 때
-				if(apPerson == 3) {
-					// 결재선에 있는 사원 이름
-					var lineName = "";
-					// 로그인 한 사람의 이름
-					var checkName = "<%=empName%>";
-					// 몇 번째 결재자인지 확인하는 변수
-					var line = 0;
-					// 결재자 길이만큼 for문 실행
-					for(var i = 0; i < apPerson; i++) {
-						// 결재선에 있는 사원 이름 변수에 담기
-						lineName = $('.s_div').eq(i).children().last().children().first().text();
-						// 결재선에 있는 이름과 로그인 한 사람의 이름이 같다면
-						if(lineName == checkName) {
-							// 몇 번째 결재자인지 담아주고 반복문 빠져나오기
-							line = i+1;
-							break;
-						}
-					}
-					
-					// 첫 번째 결재자라면
-					if(line == 1) {
-						objdata = {
-								"eap_step" : 2,
-								"eap_sta_code" : 'O',
-								"df_no" : $('#s_dfNo').text()
+					// 결재자가 2명 일 때
+					if(apPerson == 2) {
+						// 결재선에 있는 사원 이름
+						var lineName = "";
+						// 로그인 한 사람의 이름
+						var checkName = "<%=empName%>";
+						// 몇 번째 결재자인지 확인하는 변수
+						var line = 0;
+						// 결재자 길이만큼 for문 실행
+						for(var i = 0; i < apPerson; i++) {
+							// 결재선에 있는 사원 이름 변수에 담기
+							lineName = $('.s_div').eq(i).children().last().children().first().text();
+							// 결재선에 있는 이름과 로그인 한 사람의 이름이 같다면
+							if(lineName == checkName) {
+								// 몇 번째 결재자인지 담아주고 반복문 빠져나오기
+								line = i+1;
+								break;
+							}
 						}
 						
-						// 두 번째 결재자라면
-					} else if(line == 2) {
-						objdata = {
-								"eap_step" : 3,
-								"eap_sta_code" : 'O',
-								"df_no" : $('#s_dfNo').text()
+						// 첫 번째 결재자라면
+						if(line == 1) {
+							objdata = {
+									"eap_step" : 2,
+									"eap_sta_code" : 'O',
+									"df_no" : $('#s_dfNo').text()
+							}
+							
+							// 두 번째 결재자라면
+						} else if(line == 2) {
+							objdata = {
+									"eap_step" : 2,
+									"eap_sta_code" : 'F',
+									"eap_res_code" : 'A',
+									"df_no" : $('#s_dfNo').text()
+							}
 						}
-						// 세 번째 결재자라면
-					} else if(line == 3) {
-						objdata = {
-								"eap_step" : 3,
-								"eap_sta_code" : 'F',
-								"eap_res_code" : 'A',
-								"df_no" : $('#s_dfNo').text()
-						}
+						
+						$.ajax({
+							url : "<%=request.getContextPath()%>/eap/updateeapapp"
+								, type : "post"
+								, data : objdata
+								, success : function(result) {
+									swal({
+					                    title: "",
+					                    text: result,
+					                    icon: "success",
+					                    closeOnClickOutside: false,
+					                    closeOnEsc: false
+					                });
+									$("#menu_eap").get(0).click();
+							}
+						});
 					}
 					
-					$.ajax({
-						url : "<%=request.getContextPath()%>/eap/updateeapapp"
-							, type : "post"
-							, data : objdata
-							, success : function(result) {
-								alert(result);
-								$("#menu_eap").get(0).click();
+					// 결재자가 3명 일 때
+					if(apPerson == 3) {
+						// 결재선에 있는 사원 이름
+						var lineName = "";
+						// 로그인 한 사람의 이름
+						var checkName = "<%=empName%>";
+						// 몇 번째 결재자인지 확인하는 변수
+						var line = 0;
+						// 결재자 길이만큼 for문 실행
+						for(var i = 0; i < apPerson; i++) {
+							// 결재선에 있는 사원 이름 변수에 담기
+							lineName = $('.s_div').eq(i).children().last().children().first().text();
+							// 결재선에 있는 이름과 로그인 한 사람의 이름이 같다면
+							if(lineName == checkName) {
+								// 몇 번째 결재자인지 담아주고 반복문 빠져나오기
+								line = i+1;
+								break;
+							}
 						}
-					});
-				}
-			} else {
-				alert("취소되었습니다.");
-			}
+						
+						// 첫 번째 결재자라면
+						if(line == 1) {
+							objdata = {
+									"eap_step" : 2,
+									"eap_sta_code" : 'O',
+									"df_no" : $('#s_dfNo').text()
+							}
+							
+							// 두 번째 결재자라면
+						} else if(line == 2) {
+							objdata = {
+									"eap_step" : 3,
+									"eap_sta_code" : 'O',
+									"df_no" : $('#s_dfNo').text()
+							}
+							// 세 번째 결재자라면
+						} else if(line == 3) {
+							objdata = {
+									"eap_step" : 3,
+									"eap_sta_code" : 'F',
+									"eap_res_code" : 'A',
+									"df_no" : $('#s_dfNo').text()
+							}
+						}
+						
+						$.ajax({
+							url : "<%=request.getContextPath()%>/eap/updateeapapp"
+								, type : "post"
+								, data : objdata
+								, success : function(result) {
+									swal({
+					                    title: "",
+					                    text: result,
+					                    icon: "success",
+					                    closeOnClickOutside: false,
+					                    closeOnEsc: false
+					                });
+									$("#menu_eap").get(0).click();
+							}
+						});
+					}
+            	} else {
+            		swal({
+                        title: "",
+                        text: "취소되었습니다.",
+                        icon: "success",
+                        closeOnClickOutside: false,
+                        closeOnEsc: false
+                    });
+            	}
+            });
 		}
 	</script>
 	
 	<script>
-		// 결재 대기 문서 메뉴 클릭(목록으로)
-		function belist() {
-			$('#s_before_doc').trigger('click');
-		}
-		
-		// 결재 수신 문서 메뉴 클릭(목록으로)
-		function relist() {
-			$('#s_receipt_doc').trigger('click');
-		}
-		
 		// 선택된 메뉴 클릭(목록으로)
 		function list() {
+			// 기안 문서함
 			if($("#s_insert_doc").css("color") == 'rgb(5, 131, 242)'){
-				$('#s_insert_doc').trigger('click');	
+				$('#s_insert_doc').trigger('click');
+				// 결재 문서함
 			} else if($("#s_result_doc").css("color") == 'rgb(5, 131, 242)') {
 				$('#s_result_doc').trigger('click');
+				// 참조 문서함
 			} else if($("#s_reference_doc").css("color") == 'rgb(5, 131, 242)') {
 				$('#s_reference_doc').trigger('click');
+				// 결재 대기 문서
+			} else if($("#s_before_doc").css("color") == 'rgb(5, 131, 242)') {
+				$('#s_before_doc').trigger('click');
+				// 결재 수신 문서
+			} else if($("#s_receipt_doc").css("color") == 'rgb(5, 131, 242)') {
+				$('#s_receipt_doc').trigger('click');
 			}
 		}
 	</script>

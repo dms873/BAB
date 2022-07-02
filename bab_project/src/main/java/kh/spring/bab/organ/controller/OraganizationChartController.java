@@ -45,10 +45,7 @@ public class OraganizationChartController {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		
 		List<Organ> or = service.selectOrganList();
-		// List<E>
-		// Map
 		String organ = gson.toJson(or);
-		logger.info(organ);
 		return organ;
 	}
 	
@@ -59,10 +56,7 @@ public class OraganizationChartController {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		
 		List<Organ> or = service.selectDeptList();
-		// List<E>
-		// Map
 		String organ = gson.toJson(or);
-		logger.info("부서 결과 : " + organ);
 		return organ;
 	}
 	
@@ -84,8 +78,6 @@ public class OraganizationChartController {
 		mv.addObject("selectInfo", result);
 		mv.setViewName("organ/selectInfo");
 		
-		logger.info("결과 : " + mv);
-		
 		return mv;
 	}
 	
@@ -98,27 +90,20 @@ public class OraganizationChartController {
 			, HttpServletRequest req
 			) {
 		
-		logger.info("emp_no : " + emp_noArr);
-		
 		List<Organ> list = new ArrayList<Organ>();
 		Organ result = null;
 		String df_code = "";
 		
 		for(String emp_no : emp_noArr) {
-			logger.info(emp_no);
 			result = service.selectInfo(emp_no);
 			list.add(result);
 		}
 		mv.addObject("info", list);
-		logger.info("list 결과 : " + list);
-		logger.info("result 결과 : " + result);
 		
 		df_code = "A";
 		// 휴가 신청서 문서 번호 조회
 		Organ docNum = service.selectDoc(df_code);
 		mv.addObject("resultDoc", docNum);
-		
-		logger.info("docNum 결과 : " + docNum);
 		
 		// 로그인한 사람 정보 가져오기(사번)
 		Employee emp = (Employee) req.getSession().getAttribute("login");
@@ -132,8 +117,6 @@ public class OraganizationChartController {
 		mv.addObject("eap", eap);
 		
 		mv.setViewName("documentForm/holiday");
-		// mv.setViewName("eap/selectLine");
-		logger.info("mv 결과 : " + mv);
 		
 		return mv;
 		
@@ -148,27 +131,20 @@ public class OraganizationChartController {
 			, HttpServletRequest req
 			) {
 		
-		logger.info("emp_no : " + emp_noArr);
-		
 		List<Organ> list = new ArrayList<Organ>();
 		Organ result = null;
 		String df_code = "";
 		
 		for(String emp_no : emp_noArr) {
-			logger.info(emp_no);
 			result = service.selectInfo(emp_no);
 			list.add(result);
 		}
 		mv.addObject("info", list);
-		logger.info("list 결과 : " + list);
-		logger.info("result 결과 : " + result);
 		
 		df_code = "B";
 		// 지출결의서 문서 번호 조회
 		Organ docNum = service.selectDoc(df_code);
 		mv.addObject("resultDoc", docNum);
-		
-		logger.info("docNum 결과 : " + docNum);
 		
 		// 로그인한 사람 정보 가져오기(사번)
 		Employee emp = (Employee) req.getSession().getAttribute("login");
@@ -178,7 +154,6 @@ public class OraganizationChartController {
 		mv.addObject("eap", eap);
 		
 		mv.setViewName("documentForm/spending");
-		logger.info("mv 결과 : " + mv);
 		
 		return mv;
 		

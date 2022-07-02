@@ -6,25 +6,69 @@
 <meta charset="UTF-8">
 <!-- <title>조직도 조회</title> -->
 <style>
-        #s_organ_table tr th {
-            width: 100px;
-            padding: 5px 0;
-            font-size: 1.1em;
-        }
+    #s_organ_table tr th {
+        width: 100px;
+        padding: 5px 0;
+        font-size: 1.1em;
+    }
 
-        #s_organ_table {
-            margin-top: 50px;
-        }
+    #s_organ_table {
+        margin-top: 50px;
+    }
 
-        #s_organ_table tr button {
-            margin-left: 10px;
-            font-size: 0.9em;
-        }
+    #s_organ_table tr button {
+        margin-left: 10px;
+        font-size: 0.9em;
+    }
 
-        #s_organ_table .s_organ_td {
-            width: 200px;
-        }
-    </style>
+    #s_organ_table .s_organ_td {
+        width: 200px;
+    }
+</style>
+<!-- SweetAlert -->
+<style>
+	/*모달창  */
+	.swal-modal {
+		background-color: white;
+		border: 3px solid white;
+	}
+	/*ok버튼  */
+	.swal-button--danger {
+		background-color: #0583F2;
+		color: white;
+	}
+	/*cancel버튼  */
+	.swal-button--cancel {
+		background-color: red;
+		color: white;
+	}
+	/*ok버튼  */
+	.swal-button--confirm {
+		background-color: #0583F2;
+		color: white;
+	}
+	/*아이콘 테두리  */
+	.swal-icon--info {
+		border-color: #0583F2;
+	}
+	/*아이콘 i 윗부분  */
+	.swal-icon--info:after {
+		background-color: #0583F2;
+	}
+	/*아이콘 i 아랫부분  */
+	.swal-icon--info:before {
+		background-color: #0583F2;
+	}
+	/*타이틀  */
+	.swal-title {
+		font-size: 20px;
+		color: black;
+	}
+	/*텍스트  */
+	.swal-text {
+		color: black;
+	}
+</style>
 </head>
 <body>
 
@@ -89,7 +133,13 @@
         			
         		}
         		, error: function() {
-        			alert("실패 !");
+        			swal({
+	                    title: "",
+	                    text: "실패하였습니다.",
+	                    icon: "error",
+	                    closeOnClickOutside: false,
+	                    closeOnEsc: false
+	                });
         		}
         	});
         });

@@ -40,7 +40,6 @@ public class ElectronicApprovalController {
 		Employee emp = (Employee) req.getSession().getAttribute("login");
 		String emp_no = emp.getEmp_no();
 		// String emp_name = emp.getEmp_name();
-		System.out.println("emp_name : " + emp.getEmp_name());
 		
 		// 결재 대기 문서 개수
 		int beDocCnt = service.beDocCnt(emp_no);
@@ -189,9 +188,7 @@ public class ElectronicApprovalController {
 	
 	// 지출결의서 입력양식
 	@GetMapping("/selectform/spending")
-	public ModelAndView selectSpending(ModelAndView mv
-			, @RequestParam(name = "fileUrl", required = false) String fileUrl) {
-		logger.info(fileUrl);
+	public ModelAndView selectSpending(ModelAndView mv) {
 		mv.setViewName("documentForm/spending");
 		return mv;
 	}
@@ -373,14 +370,10 @@ public class ElectronicApprovalController {
 			mv.setViewName("redirect:/eap/beforedoc");
 		}
 		
-		logger.info("뭐가 찍히니 ? " + df_no.substring(5,6));
-		
 		// 휴가신청서면
 		if(df_no.substring(5,6).equals("A")) {
-			logger.info("여기 탔나요 ???");
 			Eap result = service.readHoDoc(df_no);
 			mv.addObject("readHoDoc", result);
-			logger.info("첫번째 승인자 : " + result.getEap_first_ap());
 			// 첫번째 승인자 정보
 			if(result.getEap_first_ap() != null) {
 				Eap result2 = service.selectFirstAp(result);
@@ -390,13 +383,11 @@ public class ElectronicApprovalController {
 			if(result.getEap_mid_ap() != null) {
 				Eap result3 = service.selectMidAp(result);
 				mv.addObject("midAp", result3);
-				logger.info("두번째 승인자 정보 : " + result3);
 			} 
 			// 세번째 승인자 정보
 			if(result.getEap_final_ap() != null) {
 				Eap result4 = service.selectFinalAp(result);
 				mv.addObject("finalAp", result4);
-				logger.info("세번째 승인자 정보 : " + result4);
 			}
 			// 휴가신청서에 저장된 정보가져오기
 			att.setDf_no(result.getDf_no());
@@ -415,26 +406,19 @@ public class ElectronicApprovalController {
 			if(result.getEap_mid_ap() != null) {
 				Eap result3 = service.selectMidAp(result);
 				mv.addObject("midAp", result3);
-				logger.info("두번째 승인자 정보 : " + result3);
 			} 
 			// 세번째 승인자 정보
 			if(result.getEap_final_ap() != null) {
 				Eap result4 = service.selectFinalAp(result);
 				mv.addObject("finalAp", result4);
-				logger.info("세번째 승인자 정보 : " + result4);
 			}
 			// 지출결의서에 저장된 정보가져오기
 			sp.setDf_no(result.getDf_no());
 			Spending result5 = service.selectSpInfo(sp);
-			// logger.info(result5.getSp_amount());
 			result5.setSp_amount(addComma(Integer.parseInt(result5.getSp_amount())));
 			mv.addObject("spInfo", result5);
 			mv.setViewName("eap/spendingdoc");
 		}
-		
-		// 로그인한 사람 정보 가져오기(사번)
-		Employee emp = (Employee) req.getSession().getAttribute("login");
-		String emp_no = emp.getEmp_no();
 		
 		return mv;
 	}
@@ -465,7 +449,6 @@ public class ElectronicApprovalController {
 			result = service.insertHoDoc();
 			df_code = "A";
 			resultDoc = service.selectDoc(df_code);
-			logger.info("==============" + resultDoc);
 			
 			// 로그인한 사람 정보 가져오기
 			Employee emp = (Employee) req.getSession().getAttribute("login");
@@ -514,8 +497,6 @@ public class ElectronicApprovalController {
 			HttpServletRequest req
 			) {
 		
-		System.out.println(eap_first_ap + ", " + eap_mid_ap + ", " + eap_final_ap + ", " + eap_first_dept + ", " + eap_final_ap);
-		
 		eap.setEap_first_ap(eap_first_ap);
 		eap.setEap_mid_ap(eap_mid_ap);
 		eap.setEap_final_ap(eap_final_ap);
@@ -528,10 +509,6 @@ public class ElectronicApprovalController {
 		eap.setEmp_no(emp_no);
 		
 		int result = service.insertappsp(eap);
-		
-		
-		
-		logger.info("결재선 리스트, 참조처 리스트 insert결과 : " + result);
 		
 		String msg = "";
 		if(result > 0) {
@@ -605,10 +582,6 @@ public class ElectronicApprovalController {
 			HttpServletRequest req
 			) {
 		
-			logger.info("ho_code : " + ho_code);
-			logger.info("eap_title : " + eap_title);
-			logger.info("ho_use_count : " + ho_use_count);
-		
 			eap.setDf_no(df_no);
 			eap.setEap_title(eap_title);
 			eap.setEap_content(eap_content);
@@ -659,8 +632,6 @@ public class ElectronicApprovalController {
 			,  HttpServletRequest req
 			) {
 		
-		logger.info("파일url 불러와지니 ? : " + eap_file_path);
-		
 		// 콤마 제거
 		sp_amount = removeComma(sp_amount);
 		
@@ -693,23 +664,6 @@ public class ElectronicApprovalController {
 			msg = "다시 확인하여 기안해주세요.";
 		}
 		
-		
-		// @RequestParam(value = "dataArr", required = false) ArrayList<Object> dataArr
-		// 객체+배열로 받아서 값 받아오는거 찾아보기
-		
-//		String[] arrayparam = req.getParameterValues("dataArr");
-//		System.out.println(arrayparam);
-//		for(int i = 0; i < arrayparam.length; i++) {
-//			System.out.println("배열찍어봐 : " + arrayparam[i]);
-//		}
-		
-//		Map<String, Object> result = new HashMap<String, Object>();
-//		Map<String, Object> map = new HashMap<String, Object>();
-		
-		
-//		for(String data : arrayparam) {
-//			System.out.println(data);
-//		}
 		return msg;
 	}
 	
@@ -766,7 +720,6 @@ public class ElectronicApprovalController {
 		} else {
 			eap.setEap_file_path(s_img);
 		}
-		// logger.info("야 !!!!!!!!!!!!!!! : " + eap.getEap_file_path());
 		
 		int resultSp = service.updateSpDoc(sp);
 		int resultEap = service.updateEap(eap);
