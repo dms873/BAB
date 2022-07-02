@@ -13,12 +13,15 @@ public class Attendance {
 	private String ho_use_count; // 휴가사용일수
 	private String emp_no; // 사번
 	private String df_no; // 문서번호
+	private String att_no; // 근태번호
+	private String att_start; // 근무 시작 일시
+	private String att_end; // 근무 종료 일시
 	
 	@Override
 	public String toString() {
 		return "Attendance [ho_no=" + ho_no + ", ho_code=" + ho_code + ", ho_start=" + ho_start + ", ho_end=" + ho_end
 				+ ", ho_rm_count=" + ho_rm_count + ", ho_use_count=" + ho_use_count + ", emp_no=" + emp_no + ", df_no="
-				+ df_no + "]";
+				+ df_no + ", att_no=" + att_no + ", att_start=" + att_start + ", att_end=" + att_end + "]";
 	}
 	public String getHo_no() {
 		return ho_no;
@@ -68,7 +71,23 @@ public class Attendance {
 	public void setDf_no(String df_no) {
 		this.df_no = df_no;
 	}
-	
-	
+	public String getAtt_no() {
+		return att_no;
+	}
+	public void setAtt_no(String att_no) {
+		this.att_no = att_no;
+	}
+	public String getAtt_start() {
+		return att_start;
+	}
+	public void setAtt_start(String att_start) {
+		this.att_start = att_start;
+	}
+	public String getAtt_end() {
+		return att_end;
+	}
+	public void setAtt_end(String att_end) {
+		this.att_end = att_end;
+	}
 	
 }

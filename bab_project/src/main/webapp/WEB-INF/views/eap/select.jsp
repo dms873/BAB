@@ -114,7 +114,7 @@
             <div style="border: 1px solid lightgray;height: 1000px;width: 1150px;margin-top: 20px;margin-left: 10px;border-radius: 10px;padding: 20px;" id="s_eap_content_box">
             	
                 <div class="s_eap_home">
-	                <div class="s_eap_tt" id="s_be_tt" style="cursor: pointer;">전자 결재 대기</div>
+	                <div class="s_eap_tt" id="s_be_tt" style="cursor: pointer; color: darkorange;">전자 결재 대기</div>
 		                <table class="table" style="vertical-align: middle; text-align: center;">
 						  <thead>
 						    <tr>
@@ -160,7 +160,7 @@
 					</div>
 					
 					<div class="s_eap_home">
-		                <div class="s_eap_tt" id="s_re_tt" style="cursor: pointer;">기안 진행 문서</div>
+		                <div class="s_eap_tt" id="s_re_tt" style="cursor: pointer; color: darkgreen;">기안 진행 문서</div>
 		                <table class="table" style="vertical-align: middle; text-align: center;">
 						  <thead>
 						    <tr>

@@ -123,20 +123,20 @@
 		// 페이징 처리
 		$(".page-item.num .page-link").click(function(event) {
 			var pageNum = event.target.innerText;
-			$("#s_eap_content_box").load("<%=request.getContextPath()%>/eap/selectreferencedoc?page="+pageNum);
+			$("#s_eap_content_box").load("<%=request.getContextPath()%>/eap/selectresultdoc?page="+pageNum);
 		})
 		
 		$(".page-item.pre .page-link").click(function(event){
 			//이전 페이지 최소값 -1 -> 이전 페이지로 이동
 			const num = Math.min(...[...$('.page-link')].map(v=>v.innerText*1).filter(v=>v>0))-1;
-			$("#s_eap_content_box").load("<%=request.getContextPath()%>/eap/selectreferencedoc?page="+num);
+			$("#s_eap_content_box").load("<%=request.getContextPath()%>/eap/selectresultdoc?page="+num);
 		
 		})
 		
 		$(".page-item.next .page-link").click(function(event){
 			//다음 페이지 최대값 +1 -> 다음 페이지로 이동
 			const num = Math.max(...[...$('.page-link')].map(v=>v.innerText*1).filter(v=>v>0))+1;
-			$("#s_eap_content_box").load("<%=request.getContextPath()%>/eap/selectreferencedoc?page="+num);
+			$("#s_eap_content_box").load("<%=request.getContextPath()%>/eap/selectresultdoc?page="+num);
 		});
 		
 		// 검색

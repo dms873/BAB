@@ -1,5 +1,7 @@
 package kh.spring.bab.main.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -9,13 +11,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import kh.spring.bab.eap.domain.Eap;
+import kh.spring.bab.eap.model.service.EapServiceImpl;
+import kh.spring.bab.employee.domain.Employee;
 
 @Controller
 public class MainController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
+	
+	// 손은진 추가(220702)
+	@Autowired
+	private EapServiceImpl eapservice;
 
 	@GetMapping("/main")
 	public ModelAndView select(ModelAndView mv, HttpServletRequest request) {
@@ -25,7 +34,20 @@ public class MainController {
 		// login처리를 담당하는 사용자 정보를 담고 있는 객체를 가져옴
 		Object info = session.getAttribute("login");
 		mv.addObject("info", info);
+		
+		// 로그인한 사람 정보 가져오기(사번) : 손은진 추가(220702)
+		Employee emp = (Employee) request.getSession().getAttribute("login");
+		String emp_no = emp.getEmp_no();
+		
+		// 전자 결재 대기 : 손은진 추가(220702)
+		List<Eap> homeRcDoc = eapservice.selectHomeRcDoc(emp_no);
+		mv.addObject("homeRcDoc", homeRcDoc);
+		
+		// 전자 결재 대기 개수 : 손은진 추가(220702)
+		int homeRcDocCnt = eapservice.reDocCnt(emp_no);
+		mv.addObject("homeRcDocCnt", homeRcDocCnt);
 		mv.setViewName("main/mainpage");
+		
 		return mv;
 	}
 	

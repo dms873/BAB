@@ -45,17 +45,33 @@
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/reset.css">
 <meta charset="UTF-8">
 <title>메인페이지</title>
-    <!-- 메뉴 호버 시 -->
-    <style>
-        .s_menu:hover {
-            /* border: 1px solid !important; */
-            background-color: #0583F2;
-        }
-        
-        .toast-info {
-        	background-color: #2F96B4 !important;
-        }
-    </style>
+<style>
+	.s_menu:hover {
+		/* border: 1px solid !important; */
+		background-color: #0583F2;
+	}
+	
+	.toast-info {
+		background-color: #2F96B4 !important;
+	}
+	
+	#s_notice {
+		text-align: center;
+		color: red;
+		font-weight: bold;
+		font-size: 1.2em;
+		margin-top: 70px;
+	}
+	
+	.s_main_tt {
+		text-align: center;
+		font-weight: bold;
+		font-size: 1.2em;
+		margin-bottom: 20px;
+		cursor: pointer;
+		color: darkgreen;
+	}
+</style>
     
     
 </head>
@@ -73,13 +89,13 @@
                 </div>
                 <div style="float: right;">
                     <div style="float: left; line-height: 70px;">
-                    <!-- data-bs-toggle="modal" data-bs-target="#exampleModal" -->
                         <i id="s_bell_btn" class="bi bi-bell position-relative" style="cursor:pointer;">
                             <!-- 알람 배지 -->
-                            <span
-                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger s_badge">
-                                2
-                            </span>
+                           	<c:if test="${homeRcDocCnt ne 0 }">
+	                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger s_badge">
+	                            	${homeRcDocCnt }
+	                            </span>
+                            </c:if>
                         </i>
                     </div>
                     <div style="float: right; width: 200px;">
@@ -144,61 +160,69 @@
                 <div>
                 <div style="height: 370px;">
                     <div style="border: 1px solid lightgray; border-radius: 10px;height: 350px;margin-top: 20px;margin-left: 10px;width: 650px; float: left; padding: 20px;">
-                        <div style="text-align: center; font-weight: bold; font-size: 1.2em; margin-bottom: 20px;">근무시간</div>
+                        <div class="s_main_tt">근무시간</div>
                         <div style="text-align: center;">
                             <img src="https://media.discordapp.net/attachments/692994434526085184/981241711105806396/unknown.png" style="width: 350px;">
                         </div>
                     </div>
                     <div style="border: 1px solid lightgray; border-radius: 10px;height: 350px;margin-top: 20px;margin-left: 10px;width: 650px; float: right; padding: 20px;">
-                        <div style="text-align: center; font-weight: bold; font-size: 1.2em; margin-bottom: 20px;">캘린더</div>
+                        <div class="s_main_tt">캘린더</div>
                         <div style="text-align: center;">
                             <img src="https://media.discordapp.net/attachments/692994434526085184/981241672392409128/unknown.png" style="width: 450px;">
                         </div>
                     </div>
                 </div>
                 <div style="border: 1px solid lightgray; border-radius: 10px;height: 300px;margin-top: 30px;margin-left: 10px; padding: 20px;">
-                    <div style="text-align: center; font-weight: bold; font-size: 1.2em; margin-bottom: 20px;">전자 결재 대기</div>
-                    <table class="table table-hover" style="text-align: center; cursor: pointer;">
+                    <div class="s_main_tt" id="s_re_tt">전자 결재 대기</div>
+                    <table class="table" style="text-align: center;">
                         <thead>
                           <tr>
-                            <th scope="col">NO</th>
-                            <th scope="col">기안일</th>
-                            <th scope="col">결재양식</th>
-                            <th scope="col">제목</th>
-                            <th scope="col">첨부</th>
-                            <th scope="col">결재상태</th>
-                          </tr>
+						      <th scope="col">문서번호</th>
+						      <th scope="col">기안일</th>
+						      <th scope="col">기안부서</th>
+						      <th scope="col">기안자</th>
+						      <th scope="col">결재양식</th>
+						      <th scope="col">제목</th>
+						      <th scope="col">첨부</th>
+						      <th scope="col">결재상태</th>
+				    	  </tr>
                         </thead>
                         <tbody style="vertical-align: middle">
-                          <tr>
-                            <th scope="row">1</th>
-                            <td>2022/05/26</td>
-                            <td>지출결의서</td>
-                            <td>신규 직원채용 명함 신청의 건</td>
-                            <td><i class="bi bi-paperclip"></i></td>
-                            <td><button class="btn btn-success" style="font-size: .8em; width: 77px;">진행중</button></td>
-                          </tr>
-                          <tr>
-                            <th scope="row">2</th>
-                            <td>2022/05/26</td>
-                            <td>휴가신청서</td>
-                            <td>개인 연차 신청의 건</td>
-                            <td></td>
-                            <td><button class="btn btn-success" style="font-size: .8em; width: 77px;">진행중</button></td>
-                          </tr>
-                          <tr>
-                            <th scope="row">3</th>
-                            <td>2022/05/26</td>
-                            <td>휴가신청서</td>
-                            <td>개인 연차 신청의 건</td>
-                            <td></td>
-                            <td><button class="btn btn-warning" style="font-size: .8em;">결재대기</button></td>
-                          </tr>
+                        	<c:forEach begin="0" end="2" items="${homeRcDoc }" var="i">
+	                          <tr>
+	                            <th scope="row">${i.df_no }</th>
+						        <td>${i.eap_draft_date }</td>
+						        <td>${i.dept_name }</td>
+						        <td>${i.emp_name }</td>
+						        <td>${i.df_title }</td>
+						        <td>${i.eap_title }</td>
+						      <td>
+						      	<c:if test="${not empty i.eap_file_path }">
+						      		<i class="bi bi-paperclip"></i>
+						      	</c:if>
+					      	  </td>
+						      <c:if test="${i.eap_sta_code eq '결재대기'}">
+						      	<td><button class="btn btn-warning" style="font-size: .8em; cursor: auto;">결재대기</button></td>
+						      </c:if>
+						      <c:if test="${i.eap_sta_code eq '진행중'}">
+						      	<td><button class="btn btn-success" style="font-size: .8em; width: 77px; cursor: auto;">진행중</button></td>
+						      </c:if>
+						      <c:if test="${i.eap_sta_code eq '반려'}">
+						      	<td><button class="btn btn-danger" style="font-size: .8em; width: 77px; cursor: auto;">반려</button></td>
+						      </c:if>
+						      <c:if test="${i.eap_sta_code eq '결재완료'}">
+						      	<td><button class="btn btn-secondary" style="font-size: .8em; width: 77px; cursor: auto;">완료</button></td>
+						      </c:if>
+						    </tr>
+                        	</c:forEach>
                         </tbody>
                       </table>
+                      <c:if test="${empty homeRcDoc }">
+				  		<div id="s_notice">결재할 문서가 없습니다.</div>
+				  	  </c:if>
                 </div>
                 <div style="border: 1px solid lightgray; border-radius: 10px;height: 300px;margin-top: 30px;margin-left: 10px; padding: 20px;">
-                    <div style="text-align: center; font-weight: bold; font-size: 1.2em; margin-bottom: 20px;">공지사항</div>
+                    <div class="s_main_tt">공지사항</div>
                     <table class="table" style="text-align: center;">
                         <thead>
                           <tr>
@@ -283,6 +307,8 @@
     <script>
     	$("#s_bell_btn").click(function() {
     		
+    		var cnt = "${homeRcDocCnt}";
+    		
     		toastr.options = {
     				  "closeButton": true,
     				  "debug": false,
@@ -293,7 +319,7 @@
     				  "onclick": null,
     				  "showDuration": "300",
     				  "hideDuration": "1000",
-    				  "timeOut": "5000",
+    				  "timeOut": "2000",
     				  "extendedTimeOut": "1000",
     				  "showEasing": "swing",
     				  "hideEasing": "linear",
@@ -301,7 +327,11 @@
     				  "hideMethod": "fadeOut"
     				}
     		
-    		toastr.info("결재 대기가 2건이 있습니다.", "알람");
+    		if(cnt > 0) {
+	    		toastr.info("결재 대기가 " + cnt + "건이 있습니다.", "알람");
+    		} else {
+    			toastr.info("새 알람이 없습니다.", "알람");
+    		}
     	});
     </script>
 
@@ -314,10 +344,10 @@
             } else if ($(this).attr('class', 'bi bi-bell-fill')) {
                 $(this).attr('class', 'bi bi-bell');
             }
-            // 5초 후 알람 아이콘 색깔 없애기
+            // 2초 후 알람 아이콘 색깔 없애기
             setTimeout(function () {
             	$("#s_bell_btn").attr('class', 'bi bi-bell');
-			}, 5000);
+			}, 2000);
         });
 
     </script>
@@ -328,6 +358,11 @@
              $(".s_menu").removeClass("active");
              $(this).addClass("active");
          });
+        
+        // 전자 결재 대기 클릭했을 때
+        $("#s_re_tt").click(function() {
+        	$("#menu_eap").get(0).click();
+        });
     </script>
 
 </body>
