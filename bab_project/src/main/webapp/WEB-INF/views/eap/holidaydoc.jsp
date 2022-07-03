@@ -532,7 +532,7 @@
 					swal({
 	                    title: "",
 	                    text: result,
-	                    icon: "error",
+	                    icon: "success",
 	                    closeOnClickOutside: false,
 	                    closeOnEsc: false
 	                });

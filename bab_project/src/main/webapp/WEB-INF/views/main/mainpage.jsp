@@ -41,6 +41,8 @@
 	<!-- Uploadcare CDN 추가 혜미-220627 -->
     <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.min.js"></script>
     <script>UPLOADCARE_LOCALE = "ko"</script>
+    <!-- sockjs CDN 추가 손은진(220702) -->
+	<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.6.1/dist/sockjs.min.js"></script>
     <!-- 공통 reset.css -->
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/reset.css">
 <meta charset="UTF-8">
@@ -301,6 +303,11 @@
         /*내정보수정 추가 혜미-220612  */
         $("#menu_info").click(function() {
             $("#s_content_box").load("<%=request.getContextPath()%>/info/main");
+        });
+        
+     	// 채팅 추가 : 손은진(220614)
+        $("#menu_chat").click(function() {
+            $("#s_content_box").load("<%=request.getContextPath()%>/echo/select");
         });
     </script>
     

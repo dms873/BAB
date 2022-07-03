@@ -161,15 +161,18 @@
 		SELECT * FROM SPENDING WHERE DF_NO = #{df_no}
 	</select>
 	
-	<!-- 남은 휴가일수 확인 : TODO 추후 수정! -->
+	<!-- 남은 휴가일수 확인 -->
 	<select id="readHoCnt" parameterType="string" resultType="double">
-		SELECT (C.EMP_HO_CR_CNT - SUM(A.HO_USE_COUNT))AS 잔여일수 
-		  FROM HOLIDAY A, ELECTRONIC_APPROVAL B, EMPLOYEE C 
-		 WHERE A.DF_NO = B.DF_NO 
-		   AND A.EMP_NO = C.EMP_NO 
-		   AND B.EAP_STA_CODE = 'S'
-		   AND A.EMP_NO = #{emp_no}
-		GROUP BY EMP_HO_CR_CNT
+		SELECT (C.EMP_HO_CR_CNT - NVL(AA.HO_USE_COUNT,0)) AS 잔여일수 
+		  FROM EMPLOYEE C 
+		LEFT OUTER JOIN (
+		    SELECT A.EMP_NO, SUM(HO_USE_COUNT) AS HO_USE_COUNT 
+		      FROM ELECTRONIC_APPROVAL A, HOLIDAY B 
+		     WHERE A.EAP_STA_CODE = 'F' 
+		       AND B.DF_NO = A.DF_NO 
+		  GROUP BY A.EMP_NO) AA 
+		  ON C.EMP_NO = AA.EMP_NO 
+		WHERE C.EMP_NO = #{emp_no}
 	</select>
 	
 	<!-- 결재 회수 클릭 시 결재상태 회수로 변경 -->
