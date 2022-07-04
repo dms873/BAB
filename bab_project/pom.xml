@@ -218,9 +218,9 @@
 
 		<!-- gson -->
 		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>2.8.9</version>
+		    <groupId>com.google.code.gson</groupId>
+		    <artifactId>gson</artifactId>
+		    <version>2.8.9</version>
 		</dependency>
 		
 		<!-- 채팅 프로그램 : 손은진 추가(220702) -->
@@ -237,8 +237,21 @@
 		    <artifactId>jackson-databind</artifactId> 
 		    <version>2.10.2</version>
 		</dependency>
+		
+		<!-- email -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.5.1</version>
+		</dependency>
 	</dependencies>
-
+	
     <build>
         <plugins>
             <plugin>

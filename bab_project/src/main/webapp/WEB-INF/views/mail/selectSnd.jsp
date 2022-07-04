@@ -8,7 +8,7 @@
 </head>
 <body>
 	<section>
-        
+        <article>
                 <div>
 	                <h1>보낸 메일함</h1>
 	                <div>
@@ -16,6 +16,7 @@
 	                	<button type="button" class="btn btn-secondary">삭제</button>
 	                	<button type="button" class="btn btn-secondary">답장</button>
 	                </div>
+	                <div>
 		                <table class="table table-hover" style="vertical-align: middle; text-align: center;">
 						    <tr>
 						      <th scope="row"><input type="checkbox"></th>

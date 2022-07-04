@@ -42,6 +42,10 @@
     });
     
     
+    $("#y_write_btn").click(function(){
+    	$("#y_content_box").load("<%=request.getContextPath()%>/mail/insert");
+    });
+    
     // 받은 메일함 클릭 시 이동
     $("#y_rcv_mail").click(function(){
     	$("#y_content_box").load("<%=request.getContextPath()%>/mail/selectRcv");

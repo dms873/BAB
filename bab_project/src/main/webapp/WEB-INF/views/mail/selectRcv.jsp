@@ -24,6 +24,7 @@
 						<button type="button" class="btn btn-secondary">삭제</button>
 						<button type="button" class="btn btn-secondary">답장</button>
 					</div>
+					<div>
 					<table class="table table-hover"
 						style="vertical-align: middle; text-align: center;">
 						<tr>
@@ -41,8 +42,8 @@
 							<td>18.3 KB</td>
 						</tr>
 					</table>
+					</div>
 				</div>
-			</div>
 		</article>    
     </section>
     

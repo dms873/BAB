@@ -46,6 +46,12 @@ public class MailController {
 		return mv;
 	}
 	
+	@GetMapping("/insert")
+	public ModelAndView insertMail(ModelAndView mv) {
+		mv.setViewName("mail/insert");
+		return mv;
+	}
+	
 //	public static void naverMailSend() {
 //        String host = "smtp.naver.com"; // 네이버 계정
 //        String user = "ktko@naver.com"; // 패스워드
