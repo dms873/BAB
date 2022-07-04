@@ -21,20 +21,20 @@
 </style>
 <body>
 	<div>
-		<h1>¸ÞÀÏ ¾²±â</h1>
+		<h1>ë©”ì¼ ì“°ê¸°</h1>
 		
 		<div>
-		<button type="button" class="btn btn-secondary">¡æº¸³»±â</button>
+		<button type="button" class="btn btn-secondary">â†’ë³´ë‚´ê¸°</button>
 		</div>
 		
 		<div>
 		<table class="y_insert_table">
     		<tr class="y_insert_tr">
-    			<td class="y_insert_td" style="width: 100px;">¹Þ´Â »ç¶÷</td>
+    			<td class="y_insert_td" style="width: 100px;">ë°›ëŠ” ì‚¬ëžŒ</td>
     			<td class="y_insert_td"><input type="text" class="form-control" id="board_title" name="board_title"></td>
     		</tr>
 			<tr class="y_insert_tr">
-				<td class="y_insert_td" style="width: 100px;">Á¦¸ñ</td>
+				<td class="y_insert_td" style="width: 100px;">ì œëª©</td>
 				<td class="y_insert_td"><input type="text" class="form-control" id="board_writer" name="board_writer"></td>
 			</tr>
 			<tr>
