@@ -23,8 +23,7 @@
 		<div class="modal fade" id="j_myModal" data-bs-backdrop="static"
 			data-bs-keyboard="false" tabindex="-1"
 			aria-labelledby="staticBackdropLabel" aria-hidden="true">
-			<div
-				class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title" id="staticBackdropLabel">일정등록</h5>
@@ -95,21 +94,18 @@
 				},
 				locale : 'ko',
 				initialView : 'dayGridMonth',
-				events : [ {
-					id : '',
-					title : '일정',
-					start : '2022-06-29T13:00',
-					end : '2022-06-30T19:00',
-					color : 'pink'
-				}] 
-				//TODO:일정클릭 시 이벤트
-			/* 	eventClick : function(info) {
-					if (confirm("'" + info.event.title
-							+ "' 일정을 삭제하시겠습니까 ?")) {
-						// 확인 클릭 시
-						info.event.remove();
-					}
-				}, */
+				eventDisplay: 'block',
+				events : [
+				<c:forEach items="${calList}" var="cal">
+					{
+					title : "${cal.cal_title}",
+					start : "${cal.cal_start}",
+					end : "${cal.cal_end}",
+					color : "${cal.cal_color}",
+					textColor : 'black'
+				},
+				</c:forEach>
+					] 
 			});
 			calendar.render();
 		});
@@ -186,15 +182,15 @@
                     type: "post",
                     success: function(result) {
                     	console.log(result.check);
-                    	if (result.check == 0) {
+                    	if(result.check == 0) {
                             swal({
-                                title: "입력하신 정보가 일치하지 않습니다.",
+                                title: "일정등록 실패!!",
                                 text: "확인 후 다시 입력 바랍니다.",
                                 icon: "error",
                                 closeOnClickOutside: false,
                                 closeOnEsc: false
                             })
-                        } else {
+                        }else {
                             swal({
                                 title: "일정등록 완료!!",
                                 text: "그룹웨어 메인 화면으로 이동합니다.",
@@ -204,9 +200,7 @@
                             })
                             .then((willDelete) => {
       						  if (willDelete) {
-      							  /*TODO:어디로 이동할지.....  */
       							  location.reload();
-      							<%-- $("#s_content_box").load("<%=request.getContextPath()%>/calendar/select"); --%>
       						  }
       						})
                         }

@@ -1,6 +1,7 @@
 package kh.spring.bab.calendar.controller;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -33,6 +34,8 @@ public class CalendarController {
 
 		mv.addObject("login", login);
 
+		List<Calendar> calList = service.select();
+			mv.addObject("calList", calList);
 		mv.setViewName("calendar/select");
 		return mv;
 	}

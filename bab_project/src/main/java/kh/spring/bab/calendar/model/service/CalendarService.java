@@ -1,16 +1,17 @@
 package kh.spring.bab.calendar.model.service;
 
+import java.util.List;
+
 import kh.spring.bab.calendar.domain.Calendar;
 
 public interface CalendarService {
 	
 	// 캘린더 조회
 	/**
-	 * @param cal
 	 * @return cal
 	 * @author 장혜미
 	 */
-	public Calendar select(Calendar cal);
+	public List<Calendar> select();
 
 	// 캘린더 등록
 	/**

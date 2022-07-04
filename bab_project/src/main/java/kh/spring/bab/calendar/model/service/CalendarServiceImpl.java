@@ -1,5 +1,7 @@
 package kh.spring.bab.calendar.model.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +16,8 @@ public class CalendarServiceImpl implements CalendarService {
 	
 	//캘린더 조회
 	@Override
-	public Calendar select(Calendar cal) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Calendar> select() {
+		return dao.select();
 	}
 	
 	//캘린더 등록

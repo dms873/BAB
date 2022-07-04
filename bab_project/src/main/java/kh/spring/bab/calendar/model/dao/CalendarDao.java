@@ -1,5 +1,7 @@
 package kh.spring.bab.calendar.model.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -13,9 +15,9 @@ public class CalendarDao {
 	private SqlSession sqlSession;
 	
 	//캘린더 조회
-//	public Calendar select(Calendar cal) {
-//		return sqlSession
-//	}
+	public List<Calendar> select() {
+		return sqlSession.selectList("Calendar.select");
+	}
 	 
 	//캘린더 등록
 	public int insert(Calendar cal) {
