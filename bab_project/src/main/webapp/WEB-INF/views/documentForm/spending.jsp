@@ -81,6 +81,22 @@
 		padding: 10px;
 		height: 900px;
 	}
+	
+	/* 스크롤바 디자인 */
+	.s_scroll::-webkit-scrollbar {
+    	width: 10px;  /* 스크롤바의 너비 */
+	}
+	
+	.s_scroll::-webkit-scrollbar-thumb {
+	    height: 30%; /* 스크롤바의 길이 */
+	    background: #34343482; /* 스크롤바의 색상 */
+	    
+	    border-radius: 10px;
+	}
+	
+	.s_scroll::-webkit-scrollbar-track{
+	    background: #4747471a;  /*스크롤바 뒷 배경 색상*/
+	}
 </style>
 <!-- SweetAlert -->
 <style>
@@ -131,7 +147,7 @@
 
 	<span><a id="s_eap_app" href="#">결재요청 | </a></span>
 	<span><a id="s_appLine_btn" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop">결재선 지정 | </a></span>
-	<span><a id="s_cancel_btn" href="#">취소</a></span>
+	<span><a id="s_cancel_btn" href="#" onclick="eapHome()">취소</a></span>
 	
 	<!-- 결재선 지정 Modal -->
 	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -202,7 +218,7 @@
 	</div>
 
 	<div id="s_eap_content_box_left">
-		<div class="s_div_container" style="height: 800px;">
+		<div class="s_div_container s_scroll" style="height: 800px;">
 			<div
 				style="text-align: center; font-size: 2em; font-weight: bold; padding: 20px;">지출결의서</div>
 
@@ -384,6 +400,11 @@
 	</script>
 	
 	<script>
+	
+		// 전자결재 홈 클릭
+		function eapHome() {
+			$("#menu_eap").get(0).click();
+		}
 		
 		// 결재선 지정 시 결재상태에 따라 글씨색 변경
 		for(var i = 0; i < 3; i++) {
