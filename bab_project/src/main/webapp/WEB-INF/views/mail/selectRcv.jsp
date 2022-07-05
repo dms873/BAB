@@ -9,8 +9,11 @@
 </head>
 <style>
 	.y_hover_event {
-	cursor: pointer;
-}
+		cursor: pointer;
+	}
+ 	#y_td_hover:hover {
+		text-decoration: underline;
+	}	
 </style>
 <body>
 	<section>
@@ -30,7 +33,7 @@
 						<tr>
 							<th scope="row"><input type="checkbox"></th>
 							<td style="width: 200px; text-align: left;">Naver</td>
-							<td style="width: 400px; text-align: left;">똑!소리나는 BAB 메일 가입을 환영합니다.</td>
+							<td id="y_td_hover" style="width: 400px; text-align: left;"><a href="javascript:void(0)" id="y_mail_view" class="y_mail_view">똑!소리나는 BAB 메일 가입을 환영합니다.</a></td>
 							<td>2022/05/26</td>
 							<td>15.2 KB</td>
 						</tr>
@@ -48,7 +51,12 @@
     </section>
     
     <script>
-
+ 	// 메일 리스트 [제목] 클릭 시 상세보기 페이지 진입
+	$(".y_mail_view").click(function(){
+		/* var bNo = $(this).parents("tr").children(".y_td_no").text();
+		console.log("bNo :" + bNo); */
+		$("#y_content_box").load("<%=request.getContextPath()%>/mail/read");
+	});
     </script>
 </body>
 </html>
