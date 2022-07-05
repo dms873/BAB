@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kh.spring.bab.calendar.domain.Calendar;
+import kh.spring.bab.calendar.domain.CalendarHBD;
+import kh.spring.bab.calendar.domain.CalendarHo;
 import kh.spring.bab.calendar.model.dao.CalendarDao;
 
 @Service
@@ -18,6 +20,18 @@ public class CalendarServiceImpl implements CalendarService {
 	@Override
 	public List<Calendar> select() {
 		return dao.select();
+	}
+	
+	//캘린더 조회(휴가)
+	@Override
+	public List<CalendarHo> selectHo() {
+		return dao.selectHo();
+	}
+	
+	//캘린더 조회(생일)
+	@Override
+	public List<CalendarHBD> selectHBD() {
+		return dao.selectHBD();
 	}
 	
 	//캘린더 등록

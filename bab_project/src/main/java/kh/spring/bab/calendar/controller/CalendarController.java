@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kh.spring.bab.calendar.domain.Calendar;
+import kh.spring.bab.calendar.domain.CalendarHBD;
+import kh.spring.bab.calendar.domain.CalendarHo;
 import kh.spring.bab.calendar.model.service.CalendarServiceImpl;
 
 @Controller
@@ -33,9 +35,16 @@ public class CalendarController {
 		Object login = session.getAttribute("login");
 
 		mv.addObject("login", login);
-
+		//캘린더 일정 조회
 		List<Calendar> calList = service.select();
-			mv.addObject("calList", calList);
+		mv.addObject("calList", calList);
+		//캘린더 휴가 조회
+		List<CalendarHo> calHoList = service.selectHo();
+		mv.addObject("calHoList", calHoList);
+		// 캘린더 생일 조회
+		List<CalendarHBD> calHBDList = service.selectHBD();
+		mv.addObject("calHBDList", calHBDList);
+
 		mv.setViewName("calendar/select");
 		return mv;
 	}

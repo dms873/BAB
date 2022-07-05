@@ -95,16 +95,39 @@
 				locale : 'ko',
 				initialView : 'dayGridMonth',
 				eventDisplay: 'block',
-				events : [
-				<c:forEach items="${calList}" var="cal">
+				navLinks: true,
+					events : [
+					/*캘린더 조회  */
+					<c:forEach items="${calList}" var="cal">
+						{
+						title : "${cal.cal_title}",
+						start : "${cal.cal_start}",
+						end : "${cal.cal_end}",
+						color : "${cal.cal_color}",
+						textColor : 'black',
+						},
+					</c:forEach>
+					/*캘린더 조회(휴가)  */
+					<c:forEach items="${calHoList}" var="calHo">
 					{
-					title : "${cal.cal_title}",
-					start : "${cal.cal_start}",
-					end : "${cal.cal_end}",
-					color : "${cal.cal_color}",
-					textColor : 'black'
-				},
-				</c:forEach>
+						title : "${calHo.emp_name}님 휴가",
+						start : "${calHo.ho_start}",
+						end : "${calHo.ho_end}",
+						color : '#ffcb6b',
+						textColor : 'black'
+						},
+					</c:forEach>
+					/*캘린더 조회(생일)  */
+					<c:forEach items="${calHBDList}" var="calHBD">
+					{
+						title : "★${calHBD.emp_name}님 생일★",
+						start : "${calHBD.hbd_start}",
+						end : "${calHBD.hbd_end}",
+						color : 'yellowgreen',
+						textColor : 'black',
+						allDay : 'allDay'
+					},
+					</c:forEach>
 					] 
 			});
 			calendar.render();

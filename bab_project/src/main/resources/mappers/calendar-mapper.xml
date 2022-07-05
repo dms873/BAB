@@ -8,6 +8,19 @@
 		select cal_title, cal_start, cal_end, cal_color from calendar
 	</select>
 	
+	<!--캘린더 조회(휴가)  -->
+	<select id="selectHo" resultType="CalendarHo">
+		select to_char(ho_start,'YYYY-MM-DD"T"HH24:MI') ho_start, to_char(ho_end,'YYYY-MM-DD"T"HH24:MI') ho_end, emp_name 
+		from holiday join employee using(emp_no)
+	</select>
+	
+	<!--캘린더 조회(생일)  -->
+	<select id="selectHBD" resultType="CalendarHBD">
+		select emp_name, to_char(sysdate,'yyyy')||'-'||substr(emp_rnum,3,2)||'-'||substr(emp_rnum,5,2)||'T00:00' hbd_start,
+		substr(sysdate,1,4)||'-'||substr(emp_rnum,3,2)||'-'||substr(emp_rnum,5,2)||'T23:59' hbd_end
+		from employee
+	</select>
+	
 	<!--캘린더 등록  -->
 	<insert id="insert" parameterType="Calendar">
 		insert into calendar

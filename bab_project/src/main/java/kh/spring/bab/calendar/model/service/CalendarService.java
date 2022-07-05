@@ -3,6 +3,8 @@ package kh.spring.bab.calendar.model.service;
 import java.util.List;
 
 import kh.spring.bab.calendar.domain.Calendar;
+import kh.spring.bab.calendar.domain.CalendarHBD;
+import kh.spring.bab.calendar.domain.CalendarHo;
 
 public interface CalendarService {
 	
@@ -12,6 +14,20 @@ public interface CalendarService {
 	 * @author 장혜미
 	 */
 	public List<Calendar> select();
+	
+	// 캘린더 조회(휴가)
+	/**
+	 * @return calHo
+	 * @author 장혜미
+	 */
+	public List<CalendarHo> selectHo();
+	
+	// 캘린더 조회(생일)
+	/**
+	 * @return calHBD
+	 * @author 장혜미
+	 */
+	public List<CalendarHBD> selectHBD();
 
 	// 캘린더 등록
 	/**

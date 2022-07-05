@@ -17,6 +17,8 @@
 		<typeAlias type="kh.spring.bab.attendance.domain.Attendance" alias="Att"/>
 		<typeAlias type="kh.spring.bab.eap.domain.Spending" alias="Sp"/>
 		<typeAlias type="kh.spring.bab.calendar.domain.Calendar" alias="Calendar"/>
+		<typeAlias type="kh.spring.bab.calendar.domain.CalendarHo" alias="CalendarHo"/>
+		<typeAlias type="kh.spring.bab.calendar.domain.CalendarHBD" alias="CalendarHBD"/>
 	</typeAliases>
 	 
 	<mappers>
