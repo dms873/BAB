@@ -19,6 +19,7 @@
 		<typeAlias type="kh.spring.bab.calendar.domain.Calendar" alias="Calendar"/>
 		<typeAlias type="kh.spring.bab.calendar.domain.CalendarHo" alias="CalendarHo"/>
 		<typeAlias type="kh.spring.bab.calendar.domain.CalendarHBD" alias="CalendarHBD"/>
+		<typeAlias type="kh.spring.bab.chat.domain.Chatting" alias="Chat"/>
 	</typeAliases>
 	 
 	<mappers>
@@ -30,6 +31,7 @@
 		<mapper resource="mappers/info-mapper.xml"/>
 		<mapper resource="mappers/contact-mapper.xml"/>
 		<mapper resource="mappers/calendar-mapper.xml"/>
+		<mapper resource="mappers/chatting-mapper.xml"/>
 	</mappers>
 
 </configuration>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -108,8 +109,12 @@
 <body>
 
 	<div class="s_chat_home">
-       	<div class="s_room_tt">BAB 모여라 (5)</div>
-       	<div class="s_room_part">손은진, 장혜미, 윤영원, 이해람, 서지훈</div>
+       	<div class="s_room_tt">${readRoom.room_title } <c:if test="${memberCnt > 2}">(${memberCnt })</c:if></div>
+       	<div class="s_room_part">
+       		<c:forEach items="${readMember }" var="i">
+       			<span>${i.emp_name } </span>
+       		</c:forEach>
+       	</div>
        	<div style="border: 1px solid lightgray; margin-bottom: 10px;"></div>
        	<div id="messageArea" class="s_scroll" style="height: 830px; overflow: auto;"></div>
        	<div style="margin-top: 10px;display: flex;justify-content: center;">
@@ -175,8 +180,7 @@
 	}
 	// 서버와 연결을 끊었을 때
 	function onClose(evt) {
-		$("#messageArea").append(emp_name + "님이 대화를 종료하셨습니다.");
-
+		// $("#messageArea").append(emp_name + "님이 대화를 종료하셨습니다.");
 	}
 </script>
 </body>

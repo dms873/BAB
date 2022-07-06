@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Chatting">
+
+	<!-- 채팅 친구 리스트 -->
+	<select id="selectEmpList" parameterType="string" resultType="Chat">
+		SELECT DEPT_NAME, EMP_NAME, EMP_FILE_PATH
+		FROM EMPLOYEE
+		JOIN DEPT USING(DEPT_CODE)
+		WHERE EMP_NO NOT IN (#{emp_no})
+		ORDER BY DEPT_NAME, EMP_NAME
+	</select>
+	
+	<!-- 로그인한 사람 정보 -->
+	<select id="selectOne" parameterType="string" resultType="Chat">
+		SELECT DEPT_NAME, EMP_NAME, EMP_FILE_PATH 
+		FROM EMPLOYEE
+		JOIN DEPT USING(DEPT_CODE)
+		WHERE EMP_NO = #{emp_no}
+	</select>
+	
+	<!-- 방 생성 -->
+	<insert id="insertRoom" parameterType="string">
+		INSERT INTO ROOM VALUES (ROOM_SEQ.NEXTVAL, #{room_title}, SYSTIMESTAMP)
+	</insert>
+	
+	<!-- 채팅방 멤버 추가 -->
+	<insert id="insertMember" parameterType="string">
+		INSERT INTO CHAT_MEMBER VALUES 
+			(
+				(SELECT MAX(ROOM_NO) ROOM_NO FROM ROOM), 
+				(SELECT EMP_NO FROM EMPLOYEE WHERE EMP_NAME = #{emp_name})
+			)
+	</insert>
+	
+	<!-- 채팅방 리스트 -->
+	<select id="selectRoom" resultType="Chat" parameterType="string">
+		SELECT * FROM ROOM
+		JOIN CHAT_MEMBER USING(ROOM_NO)
+		WHERE EMP_NO = #{emp_no}
+	</select>
+	
+	<!-- 채팅방 정보 -->
+	<select id="readRoom" resultType="Chat" parameterType="string">
+		SELECT * FROM ROOM WHERE ROOM_NO = #{room_no}
+	</select>
+	
+	<!-- 채팅참여자 정보 -->
+	<select id="readMember" resultType="Chat" parameterType="string">
+		SELECT EMP_NAME FROM EMPLOYEE A,
+			(SELECT EMP_NO FROM CHAT_MEMBER WHERE ROOM_NO = #{room_no}) B
+		WHERE A.EMP_NO = B.EMP_NO
+	</select>
+	
+	<!-- 채팅 참여자 수 -->
+	<select id="memberCnt" resultType="int" parameterType="string">
+		SELECT COUNT(*) FROM (SELECT EMP_NAME FROM EMPLOYEE A,
+			(SELECT EMP_NO FROM CHAT_MEMBER WHERE ROOM_NO = #{room_no}) B
+		WHERE A.EMP_NO = B.EMP_NO)
+	</select>
+
+</mapper>
