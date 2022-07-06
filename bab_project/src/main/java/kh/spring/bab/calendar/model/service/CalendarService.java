@@ -36,12 +36,19 @@ public interface CalendarService {
 	 */
 	public int insert(Calendar cal);
 
+	//캘린더 수정화면 조회
+	/**
+	 * @param cal
+	 * @author 장혜미
+	 */
+	public Calendar update();
+	
 	// 캘린더 수정
 	/**
 	 * @param cal
 	 * @author 장혜미
 	 */
-	public int update(Calendar cal);
+	public int updateDo(Calendar cal);
 	
 	// 캘린더 삭제
 	/**

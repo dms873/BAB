@@ -62,12 +62,16 @@
 										&nbsp;&#128072;클릭하여 색상을 선택해주세요.</div>
 									</td>
 								</tr>
-								<c:if test="${login != null}">
 								<tr>
 									<td colspan="4" class="j_cal_content">
-									<input type="hidden" id="emp_no" name="emp_no" value="${login.emp_no}" ></td>
+										<c:if test="${login != null}">
+											<input type="hidden" id="emp_no" name="emp_no" value="${login.emp_no}">
+										</c:if>
+										<%-- <c:forEach items="${calList}" var="cal">
+											<input type="hidden" id="cal_no" name="cal_no" value="${cal.cal_no}">
+										</c:forEach> --%>
+									</td>
 								</tr>
-								</c:if>
 								<tr>
 									<td colspan="4" class="j_cal_content">
 										<button type="button" id="j_cal_submit">저장</button>
@@ -96,39 +100,58 @@
 				initialView : 'dayGridMonth',
 				eventDisplay: 'block',
 				navLinks: true,
-					events : [
+				eventClick: function(){
+					 swal({
+                         title: "일정상세 페이지로 이동하시겠습니까?",
+                         text: "",
+                         icon: "info",
+                         buttons: true,
+                         closeOnClickOutside: false,
+                         closeOnEsc: false
+                     })
+                     .then((willDelete) => {
+						  if (willDelete) {
+							  $("#s_content_box").load("<%=request.getContextPath()%>/calendar/update");
+							 <%--  $("#s_content_box").load("<%=request.getContextPath()%>/calendar/update?cal_no="+calNo); --%>
+						  } else {
+						    
+						  }
+						});
+				},
+				events : [
 					/*캘린더 조회  */
 					<c:forEach items="${calList}" var="cal">
-						{
-						title : "${cal.cal_title}",
-						start : "${cal.cal_start}",
-						end : "${cal.cal_end}",
-						color : "${cal.cal_color}",
-						textColor : 'black',
+						{	
+							id : "${cal.cal_no}",
+							title : "${cal.cal_title}",
+							start : "${cal.cal_start}",
+							end : "${cal.cal_end}",
+							color : "${cal.cal_color}",
+							textColor : 'black'
 						},
 					</c:forEach>
 					/*캘린더 조회(휴가)  */
 					<c:forEach items="${calHoList}" var="calHo">
-					{
-						title : "${calHo.emp_name}님 휴가",
-						start : "${calHo.ho_start}",
-						end : "${calHo.ho_end}",
-						color : '#ffcb6b',
-						textColor : 'black'
+						{
+							title : "${calHo.emp_name}님 휴가",
+							start : "${calHo.ho_start}",
+							end : "${calHo.ho_end}",
+							color : '#ffcb6b',
+							textColor : 'black'
 						},
 					</c:forEach>
 					/*캘린더 조회(생일)  */
 					<c:forEach items="${calHBDList}" var="calHBD">
-					{
-						title : "★${calHBD.emp_name}님 생일★",
-						start : "${calHBD.hbd_start}",
-						end : "${calHBD.hbd_end}",
-						color : 'yellowgreen',
-						textColor : 'black',
-						allDay : 'allDay'
-					},
+						{
+							title : "★${calHBD.emp_name}님 생일★",
+							start : "${calHBD.hbd_start}",
+							end : "${calHBD.hbd_end}",
+							color : 'yellowgreen',
+							textColor : 'black',
+							allDay : 'allDay'
+						},
 					</c:forEach>
-					] 
+				] 
 			});
 			calendar.render();
 		});

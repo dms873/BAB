@@ -17,6 +17,17 @@
 	/* bootstrap css먹혀서 씀 */
 	opacity: unset
 }
+/* 상단 문구 */
+#j_cald_men1 {
+	font-weight: bold;
+	font-size: medium;
+	margin-bottom: 10px;
+}
+/* 상단 문구 */
+#j_cald_men2 {
+	font-size: small;
+	margin-bottom: 70px;
+}
 /* 테이블 중앙정렬 */
 #j_cald_table {
 	display: flex;
@@ -52,11 +63,11 @@
 /* 일자 */
 .j_cald_date {
 	height: 32px;
-	width: 99px;
+	width: 169px;
 	border: 1px solid gray;
 	border-radius: 6px;
-	display: flex;
-	text-align: center;
+	font-size: 13px;
+    padding: 3px;
 }
 
 .j_cald_date:focus {
@@ -85,7 +96,8 @@
 	width: 350px;
 	border: 1px solid gray;
 	border-radius: 6px;
-	padding: 2px;
+	padding: 3px;
+    font-size: 14px;
 }
 
 .j_cald_input:focus {
@@ -98,6 +110,8 @@
 	height: 120px;
 	resize: none;
 	padding: 2px;
+	padding: 3px;
+    font-size: 14px;
 }
 /* 상단 내 정보 수정 글씨 */
 #j_cald_menu {
@@ -106,7 +120,7 @@
 	font-weight: bold;
 }
 /* 수정,삭제 버튼 */
-#j_cald_submit {
+.j_cald_submit {
 	height: 35px;
 	width: 100px;
 	font-size: medium;

@@ -3,15 +3,14 @@
 <mapper namespace="Calendar">
 
 	<!--캘린더 조회  -->
-	
 	<select id="select" resultType="Calendar">
-		select cal_title, cal_start, cal_end, cal_color from calendar
+		select * from calendar
 	</select>
 	
 	<!--캘린더 조회(휴가)  -->
 	<select id="selectHo" resultType="CalendarHo">
-		select to_char(ho_start,'YYYY-MM-DD"T"HH24:MI') ho_start, to_char(ho_end,'YYYY-MM-DD"T"HH24:MI') ho_end, emp_name 
-		from holiday join employee using(emp_no)
+		select emp_name, to_char(ho_start,'YYYY-MM-DD"T"HH24:MI') ho_start, to_char(ho_end,'YYYY-MM-DD"T"HH24:MI') ho_end from electronic_approval join
+        (select * from employee join holiday using(emp_no)) using(df_no) where eap_res_code='A'
 	</select>
 	
 	<!--캘린더 조회(생일)  -->

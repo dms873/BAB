@@ -33,7 +33,6 @@ public class CalendarController {
 		HttpSession session = request.getSession();
 		// login처리를 담당하는 사용자 정보를 담고 있는 객체를 가져옴
 		Object login = session.getAttribute("login");
-
 		mv.addObject("login", login);
 		//캘린더 일정 조회
 		List<Calendar> calList = service.select();
@@ -67,7 +66,15 @@ public class CalendarController {
 
 	// 캘린더 업데이트
 	@GetMapping("update")
-	public ModelAndView update(ModelAndView mv) {
+	public ModelAndView update(ModelAndView mv, HttpServletRequest request) {
+		// session 객체를 가져옴
+		HttpSession session = request.getSession();
+		// login처리를 담당하는 사용자 정보를 담고 있는 객체를 가져옴
+		Object login = session.getAttribute("login");
+		mv.addObject("login", login);
+		// 캘린더 일정 조회
+		Calendar cal = service.update();
+		mv.addObject("cal", cal);
 		mv.setViewName("calendar/update");
 		return mv;
 	}
