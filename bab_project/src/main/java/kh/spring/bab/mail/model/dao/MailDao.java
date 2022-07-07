@@ -1,5 +1,18 @@
 package kh.spring.bab.mail.model.dao;
 
-public class MailDao {
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
+import kh.spring.bab.mail.domain.Mail;
+
+@Repository
+public class MailDao {
+	
+	@Autowired
+	private SqlSession sqlSession;
+	
+	public int insertMail(Mail mail) {
+		return sqlSession.insert("Mail.insertMail", mail);
+	}
 }

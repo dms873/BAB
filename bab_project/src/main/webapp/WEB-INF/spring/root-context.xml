@@ -39,22 +39,4 @@
 	<!-- 어노테이션(@Transactional) 사용하는  Transaction Advice 구현 설정 -->
 	<tx:annotation-driven/>
 	
-	<!-- email -->
-	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="host" value="smtp.naver.com" />
-		<property name="port" value="465" />
-		<property name="username" value="username" />
-		<property name="password" value="password" />
-		<property name="defaultEncoding" value="utf-8" />
-		<property name="javaMailProperties">
-			<props>
-				<prop key="mail.debug">true</prop>
-				<prop key="mail.smtp.starttls.enable">true</prop>
-				<prop key="mail.smtps.ssl.checkserveridentity">true</prop>
-				<prop key="mail.smtp.auth">true</prop>
-				<prop key="mail.smtps.ssl.trust">*</prop>
-				<prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
-			</props>
-		</property>
-	</bean>
 </beans>

@@ -1,19 +1,27 @@
 package kh.spring.bab.mail.controller;
 
+
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.mail.MailSender;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import kh.spring.bab.mail.domain.Mail;
 import kh.spring.bab.mail.model.service.MailService;
 
 @Controller
@@ -58,39 +66,59 @@ public class MailController {
 	}
 	
 	@PostMapping("/insert")
-	public void sendEmail() throws Exception {
-		ApplicationContext ctx = new ClassPathXmlApplicationContext(new String[] {"context-dev-email.xml"});
-		JavaMailSenderImpl mailSender = (JavaMailSenderImpl)ctx.getBean("mailSender");
-
-		// 메일 내용
-		String subject = "메일 발송시 제목";
-		String content = "메일 발송시 내용";
-
-		// 보내는 사람
-		String from = "보내는 사람";
-
-		// 받는 사람
-		String[] to = new String[2];
-		to[0] = "받는 사람 이메일";
-		to[1] = "받는 사람 이메일";
-
-		try {
-			// 메일 내용 넣을 객체와, 이를 도와주는 Helper 객체 생성
-			MimeMessage mail = mailSender.createMimeMessage();
-			MimeMessageHelper mailHelper = new MimeMessageHelper(mail, "UTF-8");
-
-			// 메일 내용을 채워줌
-			mailHelper.setFrom(from);	// 보내는 사람 셋팅
-			mailHelper.setTo(to);		// 받는 사람 셋팅
-			mailHelper.setSubject(subject);	// 제목 셋팅
-			mailHelper.setText(content);	// 내용 셋팅
-
-			// 메일 전송
-			mailSender.send(mail);
-		} catch(Exception e) {
-			e.printStackTrace();
+	@ResponseBody
+	public ModelAndView sendEmail(HttpServletRequest request, HttpServletResponse response, Mail mail, ModelAndView mv) throws Exception{
+		
+		//메일 관련 정보
+		String host = "smtp.naver.com";
+		final String username = "dvs0722";
+		final String password = "babproject";
+		int port= 465;
+		
+		
+		//메일 내용
+		String send_sender = username+"@naver.com";
+		String send_receiver = request.getParameter("send_receiver"); // 받는 사람 이메일
+		String send_title = request.getParameter("send_title"); // 제목
+		String send_content = request.getParameter("send_content"); // 내용
+		
+		mail.setSend_sender(send_sender);
+		mail.setSend_receiver(send_receiver);
+		mail.setSend_title(send_title);
+		mail.setSend_content(send_content);
+		
+		int result = service.insertMail(mail);
+		
+		Properties props = System.getProperties();
+		
+		props.put("mail.smtp.host", host);
+		props.put("mail.smtp.port", port);
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.ssl.enable", "true");
+		props.put("mail.smtp.ssl.trust", host);
+		
+		Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+			String un=username;
+			String pw=password;
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(un, pw);
+			}
+		});
+		session.setDebug(true); //for debug
+		
+		Message mimeMessage = new MimeMessage(session);
+		try
+		{
+		mimeMessage.setFrom(new InternetAddress(send_sender)); // 주소기입
+		mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(send_receiver));
+		mimeMessage.setSubject(send_title);
+		mimeMessage.setText(send_content);
+		Transport.send(mimeMessage);
+		} catch (AddressException e) {
+			System.out.println(e);
 		}
+		
+		mv.setViewName("mail/main");
+		return mv;
 	}
-
-
 }
