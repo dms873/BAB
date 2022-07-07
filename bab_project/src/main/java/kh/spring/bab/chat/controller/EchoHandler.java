@@ -40,6 +40,7 @@ public class EchoHandler extends TextWebSocketHandler {
 	// 클라이언트가 연결 되었을 때 실행
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+	
 		sessionList.add(session);
 		logger.info("{} 연결됨 ", session.getId());
 	}
@@ -50,13 +51,12 @@ public class EchoHandler extends TextWebSocketHandler {
 		
 		Map<String, Object> map = session.getAttributes();
 		String msg = message.getPayload();
-		System.out.println(msg);
 		String[] arr = msg.split(",");
 		
 		logger.info("{} 로부터 {} 받음 ", session.getId(), message.getPayload());
 		// 모든 유저에게 메세지 출력
 		for(WebSocketSession sess : sessionList) {
-			sess.sendMessage(new TextMessage(arr[0]+","+arr[1]));
+			sess.sendMessage(new TextMessage(arr[0]+","+arr[1] + "," + arr[2]));
 		}
 		
 		logger.info("메세지 보낸사람 : " + arr[0]);
@@ -121,7 +121,7 @@ public class EchoHandler extends TextWebSocketHandler {
 		mv.addObject("memberCnt", result3);
 		
 		mv.addObject("empName", emp_name);
-		
+		mv.addObject("roomNo", room_no);
 		mv.setViewName("chatting/selectroom");
 		return mv;
 	}

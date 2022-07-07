@@ -423,7 +423,6 @@
 <!-- 채팅 리스트에서 방 눌렀을 떄 -->
 <script>
 	$(".s_chat_box").click(function() {
-		console.log($(this).children().val());
 		var roomNo = $(this).children().val();
 		$("#s_chat_content_box").load("<%=request.getContextPath()%>/echo/selectroom?room_no=" + roomNo);
 	});
