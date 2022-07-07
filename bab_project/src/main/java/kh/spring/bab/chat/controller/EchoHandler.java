@@ -1,8 +1,6 @@
 package kh.spring.bab.chat.controller;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -62,6 +60,15 @@ public class EchoHandler extends TextWebSocketHandler {
 		logger.info("메세지 보낸사람 : " + arr[0]);
 		logger.info("메세지 내용 : " + arr[1]);
 		
+		Chatting ch = new Chatting();
+		ch.setEmp_name(arr[0]);
+		ch.setCh_content(arr[1]);
+		ch.setRoom_no(arr[2]);
+		
+		// 채팅 대화 DB저장
+		int result = service.insertChatting(ch);
+		System.out.println(result);
+		
 	}
 	// 클라이언트 연결을 끊었을 때 실행
 	@Override
@@ -101,7 +108,8 @@ public class EchoHandler extends TextWebSocketHandler {
 	public ModelAndView selectRoom(
 			ModelAndView mv,
 			HttpServletRequest req,
-			@RequestParam(name = "room_no", required = false) String room_no
+			@RequestParam(name = "room_no", required = false) String room_no,
+			Chatting ch
 			) {
 		// 로그인한 사람 정보 가져오기(사번, 이름)
 		Employee emp = (Employee) req.getSession().getAttribute("login");
@@ -119,6 +127,13 @@ public class EchoHandler extends TextWebSocketHandler {
 		// 채팅 참여자 수
 		int result3 = service.memberCnt(room_no);
 		mv.addObject("memberCnt", result3);
+		
+		// 채팅 내용 조회
+		ch.setRoom_no(room_no);
+		ch.setEmp_name(emp_name);
+		
+		List<Chatting> result4 = service.selectChatting(ch);
+		mv.addObject("selectChatting", result4);
 		
 		mv.addObject("empName", emp_name);
 		mv.addObject("roomNo", room_no);

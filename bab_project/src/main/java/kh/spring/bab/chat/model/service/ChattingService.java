@@ -65,4 +65,18 @@ public interface ChattingService {
 	 * */
 	int memberCnt(String room_no);
 	
+	/**
+	 * @author : 손은진
+	 * @return : 채팅 대화 DB저장
+	 * @param : Chatting vo
+	 * */
+	int insertChatting(Chatting ch);
+	
+	/**
+	 * @author : 손은진
+	 * @return : 채팅 내용 조회
+	 * @param : Chatting vo
+	 * */
+	List<Chatting> selectChatting(Chatting ch);
+	
 }

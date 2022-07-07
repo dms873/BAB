@@ -58,5 +58,28 @@
 			(SELECT EMP_NO FROM CHAT_MEMBER WHERE ROOM_NO = #{room_no}) B
 		WHERE A.EMP_NO = B.EMP_NO)
 	</select>
+	
+	<!-- 채팅 대화 DB저장 -->
+	<insert id="insertChatting" parameterType="Chat">
+		INSERT INTO CHATTING VALUES 
+			(
+				CHATTING_SEQ.NEXTVAL, #{ch_content}, SYSTIMESTAMP, #{room_no}, 
+				(SELECT EMP_NO FROM EMPLOYEE WHERE EMP_NAME = #{emp_name})
+			)
+	</insert>
+	
+	<!-- 채팅 내용 조회 -->
+	<select id="selectChatting" resultType="Chat" parameterType="Chat">
+		SELECT CH_NO, CH_CONTENT, CH_DATE, ROOM_NO, EMP_NAME 
+		FROM EMPLOYEE E 
+		JOIN CHATTING C ON E.EMP_NO = C.CH_EMP_NO 
+		WHERE C.ROOM_NO = ${room_no}
+		
+		MINUS
+		
+		SELECT CH_NO, CH_CONTENT, CH_DATE, ROOM_NO, CH_EMP_NO    
+		FROM CHATTING 
+		WHERE ROOM_NO = ${room_no}
+	</select>
 
 </mapper>

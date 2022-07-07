@@ -54,4 +54,14 @@ public class ChattingDao {
 		return sqlSession.selectOne("Chatting.memberCnt", room_no);
 	}
 	
+	// 채팅 대화 DB저장
+	public int insertChatting(Chatting ch) {
+		return sqlSession.insert("Chatting.insertChatting", ch);
+	}
+	
+	// 채팅 내용 조회
+	public List<Chatting> selectChatting(Chatting ch) {
+		return sqlSession.selectList("Chatting.selectChatting", ch);
+	}
+	
 }

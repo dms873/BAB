@@ -62,4 +62,16 @@ public class ChattingServiceImpl implements ChattingService {
 		return dao.memberCnt(room_no);
 	}
 
+	// 채팅 대화 DB저장
+	@Override
+	public int insertChatting(Chatting ch) {
+		return dao.insertChatting(ch);
+	}
+
+	// 채팅 내용 조회
+	@Override
+	public List<Chatting> selectChatting(Chatting ch) {
+		return dao.selectChatting(ch);
+	}
+
 }

@@ -16,12 +16,15 @@ public class Attendance {
 	private String att_no; // 근태번호
 	private String att_start; // 근무 시작 일시
 	private String att_end; // 근무 종료 일시
+	private String att_worktime; // 소정 근무 시간
+	private String rnum; // NO 출력용 rownum
 	
 	@Override
 	public String toString() {
 		return "Attendance [ho_no=" + ho_no + ", ho_code=" + ho_code + ", ho_start=" + ho_start + ", ho_end=" + ho_end
 				+ ", ho_rm_count=" + ho_rm_count + ", ho_use_count=" + ho_use_count + ", emp_no=" + emp_no + ", df_no="
-				+ df_no + ", att_no=" + att_no + ", att_start=" + att_start + ", att_end=" + att_end + "]";
+				+ df_no + ", att_no=" + att_no + ", att_start=" + att_start + ", att_end=" + att_end + ", att_worktime="
+				+ att_worktime + ", rnum=" + rnum + "]";
 	}
 	public String getHo_no() {
 		return ho_no;
@@ -88,6 +91,18 @@ public class Attendance {
 	}
 	public void setAtt_end(String att_end) {
 		this.att_end = att_end;
+	}
+	public String getAtt_worktime() {
+		return att_worktime;
+	}
+	public void setAtt_worktime(String att_worktime) {
+		this.att_worktime = att_worktime;
+	}
+	public String getRnum() {
+		return rnum;
+	}
+	public void setRnum(String rnum) {
+		this.rnum = rnum;
 	}
 	
 }

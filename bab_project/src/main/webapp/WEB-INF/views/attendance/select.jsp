@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>   
 <!DOCTYPE html>
 <html>
 <head>
@@ -75,52 +77,157 @@
 		cursor: pointer;
 	}
 </style>
+<style>
+	#s_attendance_box {
+		width: 150px;
+		height: 1000px;
+		margin-top: 25px;
+		margin-left: 10px;
+	}
+
+	#s_leave {
+		background-color: gray;
+		color: white;
+		border-color: gray;
+	}
+	
+	#s_att_management {
+		margin-top: 30px;
+		font-weight: bold;
+		font-size: 1.2em;
+		color: rgb(1, 3, 38);
+	}
+	
+	.s_hover_event {
+		display: inline-block;
+		margin-right: 10px;
+	}
+	
+	#s_att_content_box {
+		border: 1px solid lightgray;
+		height: 1000px;
+		width: 1150px;
+		margin-top: 20px;
+		margin-left: 10px;
+		border-radius: 10px;
+		padding: 20px;
+	}
+	
+	#s_att_chart_tt {
+		margin-top: 20px;
+		margin-bottom: 10px;
+		font-size: 1.2em;
+		font-weight: bold;
+		display: inline-block;
+	}
+	
+	#s_att_chart_co {
+		display: inline-block;
+		margin-left: 5px;
+		color: darkslategray;
+	}
+	
+	#s_att_chart_box {
+		border: 1px solid lightgray;
+		border-radius: 10px;
+		padding: 10px;
+		height: 310px;
+	}
+	
+	#s_att_line {
+		float: left;
+		border-right: 2px solid lightgray;
+		height: 250px;
+		margin: 20px 50px;
+	}
+	
+	.s_att_box_co {
+		display: inline-block;
+		font-size: 1.2em;
+		font-weight: bold;
+	}
+	
+	#s_att_table_tt {
+		margin-top: 50px;
+		margin-bottom: 10px;
+		font-size: 1.2em;
+		font-weight: bold;
+		clear: both;
+	}
+	
+	#s_att_month {
+		font-size: 2em;
+		font-weight: bold;
+		color: rgb(5, 131, 242);
+		text-align: center;
+		margin-bottom: 30px;
+	}
+</style>
 <body>
 
 	<section>
         <article style="float: left;">
-            <div style="width: 150px; height: 1000px; margin-top: 25px;margin-left: 10px;">
+            <div id="s_attendance_box">
             	
             	<!-- 디지털 시계 -->
         		<div id="date" class="date"></div>
             	<div id="time" class="time"></div>
             	
-            	<div>출근시간 <span id="s_now_start_time" style="color: gray; margin-left: 20px;">미등록</span></div>
-            	<div style="margin-top: 5px; margin-bottom: 20px;">퇴근시간 <span id="s_now_out_time" style="color: gray; margin-left: 20px;">미등록</span></div>
+            	<div>출근시간 
+            		<span id="s_now_start_time" style="color: gray; margin-left: 20px;">
+            			<c:if test="${empty selectToday.att_start }">
+            				미등록
+            			</c:if>
+            			<c:if test="${not empty selectToday.att_start }">
+            				${selectToday.att_start }
+            			</c:if>
+            		</span>
+            	</div>
+            	<div style="margin-top: 5px; margin-bottom: 20px;">퇴근시간 
+	            	<span id="s_now_out_time" style="color: gray; margin-left: 20px;">
+		            	<c:if test="${empty selectToday.att_end }">
+		            		미등록
+		            	</c:if>
+            			<c:if test="${not empty selectToday.att_end }">
+            				${selectToday.att_end }
+            			</c:if>
+	            	</span>
+            	</div>
             	<div style="border: 1px solid lightgrey;margin-bottom: 20px;"></div>
             	<div style="display: flex;justify-content: space-evenly;">
             		<button class="btn btn-outline-success" id="s_att">출근</button>
-            		<button class="btn btn-outline-danger" id="s_leave" disabled style="background-color: gray; color: white; border-color: gray;">퇴근</button>
+            		<button class="btn btn-outline-danger" id="s_leave" disabled>퇴근</button>
             	</div>
             
-                <div style="margin-top: 30px; font-weight: bold; font-size: 1.2em; color: rgb(1, 3, 38);">근태 관리</div>
-                <div style="display: inline-block; margin-right: 10px; color: rgb(5, 131, 242);" id="s_att_select" class="s_hover_event">내 근태 현황</div>
-                <div style="display: inline-block; margin-right: 10px;" id="s_ho_select" class="s_hover_event">내 연차 내역</div>
+                <div id="s_att_management">근태 관리</div>
+                <div style="color: rgb(5, 131, 242);" id="s_att_select" class="s_hover_event">내 근태 현황</div>
+                <div id="s_ho_select" class="s_hover_event">내 연차 내역</div>
             </div>
         </article>  
         <article style="float: left;">
-            <div style="border: 1px solid lightgray;height: 1000px;width: 1150px;margin-top: 20px;margin-left: 10px;border-radius: 10px;padding: 20px;" id="s_att_content_box">
-            	<div style="margin-top: 20px; margin-bottom: 10px;font-size: 1.2em;font-weight: bold; display: inline-block;">선택적근로시간제</div><div style="display: inline-block;margin-left: 5px;color: darkslategray;">(월 160시간 근무)</div>	
-            	<div style="border: 1px solid lightgray; border-radius: 10px; padding: 10px; height: 310px;">
+            <div id="s_att_content_box">
+            	<div id="s_att_chart_tt">선택적근로시간제</div><div id="s_att_chart_co">(월 160시간 근무)</div>	
+            	<div id="s_att_chart_box">
 	            	<!-- 근무시간 통계 -->
             		<div style="float: left;">
 						<figure class="highcharts-figure">
 						  <div id="container" style="width: 500px; height: 300px;"></div>
 						</figure>
 					</div>
-					<div style="float: left;border-right: 2px solid lightgray;height: 250px;margin: 20px 50px;"></div>
-					<div style="float: left;margin: 20px 0 20px 60px;">
+					<div id="s_att_line"></div>
+					<div style="float: left; margin: 20px 0 20px 60px;">
 						<div style="line-height: 150px;">
-							<div style="display: inline-block;font-size: 1.2em;font-weight: bold;margin-right: 50px;">누적 근무 시간</div>
-							<div style="display: inline-block;font-size: 1.2em;font-weight: bold;color: #008dd7;">140시간</div>
+							<div class="s_att_box_co" style="margin-right: 50px;">누적 근무 시간</div>
+							<div class="s_att_box_co" style="color: #008dd7;">140시간</div>
 						</div>
 						<div>
-							<div style="display: inline-block;font-size: 1.2em;font-weight: bold;margin-right: 50px;">남은 근무 시간</div>
-							<div style="display: inline-block;font-size: 1.2em;font-weight: bold;color: gray;">20시간</div>
+							<div class="s_att_box_co" style="margin-right: 50px;">남은 근무 시간</div>
+							<div class="s_att_box_co" style="color: gray;">20시간</div>
 						</div>
 					</div>
-				</div>	
-	            <div style="margin-top: 50px; margin-bottom: 10px;font-size: 1.2em;font-weight: bold; clear: both;">내 근태 현황</div>
+				</div>
+	            <div id="s_att_table_tt">내 근태 현황</div>
+				<div id="s_att_month">${currentMonth }</div>
 	            <div>
 					<table class="table table-hover" style="text-align: center; vertical-align: middle;">
 					  <thead>
@@ -133,42 +240,38 @@
 					    </tr>
 					  </thead>
 					  <tbody>
-					    <tr>
-					      <th scope="row">1</th>
-					      <td>2022/05/27</td>
-					      <td>10:00</td>
-					      <td>19:00</td>
-					      <td>8시간</td>
-					    </tr>
-					    <tr>
-					      <th scope="row">2</th>
-					      <td>2022/05/26</td>
-					      <td>9:00</td>
-					      <td>18:00</td>
-					      <td>8시간</td>
-					    </tr>
-					    <tr>
-					      <th scope="row">3</th>
-					      <td>2022/05/25</td>
-					      <td>9:30</td>
-					      <td>18:30</td>
-					      <td>8시간</td>
-					    </tr>
-					    <tr>
-					      <th scope="row">4</th>
-					      <td>2022/05/24</td>
-					      <td>10:00</td>
-					      <td>19:00</td>
-					      <td>8시간</td>
-					    </tr>
-					    <tr>
-					      <th scope="row">5</th>
-					      <td>2022/05/23</td>
-					      <td>9:00</td>
-					      <td>18:00</td>
-					      <td>8시간</td>
-					    </tr>
-					    
+					  	<c:forEach items="${selectMonth }" var="i">
+						    <tr>
+						      <th scope="row">${i.rnum }</th>
+						      <td>
+						      	 <!-- 근무시작시간 timestamp라서 년월일만 출력 -->
+						      	 <c:set var="att_start" value="${i.att_start }"/>
+						      	 ${fn:substring(att_start, 0, 10) }
+						      </td>
+						      <td>
+						      	 ${fn:substring(att_start, 11,16) }
+					      	  </td>
+						      <td>
+						      	  <c:if test="${empty i.att_end }">
+						      	  	 미등록
+						      	  </c:if>
+						      	  <c:if test="${not empty i.att_end }">
+						      	  	 ${i.att_end }
+						      	  </c:if>
+						      </td>
+						      <td>
+						      	  <c:if test="${i.att_worktime > 0 }">
+						      	  	 ${i.att_worktime }시간
+						      	  </c:if>
+						      	  <c:if test="${i.att_worktime < 0 }">
+						      	  	 
+						      	  </c:if>
+						      	  <c:if test="${empty i.att_worktime }">
+						      	  	 퇴근시간 미등록
+						      	  </c:if>
+					      	  </td>
+						    </tr>
+					  	</c:forEach>
 					  </tbody>
 					</table>
 				</div>
@@ -206,28 +309,73 @@
     </script>
     
     <script>
-    	// 출근버튼 클릭 시 버튼 사용 불가
-    	$("#s_att").click(function() {
+    
+    	// 출근 시간이 미등록인 경우 
+    	if($("#s_now_start_time").text().trim() == '미등록') {
+    		$("#s_now_start_time").css('color', 'gray');
+    	} else { // 출근 시간이 적혀있는 경우
+    		$("#s_now_start_time").css('color', 'rgb(5, 131, 242)');
+    		$("#s_now_start_time").css('fontWeight', 'bold');
     		$("#s_att").prop("disabled", "disabled");
     		$("#s_att").css("backgroundColor", "gray");
     		$("#s_att").css("color", "white");
     		$("#s_att").css("borderColor", "gray");
-    		$("#s_now_start_time").text($("#time").text().substr(0,5));
-    		$("#s_now_start_time").css("color", "rgb(5, 131, 242)");
-    		$("#s_now_start_time").css("fontWeight", "bold");
     		$("#s_leave").removeAttr("disabled");
     		$("#s_leave").removeAttr("style");
-    	});
+    	}
     	
-    	// 퇴근버튼 클릭 시 버튼 사용 불가
-    	$("#s_leave").click(function() {
+    	// 퇴근 시간이 미등록인 경우
+    	if($("#s_now_out_time").text().trim() == '미등록') {
+    		$("#s_now_out_time").css('color', 'gray');
+    	} else { // 퇴근 시간이 적혀있는 경우
+    		$("#s_now_out_time").css("color", "red");
+    		$("#s_now_out_time").css("fontWeight", "bold");
     		$("#s_leave").prop("disabled", "disabled");
     		$("#s_leave").css("backgroundColor", "gray");
     		$("#s_leave").css("color", "white");
     		$("#s_leave").css("borderColor", "gray");
-    		$("#s_now_out_time").text($("#time").text().substr(0,5));
-    		$("#s_now_out_time").css("color", "red");
-    		$("#s_now_out_time").css("fontWeight", "bold");
+    	}
+    
+    	// 출근버튼 클릭 시 버튼 사용 불가
+    	$("#s_att").click(function() {
+    		
+    		// 출근 시간 저장 DB다녀올 ajax
+   			$.ajax({
+   				url : "<%=request.getContextPath()%>/attendance/insertstart"
+   					, type: "post"
+   					, success: function(result) {
+   						console.log(result);
+   						swal({
+		                    title: "",
+		                    text: result,
+		                    icon: "success",
+		                    closeOnClickOutside: false,
+		                    closeOnEsc: false
+		                });
+   						$("#menu_attendance").get(0).click();
+   					}
+   			});
+    	});
+    	
+    	// 퇴근버튼 클릭 시 버튼 사용 불가
+    	$("#s_leave").click(function() {
+    		
+    		// 퇴근 시간 저장 DB다녀올 ajax
+   			$.ajax({
+   				url : "<%=request.getContextPath()%>/attendance/updateend"
+   					, type: "post"
+   					, success: function(result) {
+   						console.log(result);
+   						swal({
+		                    title: "",
+		                    text: result,
+		                    icon: "success",
+		                    closeOnClickOutside: false,
+		                    closeOnEsc: false
+		                });
+   						$("#menu_attendance").get(0).click();
+   					}
+   			});
     	});
     </script>
 
