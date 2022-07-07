@@ -67,9 +67,6 @@
 										<c:if test="${login != null}">
 											<input type="hidden" id="emp_no" name="emp_no" value="${login.emp_no}">
 										</c:if>
-										<%-- <c:forEach items="${calList}" var="cal">
-											<input type="hidden" id="cal_no" name="cal_no" value="${cal.cal_no}">
-										</c:forEach> --%>
 									</td>
 								</tr>
 								<tr>
@@ -100,23 +97,29 @@
 				initialView : 'dayGridMonth',
 				eventDisplay: 'block',
 				navLinks: true,
-				eventClick: function(){
-					 swal({
-                         title: "일정상세 페이지로 이동하시겠습니까?",
-                         text: "",
-                         icon: "info",
-                         buttons: true,
-                         closeOnClickOutside: false,
-                         closeOnEsc: false
-                     })
-                     .then((willDelete) => {
-						  if (willDelete) {
-							  $("#s_content_box").load("<%=request.getContextPath()%>/calendar/update");
-							 <%--  $("#s_content_box").load("<%=request.getContextPath()%>/calendar/update?cal_no="+calNo); --%>
-						  } else {
-						    
-						  }
+				eventClick: function(data){
+					/*휴가, 생일 제외한 일정만 상세조회 가능  */
+					var calNo = data.event.id;
+					if(calNo!=0){
+						console.log(calNo);
+						 swal({
+	                         title: "일정상세 페이지로 이동하시겠습니까?",
+	                         text: "",
+	                         icon: "info",
+	                         buttons: true,
+	                         closeOnClickOutside: false,
+	                         closeOnEsc: false
+	                     })
+	                     .then((willDelete) => {
+							  if (willDelete) {
+								  $("#s_content_box").load("<%=request.getContextPath()%>/calendar/read?cal_no="+calNo);
+							  } else {
+							    
+							  }
 						});
+					}else{
+						
+					}
 				},
 				events : [
 					/*캘린더 조회  */

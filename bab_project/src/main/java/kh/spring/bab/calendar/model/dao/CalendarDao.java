@@ -35,5 +35,20 @@ public class CalendarDao {
 	public int insert(Calendar cal) {
 		return sqlSession.insert("Calendar.insert", cal);
 	}
+	
+	//캘린더 일정상세 조회
+	public Calendar read(String cal_no) {
+		return sqlSession.selectOne("Calendar.read", cal_no);
+	}
+	
+	// 캘린더 수정
+	public int update(Calendar cal) {
+		return sqlSession.update("Calendar.update", cal);
+	}
+	
+	// 캘린더 삭제
+	public int delete(String cal_no) {
+		return sqlSession.delete("Calendar.delete", cal_no);
+	}
 
 }

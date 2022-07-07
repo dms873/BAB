@@ -25,4 +25,22 @@
 		insert into calendar
 		values (calendar_seq.nextval, #{cal_title}, #{cal_start}, #{cal_end}, #{cal_content}, #{emp_no}, #{cal_color})
 	</insert>
+	
+	<!--캘린더 일정상세 조회  -->
+	<select id="read" resultType="Calendar">
+		select * from calendar where cal_no=#{cal_no}
+	</select>
+	
+	<!--캘린더 수정  -->
+	<update id="update" parameterType="Calendar">
+		update calendar set
+		cal_title=#{cal_title}, cal_start=#{cal_start}, cal_end=#{cal_end}, cal_content=#{cal_content}, cal_color=#{cal_color}
+		where cal_no=#{cal_no}
+	</update>
+	
+	<!--캘린더 삭제  -->
+	<update id="delete">
+		delete from calendar
+		where cal_no=#{cal_no}
+	</update>
 </mapper>

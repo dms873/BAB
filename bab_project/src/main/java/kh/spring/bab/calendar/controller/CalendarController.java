@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -27,7 +28,7 @@ public class CalendarController {
 	private CalendarServiceImpl service;
 	
 	// 캘린더 조회
-	@GetMapping("select")
+	@GetMapping("/select")
 	public ModelAndView select(ModelAndView mv, HttpServletRequest request) {
 		// session 객체를 가져옴
 		HttpSession session = request.getSession();
@@ -49,9 +50,9 @@ public class CalendarController {
 	}
 	
 	// 캘린더 등록
-	@PostMapping("insert")
+	@PostMapping("/insert")
 	@ResponseBody
-	public HashMap<String, Object> insert(Calendar cal, HttpServletRequest request) {
+	public HashMap<String, Object> insert(Calendar cal) {
 		
 		int insert = service.insert(cal);
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -64,19 +65,53 @@ public class CalendarController {
 		return map;
 	}
 
-	// 캘린더 업데이트
-	@GetMapping("update")
-	public ModelAndView update(ModelAndView mv, HttpServletRequest request) {
+	// 캘린더 일정상세 조회
+	@GetMapping("/read")
+	public ModelAndView read(ModelAndView mv, HttpServletRequest request
+			, @RequestParam(name="cal_no", required = false) String cal_no) {
 		// session 객체를 가져옴
 		HttpSession session = request.getSession();
 		// login처리를 담당하는 사용자 정보를 담고 있는 객체를 가져옴
 		Object login = session.getAttribute("login");
 		mv.addObject("login", login);
 		// 캘린더 일정 조회
-		Calendar cal = service.update();
+		Calendar cal = service.read(cal_no);
 		mv.addObject("cal", cal);
 		mv.setViewName("calendar/update");
 		return mv;
+	}
+	
+	// 캘린더 수정
+	@PostMapping("/update")
+	@ResponseBody
+	public HashMap<String, Object> update(Calendar cal) {
+
+		int update = service.update(cal);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+
+		if (update == 0) {
+			map.put("check", 0);
+		} else {
+			map.put("check", 1);
+		}
+		return map;
+	}
+	
+	// 캘린더 삭제
+	@PostMapping("/delete")
+	@ResponseBody
+	public HashMap<String, Object> delete(
+			@RequestParam(name="cal_no", required = false) String cal_no) {
+
+		int delete = service.delete(cal_no);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+
+		if (delete == 0) {
+			map.put("check", 0);
+		} else {
+			map.put("check", 1);
+		}
+		return map;
 	}
 
 }

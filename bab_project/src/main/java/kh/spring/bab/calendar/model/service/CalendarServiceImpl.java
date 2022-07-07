@@ -40,25 +40,22 @@ public class CalendarServiceImpl implements CalendarService {
 		return dao.insert(cal);
 	}
 	
-	//캘린더 수정화면 조회
+	//캘린더 일정상세 조회
 	@Override
-	public Calendar update() {
-		// TODO Auto-generated method stub
-		return null;
+	public Calendar read(String cal_no) {
+		return dao.read(cal_no);
 	}
 	
 	//캘린더 수정
 	@Override
-	public int updateDo(Calendar cal) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int update(Calendar cal) {
+		return dao.update(cal);
 	}
 	
 	//캘린더 삭제
 	@Override
-	public int delete(Calendar cal) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int delete(String cal_no) {
+		return dao.delete(cal_no);
 	}
 
 }

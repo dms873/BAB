@@ -94,12 +94,17 @@
 	border-radius: 6px;
 	font-size: 13px;
     padding: 3px;
+    cursor: pointer;
 }
 
 .j_cal_date:focus {
 	border: 1px solid rgba(5, 131, 242, 0.8);
 	outline: 3px solid rgba(5, 131, 242, 0.3);
 	transition: ease-in-out .15s;
+}
+/* 색상 선택 */
+#cal_color {
+	cursor: pointer;
 }
 /* 색상 */
 .j_cal_color{

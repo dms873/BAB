@@ -36,25 +36,24 @@ public interface CalendarService {
 	 */
 	public int insert(Calendar cal);
 
-	//캘린더 수정화면 조회
+	//캘린더 일정상세 조회
 	/**
-	 * @param cal
+	 * @param cal_no
 	 * @author 장혜미
 	 */
-	public Calendar update();
+	public Calendar read(String cal_no);
 	
 	// 캘린더 수정
 	/**
 	 * @param cal
 	 * @author 장혜미
 	 */
-	public int updateDo(Calendar cal);
+	public int update(Calendar cal);
 	
 	// 캘린더 삭제
 	/**
-	 * @param cal
 	 * @author 장혜미
 	 */
-	public int delete(Calendar cal);
+	public int delete(String cal_no);
 
 }
