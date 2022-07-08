@@ -2,7 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="Mail">
 
-<insert id="insertMail">
+<insert id="insertSendMail">
 	insert into send_mail values (SEND_MAIL_SEQ.nextval, #{send_title}, #{send_content}, systimestamp, #{send_receiver}, #{send_sender})
+</insert>
+
+<insert id="insertRcvMail">
+	insert into send_mail values (REC_MAIL_SEQ.nextval, #{rec_title}, #{rec_content}, systimestamp, #{rec_receiver}, #{rec_sender})
 </insert>
 </mapper>

@@ -13,7 +13,12 @@ public class MailServiceImpl implements MailService {
 	private MailDao dao;
 	
 	@Override
-	public int insertMail(Mail mail) {
-		return dao.insertMail(mail);
+	public int insertSendMail(Mail mail) {
+		return dao.insertSendMail(mail);
+	}
+	
+	@Override
+	public int insertRcvMail(Mail mail) {
+		return dao.insertRcvMail(mail);
 	}
 }

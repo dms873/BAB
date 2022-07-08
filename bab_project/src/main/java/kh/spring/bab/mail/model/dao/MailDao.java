@@ -12,7 +12,11 @@ public class MailDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public int insertMail(Mail mail) {
-		return sqlSession.insert("Mail.insertMail", mail);
+	public int insertSendMail(Mail mail) {
+		return sqlSession.insert("Mail.insertSendMail", mail);
+	}
+	
+	public int insertRcvMail(Mail mail) {
+		return sqlSession.insert("Mail.insertRcvMail", mail);
 	}
 }
