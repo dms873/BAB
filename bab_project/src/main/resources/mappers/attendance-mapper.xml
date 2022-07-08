@@ -10,8 +10,9 @@
 	<!-- 퇴근 시간 저장 -->
 	<update id="updateEnd" parameterType="string">
 		UPDATE ATTENDANCE SET ATT_END = SYSTIMESTAMP 
-		WHERE EMP_NO = #{emp_no} 
+		WHERE EMP_NO = #{emp_no}
 		  AND ATT_START BETWEEN ATT_START AND (SELECT SYSTIMESTAMP FROM DUAL)
+		  AND TO_CHAR(ATT_START, 'DD') = (SELECT EXTRACT(DAY FROM SYSTIMESTAMP) FROM DUAL)
 	</update>
 	
 	<!-- 오늘 근태 현황 조회 -->
