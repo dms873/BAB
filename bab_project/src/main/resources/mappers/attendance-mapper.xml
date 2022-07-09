@@ -45,7 +45,7 @@
 				    TO_CHAR(ATT_END, 'HH24:MI') ATT_END, EMP_NO, ATT_WORKTIME
 				FROM ATTENDANCE WHERE EMP_NO = #{emp_no} AND ATT_START BETWEEN ATT_START AND (SELECT SYSTIMESTAMP FROM DUAL)
 				AND TO_CHAR(ATT_START, 'MM') = (SELECT EXTRACT(MONTH FROM SYSDATE) FROM DUAL)
-				ORDER BY ATT_NO DESC
+				ORDER BY ATT_START DESC
 			) A
 	</select>
 	
@@ -55,6 +55,85 @@
 		FROM ATTENDANCE 
 		WHERE EMP_NO = #{emp_no}
 		AND EXTRACT(MONTH FROM ATT_START) = EXTRACT(MONTH FROM SYSDATE)
+	</select>
+	
+	<!-- 총 연차 일수 -->
+	<select id="totalHoCnt" parameterType="string" resultType="_int">
+		SELECT EMP_HO_CR_CNT 
+		FROM EMPLOYEE 
+		WHERE EMP_NO = #{emp_no}
+	</select>
+	
+	<!-- 사용 연차 일수 -->
+	<select id="useHoCnt" parameterType="string" resultType="_double">
+		SELECT NVL(SUM(HO_USE_COUNT),0) HO_USE_COUNT
+		FROM ELECTRONIC_APPROVAL E
+		JOIN HOLIDAY H USING(DF_NO)
+		WHERE EAP_STA_CODE = 'F' 
+		AND EAP_RES_CODE = 'A'
+		AND H.EMP_NO = #{emp_no}
+	</select>
+	
+	<!-- 연차 사용 내역 -->
+	<select id="useHoList" parameterType="string" resultType="Att">
+		SELECT ROWNUM RNUM, A.* 
+		FROM(SELECT (SELECT EMP_NAME FROM EMPLOYEE WHERE EMP_NO = #{emp_no}) EMP_NAME
+		        , (SELECT DEPT_NAME FROM DEPT JOIN EMPLOYEE USING(DEPT_CODE) WHERE EMP_NO = #{emp_no}) DEPT_NAME
+		        , DECODE(HO_CODE, 'A', '연차', 'H', '반차') HO_CODE
+		        , TO_CHAR(HO_START, 'YYYY/MM/DD') HO_START
+		        , TO_CHAR(HO_END, 'YYYY/MM/DD') HO_END
+		        , HO_USE_COUNT
+		        , EAP_CONTENT
+		    FROM ELECTRONIC_APPROVAL E
+		    JOIN HOLIDAY H USING(DF_NO)
+		    WHERE EAP_STA_CODE = 'F' 
+		    AND EAP_RES_CODE = 'A'
+		    AND H.EMP_NO = #{emp_no}
+		    ORDER BY HO_START) A
+	</select>
+	
+	<!-- 내 연차 내역의 로그인한 사람의 정보 -->
+	<select id="selectInfo" parameterType="string" resultType="Att">
+		SELECT EMP_NAME
+		    , (SELECT JOB_TITLE FROM JOB JOIN EMPLOYEE USING(JOB_CODE) WHERE EMP_NO = #{emp_no}) JOB_TITLE
+		    , EMP_FILE_PATH
+		FROM EMPLOYEE
+		WHERE EMP_NO = #{emp_no}
+	</select>
+	
+	<!-- 연차 사용 내역 개수 -->
+	<select id="totalUseHoCnt" parameterType="string" resultType="_int">
+		SELECT COUNT(*) 
+		FROM (
+		    SELECT ROWNUM RNUM, A.* 
+		    FROM(SELECT (SELECT EMP_NAME FROM EMPLOYEE WHERE EMP_NO = #{emp_no}) EMP_NAME
+		            , (SELECT DEPT_NAME FROM DEPT JOIN EMPLOYEE USING(DEPT_CODE) WHERE EMP_NO = #{emp_no}) DEPT_NAME
+		            , DECODE(HO_CODE, 'A', '연차', 'H', '반차') HO_CODE
+		            , TO_CHAR(HO_START, 'YYYY/MM/DD') HO_START
+		            , TO_CHAR(HO_END, 'YYYY/MM/DD') HO_END
+		            , HO_USE_COUNT
+		            , EAP_CONTENT
+		        FROM ELECTRONIC_APPROVAL E
+		        JOIN HOLIDAY H USING(DF_NO)
+		        WHERE EAP_STA_CODE = 'F' 
+		        AND EAP_RES_CODE = 'A'
+		        AND H.EMP_NO = #{emp_no}
+		        ORDER BY HO_START) A
+		    )
+	</select>
+	
+	<!-- 월별 근태 현황조회 리스트 개수 -->
+	<select id="totalselectMonth" parameterType="string" resultType="_int">
+		SELECT COUNT(*)
+		FROM (
+			SELECT ROWNUM RNUM, A.* FROM (
+					SELECT ATT_NO, TO_CHAR(ATT_START, 'YYYY/MM/DD HH24:MI') ATT_START,
+					    TO_CHAR(ATT_END, 'HH24:MI') ATT_END, EMP_NO, ATT_WORKTIME
+					FROM ATTENDANCE WHERE EMP_NO = #{emp_no} AND ATT_START BETWEEN ATT_START AND (SELECT SYSTIMESTAMP FROM DUAL)
+					AND TO_CHAR(ATT_START, 'MM') = (SELECT EXTRACT(MONTH FROM SYSDATE) FROM DUAL)
+					ORDER BY ATT_START DESC
+				) A
+			)
 	</select>
 
 </mapper>

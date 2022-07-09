@@ -444,7 +444,7 @@
 	          text: ${workTimeCnt}/160*100 + '<span class="unit"> %</span>',
 	          align: 'center',
 	          verticalAlign: 'middle',
-	          y: 70,
+	          y: 50,
 	          style: {
 	            color:'#333',
 	            fontSize: '20px',

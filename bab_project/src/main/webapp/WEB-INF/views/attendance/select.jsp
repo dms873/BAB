@@ -159,7 +159,7 @@
 </style>
 <body>
 
-	<section>
+	<section id="s_att_box">
         <article style="float: left;">
             <div id="s_attendance_box">
             	
@@ -270,24 +270,28 @@
 					</table>
 				</div>
 			<div style="margin-top: 100px; display: flex; justify-content: center;">
-				<nav aria-label="Page navigation example">
-				  <ul class="pagination">
-				    <li class="page-item">
-				      <a class="page-link" href="#" aria-label="Previous">
-				        <span aria-hidden="true">&laquo;</span>
-				      </a>
-				    </li>
-				    <li class="page-item"><a class="page-link" href="#">1</a></li>
-				    <li class="page-item"><a class="page-link" href="#">2</a></li>
-				    <li class="page-item"><a class="page-link" href="#">3</a></li>
-				    <li class="page-item">
-				      <a class="page-link" href="#" aria-label="Next">
-				        <span aria-hidden="true">&raquo;</span>
-				      </a>
-				    </li>
-				  </ul>
-				</nav>
-			</div>
+			<nav aria-label="Page navigation example">
+			  <ul class="pagination">
+				<c:if test="${startPage > 1 }">
+					<li class="page-item pre">
+						<a class="page-link" href="#" aria-label="Previous"> 
+							<span aria-hidden="true">&laquo;</span>
+						</a>
+					</li>
+					</c:if>
+					<c:forEach begin="${startPage }" end="${endPage }" var="i">
+						<li class="page-item num"><a class="page-link" href="#">${i }</a></li>
+					</c:forEach>
+					<c:if test="${endPage < pageCnt }">
+					<li class="page-item next">
+						<a class="page-link" href="#" aria-label="Next"> 
+							<span aria-hidden="true">&raquo;</span>
+						</a>
+					</li>
+					</c:if>
+				</ul>
+			</nav>
+		</div>
             </div>
         </article>    
     </section>
@@ -299,6 +303,27 @@
         	var timeCal = 160 - Number(time);
     		$("#s_r_work_time").text(timeCal + "시간");
     	});
+    </script>
+    
+    <script>
+		// 페이징 처리
+		$(".page-item.num .page-link").click(function(event) {
+			var pageNum = event.target.innerText;
+			$("#s_att_box").load("<%=request.getContextPath()%>/attendance/select?page="+pageNum);
+		})
+		
+		$(".page-item.pre .page-link").click(function(event){
+			//이전 페이지 최소값 -1 -> 이전 페이지로 이동
+			const num = Math.min(...[...$('.page-link')].map(v=>v.innerText*1).filter(v=>v>0))-1;
+			$("#s_att_box").load("<%=request.getContextPath()%>/attendance/select?page="+num);
+		
+		})
+		
+		$(".page-item.next .page-link").click(function(event){
+			//다음 페이지 최대값 +1 -> 다음 페이지로 이동
+			const num = Math.max(...[...$('.page-link')].map(v=>v.innerText*1).filter(v=>v>0))+1;
+			$("#s_att_box").load("<%=request.getContextPath()%>/attendance/select?page="+num);
+		});
     </script>
     
     
@@ -439,7 +464,7 @@
 	          text: ${workTimeCnt}/160*100 + '<span class="unit"> %</span>',
 	          align: 'center',
 	          verticalAlign: 'middle',
-	          y: 70,
+	          y: 50,
 	          style: {
 	            color:'#333',
 	            fontSize: '20px',

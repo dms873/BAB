@@ -18,13 +18,21 @@ public class Attendance {
 	private String att_end; // 근무 종료 일시
 	private String att_worktime; // 소정 근무 시간
 	private String rnum; // NO 출력용 rownum
+	private String emp_ho_cr_cnt; // 총 연차 일수
+	private String eap_content; // 연차 사용 내역
+	private String emp_name; // 사원명
+	private String dept_name; // 부서명
+	private String job_title; // 직위명
+	private String emp_file_path; // 프로필 사진
 	
 	@Override
 	public String toString() {
 		return "Attendance [ho_no=" + ho_no + ", ho_code=" + ho_code + ", ho_start=" + ho_start + ", ho_end=" + ho_end
 				+ ", ho_rm_count=" + ho_rm_count + ", ho_use_count=" + ho_use_count + ", emp_no=" + emp_no + ", df_no="
 				+ df_no + ", att_no=" + att_no + ", att_start=" + att_start + ", att_end=" + att_end + ", att_worktime="
-				+ att_worktime + ", rnum=" + rnum + "]";
+				+ att_worktime + ", rnum=" + rnum + ", emp_ho_cr_cnt=" + emp_ho_cr_cnt + ", eap_content=" + eap_content
+				+ ", emp_name=" + emp_name + ", dept_name=" + dept_name + ", job_title=" + job_title
+				+ ", emp_file_path=" + emp_file_path + "]";
 	}
 	public String getHo_no() {
 		return ho_no;
@@ -103,6 +111,42 @@ public class Attendance {
 	}
 	public void setRnum(String rnum) {
 		this.rnum = rnum;
+	}
+	public String getEmp_ho_cr_cnt() {
+		return emp_ho_cr_cnt;
+	}
+	public void setEmp_ho_cr_cnt(String emp_ho_cr_cnt) {
+		this.emp_ho_cr_cnt = emp_ho_cr_cnt;
+	}
+	public String getEap_content() {
+		return eap_content;
+	}
+	public void setEap_content(String eap_content) {
+		this.eap_content = eap_content;
+	}
+	public String getEmp_name() {
+		return emp_name;
+	}
+	public void setEmp_name(String emp_name) {
+		this.emp_name = emp_name;
+	}
+	public String getDept_name() {
+		return dept_name;
+	}
+	public void setDept_name(String dept_name) {
+		this.dept_name = dept_name;
+	}
+	public String getJob_title() {
+		return job_title;
+	}
+	public void setJob_title(String job_title) {
+		this.job_title = job_title;
+	}
+	public String getEmp_file_path() {
+		return emp_file_path;
+	}
+	public void setEmp_file_path(String emp_file_path) {
+		this.emp_file_path = emp_file_path;
 	}
 	
 }

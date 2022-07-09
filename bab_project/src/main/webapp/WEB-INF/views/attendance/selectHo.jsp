@@ -1,40 +1,70 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <!-- <title>내 연차 내역</title> -->
+<style>
+	#s_ho_list_tt {
+		margin-top: 20px; margin-bottom: 10px;font-size: 1.2em;font-weight: bold;
+	}
+	
+	#s_ho_list_box {
+		border: 1px solid lightgray; border-radius: 10px; padding: 20px; height: 120px;
+	}
+	
+	#s_ho_list_info {
+		text-align: center; width: 250px; line-height: 70px; float: left;
+	}
+	
+	.s_ho_cnt {
+		border-right: 1px solid; height: 80px; float: left; margin: 0 30px;
+	}
+	
+	.s_ho_cnt_box {
+		text-align: center;width: 200px;float: left;
+	}
+	
+	.s_ho_cnt_co {
+		color: rgb(5, 131, 242);font-weight: bold;
+	}
+	
+	#s_ho_use_tt {
+		margin-top: 100px; margin-bottom: 10px;font-size: 1.2em;font-weight: bold; clear: both;
+	}
+</style>
 </head>
 <body>
 
-	<div style="margin-top: 20px; margin-bottom: 10px;font-size: 1.2em;font-weight: bold;">내 연차 내역</div>
-	<div style="border: 1px solid lightgray; border-radius: 10px; padding: 20px; height: 120px;">
+	<div id="s_ho_list_tt">내 연차 내역</div>
+	<div id="s_ho_list_box">
 		<div>
-			<div style="text-align: center; width: 250px; line-height: 70px; float: left;">
-				<img src="https://media.discordapp.net/attachments/692994434526085184/981215903570092132/unknown.png" style="width: 50px;">
-				<div style="display: inline-block;margin-left: 10px;">손은진</div>
-				<div style="display: inline-block;">차장</div>
+			<div id="s_ho_list_info">
+				<img src="${info.emp_file_path }" style="width: 50px;">
+				<div style="display: inline-block;margin-left: 10px;">${info.emp_name }</div>
+				<div style="display: inline-block;">${info.job_title }</div>
 			</div>
-			<div style="border-right: 1px solid; height: 80px; float: left; margin: 0 30px;"></div>
-			<div style="text-align: center;width: 200px;float: left;">
+			<div class="s_ho_cnt"></div>
+			<div class="s_ho_cnt_box">
 				<div style="margin-top: 15px;">총 연차</div>
-				<div style="color: rgb(5, 131, 242);font-weight: bold;">21</div>
+				<div class="s_ho_cnt_co">${totalHoCnt }</div>
 			</div>
-			<div style="border-right: 1px solid; height: 80px; float: left; margin: 0 30px;"></div>
-			<div style="text-align: center;width: 200px;float: left;">
+			<div class="s_ho_cnt"></div>
+			<div class="s_ho_cnt_box">
 				<div style="margin-top: 15px;">사용 연차</div>
-				<div style="color: rgb(5, 131, 242);font-weight: bold;">18</div>
+				<div class="s_ho_cnt_co">${useHoCnt }</div>
 			</div>
-			<div style="border-right: 1px solid; height: 80px; float: left; margin: 0 30px;"></div>
-			<div style="text-align: center;width: 200px;float: left;">
+			<div class="s_ho_cnt"></div>
+			<div class="s_ho_cnt_box">
 				<div style="margin-top: 15px;">잔여 연차</div>
-				<div style="color: rgb(5, 131, 242);font-weight: bold;">3</div>
+				<div class="s_ho_cnt_co" id="s_ho_rm_cnt">3</div>
 			</div>
 		</div>
 	</div>
 	
-	<div style="margin-top: 100px; margin-bottom: 10px;font-size: 1.2em;font-weight: bold; clear: both;">사용 내역</div>
+	<div id="s_ho_use_tt">사용 내역</div>
 	
 	<div>
 		<table class="table table-hover" style="text-align: center; vertical-align: middle;">
@@ -50,63 +80,41 @@
 		    </tr>
 		  </thead>
 		  <tbody>
-		    <tr>
-		      <th scope="row">1</th>
-		      <td>손은진</td>
-		      <td>회계팀</td>
-		      <td>연차</td>
-		      <td>2022/03/28 ~ 2022/03/30</td>
-		      <td>2</td>
-		      <td>휴가로 인한 연차 사용</td>
-		    </tr>
-		    <tr>
-		      <th scope="row">2</th>
-		      <td>손은진</td>
-		      <td>회계팀</td>
-		      <td>반차</td>
-		      <td>2022/03/18 ~ 2022/03/18</td>
-		      <td>0.5</td>
-		      <td>코로나 백신 3차 접종으로 인한 반차 사용</td>
-		    </tr>
-		    <tr>
-		      <th scope="row">3</th>
-		      <td>손은진</td>
-		      <td>회계팀</td>
-		      <td>반차</td>
-		      <td>2022/02/17 ~ 2022/02/17</td>
-		      <td>0.5</td>
-		      <td>병원검진으로 인한 반차 사용</td>
-		    </tr>
-		    <tr>
-		      <th scope="row">4</th>
-		      <td>손은진</td>
-		      <td>회계팀</td>
-		      <td>연차</td>
-		      <td>2022/02/07 ~ 2022/02/11</td>
-		      <td>5</td>
-		      <td>휴가로 인한 연차 사용</td>
-		    </tr>
-		    
+		  	<c:forEach items="${useHoList }" var="i">
+			    <tr>
+			      <th scope="row">${i.rnum }</th>
+			      <td>${i.emp_name }</td>
+			      <td>${i.dept_name }</td>
+			      <td>${i.ho_code }</td>
+			      <td>${i.ho_start } ~ ${i.ho_end }</td>
+			      <td>${i.ho_use_count }</td>
+			      <td>${i.eap_content }</td>
+			    </tr>
+		    </c:forEach>
 		  </tbody>
 		</table>
 	</div>
-		<div style="margin-top: 100px; display: flex; justify-content: center;">
+	<div style="margin-top: 100px; display: flex; justify-content: center;">
 			<nav aria-label="Page navigation example">
 			  <ul class="pagination">
-			    <li class="page-item">
-			      <a class="page-link" href="#" aria-label="Previous">
-			        <span aria-hidden="true">&laquo;</span>
-			      </a>
-			    </li>
-			    <li class="page-item"><a class="page-link" href="#">1</a></li>
-			    <li class="page-item"><a class="page-link" href="#">2</a></li>
-			    <li class="page-item"><a class="page-link" href="#">3</a></li>
-			    <li class="page-item">
-			      <a class="page-link" href="#" aria-label="Next">
-			        <span aria-hidden="true">&raquo;</span>
-			      </a>
-			    </li>
-			  </ul>
+				<c:if test="${startPage > 1 }">
+					<li class="page-item pre">
+						<a class="page-link" href="#" aria-label="Previous"> 
+							<span aria-hidden="true">&laquo;</span>
+						</a>
+					</li>
+					</c:if>
+					<c:forEach begin="${startPage }" end="${endPage }" var="i">
+						<li class="page-item num"><a class="page-link" href="#">${i }</a></li>
+					</c:forEach>
+					<c:if test="${endPage < pageCnt }">
+					<li class="page-item next">
+						<a class="page-link" href="#" aria-label="Next"> 
+							<span aria-hidden="true">&raquo;</span>
+						</a>
+					</li>
+					</c:if>
+				</ul>
 			</nav>
 		</div>
 	
@@ -128,12 +136,43 @@
 		      <th scope="row">1</th>
 		      <td>2022/01/01</td>
 		      <td>2022/01/01 ~ 2022/12/31</td>
-		      <td>21</td>
-		      <td>근무년수에 따른 연차 지급</td>
+		      <td>${totalHoCnt }</td>
+		      <td>직급에 따른 연차 지급</td>
 		    </tr>
 		  </tbody>
 		</table>
 	</div>
+	
+	<script>
+    	// 잔여 연차 계산
+    	$(document).ready(function(){
+        	var total = "${totalHoCnt}";
+        	var use = "${useHoCnt}";
+        	var cal = Number(total) - Number(use);
+    		$("#s_ho_rm_cnt").text(cal);
+    	});
+    </script>
+    
+    <script>
+		// 페이징 처리
+		$(".page-item.num .page-link").click(function(event) {
+			var pageNum = event.target.innerText;
+			$("#s_att_content_box").load("<%=request.getContextPath()%>/attendance/holiday?page="+pageNum);
+		})
+		
+		$(".page-item.pre .page-link").click(function(event){
+			//이전 페이지 최소값 -1 -> 이전 페이지로 이동
+			const num = Math.min(...[...$('.page-link')].map(v=>v.innerText*1).filter(v=>v>0))-1;
+			$("#s_att_content_box").load("<%=request.getContextPath()%>/attendance/holiday?page="+num);
+		
+		})
+		
+		$(".page-item.next .page-link").click(function(event){
+			//다음 페이지 최대값 +1 -> 다음 페이지로 이동
+			const num = Math.max(...[...$('.page-link')].map(v=>v.innerText*1).filter(v=>v>0))+1;
+			$("#s_att_content_box").load("<%=request.getContextPath()%>/attendance/holiday?page="+num);
+		});
+    </script>
 
 </body>
 </html>

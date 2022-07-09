@@ -40,9 +40,9 @@ public interface AttendanceService {
 	/**
 	 * @author : 손은진
 	 * @return : 월별 근태 현황조회
-	 * @param : emp_no (로그인한 사람의 사번)
+	 * @param : currentPage, pageSize, emp_no (로그인한 사람의 사번)
 	 * */
-	public List<Attendance> selectMonth(String emp_no);
+	public List<Attendance> selectMonth(int currentPage, int pageSize, String emp_no);
 	
 	/**
 	 * @author : 손은진
@@ -51,5 +51,45 @@ public interface AttendanceService {
 	 * */
 	public int workTimeCnt(String emp_no);
 	
+	/**
+	 * @author : 손은진
+	 * @return : 총 연차 일수
+	 * @param : emp_no (로그인한 사람의 사번)
+	 * */
+	public int totalHoCnt(String emp_no);
 	
+	/**
+	 * @author : 손은진
+	 * @return : 사용 연차 일수
+	 * @param : emp_no (로그인한 사람의 사번)
+	 * */
+	public Double useHoCnt(String emp_no);
+	
+	/**
+	 * @author : 손은진
+	 * @return : 연차 사용 내역
+	 * @param : currentPage, pageSize, emp_no (로그인한 사람의 사번)
+	 * */
+	public List<Attendance> useHoList(int currentPage, int pageSize, String emp_no);
+	
+	/**
+	 * @author : 손은진
+	 * @return : 내 연차 내역의 로그인한 사람의 정보
+	 * @param : emp_no (로그인한 사람의 사번)
+	 * */
+	public Attendance selectInfo(String emp_no);
+	
+	/**
+	 * @author : 손은진
+	 * @return : 연차 사용 내역 리스트 개수
+	 * @param : emp_no (로그인한 사람의 사번)
+	 * */
+	public int totalUseHoCnt(String emp_no);
+	
+	/**
+	 * @author : 손은진
+	 * @return : 월별 근태 현황조회 리스트 개수
+	 * @param : emp_no (로그인한 사람의 사번)
+	 * */
+	public int totalselectMonth(String emp_no);
 }
