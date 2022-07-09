@@ -98,12 +98,6 @@
 			  	<c:if test="${empty beforeDoc }">
 			  		<div id="s_notice">결재 신청한 문서가 없습니다.</div>
 			  	</c:if>
-			  	<%-- <c:if test="${empty beforeDoc }">
-					<div style="text-align: center;">
-						<div class="s_search_notice">검색 결과가 없습니다.</div>
-						<button class="btn btn-primary" onclick="belist()">목록으로</button>
-					</div>
-				</c:if> --%>
 			</div>
 			<div style="margin-top: 100px; display: flex; justify-content: center;">
 				<nav aria-label="Page navigation example">
@@ -116,7 +110,12 @@
 						</li>
 						</c:if>
 						<c:forEach begin="${startPage }" end="${endPage }" var="i">
-							<li class="page-item num"><a class="page-link" href="#">${i }</a></li>
+							<c:if test="${currentPage eq i}">
+								<li class="page-item num active"><a class="page-link" href="#">${i }</a></li>
+							</c:if>
+							<c:if test="${currentPage ne i}">
+								<li class="page-item num"><a class="page-link" href="#">${i }</a></li>
+							</c:if>
 						</c:forEach>
 						<c:if test="${endPage < pageCnt }">
 						<li class="page-item next">

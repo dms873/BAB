@@ -4,12 +4,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<!-- 업로드케어 CDN -->
-    <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.min.js"></script>
-    <script>UPLOADCARE_LOCALE = "ko"</script>
-    <!-- datepicker CDN -->
-    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
 <meta charset="UTF-8">
 <!-- <title>휴가신청서 양식</title> -->
 <style>
@@ -313,11 +307,11 @@
 						<div class="s_frm_title">3. 신청기간</div>
 						<div style="margin: 5px 0;">사용 가능한 휴가일수는 ${checkHo }일 입니다.</div>
 						<div>
-							<input type="text" placeholder="신청 시작 기간을 선택해주세요" class="form-control" style="width: 250px; display: inline-block;" id="s_ho_start">
+							<input type="text" placeholder="신청 시작 기간을 선택해주세요" class="form-control s_ho_start" style="width: 250px; display: inline-block;" id="s_ho_start">
 							<input type="time" class="form-control" style="width: 150px; display: inline-block;" id="s_start_time" min="09:00:00" max="22:00:00"> 부터
 						</div>
 						<div>
-							<input type="text" placeholder="신청 종료 기간을 선택해주세요" class="form-control" style="width: 250px; display: inline-block; margin-top: 10px;" id="s_ho_end">
+							<input type="text" placeholder="신청 종료 기간을 선택해주세요" class="form-control s_ho_end" style="width: 250px; display: inline-block; margin-top: 10px;" id="s_ho_end">
 							<input type="time" class="form-control" style="width: 150px; display: inline-block;" id="s_end_time" min="09:00:00" max="22:00:00"> 까지
 							<div style="display: inline-block;">(총 <span id="s_date_cal">0</span>일)</div>
 						</div>
@@ -684,16 +678,6 @@
 			})
 		});
 	</script>
-		
-	<script>
-	
-	/* 이미지등록 */
-	var singleWidget = uploadcare.SingleWidget('[role=uploadcare-uploader]');
-
-	singleWidget.onUploadComplete(function(info) {
-		$("#fileUrl").val(info.cdnUrl);
-	});
-	</script>
 	
 	<script>
 		// 제목 입력 시
@@ -777,7 +761,7 @@
 	
 	<script>
     	// datepicker위젯
-		$(function() {
+		$(document).ready(function() {
 			$("#s_ho_start, #s_ho_end").datepicker({
 				timepicker: true,
 				changeMonth: true,
@@ -790,14 +774,19 @@
                 dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
                 monthNamesShort: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
                 monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-                beforeShowDay: disableAllTheseDays2
+                beforeShowDay: disableAllTheseDays2,
+                beforeShow: function() {
+                    setTimeout(function(){
+                        $('.ui-datepicker').css('z-index', 99999999999999);
+                    }, 0);
+                }
 			});
 		});
 		
 	   function disableAllTheseDays2(date) {
             var day = date.getDay();
             return [(day != 0 && day != 6)];
-			// 0=일, 1=월, 2=화, 4=목, 6=토 => 안나오게 할 것 
+			// 0=일, 6=토 => 안나오게 할 것 
         }
     </script>
 	

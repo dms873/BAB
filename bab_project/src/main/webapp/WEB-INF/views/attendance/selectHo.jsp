@@ -8,32 +8,58 @@
 <!-- <title>내 연차 내역</title> -->
 <style>
 	#s_ho_list_tt {
-		margin-top: 20px; margin-bottom: 10px;font-size: 1.2em;font-weight: bold;
+		margin-top: 20px;
+		margin-bottom: 10px;
+		font-size: 1.2em;
+		font-weight: bold;
 	}
 	
 	#s_ho_list_box {
-		border: 1px solid lightgray; border-radius: 10px; padding: 20px; height: 120px;
+		border: 1px solid lightgray;
+		border-radius: 10px;
+		padding: 20px;
+		height: 120px;
 	}
 	
 	#s_ho_list_info {
-		text-align: center; width: 250px; line-height: 70px; float: left;
+		text-align: center;
+		width: 250px;
+		line-height: 70px;
+		float: left;
 	}
 	
 	.s_ho_cnt {
-		border-right: 1px solid; height: 80px; float: left; margin: 0 30px;
+		border-right: 1px solid;
+		height: 80px;
+		float: left;
+		margin: 0 30px;
 	}
 	
 	.s_ho_cnt_box {
-		text-align: center;width: 200px;float: left;
+		text-align: center;
+		width: 200px;
+		float: left;
 	}
 	
 	.s_ho_cnt_co {
-		color: rgb(5, 131, 242);font-weight: bold;
+		color: rgb(5, 131, 242);
+		font-weight: bold;
 	}
 	
 	#s_ho_use_tt {
-		margin-top: 100px; margin-bottom: 10px;font-size: 1.2em;font-weight: bold; clear: both;
+		margin-top: 100px;
+		margin-bottom: 10px;
+		font-size: 1.2em;
+		font-weight: bold;
+		clear: both;
 	}
+	
+	#s_notice {
+		text-align: center;
+		color: red;
+		font-weight: bold;
+		font-size: 1.2em;
+}
 </style>
 </head>
 <body>
@@ -80,19 +106,24 @@
 		    </tr>
 		  </thead>
 		  <tbody>
-		  	<c:forEach items="${useHoList }" var="i">
-			    <tr>
-			      <th scope="row">${i.rnum }</th>
-			      <td>${i.emp_name }</td>
-			      <td>${i.dept_name }</td>
-			      <td>${i.ho_code }</td>
-			      <td>${i.ho_start } ~ ${i.ho_end }</td>
-			      <td>${i.ho_use_count }</td>
-			      <td>${i.eap_content }</td>
-			    </tr>
-		    </c:forEach>
+		  	<c:if test="${not empty useHoList }">
+			  	<c:forEach items="${useHoList }" var="i">
+				    <tr>
+				      <th scope="row">${i.rnum }</th>
+				      <td>${i.emp_name }</td>
+				      <td>${i.dept_name }</td>
+				      <td>${i.ho_code }</td>
+				      <td>${i.ho_start } ~ ${i.ho_end }</td>
+				      <td>${i.ho_use_count }</td>
+				      <td>${i.eap_content }</td>
+				    </tr>
+			    </c:forEach>
+		    </c:if>
 		  </tbody>
 		</table>
+		<c:if test="${empty useHoList }">
+			<div id="s_notice">휴가 사용 내역이 없습니다.</div>
+		</c:if>
 	</div>
 	<div style="margin-top: 100px; display: flex; justify-content: center;">
 			<nav aria-label="Page navigation example">
@@ -105,7 +136,12 @@
 					</li>
 					</c:if>
 					<c:forEach begin="${startPage }" end="${endPage }" var="i">
-						<li class="page-item num"><a class="page-link" href="#">${i }</a></li>
+						<c:if test="${currentPage eq i}">
+							<li class="page-item num active"><a class="page-link" href="#">${i }</a></li>
+						</c:if>
+						<c:if test="${currentPage ne i}">
+							<li class="page-item num"><a class="page-link" href="#">${i }</a></li>
+						</c:if>
 					</c:forEach>
 					<c:if test="${endPage < pageCnt }">
 					<li class="page-item next">

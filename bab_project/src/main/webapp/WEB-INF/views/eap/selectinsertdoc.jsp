@@ -105,7 +105,12 @@
 						</li>
 						</c:if>
 						<c:forEach begin="${startPage }" end="${endPage }" var="i">
-							<li class="page-item num"><a class="page-link" href="#">${i }</a></li>
+							<c:if test="${currentPage eq i}">
+								<li class="page-item num active"><a class="page-link" href="#">${i }</a></li>
+							</c:if>
+							<c:if test="${currentPage ne i}">
+								<li class="page-item num"><a class="page-link" href="#">${i }</a></li>
+							</c:if>
 						</c:forEach>
 						<c:if test="${endPage < pageCnt }">
 						<li class="page-item next">

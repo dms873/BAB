@@ -89,7 +89,7 @@
 		    WHERE EAP_STA_CODE = 'F' 
 		    AND EAP_RES_CODE = 'A'
 		    AND H.EMP_NO = #{emp_no}
-		    ORDER BY HO_START) A
+		    ORDER BY HO_START DESC) A
 	</select>
 	
 	<!-- 내 연차 내역의 로그인한 사람의 정보 -->
@@ -118,7 +118,7 @@
 		        WHERE EAP_STA_CODE = 'F' 
 		        AND EAP_RES_CODE = 'A'
 		        AND H.EMP_NO = #{emp_no}
-		        ORDER BY HO_START) A
+		        ORDER BY HO_START DESC) A
 		    )
 	</select>
 	

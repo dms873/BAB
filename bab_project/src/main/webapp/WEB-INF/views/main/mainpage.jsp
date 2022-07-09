@@ -192,10 +192,7 @@
                         <li class="nav-item">
                             <a href="#" class="nav-link text-white s_menu" aria-current="page" id="menu_calendar">캘린더</a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link text-white s_menu" aria-current="page" id="menu_msg">쪽지</a>
-                        </li>
-                        <li class="nav-item">
+			<li class="nav-item">
                             <a href="#" class="nav-link text-white s_menu" aria-current="page" id="menu_chat">채팅</a>
                         </li>
                         <li class="nav-item">
@@ -210,7 +207,7 @@
             <article style="float: left;" id="s_content_box">
                 <div>
                 <div style="height: 370px;">
-                    <div style="border: 1px solid lightgray; border-radius: 10px;height: 350px;margin-top: 20px;margin-left: 10px;width: 650px; float: left; padding: 20px;">
+                    <div style="border: 1px solid lightgray; border-radius: 10px;height: 340px;margin-top: 30px;margin-left: 10px;width: 650px; float: left; padding: 20px;">
                         <div class="s_main_tt">근무시간</div>
                         <div style="text-align: center;">
                             <figure class="highcharts-figure">
@@ -218,7 +215,7 @@
 							</figure>
                         </div>
                     </div>
-                    <div style="border: 1px solid lightgray; border-radius: 10px;height: 350px;margin-top: 20px;margin-left: 10px;width: 650px; float: right; padding: 20px;">
+                    <div style="border: 1px solid lightgray; border-radius: 10px;height: 340px;margin-top: 30px;margin-left: 10px;width: 650px; float: right; padding: 20px;">
                         <div class="s_main_tt">캘린더</div>
                         <div style="text-align: center;">
                             <img src="https://media.discordapp.net/attachments/692994434526085184/981241672392409128/unknown.png" style="width: 450px;">
@@ -441,7 +438,7 @@
 	        },
 	      credits: {enabled: false},
 	      title: {
-	          text: ${workTimeCnt}/160*100 + '<span class="unit"> %</span>',
+	          text: '<span id="s_percent">' + ${workTimeCnt}/160*100 + '</span>' + '<span class="unit"> %</span>',
 	          align: 'center',
 	          verticalAlign: 'middle',
 	          y: 50,
@@ -523,6 +520,13 @@
 	              }
 	           }]
 	    });
+    </script>
+    
+    <script>
+    // 근무시간 퍼센트 소수점 반올림
+    $(document).ready(function() {
+    	$("#s_percent").text(Math.round($("#s_percent").text()));
+    });
     </script>
 
 </body>

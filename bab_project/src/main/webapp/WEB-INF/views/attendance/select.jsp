@@ -280,7 +280,12 @@
 					</li>
 					</c:if>
 					<c:forEach begin="${startPage }" end="${endPage }" var="i">
-						<li class="page-item num"><a class="page-link" href="#">${i }</a></li>
+						<c:if test="${currentPage eq i}">
+							<li class="page-item num active"><a class="page-link" href="#">${i }</a></li>
+						</c:if>
+						<c:if test="${currentPage ne i}">
+							<li class="page-item num"><a class="page-link" href="#">${i }</a></li>
+						</c:if>
 					</c:forEach>
 					<c:if test="${endPage < pageCnt }">
 					<li class="page-item next">
@@ -443,6 +448,13 @@
 	    });
     </script>
     
+    <script>
+ 	// 근무시간 퍼센트 소수점 반올림
+    $(document).ready(function() {
+    	$("#s_percent").text(Math.round($("#s_percent").text()));
+    });
+    </script>
+    
     <!-- 통계 -->
     <script>
 	    Highcharts.setOptions({
@@ -461,7 +473,7 @@
 	        },
 	      credits: {enabled: false},
 	      title: {
-	          text: ${workTimeCnt}/160*100 + '<span class="unit"> %</span>',
+	          text: '<span id="s_percent">' + ${workTimeCnt}/160*100 + '</span>' + '<span class="unit"> %</span>',
 	          align: 'center',
 	          verticalAlign: 'middle',
 	          y: 50,
