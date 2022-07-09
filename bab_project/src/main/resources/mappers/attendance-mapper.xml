@@ -48,5 +48,13 @@
 				ORDER BY ATT_NO DESC
 			) A
 	</select>
+	
+	<!-- 누적 근무시간 -->
+	<select id="workTimeCnt" parameterType="string" resultType="_int">
+		SELECT NVL(SUM(ATT_WORKTIME), 0) 
+		FROM ATTENDANCE 
+		WHERE EMP_NO = #{emp_no}
+		AND EXTRACT(MONTH FROM ATT_START) = EXTRACT(MONTH FROM SYSDATE)
+	</select>
 
 </mapper>

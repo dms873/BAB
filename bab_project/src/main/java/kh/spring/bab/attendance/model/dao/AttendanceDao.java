@@ -39,4 +39,9 @@ public class AttendanceDao {
 		return sqlSession.selectList("Attendance.selectMonth", emp_no);
 	}
 	
+	// 누적 근무시간
+	public int workTimeCnt(String emp_no) {
+		return sqlSession.selectOne("Attendance.workTimeCnt", emp_no);
+	}
+	
 }

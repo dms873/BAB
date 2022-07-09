@@ -44,5 +44,12 @@ public interface AttendanceService {
 	 * */
 	public List<Attendance> selectMonth(String emp_no);
 	
+	/**
+	 * @author : 손은진
+	 * @return : 누적 근무시간
+	 * @param : emp_no (로그인한 사람의 사번)
+	 * */
+	public int workTimeCnt(String emp_no);
+	
 	
 }

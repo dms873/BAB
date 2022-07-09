@@ -84,12 +84,6 @@
 		margin-top: 25px;
 		margin-left: 10px;
 	}
-
-	#s_leave {
-		background-color: gray;
-		color: white;
-		border-color: gray;
-	}
 	
 	#s_att_management {
 		margin-top: 30px;
@@ -218,11 +212,11 @@
 					<div style="float: left; margin: 20px 0 20px 60px;">
 						<div style="line-height: 150px;">
 							<div class="s_att_box_co" style="margin-right: 50px;">누적 근무 시간</div>
-							<div class="s_att_box_co" style="color: #008dd7;">140시간</div>
+							<div class="s_att_box_co" style="color: #008dd7;">${workTimeCnt }시간</div>
 						</div>
 						<div>
 							<div class="s_att_box_co" style="margin-right: 50px;">남은 근무 시간</div>
-							<div class="s_att_box_co" style="color: gray;">20시간</div>
+							<div class="s_att_box_co" style="color: gray;" id="s_r_work_time">160시간</div>
 						</div>
 					</div>
 				</div>
@@ -297,6 +291,16 @@
             </div>
         </article>    
     </section>
+    
+    <script>
+    	// 남은 근무 시간 계산
+    	$(document).ready(function(){
+        	var time = "${workTimeCnt}";
+        	var timeCal = 160 - Number(time);
+    		$("#s_r_work_time").text(timeCal + "시간");
+    	});
+    </script>
+    
     
     <script>
     	$("#s_ho_select").click(function() {
@@ -432,7 +436,7 @@
 	        },
 	      credits: {enabled: false},
 	      title: {
-	          text: '84' + '<span class="unit"> %</span>',
+	          text: ${workTimeCnt}/160*100 + '<span class="unit"> %</span>',
 	          align: 'center',
 	          verticalAlign: 'middle',
 	          y: 70,
@@ -478,16 +482,16 @@
 	              name:'근무시간',
 	              innerSize: '50%',
 	              data:[
-	                ['누적 근무시간', 140],
+	                ['누적 근무시간', ${workTimeCnt}],
 	                {
 	                  name: '남은 근무시간',
-	                  y: 20,
+	                  y: 160-${workTimeCnt},
 	                  dataLabels: {
 	                 	 enabled: true,
 	                 	format: '{y}시간',
 		                color: '#fff', 
-		                y: 0,
-		                x: -15,
+		                y: 15,
+		                x: -5,
 		                style: {
 			                  fontSize: '13px',
 			                  fontFamily: 'notoSans',
@@ -503,8 +507,8 @@
 	                color: '#fff', 
 	                align: 'center',
 	                //세로 위치 지정
-	                y: 10,
-	                x: 20,
+	                y: 5,
+	                x: 10,
 	                style: {
 	                  fontSize: '13px',
 	                  fontFamily: 'notoSans',

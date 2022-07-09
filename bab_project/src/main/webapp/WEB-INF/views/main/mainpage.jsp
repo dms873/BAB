@@ -74,6 +74,55 @@
 		color: darkgreen;
 	}
 </style>
+<!-- 통계css 추가 : 손은진(220709) -->
+<style>
+	.highcharts-figure,
+	.highcharts-data-table table {
+	  min-width: 320px;
+	  max-width: 500px;
+	  margin: 1em auto;
+	}
+	
+	#container {
+	  height: 400px;
+	}
+	
+	.highcharts-data-table table {
+	  font-family: Verdana, sans-serif;
+	  border-collapse: collapse;
+	  border: 1px solid #ebebeb;
+	  margin: 10px auto;
+	  text-align: center;
+	  width: 100%;
+	  max-width: 500px;
+	}
+	
+	.highcharts-data-table caption {
+	  padding: 1em 0;
+	  font-size: 1.2em;
+	  color: #555;
+	}
+	
+	.highcharts-data-table th {
+	  font-weight: 600;
+	  padding: 0.5em;
+	}
+	
+	.highcharts-data-table td,
+	.highcharts-data-table th,
+	.highcharts-data-table caption {
+	  padding: 0.5em;
+	}
+	
+	.highcharts-data-table thead tr,
+	.highcharts-data-table tr:nth-child(even) {
+	  background: #f8f8f8;
+	}
+	
+	.highcharts-data-table tr:hover {
+	  background: #f1f7ff;
+	}
+</style>
     
     
 </head>
@@ -164,7 +213,9 @@
                     <div style="border: 1px solid lightgray; border-radius: 10px;height: 350px;margin-top: 20px;margin-left: 10px;width: 650px; float: left; padding: 20px;">
                         <div class="s_main_tt">근무시간</div>
                         <div style="text-align: center;">
-                            <img src="https://media.discordapp.net/attachments/692994434526085184/981241711105806396/unknown.png" style="width: 350px;">
+                            <figure class="highcharts-figure">
+							  <div id="container" style="width: 500px; height: 300px;"></div>
+							</figure>
                         </div>
                     </div>
                     <div style="border: 1px solid lightgray; border-radius: 10px;height: 350px;margin-top: 20px;margin-left: 10px;width: 650px; float: right; padding: 20px;">
@@ -370,6 +421,108 @@
         $("#s_re_tt").click(function() {
         	$("#menu_eap").get(0).click();
         });
+    </script>
+    
+    <!-- 근무시간 통계 추가 : 손은진(220709) -->
+    <script>
+	    Highcharts.setOptions({
+	      	colors: ['#008dd7','#c6c6c6']
+	      });
+	    Highcharts.chart('container', {
+	      chart: {
+	          renderTo: 'halfPie',
+	          type: 'pie',
+	          margin: [0, 10, 30, 10],
+	          style: {
+	            color: '#333333',
+	            fontFamily: 'notoSans'
+	          },
+	          backgroundColor:'rgba(255, 255, 255, 0)'
+	        },
+	      credits: {enabled: false},
+	      title: {
+	          text: ${workTimeCnt}/160*100 + '<span class="unit"> %</span>',
+	          align: 'center',
+	          verticalAlign: 'middle',
+	          y: 70,
+	          style: {
+	            color:'#333',
+	            fontSize: '20px',
+	            fontFamily: 'Segoe UI',
+	            fontWeight: 'bold',
+	            textOutline: false 
+	          }
+	        },
+	        legend: {
+	          align:'center',
+	          verticalAlign: 'bottom',
+	          x: 0,
+	          y: -35,
+	          itemDistance: 15,
+	          symbolHeight: 10,
+	          symbolWidth: 10,
+	          symbolPadding: 5,
+	          symbolRadius: 0,
+	          itemStyle: {
+	            color: '#333',
+	            fontSize: '14px',
+	            fontWeight:'normal'
+	           }
+	         },
+	         plotOptions: {
+	         	pie: {
+	              dataLabels: {
+	                enabled: true,
+	                distance: -20,
+	              },
+	                startAngle: -90,//하프 도넛 앵글 시작 각도
+	                endAngle: 90,//하프 도넛 앵글 끝 각도
+	                center: ['50%', '75%'],
+	                size: '100%',
+	                showInLegend: true
+	               }
+	            },
+	            series: [{
+	              type: 'pie',
+	              name:'근무시간',
+	              innerSize: '50%',
+	              data:[
+	                ['누적 근무시간', ${workTimeCnt}],
+	                {
+	                  name: '남은 근무시간',
+	                  y: 160-${workTimeCnt},
+	                  dataLabels: {
+	                 	 enabled: true,
+	                 	format: '{y}시간',
+		                color: '#fff', 
+		                y: 15,
+		                x: -5,
+		                style: {
+			                  fontSize: '13px',
+			                  fontFamily: 'notoSans',
+			                  fontWeight: 'bold',
+			                  textOutline: false 
+		                 }
+	                  }
+	                }
+	              ],
+	              dataLabels: {
+	                enabled: true,
+	                format: '{y}시간',
+	                color: '#fff', 
+	                align: 'center',
+	                //세로 위치 지정
+	                y: 5,
+	                x: 10,
+	                style: {
+	                  fontSize: '13px',
+	                  fontFamily: 'notoSans',
+	                  fontWeight: 'bold',
+	                  textOutline: false 
+	                 }
+	              }
+	           }]
+	    });
     </script>
 
 </body>

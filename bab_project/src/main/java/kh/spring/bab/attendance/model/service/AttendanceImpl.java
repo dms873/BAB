@@ -43,5 +43,11 @@ public class AttendanceImpl implements AttendanceService {
 	public List<Attendance> selectMonth(String emp_no) {
 		return dao.selectMonth(emp_no);
 	}
+	
+	// 누적 근무시간
+	@Override
+	public int workTimeCnt(String emp_no) {
+		return dao.workTimeCnt(emp_no);
+	}
 
 }

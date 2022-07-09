@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import kh.spring.bab.attendance.model.service.AttendanceImpl;
 import kh.spring.bab.eap.domain.Eap;
 import kh.spring.bab.eap.model.service.EapServiceImpl;
 import kh.spring.bab.employee.domain.Employee;
@@ -25,6 +26,9 @@ public class MainController {
 	// 손은진 추가(220702)
 	@Autowired
 	private EapServiceImpl eapservice;
+	// 손은진 추가(220709)
+	@Autowired
+	private AttendanceImpl attservice;
 
 	@GetMapping("/main")
 	public ModelAndView select(ModelAndView mv, HttpServletRequest request) {
@@ -46,6 +50,11 @@ public class MainController {
 		// 전자 결재 대기 개수 : 손은진 추가(220702)
 		int homeRcDocCnt = eapservice.reDocCnt(emp_no);
 		mv.addObject("homeRcDocCnt", homeRcDocCnt);
+		
+		// 누적 근무 시간 : 손은진 추가(220709)
+		int workTimeCnt = attservice.workTimeCnt(emp_no);
+		mv.addObject("workTimeCnt", workTimeCnt);
+		
 		mv.setViewName("main/mainpage");
 		
 		return mv;

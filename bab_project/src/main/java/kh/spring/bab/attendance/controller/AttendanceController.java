@@ -50,6 +50,10 @@ public class AttendanceController {
 		System.out.println(month);
 		mv.addObject("currentMonth", month);
 		
+		// 누적 근무시간
+		int result3 = service.workTimeCnt(emp_no);
+		mv.addObject("workTimeCnt", result3);
+		
 		mv.setViewName("attendance/select");
 		
 		return mv;
