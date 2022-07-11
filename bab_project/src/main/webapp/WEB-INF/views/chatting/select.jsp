@@ -243,7 +243,7 @@
 	                	<div class="s_chat_box">
 	                		<input type="hidden" id="${i.room_no }" value="${i.room_no }">
 		                	<div class="s_room_tt">${i.room_title }</div>
-		                	<div>마지막 대화 내용 뜰곳</div>
+		                	<div>${i.ch_content }</div>
 	                	</div>
                 	</c:forEach>
                 </div>
@@ -352,7 +352,6 @@
 		}
 		
 		arr.push("${selectOne.emp_name}");
-		console.log(arr);
 		
 		var obj = {
 					"emp_name" : arr,
@@ -374,7 +373,6 @@
 					, type: "post"
 					, data: obj
 					, success: function(result) {
-						console.log(result);
 						$(".btn-close").trigger('click');
 						swal({
 		                    title: "",

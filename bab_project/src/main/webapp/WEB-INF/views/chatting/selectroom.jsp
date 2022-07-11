@@ -116,7 +116,59 @@
        		</c:forEach>
        	</div>
        	<div style="border: 1px solid lightgray; margin-bottom: 10px;"></div>
-       	<div id="messageArea" class="s_scroll" style="height: 830px; overflow: auto;"></div>
+       	<div id="messageArea" class="s_scroll" style="height: 830px; overflow: auto;">
+       		<!-- 채팅 DB 저장한 것 뿌리기(로그인한 사람 이름과 채팅한 사람 이름이 다르면 수신/같으면 발신 -->
+			<c:forEach items="${selectChatting }" var="i" varStatus="status">
+  				<c:choose>
+  					<%-- 채팅 작성자와 로그인한 사람과 같으면(발신) --%>
+   					<c:when test="${empName eq i.emp_name}">
+   						<!-- 이전 index와 비교하려고 index 1 이상부터 -->
+	  					<c:if test="${status.index != 0}">
+	  						<!-- 이전 index의 이름이랑 현재 index의 이름이랑 비교해서 같으면 -->
+	  						<c:if test="${selectChatting[status.index-1].emp_name eq selectChatting[status.index].emp_name}">
+	  							<!-- 채팅 내용만 띄우기 -->
+	  							<div class="s_sender_chat">${i.ch_content }</div>
+	  						</c:if>
+	  						<!-- 이전 index의 이름이랑 현재 index의 이름이랑 비교해서 다르면 -->
+	  						<c:if test="${selectChatting[status.index-1].emp_name ne selectChatting[status.index].emp_name}">
+	  							<!-- 이름이랑 채팅 내용 띄우기 -->
+	  							<div class="s_sender">${i.emp_name }</div>
+			      				<div class="s_sender_chat">${i.ch_content }</div>
+	  						</c:if>
+		      			</c:if>
+		      			<!-- 현재 index가 0이면 -->
+		      			<c:if test="${status.index == 0 }">
+		      				<!-- 이름이랑 채팅 내용 띄우기 -->
+		      				<div class="s_sender">${i.emp_name }</div>
+		      				<div class="s_sender_chat">${i.ch_content }</div>
+		      			</c:if>
+   					</c:when>
+   					<%-- 채팅 작성자와 로그인한 사람과 다르면(수신) --%>
+					<c:otherwise>
+						<!-- 이전 index와 비교하려고 index 1 이상부터 -->
+						<c:if test="${status.index != 0}">
+							<!-- 이전 index의 이름이랑 현재 index의 이름이랑 비교해서 같으면 -->
+	  						<c:if test="${selectChatting[status.index-1].emp_name eq selectChatting[status.index].emp_name}">
+	  							<!-- 채팅 내용만 띄우기 -->
+	  							<div class="s_receive_chat">${i.ch_content }</div>
+	  						</c:if>
+	  						<!-- 이전 index의 이름이랑 현재 index의 이름이랑 비교해서 다르면 -->
+	  						<c:if test="${selectChatting[status.index-1].emp_name ne selectChatting[status.index].emp_name}">
+	  							<!-- 이름이랑 채팅 내용 띄우기 -->
+	  							<div class="s_receive">${i.emp_name }</div>
+			      				<div class="s_receive_chat">${i.ch_content }</div>
+	  						</c:if>
+		      			</c:if>
+		      			<!-- 현재 index가 0이면 -->
+		      			<c:if test="${status.index == 0 }">
+		      				<!-- 이름이랑 채팅 내용 띄우기 -->
+		      				<div class="s_receive">${i.emp_name }</div>
+	       					<div class="s_receive_chat">${i.ch_content }</div>
+		      			</c:if>
+   					</c:otherwise>
+  				</c:choose>
+   			</c:forEach>
+       	</div>
        	<div style="margin-top: 10px;display: flex;justify-content: center;">
          	<input style="width: 900px; height: 50px; display: inline-block;" type="text" placeholder="채팅 입력" id="message" onkeyup="fn_enter(event)" class="form-control" />
 			<button id="sendBtn" style="height: 50px; width: 80px; margin-left: 10px;" class="btn btn-success">전송</button>
@@ -187,6 +239,11 @@
 		// $("#messageArea").append(emp_name + "님이 대화를 종료하셨습니다.");
 		console.log("종료");
 	}
+	
+	$(document).ready(function() {
+		var offset = $("#messageArea").children().last().offset();
+		$("#messageArea").animate({scrollTop : 90000},0);
+	});
 </script>
 </body>
 </html>

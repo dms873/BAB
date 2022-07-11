@@ -37,7 +37,10 @@
 	<select id="selectRoom" resultType="Chat" parameterType="string">
 		SELECT * FROM ROOM
 		JOIN CHAT_MEMBER USING(ROOM_NO)
-		WHERE EMP_NO = #{emp_no}
+        JOIN CHATTING USING(ROOM_NO)
+        WHERE EMP_NO = #{emp_no}
+        AND CH_NO IN (SELECT MAX(CH_NO) AS CH_NO FROM CHATTING GROUP BY ROOM_NO)
+        ORDER BY CH_DATE DESC
 	</select>
 	
 	<!-- 채팅방 정보 -->
