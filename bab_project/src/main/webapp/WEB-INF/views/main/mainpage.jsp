@@ -19,10 +19,10 @@
     <!-- 알람 toastr CDN -->
 	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
 	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-	<!-- fullcalendar CDN 추가 혜미-220612 -->
+	<!-- fullcalendar CDN 추가 장혜미(220612) -->
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css" rel="stylesheet"/>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
-    <!-- datepicker CDN 추가 혜미-220612 -->
+    <!-- datepicker CDN 추가 장혜미(220612) -->
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
     <!-- 통계API CDN 추가 손은진(220614) -->
@@ -34,15 +34,17 @@
 	<!-- CKEditor CDN 추가 윤영원(220615) -->
 	<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
 	<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
-	<!-- SweetAlert CDN 추가 혜미-220624 -->
+	<!-- SweetAlert CDN 추가 장혜미(220624) -->
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-	<!-- kakao(daum) 주소 API CDN 추가 혜미-220624 -->
+	<!-- kakao(daum) 주소 API CDN 추가 장혜미(220624) -->
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<!-- Uploadcare CDN 추가 혜미-220627 -->
+	<!-- Uploadcare CDN 추가 장혜미(220627) -->
     <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.min.js"></script>
     <script>UPLOADCARE_LOCALE = "ko"</script>
     <!-- sockjs CDN 추가 손은진(220702) -->
 	<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.6.1/dist/sockjs.min.js"></script>
+    <!-- calendar/mainpage.css 추가 장혜미(220711) -->
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/calendar/mainpage.css">
     <!-- 공통 reset.css -->
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/reset.css">
 <meta charset="UTF-8">
@@ -218,7 +220,7 @@
                     <div style="border: 1px solid lightgray; border-radius: 10px;height: 340px;margin-top: 30px;margin-left: 10px;width: 650px; float: right; padding: 20px;">
                         <div class="s_main_tt">캘린더</div>
                         <div style="text-align: center;">
-                            <img src="https://media.discordapp.net/attachments/692994434526085184/981241672392409128/unknown.png" style="width: 450px;">
+                            <div  id="j_calendar"></div>
                         </div>
                     </div>
                 </div>
@@ -344,11 +346,11 @@
         $("#menu_attendance").click(function() {
             $("#s_content_box").load("<%=request.getContextPath()%>/attendance/select");
         });
-        /*캘린더 추가 혜미-220612  */
+        /*캘린더 추가 : 장혜미(220612)  */
         $("#menu_calendar").click(function() {
             $("#s_content_box").load("<%=request.getContextPath()%>/calendar/select");
         });
-        /*내정보수정 추가 혜미-220612  */
+        /*내정보수정 추가 : 장혜미(220612)  */
         $("#menu_info").click(function() {
             $("#s_content_box").load("<%=request.getContextPath()%>/info/main");
         });
@@ -527,6 +529,67 @@
     $(document).ready(function() {
     	$("#s_percent").text(Math.round($("#s_percent").text()));
     });
+    </script>
+    
+    <!--FullCalendar 추가 : 장혜미(220711)  -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    	  var calendarEl = document.getElementById('j_calendar');
+    	  var calendar = new FullCalendar.Calendar(calendarEl, {
+
+    	    locale : 'ko',
+    	    initialView: 'listWeek',
+    	    views: {
+    	      listDay: { buttonText: 'Today' },
+    	      listWeek: { buttonText: 'Week' },
+    	      listMonth: { buttonText: 'Month' }
+    	    },
+    	    headerToolbar: {
+    	      left: 'title',
+    	      center: '',
+    	      right: 'listDay,listWeek,listMonth'
+    	    },
+    	    eventClick: function(data){
+    	    	$("#s_content_box").load("<%=request.getContextPath()%>/calendar/select");
+    	    },
+    	    events : [
+				/*캘린더 조회  */
+				<c:forEach items="${calList}" var="cal">
+					{	
+						id : "${cal.cal_no}",
+						title : "${cal.cal_title}",
+						start : "${cal.cal_start}",
+						end : "${cal.cal_end}",
+						color : "${cal.cal_color}",
+						textColor : 'black'
+					},
+				</c:forEach>
+				/*캘린더 조회(휴가)  */
+				<c:forEach items="${calHoList}" var="calHo">
+					{
+						title : "${calHo.emp_name}님 휴가",
+						start : "${calHo.ho_start}",
+						end : "${calHo.ho_end}",
+						color : '#ffcb6b',
+						textColor : 'black'
+					},
+				</c:forEach>
+				/*캘린더 조회(생일)  */
+				<c:forEach items="${calHBDList}" var="calHBD">
+					{
+						title : "★${calHBD.emp_name}님 생일★",
+						start : "${calHBD.hbd_start}",
+						end : "${calHBD.hbd_end}",
+						color : 'yellowgreen',
+						textColor : 'black',
+						allDay : 'allDay'
+					},
+				</c:forEach>
+			] 
+    	  });
+
+    	  calendar.render();
+    	});
     </script>
 
 </body>

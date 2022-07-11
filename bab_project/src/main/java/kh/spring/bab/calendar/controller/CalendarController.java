@@ -25,7 +25,7 @@ import kh.spring.bab.calendar.model.service.CalendarServiceImpl;
 public class CalendarController {
 	
 	@Autowired
-	private CalendarServiceImpl service;
+	private CalendarServiceImpl calservice;
 	
 	// 캘린더 조회
 	@GetMapping("/select")
@@ -36,13 +36,13 @@ public class CalendarController {
 		Object login = session.getAttribute("login");
 		mv.addObject("login", login);
 		//캘린더 일정 조회
-		List<Calendar> calList = service.select();
+		List<Calendar> calList = calservice.select();
 		mv.addObject("calList", calList);
 		//캘린더 휴가 조회
-		List<CalendarHo> calHoList = service.selectHo();
+		List<CalendarHo> calHoList = calservice.selectHo();
 		mv.addObject("calHoList", calHoList);
 		// 캘린더 생일 조회
-		List<CalendarHBD> calHBDList = service.selectHBD();
+		List<CalendarHBD> calHBDList = calservice.selectHBD();
 		mv.addObject("calHBDList", calHBDList);
 
 		mv.setViewName("calendar/select");
@@ -54,7 +54,7 @@ public class CalendarController {
 	@ResponseBody
 	public HashMap<String, Object> insert(Calendar cal) {
 		
-		int insert = service.insert(cal);
+		int insert = calservice.insert(cal);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		if(insert==0) {
@@ -75,7 +75,7 @@ public class CalendarController {
 		Object login = session.getAttribute("login");
 		mv.addObject("login", login);
 		// 캘린더 일정 조회
-		Calendar cal = service.read(cal_no);
+		Calendar cal = calservice.read(cal_no);
 		mv.addObject("cal", cal);
 		mv.setViewName("calendar/update");
 		return mv;
@@ -86,7 +86,7 @@ public class CalendarController {
 	@ResponseBody
 	public HashMap<String, Object> update(Calendar cal) {
 
-		int update = service.update(cal);
+		int update = calservice.update(cal);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 
 		if (update == 0) {
@@ -103,7 +103,7 @@ public class CalendarController {
 	public HashMap<String, Object> delete(
 			@RequestParam(name="cal_no", required = false) String cal_no) {
 
-		int delete = service.delete(cal_no);
+		int delete = calservice.delete(cal_no);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 
 		if (delete == 0) {

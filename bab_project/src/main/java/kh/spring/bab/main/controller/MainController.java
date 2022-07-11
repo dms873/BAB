@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import kh.spring.bab.attendance.model.service.AttendanceImpl;
+import kh.spring.bab.calendar.domain.Calendar;
+import kh.spring.bab.calendar.domain.CalendarHBD;
+import kh.spring.bab.calendar.domain.CalendarHo;
+import kh.spring.bab.calendar.model.service.CalendarServiceImpl;
 import kh.spring.bab.eap.domain.Eap;
 import kh.spring.bab.eap.model.service.EapServiceImpl;
 import kh.spring.bab.employee.domain.Employee;
@@ -29,13 +33,14 @@ public class MainController {
 	// 손은진 추가(220709)
 	@Autowired
 	private AttendanceImpl attservice;
+	// 장혜미 추가(220711)
+	@Autowired
+	private CalendarServiceImpl calservice;
 
 	@GetMapping("/main")
 	public ModelAndView select(ModelAndView mv, HttpServletRequest request) {
-		///로그인세션 받아와서 정보 출력 혜미 수정-220629
-		// session 객체를 가져옴
+		// 로그인세션 가져오기 : 장혜미 추가(220629)
 		HttpSession session = request.getSession();
-		// login처리를 담당하는 사용자 정보를 담고 있는 객체를 가져옴
 		Object info = session.getAttribute("login");
 		mv.addObject("info", info);
 		
@@ -54,6 +59,18 @@ public class MainController {
 		// 누적 근무 시간 : 손은진 추가(220709)
 		int workTimeCnt = attservice.workTimeCnt(emp_no);
 		mv.addObject("workTimeCnt", workTimeCnt);
+		
+		// 캘린더 일정 조회 : 장혜미 추가(220711)
+		List<Calendar> calList = calservice.select();
+		mv.addObject("calList", calList);
+		
+		// 캘린더 휴가 조회 : 장혜미 추가(220711)
+		List<CalendarHo> calHoList = calservice.selectHo();
+		mv.addObject("calHoList", calHoList);
+		
+		// 캘린더 생일 조회 : 장혜미 추가(220711)
+		List<CalendarHBD> calHBDList = calservice.selectHBD();
+		mv.addObject("calHBDList", calHBDList);
 		
 		mv.setViewName("main/mainpage");
 		
