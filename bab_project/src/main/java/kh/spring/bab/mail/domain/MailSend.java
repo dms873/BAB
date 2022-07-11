@@ -3,7 +3,7 @@ package kh.spring.bab.mail.domain;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Mail {
+public class MailSend {
 	private String send_no;
 	private String send_title;
 	private String send_content;

@@ -7,6 +7,6 @@
 </insert>
 
 <insert id="insertRcvMail">
-	insert into send_mail values (REC_MAIL_SEQ.nextval, #{rec_title}, #{rec_content}, systimestamp, #{rec_receiver}, #{rec_sender})
+	insert into RECEIVE_MAIL values (RECEIVE_MAIL_SEQ.nextval, #{rec_title}, #{rec_content}, systimestamp, #{rec_receiver}, #{rec_sender})
 </insert>
 </mapper>
