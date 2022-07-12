@@ -1,3 +1,4 @@
+<%@page import="kh.spring.bab.employee.domain.Employee"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -138,8 +139,206 @@
 		color: black;
 	}
 </style>
+<!-- datepicker css -->
+<style>
+	.ui-widget-header {
+		border: 0px solid #dddddd;
+		background: #fff;
+	}
+	
+	.ui-datepicker-calendar>thead>tr>th {
+		font-size: 14px !important;
+	}
+	
+	.ui-datepicker .ui-datepicker-header {
+		position: relative;
+		padding: 10px 0;
+	}
+	
+	.ui-state-default, .ui-widget-content .ui-state-default,
+		.ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover,
+		html .ui-button.ui-state-disabled:active {
+		border: 0px solid #c5c5c5;
+		background-color: transparent;
+		font-weight: normal;
+		color: #454545;
+		text-align: center;
+	}
+	
+	.ui-datepicker .ui-datepicker-title {
+		margin: 0 0em;
+		line-height: 16px;
+		text-align: center;
+		font-size: 14px;
+		padding: 0px;
+		font-weight: bold;
+	}
+	
+	.ui-datepicker {
+		display: none;
+		background-color: #fff;
+		border-radius: 4px;
+		margin-top: 10px;
+		margin-left: 0px;
+		margin-right: 0px;
+		padding: 20px;
+		padding-bottom: 10px;
+		width: 300px;
+		box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.1);
+	}
+	
+	.ui-widget.ui-widget-content {
+		border: 1px solid #eee;
+	}
+	
+	#datepicker:focus>.ui-datepicker {
+		display: block;
+	}
+	
+	.ui-datepicker-prev, .ui-datepicker-next {
+		cursor: pointer;
+	}
+	
+	.ui-datepicker-next {
+		float: right;
+	}
+	
+	.ui-state-disabled {
+		cursor: auto;
+		color: hsla(0, 0%, 80%, 1);
+	}
+	
+	.ui-datepicker-title {
+		text-align: center;
+		padding: 10px;
+		font-weight: 100;
+		font-size: 20px;
+	}
+	
+	.ui-datepicker-calendar {
+		width: 100%;
+	}
+	
+	.ui-datepicker-calendar>thead>tr>th {
+		padding: 5px;
+		font-size: 20px;
+		font-weight: 400;
+	}
+	
+	.ui-datepicker-calendar>tbody>tr>td>a {
+		color: #000;
+		font-size: 12px !important;
+		font-weight: bold !important;
+		text-decoration: none;
+	}
+	
+	.ui-datepicker-calendar>tbody>tr>.ui-state-disabled:hover {
+		cursor: auto;
+		background-color: #fff;
+	}
+	
+	.ui-datepicker-calendar>tbody>tr>td {
+		border-radius: 100%;
+		width: 44px;
+		height: 30px;
+		cursor: pointer;
+		padding: 5px;
+		font-weight: 100;
+		text-align: center;
+		font-size: 12px;
+	}
+	
+	.ui-datepicker-calendar>tbody>tr>td:hover {
+		background-color: transparent;
+		opacity: 0.6;
+	}
+	
+	.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover,
+		.ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus,
+		.ui-button:hover, .ui-button:focus {
+		border: 0px solid #cccccc;
+		background-color: transparent;
+		font-weight: normal;
+		color: #2b2b2b;
+	}
+	
+	.ui-widget-header .ui-icon {
+		background-image: url('https://media.discordapp.net/attachments/692994434526085184/995979886768439306/btns.png');
+	}
+	
+	.ui-icon-circle-triangle-e {
+		background-position: -20px 0px;
+		background-size: 36px;
+	}
+	
+	.ui-icon-circle-triangle-w {
+		background-position: -0px -0px;
+		background-size: 36px;
+	}
+	
+	.ui-datepicker-calendar>tbody>tr>td:first-child a {
+		color: red !important;
+	}
+	
+	.ui-datepicker-calendar>tbody>tr>td:last-child a {
+		color: #0099ff !important;
+	}
+	
+	.ui-datepicker-calendar>thead>tr>th:first-child {
+		color: red !important;
+	}
+	
+	.ui-datepicker-calendar>thead>tr>th:last-child {
+		color: #0099ff !important;
+	}
+	
+	.ui-state-highlight, .ui-widget-content .ui-state-highlight,
+		.ui-widget-header .ui-state-highlight {
+		border: 0px;
+		background: #f1f1f1;
+		border-radius: 50%;
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
+	
+	.inp {
+		padding: 10px 10px;
+		background-color: #f1f1f1;
+		border-radius: 4px;
+		border: 0px;
+	}
+	
+	.inp:focus {
+		outline: none;
+		background-color: #eee;
+	}
+	
+	select.ui-datepicker-month {
+		border-radius: 5px;
+    	padding: 5px;
+    	width: 80px !important;
+	}
+	
+	select.ui-datepicker-year {
+		border-radius: 5px;
+	    padding: 5px;
+	    margin-left: 10px !important;
+    	width: 80px !important;
+	}
+	
+	.ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next {
+	    top: 9px !important;
+	}
+</style>
 </head>
 <body>
+
+	<%
+		// 로그인 한 정보
+		String empName = null;
+		Employee vo = (Employee) request.getSession().getAttribute("login"); 
+		empName = vo.getEmp_name();
+	%>
 
 	<span><a id="s_eap_app" href="#">결재요청 | </a></span>
 	<span><a id="s_appLine_btn" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop">결재선 지정 | </a></span>
@@ -305,13 +504,13 @@
 					
 					<div style="padding: 10px 0;">
 						<div class="s_frm_title">3. 신청기간</div>
-						<div style="margin: 5px 0;">사용 가능한 휴가일수는 ${checkHo }일 입니다.</div>
+						<div style="margin: 5px 0;">사용 가능한 휴가일수는 <span id="s_ho_use">${checkHo }</span>일 입니다.</div>
 						<div>
-							<input type="text" placeholder="신청 시작 기간을 선택해주세요" class="form-control s_ho_start" style="width: 250px; display: inline-block;" id="s_ho_start">
+							<input type="text" placeholder="신청 시작 기간을 선택해주세요" class="form-control s_ho_start" style="width: 250px; display: inline-block; cursor: context-menu;" id="s_ho_start">
 							<input type="time" class="form-control" style="width: 150px; display: inline-block;" id="s_start_time" min="09:00:00" max="22:00:00"> 부터
 						</div>
 						<div>
-							<input type="text" placeholder="신청 종료 기간을 선택해주세요" class="form-control s_ho_end" style="width: 250px; display: inline-block; margin-top: 10px;" id="s_ho_end">
+							<input type="text" placeholder="신청 종료 기간을 선택해주세요" class="form-control s_ho_end" style="width: 250px; display: inline-block; cursor: context-menu; margin-top: 10px;" id="s_ho_end">
 							<input type="time" class="form-control" style="width: 150px; display: inline-block;" id="s_end_time" min="09:00:00" max="22:00:00"> 까지
 							<div style="display: inline-block;">(총 <span id="s_date_cal">0</span>일)</div>
 						</div>
@@ -454,6 +653,19 @@
 					return;
 				}
 			}
+			// 본인을 결재선 리스트에 추가할 때 alert
+			var checkEmpName = "<%=empName%>";
+			if(name == checkEmpName) {
+				swal({
+                    title: "",
+                    text: "본인은 결재선 리스트에 추가할 수 없습니다.",
+                    icon: "error",
+                    closeOnClickOutside: false,
+                    closeOnEsc: false
+                });
+				return;
+			}
+			
 			// 결재선 리스트 추가
              if($('.jstree-clicked').text().length > 3) {
               if($(".s_appLine_tbody_cl tr").length < 3) {
@@ -640,7 +852,7 @@
 	</script>
 	
 	<script>
-	
+		// 결재요청 클릭 시
 		$("#s_eap_app").click(function() {
 			var eap_title = $('#s_ho_tt').val();
 			var eap_content = $('#s_ho_co').val();
@@ -648,6 +860,32 @@
 			var ho_start = $('#s_ho_start').val() + " " + $('#s_start_time').val();
 			var ho_end = $('#s_ho_end').val() + " " + $('#s_end_time').val();
 			var ho_use_count = $('#s_date_cal').text();
+			
+			// 신청한 휴가일수가 0일때 alert
+			if(ho_use_count == 0) {
+				swal({
+                    title: "신청한 휴가일수가 0일입니다",
+                    text: "날짜와 시간을 다시 선택해주세요",
+                    icon: "error",
+                    closeOnClickOutside: false,
+                    closeOnEsc: false
+                });
+				return;
+			}
+			
+			var s_ho_use = $("#s_ho_use").text();
+			
+			// 사용 가능한 휴가일수보다 신청한 휴가일수가 더 많을 때 alert
+			if(ho_use_count > s_ho_use) {
+				swal({
+                    title: "사용 가능한 휴가일수보다 신청한 휴가일수가 더 많습니다.",
+                    text: "날짜와 시간을 다시 선택해주세요",
+                    icon: "error",
+                    closeOnClickOutside: false,
+                    closeOnEsc: false
+                });
+				return;
+			}
 		
 			// ajax에 보낼 obj
 			var dataObj = {
@@ -762,7 +1000,7 @@
 	<script>
     	// datepicker위젯
 		$(document).ready(function() {
-			$("#s_ho_start, #s_ho_end").datepicker({
+			$("#s_ho_start").datepicker({
 				timepicker: true,
 				changeMonth: true,
                 changeYear: true,
@@ -770,11 +1008,53 @@
                 timeFormat: 'HH:mm',
                 dateFormat: 'yy-mm-dd',
                 yearRange: '1930:2024',
+                minDate: 0, // 오늘 날짜 이전 선택 불가
                 dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
                 dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
                 monthNamesShort: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
                 monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
                 beforeShowDay: disableAllTheseDays2,
+                beforeShow: function() {
+                    setTimeout(function(){
+                        $('.ui-datepicker').css('z-index', 99999999999999);
+                    }, 0);
+                }
+			});
+			
+			$("#s_ho_end").datepicker({
+				timepicker: true,
+				changeMonth: true,
+                changeYear: true,
+                controlType: 'select',
+                timeFormat: 'HH:mm',
+                dateFormat: 'yy-mm-dd',
+                yearRange: '1930:2024',
+                minDate: 0, // 오늘 날짜 이전 선택 불가
+                dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+                dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+                monthNamesShort: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+                monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+                beforeShowDay: disableAllTheseDays2,
+                onSelect: function(dateText, inst) {
+                	console.log(dateText);
+                	console.log(inst);
+                	var date1 = new Date($("#s_ho_start").val()).getTime();
+                	var date2 = new Date(dateText).getTime();
+                	console.log(date1);
+                	console.log(date2);
+                	
+                	// 시작 날짜와 끝나는 날짜 비교하여 시작하는 날짜보다 끝나는 날짜가 앞이면 경고창으로 안내
+                	if(date1 > date2 == true) {
+                		swal({
+    	                    title: "종료 기간이 시작 기간보다 빠를 수 없습니다!",
+    	                    text: "신청 종료 기간을 다시 선택해주세요.",
+    	                    icon: "error",
+    	                    closeOnClickOutside: false,
+    	                    closeOnEsc: false
+    	                });
+        				$("#s_ho_end").val("");
+        			}
+                },
                 beforeShow: function() {
                     setTimeout(function(){
                         $('.ui-datepicker').css('z-index', 99999999999999);
@@ -789,7 +1069,6 @@
 			// 0=일, 6=토 => 안나오게 할 것 
         }
     </script>
-	
 
 </body>
 </html>

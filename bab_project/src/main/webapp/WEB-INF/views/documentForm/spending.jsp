@@ -1,3 +1,4 @@
+<%@page import="kh.spring.bab.employee.domain.Employee"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -142,15 +143,213 @@
 		color: black;
 	}
 </style>
+<!-- datepicker css -->
+<style>
+	.ui-widget-header {
+		border: 0px solid #dddddd;
+		background: #fff;
+	}
+	
+	.ui-datepicker-calendar>thead>tr>th {
+		font-size: 14px !important;
+	}
+	
+	.ui-datepicker .ui-datepicker-header {
+		position: relative;
+		padding: 10px 0;
+	}
+	
+	.ui-state-default, .ui-widget-content .ui-state-default,
+		.ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover,
+		html .ui-button.ui-state-disabled:active {
+		border: 0px solid #c5c5c5;
+		background-color: transparent;
+		font-weight: normal;
+		color: #454545;
+		text-align: center;
+	}
+	
+	.ui-datepicker .ui-datepicker-title {
+		margin: 0 0em;
+		line-height: 16px;
+		text-align: center;
+		font-size: 14px;
+		padding: 0px;
+		font-weight: bold;
+	}
+	
+	.ui-datepicker {
+		display: none;
+		background-color: #fff;
+		border-radius: 4px;
+		margin-top: 10px;
+		margin-left: 0px;
+		margin-right: 0px;
+		padding: 20px;
+		padding-bottom: 10px;
+		width: 300px;
+		box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.1);
+	}
+	
+	.ui-widget.ui-widget-content {
+		border: 1px solid #eee;
+	}
+	
+	#datepicker:focus>.ui-datepicker {
+		display: block;
+	}
+	
+	.ui-datepicker-prev, .ui-datepicker-next {
+		cursor: pointer;
+	}
+	
+	.ui-datepicker-next {
+		float: right;
+	}
+	
+	.ui-state-disabled {
+		cursor: auto;
+		color: hsla(0, 0%, 80%, 1);
+	}
+	
+	.ui-datepicker-title {
+		text-align: center;
+		padding: 10px;
+		font-weight: 100;
+		font-size: 20px;
+	}
+	
+	.ui-datepicker-calendar {
+		width: 100%;
+	}
+	
+	.ui-datepicker-calendar>thead>tr>th {
+		padding: 5px;
+		font-size: 20px;
+		font-weight: 400;
+	}
+	
+	.ui-datepicker-calendar>tbody>tr>td>a {
+		color: #000;
+		font-size: 12px !important;
+		font-weight: bold !important;
+		text-decoration: none;
+	}
+	
+	.ui-datepicker-calendar>tbody>tr>.ui-state-disabled:hover {
+		cursor: auto;
+		background-color: #fff;
+	}
+	
+	.ui-datepicker-calendar>tbody>tr>td {
+		border-radius: 100%;
+		width: 44px;
+		height: 30px;
+		cursor: pointer;
+		padding: 5px;
+		font-weight: 100;
+		text-align: center;
+		font-size: 12px;
+	}
+	
+	.ui-datepicker-calendar>tbody>tr>td:hover {
+		background-color: transparent;
+		opacity: 0.6;
+	}
+	
+	.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover,
+		.ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus,
+		.ui-button:hover, .ui-button:focus {
+		border: 0px solid #cccccc;
+		background-color: transparent;
+		font-weight: normal;
+		color: #2b2b2b;
+	}
+	
+	.ui-widget-header .ui-icon {
+		background-image: url('https://media.discordapp.net/attachments/692994434526085184/995979886768439306/btns.png');
+	}
+	
+	.ui-icon-circle-triangle-e {
+		background-position: -20px 0px;
+		background-size: 36px;
+	}
+	
+	.ui-icon-circle-triangle-w {
+		background-position: -0px -0px;
+		background-size: 36px;
+	}
+	
+	.ui-datepicker-calendar>tbody>tr>td:first-child a {
+		color: red !important;
+	}
+	
+	.ui-datepicker-calendar>tbody>tr>td:last-child a {
+		color: #0099ff !important;
+	}
+	
+	.ui-datepicker-calendar>thead>tr>th:first-child {
+		color: red !important;
+	}
+	
+	.ui-datepicker-calendar>thead>tr>th:last-child {
+		color: #0099ff !important;
+	}
+	
+	.ui-state-highlight, .ui-widget-content .ui-state-highlight,
+		.ui-widget-header .ui-state-highlight {
+		border: 0px;
+		background: #f1f1f1;
+		border-radius: 50%;
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
+	
+	.inp {
+		padding: 10px 10px;
+		background-color: #f1f1f1;
+		border-radius: 4px;
+		border: 0px;
+	}
+	
+	.inp:focus {
+		outline: none;
+		background-color: #eee;
+	}
+	
+	select.ui-datepicker-month {
+		border-radius: 5px;
+    	padding: 5px;
+    	width: 80px !important;
+	}
+	
+	select.ui-datepicker-year {
+		border-radius: 5px;
+	    padding: 5px;
+	    margin-left: 10px !important;
+    	width: 80px !important;
+	}
+	
+	.ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next {
+	    top: 9px !important;
+	}
+</style>
 </head>
 <body>
 
+	<%
+		// 로그인 한 정보
+		String empName = null;
+		Employee vo = (Employee) request.getSession().getAttribute("login"); 
+		empName = vo.getEmp_name();
+	%>
+
 	<span><a id="s_eap_app" href="#">결재요청 | </a></span>
-	<span><a id="s_appLine_btn" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop">결재선 지정 | </a></span>
+	<span><a id="s_appLine_btn" href="#" data-bs-toggle="modal" data-bs-target="#applineModal">결재선 지정 | </a></span>
 	<span><a id="s_cancel_btn" href="#" onclick="eapHome()">취소</a></span>
 	
 	<!-- 결재선 지정 Modal -->
-	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<div class="modal fade" id="applineModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	  <div class="modal-dialog">
 	    <div class="modal-content" style="width: 1200px;">
 	      <div class="modal-header">
@@ -311,7 +510,7 @@
 								<tbody id="s_default_tbody" class="s_default_tbody_cl">
 									<tr>
 										<th scope="row">
-											<input type="date" class="form-control s_sp_date" id="s_sp_date" name="sp_date">
+											<input type="text" class="form-control s_sp_date" id="s_sp_date" name="sp_date" placeholder="날짜 선택" style="cursor: context-menu;">
 										</th>
 										<td><input type="text" class="form-control s_sp_detail" name="sp_detail"></td>
 										<td><input type="number" id="sp_count" class="form-control s_sp_count" name="sp_count" onblur="total()"></td>
@@ -332,7 +531,6 @@
 									</tr>
 								</tfoot>
 							</table>
-							<!-- <button id="s_add_sp_detail" class="btn btn-success" onclick="addTr()">내역 추가</button> -->
 						</div>
 
 						<div style="padding: 10px 0;">
@@ -518,6 +716,20 @@
 					return;
 				}
 			}
+			
+			// 본인을 결재선 리스트에 추가할 때 alert
+			var checkEmpName = "<%=empName%>";
+			if(name == checkEmpName) {
+				swal({
+                    title: "",
+                    text: "본인은 결재선 리스트에 추가할 수 없습니다.",
+                    icon: "error",
+                    closeOnClickOutside: false,
+                    closeOnEsc: false
+                });
+				return;
+			}
+			
 			// 결재선 리스트 추가
              if($('.jstree-clicked').text().length > 3) {
               if($(".s_appLine_tbody_cl tr").length < 3) {
@@ -702,6 +914,7 @@
 	</script>
 	
 	<script>
+		// 결재 요청 클릭 시
 		$("#s_eap_app").click(function() {
 			var sp_date = "";
 			var sp_detail = "";
@@ -849,6 +1062,31 @@
 				$('.s_sp_amount').val("");
 			}
 		})
+	</script>
+	
+	<script>
+		// datepicker위젯
+		$(document).ready(function() {
+			$("#s_sp_date").datepicker({
+				timepicker: true,
+				changeMonth: true,
+	            changeYear: true,
+	            controlType: 'select',
+	            timeFormat: 'HH:mm',
+	            dateFormat: 'yy-mm-dd',
+	            yearRange: '1930:2024',
+	            minDate: 0, // 오늘 날짜 이전 선택 불가
+	            dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+	            dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+	            monthNamesShort: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+	            monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+	            beforeShow: function() {
+	                setTimeout(function(){
+	                    $('.ui-datepicker').css('z-index', 99999999999999);
+	                }, 0);
+	            }
+			});
+		});
 	</script>
 
 </body>

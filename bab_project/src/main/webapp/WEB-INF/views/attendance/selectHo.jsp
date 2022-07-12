@@ -80,7 +80,7 @@
 			<div class="s_ho_cnt"></div>
 			<div class="s_ho_cnt_box">
 				<div style="margin-top: 15px;">사용 연차</div>
-				<div class="s_ho_cnt_co">${useHoCnt }</div>
+				<div class="s_ho_cnt_co" id="s_ho_use_cnt">${useHoCnt }</div>
 			</div>
 			<div class="s_ho_cnt"></div>
 			<div class="s_ho_cnt_box">
@@ -180,12 +180,17 @@
 	</div>
 	
 	<script>
-    	// 잔여 연차 계산
     	$(document).ready(function(){
+	    	// 잔여 연차 계산
         	var total = "${totalHoCnt}";
         	var use = "${useHoCnt}";
         	var cal = Number(total) - Number(use);
     		$("#s_ho_rm_cnt").text(cal);
+    		
+    		// 사용 연차가 0.0일 경우 0으로 표시
+    		if($("#s_ho_use_cnt").text() == '0.0') {
+    			$("#s_ho_use_cnt").text('0');
+    		}
     	});
     </script>
     

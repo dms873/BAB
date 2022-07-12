@@ -23,7 +23,6 @@
 	        <tr>
 	            <th>이름</th>
 	            <td class="s_organ_td">${selectInfo.emp_name }</td>
-	            <td><button class="btn btn-outline-primary">메신저 연결</button></td>
 	        </tr>
 	        <tr>
 	            <th>핸드폰</th>
