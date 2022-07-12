@@ -10,12 +10,13 @@ public class MailSend {
 	private String send_date;
 	private String send_receiver;
 	private String send_sender;
-	
+	private String send_filesize;
+
 	@Override
 	public String toString() {
-		return "Mail [send_no=" + send_no + ", send_title=" + send_title + ", send_content=" + send_content
+		return "MailSend [send_no=" + send_no + ", send_title=" + send_title + ", send_content=" + send_content
 				+ ", send_date=" + send_date + ", send_receiver=" + send_receiver + ", send_sender=" + send_sender
-				+ "]";
+				+ ", send_filesize=" + send_filesize + "]";
 	}
 
 	public String getSend_no() {
@@ -65,6 +66,12 @@ public class MailSend {
 	public void setSend_sender(String send_sender) {
 		this.send_sender = send_sender;
 	}
-	
-	
+
+	public String getSend_filesize() {
+		return send_filesize;
+	}
+
+	public void setSend_filesize(String send_filesize) {
+		this.send_filesize = send_filesize;
+	}
 }

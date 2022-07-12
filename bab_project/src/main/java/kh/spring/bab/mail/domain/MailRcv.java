@@ -10,11 +10,13 @@ public class MailRcv {
 	private String rec_date;
 	private String rec_receiver;
 	private String rec_sender;
+	private String rec_filesize;
 	
 	@Override
 	public String toString() {
 		return "MailRcv [rec_no=" + rec_no + ", rec_title=" + rec_title + ", rec_content=" + rec_content + ", rec_date="
-				+ rec_date + ", rec_receiver=" + rec_receiver + ", rec_sender=" + rec_sender + "]";
+				+ rec_date + ", rec_receiver=" + rec_receiver + ", rec_sender=" + rec_sender + ", rec_filesize="
+				+ rec_filesize + "]";
 	}
 
 	public String getRec_no() {
@@ -64,6 +66,14 @@ public class MailRcv {
 	public void setRec_sender(String rec_sender) {
 		this.rec_sender = rec_sender;
 	}
-	
+
+	public String getRec_filesize() {
+		return rec_filesize;
+	}
+
+	public void setRec_filesize(String rec_filesize) {
+		this.rec_filesize = rec_filesize;
+	}
+
 	
 }

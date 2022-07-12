@@ -3,10 +3,14 @@
 <mapper namespace="Mail">
 
 <insert id="insertSendMail">
-	insert into send_mail values (SEND_MAIL_SEQ.nextval, #{send_title}, #{send_content}, systimestamp, #{send_receiver}, #{send_sender})
+	insert into send_mail values (SEND_MAIL_SEQ.nextval, #{send_title}, #{send_content}, systimestamp, #{send_receiver}, #{send_sender}, #{send_filesize})
 </insert>
 
 <insert id="insertRcvMail">
-	insert into RECEIVE_MAIL values (RECEIVE_MAIL_SEQ.nextval, #{rec_title}, #{rec_content}, systimestamp, #{rec_receiver}, #{rec_sender})
+	insert into RECEIVE_MAIL values (RECEIVE_MAIL_SEQ.nextval, #{rec_title}, #{rec_content}, systimestamp, #{rec_receiver}, #{rec_sender}, #{rec_filesize})
 </insert>
+
+<select id="">
+	select rec_no, rec_title, to_char(rec_date, 'yyyy-mm-dd') rec_date, rec_sender, rec_filesize from receive_mail order by rec_no desc
+</select>
 </mapper>

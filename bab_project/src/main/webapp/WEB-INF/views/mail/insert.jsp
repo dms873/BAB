@@ -52,7 +52,7 @@
 				<td class="y_insert_td"><input type="text" class="form-control" id="y_send_title" name="send_title" style="placeholder='제목을 입력해주세요.'"></td>
 			</tr>
 			<tr>
-				<td colspan="2" style="text-align: left;"><input type="file" class="custom-file-input" id="uploadfile" multiple="multiple"></td>
+				<td colspan="2" style="text-align: left;"><input type="file" class="custom-file-input" id="uploadfile" name="uploadfile" multiple="multiple" onchange="fileSize(this)"></td>
 			</tr>
 			<tr >   		
 			<td colspan="2" id="y_fileList" style="text-align: left;">
@@ -75,6 +75,15 @@
     </script>
     
     <script>
+	    
+	    
+    const fileSize = ($target) => {
+    	  // 유저가 선택한 파일 가져오기
+    	  const file = $target.files[0];
+    	  
+    	  // 해당 파일의 용량(사이즈) 정보
+    	  console.log(file.size);
+    	}
     
     	var files = []; // 파일이 저장될 배열
     	var filecount = 0;
@@ -93,6 +102,7 @@
 
     	
     	$("#y_btn_insertDo").click(function(){
+    		
     		var rcv = $("#y_send_receiver").val();
     		var id = $("#y_emp_id").val();
     		var pwd = $("#y_emp_pwd").val();

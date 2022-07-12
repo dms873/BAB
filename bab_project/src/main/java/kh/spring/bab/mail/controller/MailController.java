@@ -3,6 +3,7 @@ package kh.spring.bab.mail.controller;
 
 
 import java.io.File;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Properties;
 
@@ -48,15 +49,24 @@ public class MailController {
 	}
 	
 	@GetMapping("/selectRcv")
-	public ModelAndView selectRcv(ModelAndView mv
+	public ModelAndView selectRcv(ModelAndView mv,
+			MailRcv mailRcv
 			) {
+		
+		
+//		List<MailRcv> selectRcvMail = service.selectRcvMail(mailRcv);
+		
 		mv.setViewName("mail/selectRcv");
 		return mv;
 	}
 	
 	@GetMapping("/selectSnd")
-	public ModelAndView selectSnd(ModelAndView mv
+	public ModelAndView selectSnd(ModelAndView mv,
+			MailSend mailSnd
 			) {
+		
+//		List<MailSend> selectSndMail = service.selectSndMail(mailSnd);
+		
 		mv.setViewName("mail/selectSnd");
 		return mv;
 	}
@@ -164,6 +174,27 @@ public class MailController {
 //		System.out.println("a: "+ file.getName());
 //		System.out.println("a: "+ file.getOriginalFilename());
 //		System.out.println("a: "+ file.getSize());
+		System.out.println("a: "+ attachedfiles.get(0).getSize());
+		
+		/* size = Integer.parseInt(); */
+
+
+		String retFormat = "";
+		long fs = attachedfiles.get(0).getSize();
+		String[] strArr = {"byte", "KB", "MB", "GB"};
+
+		if(fs != 0) {
+		  int idx = (int)Math.floor(Math.log(fs)/ Math.log(1024));
+		  DecimalFormat df = new DecimalFormat("#,###.##");
+		  long ret = (long) (fs / Math.pow(1024, Math.floor(idx)));
+		  retFormat = df.format(ret) + " " + strArr[idx];
+		}else {
+		  retFormat += " "+ strArr[0];
+		}
+		
+		System.out.println("retFormat :" + retFormat);
+		
+		
 		String realPath = request.getSession().getServletContext().getRealPath("");
 		String savePath = "resources\\uploadFiles";
 		File folder = new File(realPath+savePath);
@@ -171,6 +202,7 @@ public class MailController {
 			folder.mkdirs();
 		}
 		File file = null;
+		
 		long timeForRename = System.currentTimeMillis();
 		if(attachedfiles != null) {
 			for(int i = 0; i<attachedfiles.size(); i++) {
@@ -178,8 +210,9 @@ public class MailController {
 				System.out.println(i+":"+filePath);
 				file = new File(filePath);
 				attachedfiles.get(i).transferTo(file);// request에 실려온 파일을 서버 PC에 저장함.
+				}
+				
 			}
-		}
 		String email_id = request.getParameter("emp_id");
 		String email_pwd = request.getParameter("emp_pwd");
 		String path = request.getParameter("path");
@@ -200,11 +233,13 @@ public class MailController {
 		mailSend.setSend_receiver(send_receiver);
 		mailSend.setSend_title(send_title);
 		mailSend.setSend_content(send_content);
+		mailSend.setSend_filesize(retFormat);
 		
 		mailRcv.setRec_sender(send_sender);
 		mailRcv.setRec_receiver(send_receiver);
 		mailRcv.setRec_title(send_title);
 		mailRcv.setRec_content(send_content);
+		mailRcv.setRec_filesize(retFormat);
 		
 		int resultSnd = service.insertSendMail(mailSend);
 		int resultRcv = service.insertRcvMail(mailRcv);
