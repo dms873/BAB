@@ -25,10 +25,13 @@
 	</select>
 	
 	<!-- 결재선 리스트, 참조처 리스트 DB 저장(휴가신청서) -->
-	<insert id="insertapp" parameterType="Eap">
-		INSERT INTO ELECTRONIC_APPROVAL(EAP_NO, EAP_STA_CODE, EAP_FIRST_AP, EAP_MID_AP, EAP_FINAL_AP, EAP_FIRST_DEPT, EAP_FINAL_DEPT, EMP_NO, DF_NO) 
-		VALUES (EAP_SEQ.NEXTVAL, DEFAULT, #{eap_first_ap}, #{eap_mid_ap}, #{eap_final_ap}, #{eap_first_dept}, #{eap_final_dept}, #{emp_no}, (SELECT MAX(DF_NO) DF_NO FROM DOCUMENT_FORM WHERE DF_CODE = 'A'))
-	</insert>
+	<update id="updateappho" parameterType="Eap">
+		UPDATE ELECTRONIC_APPROVAL SET 
+			EAP_STEP = 1, EAP_TITLE = #{eap_title}, EAP_CONTENT = #{eap_content},
+			EAP_FIRST_AP = #{eap_first_ap}, EAP_MID_AP = #{eap_mid_ap}, EAP_FINAL_AP = #{eap_final_ap}, 
+			EAP_FIRST_DEPT = #{eap_first_dept}, EAP_FINAL_DEPT = #{eap_final_dept}
+		WHERE DF_NO = #{df_no}
+	</update>
 	
 	<!-- 전자결재 테이블 update(휴가신청서 작성 시) -->
 	<update id="updateeap" parameterType="Eap">
@@ -51,10 +54,13 @@
 	</insert>
 	
 	<!-- 결재선 리스트, 참조처 리스트 DB 저장(지출결의서) -->
-	<insert id="insertappsp" parameterType="Eap">
-		INSERT INTO ELECTRONIC_APPROVAL(EAP_NO, EAP_STA_CODE, EAP_FIRST_AP, EAP_MID_AP, EAP_FINAL_AP, EAP_FIRST_DEPT, EAP_FINAL_DEPT, EMP_NO, DF_NO) 
-		VALUES (EAP_SEQ.NEXTVAL, DEFAULT, #{eap_first_ap}, #{eap_mid_ap}, #{eap_final_ap}, #{eap_first_dept}, #{eap_final_dept}, #{emp_no}, (SELECT MAX(DF_NO) DF_NO FROM DOCUMENT_FORM WHERE DF_CODE = 'B'))
-	</insert>
+	<update id="updateappsp" parameterType="Eap">
+		UPDATE ELECTRONIC_APPROVAL SET 
+			EAP_STEP = 1, EAP_TITLE = #{eap_title}, EAP_CONTENT = #{eap_content},
+			EAP_FIRST_AP = #{eap_first_ap}, EAP_MID_AP = #{eap_mid_ap}, EAP_FINAL_AP = #{eap_final_ap}, 
+			EAP_FIRST_DEPT = #{eap_first_dept}, EAP_FINAL_DEPT = #{eap_final_dept}
+		WHERE DF_NO = #{df_no}
+	</update>
 	
 	<!-- 결재대기문서 -->
 	<select id="selectBeforeDoc" parameterType="string" resultType="Eap">
@@ -469,5 +475,15 @@
 			ORDER BY EAP_DRAFT_DATE DESC, EAP_NO DESC) A, (SELECT EMP_NO, DEPT_NAME FROM DEPT JOIN EMPLOYEE USING(DEPT_CODE))B
 		WHERE A.EMP_NO = B.EMP_NO
 	</select>
+	
+	<!-- 문서 양식 테이블에 insert 후 새로 생긴 문서번호를 가지고 전자결재 테이블 insert하기 -->
+	<insert id="insertEap" parameterType="Eap">
+		INSERT INTO ELECTRONIC_APPROVAL (EAP_NO, EAP_STA_CODE, EMP_NO, DF_NO)
+		VALUES (
+			EAP_SEQ.NEXTVAL, DEFAULT, #{emp_no}, 
+			(SELECT MAX(DF_NO) DF_NO FROM DOCUMENT_FORM WHERE DF_CODE = #{df_code})
+		)
+	</insert>
+	
 	
 </mapper>

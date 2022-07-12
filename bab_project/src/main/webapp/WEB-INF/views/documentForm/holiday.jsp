@@ -827,11 +827,12 @@
 					"eap_mid_ap" : str2,
 					"eap_final_ap" : str3,
 					"eap_first_dept" : deptStr1,
-					"eap_final_dept" : deptStr2
+					"eap_final_dept" : deptStr2,
+					"df_no" : $("#s_dfNo").text(),
 			}
 			
 			$.ajax({
-				url : "<%=request.getContextPath()%>/eap/insertapp"
+				url : "<%=request.getContextPath()%>/eap/updateappho"
 					, type: "post"
 					, data: dataObj
 					, success: function(result) {

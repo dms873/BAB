@@ -29,10 +29,10 @@ public interface EapService {
 	
 	/**
 	 * @author : 손은진
-	 * @return : 결재선 리스트, 참조처 리스트 DB 저장 insert 결과(휴가신청서)
+	 * @return : 결재선 리스트, 참조처 리스트 DB 저장 update 결과(휴가신청서)
 	 * @param : Eap vo
 	 * */
-	public int insertapp(Eap eap);
+	public int updateappho(Eap eap);
 	
 	/**
 	 * @author : 손은진
@@ -64,10 +64,10 @@ public interface EapService {
 	
 	/**
 	 * @author : 손은진
-	 * @return : 결재선 리스트, 참조처 리스트 DB 저장 insert 결과(지출결의서)
+	 * @return : 결재선 리스트, 참조처 리스트 DB 저장 update 결과(지출결의서)
 	 * @param : Eap vo
 	 * */
-	public int insertappsp(Eap eap);
+	public int updateappsp(Eap eap);
 	
 	/**
 	 * @author : 손은진
@@ -285,5 +285,12 @@ public interface EapService {
 	 * @param : emp_no(로그인한 사람의 사번)
 	 * */
 	public List<Eap> selectHomeRcDoc(String emp_no);
+	
+	/**
+	 * @author : 손은진
+	 * @return : 문서 양식 테이블에 insert 후 새로 생긴 문서번호를 가지고 전자결재 테이블 insert하기
+	 * @param : Eap vo
+	 * */
+	public int insertEap(Eap eap);
 
 }

@@ -33,8 +33,8 @@ public class EapDao {
 	}
 	
 	// 결재선 리스트, 참조처 리스트 DB 저장(휴가신청서)
-	public int insertapp(Eap eap) {
-		return sqlSession.insert("Eap.insertapp", eap);
+	public int updateappho(Eap eap) {
+		return sqlSession.update("Eap.updateappho", eap);
 	}
 	
 	// 전자결재 테이블 update(휴가신청서 작성 시)
@@ -58,8 +58,8 @@ public class EapDao {
 	}
 	
 	// 결재선 리스트, 참조처 리스트 DB 저장(지출결의서)
-	public int insertappsp(Eap eap) {
-		return sqlSession.insert("Eap.insertappsp", eap);
+	public int updateappsp(Eap eap) {
+		return sqlSession.update("Eap.updateappsp", eap);
 	}
 
 	// 결재대기문서
@@ -215,6 +215,11 @@ public class EapDao {
 	// 전자결재 홈 기안 진행 문서
 	public List<Eap> selectHomeRcDoc(String emp_no) {
 		return sqlSession.selectList("Eap.selectHomeRcDoc", emp_no);
+	}
+	
+	// 문서 양식 테이블에 insert 후 새로 생긴 문서번호를 가지고 전자결재 테이블 insert하기
+	public int insertEap(Eap eap) {
+		return sqlSession.insert("Eap.insertEap", eap);
 	}
 
 }

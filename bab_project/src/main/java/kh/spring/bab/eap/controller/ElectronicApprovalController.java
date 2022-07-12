@@ -436,7 +436,8 @@ public class ElectronicApprovalController {
 	public ModelAndView insertDoc(
 			ModelAndView mv,
 			@RequestParam(name = "form", required = false) String form,
-			HttpServletRequest req
+			HttpServletRequest req,
+			Eap eap
 			) {
 		
 		System.out.println("값 받아오나? : " + form);
@@ -454,8 +455,14 @@ public class ElectronicApprovalController {
 			Employee emp = (Employee) req.getSession().getAttribute("login");
 			String emp_no = emp.getEmp_no();
 			
-			Eap eap = service.empInfo(emp_no);
-			mv.addObject("eap", eap);
+			Eap eap2 = service.empInfo(emp_no);
+			mv.addObject("eap", eap2);
+			
+			eap.setDf_code(df_code);
+			eap.setEmp_no(emp_no);
+			// 문서 양식 테이블에 insert 후 새로 생긴 문서번호를 가지고 전자결재 테이블 insert하기
+			result = service.insertEap(eap);
+			
 			
 			// 남은 휴가일수 확인
 			Double checkHo = service.readHoCnt(emp_no);
@@ -473,27 +480,34 @@ public class ElectronicApprovalController {
 			Employee emp = (Employee) req.getSession().getAttribute("login");
 			String emp_no = emp.getEmp_no();
 			
-			Eap eap = service.empInfo(emp_no);
-			mv.addObject("eap", eap);
-						
+			Eap eap2 = service.empInfo(emp_no);
+			mv.addObject("eap", eap2);
+			
+			eap.setDf_code(df_code);
+			eap.setEmp_no(emp_no);
+			// 문서 양식 테이블에 insert 후 새로 생긴 문서번호를 가지고 전자결재 테이블 insert하기
+			result = service.insertEap(eap);
+			
 			// 문서양식번호 띄울 정보
 			mv.addObject("resultDoc", resultDoc);
 			mv.setViewName("documentForm/spending");
 		}
 		
+		
 		return mv;
 	}
 	
 	// 결재선 리스트, 참조처 리스트 DB 저장(지출결의서)
-	@PostMapping(value = "/insertappsp", produces = "text/plain;charset=UTF-8")
+	@PostMapping(value = "/updateappsp", produces = "text/plain;charset=UTF-8")
 	@ResponseBody
-	public String insertappsp(
+	public String updateappsp(
 			Eap eap,
 			@RequestParam(name = "eap_first_ap", required = false) String eap_first_ap,
 			@RequestParam(name = "eap_mid_ap", required = false) String eap_mid_ap,
 			@RequestParam(name = "eap_final_ap", required = false) String eap_final_ap,
 			@RequestParam(name = "eap_first_dept", required = false) String eap_first_dept,
 			@RequestParam(name = "eap_final_dept", required = false) String eap_final_dept,
+			@RequestParam(name = "df_no", required = false) String df_no,
 			HttpServletRequest req
 			) {
 		
@@ -502,13 +516,14 @@ public class ElectronicApprovalController {
 		eap.setEap_final_ap(eap_final_ap);
 		eap.setEap_first_dept(eap_first_dept);
 		eap.setEap_final_dept(eap_final_dept);
+		eap.setDf_no(df_no);
 		
 		// 로그인한 사람 정보 가져오기(사번)
 		Employee emp = (Employee) req.getSession().getAttribute("login");
 		String emp_no = emp.getEmp_no();
 		eap.setEmp_no(emp_no);
 		
-		int result = service.insertappsp(eap);
+		int result = service.updateappsp(eap);
 		
 		String msg = "";
 		if(result > 0) {
@@ -521,9 +536,9 @@ public class ElectronicApprovalController {
 	}
 	
 	// 결재선 리스트, 참조처 리스트 DB 저장(휴가신청서)
-	@PostMapping(value = "/insertapp", produces = "text/plain;charset=UTF-8")
+	@PostMapping(value = "/updateappho", produces = "text/plain;charset=UTF-8")
 	@ResponseBody
-	public String insertapp(
+	public String updateappho(
 			Eap eap,
 			ModelAndView mv,
 			@RequestParam(name = "eap_first_ap", required = false) String eap_first_ap,
@@ -531,29 +546,29 @@ public class ElectronicApprovalController {
 			@RequestParam(name = "eap_final_ap", required = false) String eap_final_ap,
 			@RequestParam(name = "eap_first_dept", required = false) String eap_first_dept,
 			@RequestParam(name = "eap_final_dept", required = false) String eap_final_dept,
+			@RequestParam(name = "df_no", required = false) String df_no,
 			HttpServletRequest req
 			) {
-		
-		System.out.println(eap_first_ap + ", " + eap_mid_ap + ", " + eap_final_ap + ", " + eap_first_dept + ", " + eap_final_ap);
 		
 		eap.setEap_first_ap(eap_first_ap);
 		eap.setEap_mid_ap(eap_mid_ap);
 		eap.setEap_final_ap(eap_final_ap);
 		eap.setEap_first_dept(eap_first_dept);
 		eap.setEap_final_dept(eap_final_dept);
+		eap.setDf_no(df_no);
 		
 		// 로그인한 사람 정보 가져오기(사번)
 		Employee emp = (Employee) req.getSession().getAttribute("login");
 		String emp_no = emp.getEmp_no();
 		eap.setEmp_no(emp_no);
 		
-		int result = service.insertapp(eap);
+		int result = service.updateappho(eap);
 		
 		// 남은 휴가일수 확인
 		Double checkHo = service.readHoCnt(emp_no);
 		mv.addObject("checkHo", checkHo);
 		
-		logger.info("결재선 리스트, 참조처 리스트 insert결과 : " + result);
+		logger.info("결재선 리스트, 참조처 리스트 update결과 : " + result);
 		
 		String msg = "";
 		if(result > 0) {

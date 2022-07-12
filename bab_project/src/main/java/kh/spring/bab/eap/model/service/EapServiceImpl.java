@@ -36,8 +36,8 @@ public class EapServiceImpl implements EapService {
 
 	// 결재선 리스트, 참조처 리스트 DB 저장(휴가신청서)
 	@Override
-	public int insertapp(Eap eap) {
-		return dao.insertapp(eap);
+	public int updateappho(Eap eap) {
+		return dao.updateappho(eap);
 	}
 
 	// 전자결재 테이블 update(휴가신청서 작성 시)
@@ -66,8 +66,8 @@ public class EapServiceImpl implements EapService {
 	
 	// 결재선 리스트, 참조처 리스트 DB 저장(지출결의서)
 	@Override
-	public int insertappsp(Eap eap) {
-		return dao.insertappsp(eap);
+	public int updateappsp(Eap eap) {
+		return dao.updateappsp(eap);
 	}
 
 	// 결재대기문서
@@ -255,5 +255,13 @@ public class EapServiceImpl implements EapService {
 	public List<Eap> selectHomeRcDoc(String emp_no) {
 		return dao.selectHomeRcDoc(emp_no);
 	}
+
+	// 문서 양식 테이블에 insert 후 새로 생긴 문서번호를 가지고 전자결재 테이블 insert하기
+	@Override
+	public int insertEap(Eap eap) {
+		return dao.insertEap(eap);
+	}
+	
+	
 
 }
