@@ -200,6 +200,9 @@
                         <li class="nav-item">
                             <a href="#" class="nav-link text-white s_menu" aria-current="page" id="menu_board">공지사항</a>
                         </li>
+                         <li class="nav-item">
+                            <a href="#" class="nav-link text-white s_menu" aria-current="page" id="menu_poll">투표</a>
+                        </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link text-white s_menu" aria-current="page" id="menu_info">내 정보 수정</a>
                         </li>
@@ -218,9 +221,9 @@
                         </div>
                     </div>
                     <div style="border: 1px solid lightgray; border-radius: 10px;height: 340px;margin-top: 30px;margin-left: 10px;width: 650px; float: right; padding: 20px;">
-                        <div class="s_main_tt">캘린더</div>
+                        <div class="s_main_tt" id="j_cal_tt">캘린더</div>
                         <div style="text-align: center;">
-                            <div  id="j_calendar"></div>
+                            <div id="j_calendar"></div>
                         </div>
                     </div>
                 </div>
@@ -358,6 +361,11 @@
      	// 채팅 추가 : 손은진(220614)
         $("#menu_chat").click(function() {
             $("#s_content_box").load("<%=request.getContextPath()%>/echo/select");
+        });
+        
+        /*투표 추가 : 장혜미(220712)  */
+        $("#menu_poll").click(function() {
+            $("#s_content_box").load("<%=request.getContextPath()%>/poll/select");
         });
     </script>
     
@@ -533,6 +541,11 @@
     
     <!--FullCalendar 추가 : 장혜미(220711)  -->
     <script>
+    
+    $("#j_cal_tt").click(function(){
+    	$("#s_content_box").load("<%=request.getContextPath()%>/calendar/select");
+    });
+    
     document.addEventListener('DOMContentLoaded', function() {
     	  var calendarEl = document.getElementById('j_calendar');
     	  var calendar = new FullCalendar.Calendar(calendarEl, {
