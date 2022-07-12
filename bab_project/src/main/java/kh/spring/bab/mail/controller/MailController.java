@@ -2,6 +2,8 @@ package kh.spring.bab.mail.controller;
 
 
 
+import java.io.File;
+import java.util.List;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
@@ -21,7 +23,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -152,10 +156,30 @@ public class MailController {
 			HttpServletResponse response,
 			ModelAndView mv,
 			MultipartHttpServletRequest multi,
+			@RequestParam(value = "uploadfile", required = false) List<MultipartFile> attachedfiles,
 			MailRcv mailRcv,
 			MailSend mailSend
 			) throws Exception{
-
+//		MultipartFile file = multi.getFile("uploadfile0");
+//		System.out.println("a: "+ file.getName());
+//		System.out.println("a: "+ file.getOriginalFilename());
+//		System.out.println("a: "+ file.getSize());
+		String realPath = request.getSession().getServletContext().getRealPath("");
+		String savePath = "resources\\uploadFiles";
+		File folder = new File(realPath+savePath);
+		if(!folder.exists()) {
+			folder.mkdirs();
+		}
+		File file = null;
+		long timeForRename = System.currentTimeMillis();
+		if(attachedfiles != null) {
+			for(int i = 0; i<attachedfiles.size(); i++) {
+				String filePath = realPath+savePath+"\\"+ timeForRename +"_"+attachedfiles.get(i).getOriginalFilename();
+				System.out.println(i+":"+filePath);
+				file = new File(filePath);
+				attachedfiles.get(i).transferTo(file);// request에 실려온 파일을 서버 PC에 저장함.
+			}
+		}
 		String email_id = request.getParameter("emp_id");
 		String email_pwd = request.getParameter("emp_pwd");
 		String path = request.getParameter("path");
@@ -203,25 +227,6 @@ public class MailController {
 		
 		
 		try {
-			/*
-			 * final MimeMessagePreparator preparator = new MimeMessagePreparator() {
-			 * 
-			 * @Override public void prepare(MimeMessage mimeMessage) throws Exception {
-			 * final MimeMessageHelper mailHelper = new MimeMessageHelper(mimeMessage, true,
-			 * "UTF-8");
-			 * 
-			 * mailHelper.setFrom(send_sender); mailHelper.setTo(send_receiver);
-			 * mailHelper.setSubject(send_title); mailHelper.setText(send_content, true);
-			 * 
-			 * FileSystemResource file = new FileSystemResource(new File("C:\\text.txt"));
-			 * mailHelper.addAttachment("text.txt", file);
-			 * 
-			 * 
-			 * }
-			 * 
-			 * };
-			 */
-			
 			MimeMessage message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(send_sender));
 			InternetAddress[] address = {new InternetAddress(send_receiver)};
@@ -229,13 +234,14 @@ public class MailController {
             message.setSubject(send_title);
             
             MimeBodyPart mbp1 = new MimeBodyPart();
-            mbp1.setText(send_content);
+            mbp1.setContent(send_content, "text/html; charset=utf-8");
             
             MimeBodyPart mbp2 = new MimeBodyPart();
-            FileDataSource  fds = new FileDataSource("C:\\test.txt"); //파일 읽어오기
-            mbp2.setDataHandler(new DataHandler(fds)); //파일 첨부
-            mbp2.setFileName(fds.getName());
-            
+            if(file!= null) {
+	            FileDataSource  fds = new FileDataSource(file.getAbsoluteFile()); //파일 읽어오기
+	            mbp2.setDataHandler(new DataHandler(fds)); //파일 첨부
+	            mbp2.setFileName(fds.getName());
+            }
             Multipart mp = new MimeMultipart();
             mp.addBodyPart(mbp1);
             mp.addBodyPart(mbp2);

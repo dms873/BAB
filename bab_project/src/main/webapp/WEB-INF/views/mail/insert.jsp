@@ -76,13 +76,6 @@
     
     <script>
     
-	  $(document).ready(function() {
-	        $('#uploadfile').on('change',function() {
-	           $('.custom-file-label').text($(this).val());
-	        });
-	    });
-    
-    
     	var files = []; // 파일이 저장될 배열
     	var filecount = 0;
     	$('[data-toggle="tooltip"]').tooltip();
@@ -98,29 +91,18 @@
     		filecount++;
     	});
 
-/*     	var file = document.getElementById('uploadfile');
-    	
-    	var filePath = file.value;
-    	
-    	console.log(filePath); */
-    	
-    	
     	
     	$("#y_btn_insertDo").click(function(){
-    		var filePath = $("#uploadfile").val();
     		var rcv = $("#y_send_receiver").val();
     		var id = $("#y_emp_id").val();
     		var pwd = $("#y_emp_pwd").val();
     		var ttl = $("#y_send_title").val();
     		var ctt = $('.ck.ck-content').html().replace(/<br data-cke-filler="true">/g, "&nbsp;");
-			var obj = { "filePath" : filePath, "send_receiver" : rcv, "emp_id" : id, "emp_pwd" : pwd, "send_title" : ttl, "send_content" : ctt};
 			var arraycount = files.length;
-			
 			
 				// 파일전송을 위한 FormData설정
 				var formData = new FormData();
 				
-				formData.append("path", filePath)
 				formData.append("send_receiver", rcv);
 				formData.append("emp_id", id);
 				formData.append("emp_pwd", pwd);
@@ -128,30 +110,51 @@
 				formData.append("send_content", ctt);
 				
 				for(var i=0; i<arraycount; i++){
-					formData.append("uploadfile["+i+"]", files[i]);
+					formData.append("uploadfile", files[i]);
 				}
 				
 				
-				$.ajax({
-					url : "<%= request.getContextPath() %>/mail/insertFile",
-					data : formData,
-					processData : false,
-					contentType : false,
-					type : "post",
-					beforeSend : function(){
-						$(".warp-loading").removeClass("display-none");
-					},
-					complete : function(){
-						$(".wrap-loading").addClass("display-none");
-					},
-					success : function(result){
-						alert("전송 성공")
-						
-						$("#y_fileList").empty();
-						filecount = 0;
-		 			 	$("#menu_mail").get(0).click();
-					}
-				})
+				if($("#uploadfile").val()){
+					$.ajax({
+						url : "<%= request.getContextPath() %>/mail/insertFile",
+						data : formData,
+						processData : false,
+						contentType : false,
+						type : "post",
+						beforeSend : function(){
+							$(".warp-loading").removeClass("display-none");
+						},
+						complete : function(){
+							$(".wrap-loading").addClass("display-none");
+						},
+						success : function(result){
+							alert("전송 성공")
+							
+							$("#y_fileList").empty();
+							filecount = 0;
+			 			 	$("#menu_mail").get(0).click();
+						}
+					})	
+				} else{
+					$.ajax({
+						url : "<%= request.getContextPath() %>/mail/insertText",
+						data : formData,
+						processData : false,
+						contentType : false,
+						type : "post",
+						beforeSend : function(){
+							$(".warp-loading").removeClass("display-none");
+						},
+						complete : function(){
+							$(".wrap-loading").addClass("display-none");
+						},
+						success : function(result){
+							alert("전송 성공")
+							
+			 			 	$("#menu_mail").get(0).click();
+						}
+					})
+				}
 	    	});
     </script>
 </body>
