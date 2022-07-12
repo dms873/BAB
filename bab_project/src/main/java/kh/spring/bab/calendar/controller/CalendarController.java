@@ -30,9 +30,7 @@ public class CalendarController {
 	// 캘린더 조회
 	@GetMapping("/select")
 	public ModelAndView select(ModelAndView mv, HttpServletRequest request) {
-		// session 객체를 가져옴
 		HttpSession session = request.getSession();
-		// login처리를 담당하는 사용자 정보를 담고 있는 객체를 가져옴
 		Object login = session.getAttribute("login");
 		mv.addObject("login", login);
 		//캘린더 일정 조회
@@ -69,9 +67,7 @@ public class CalendarController {
 	@GetMapping("/read")
 	public ModelAndView read(ModelAndView mv, HttpServletRequest request
 			, @RequestParam(name="cal_no", required = false) String cal_no) {
-		// session 객체를 가져옴
 		HttpSession session = request.getSession();
-		// login처리를 담당하는 사용자 정보를 담고 있는 객체를 가져옴
 		Object login = session.getAttribute("login");
 		mv.addObject("login", login);
 		// 캘린더 일정 조회

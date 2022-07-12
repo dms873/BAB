@@ -55,9 +55,7 @@ public class InfoController {
 	// 내정보수정 업데이트 페이지열기
 	@GetMapping("/update")
 	public ModelAndView pageupdate(ModelAndView mv, HttpServletRequest request) {
-		// session 객체를 가져옴
 		HttpSession session = request.getSession();
-		// login처리를 담당하는 사용자 정보를 담고 있는 객체를 가져옴
 		Object update = session.getAttribute("login");
 		
 		mv.addObject("update", update);

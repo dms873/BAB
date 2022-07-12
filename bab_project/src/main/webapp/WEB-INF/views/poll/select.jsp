@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,26 +74,6 @@
                             2022/07/11
                         </td>
                     </tr>
-                    <tr class="j_poll_tbody">
-                        <td id="j_poll_pno">
-                            1
-                        </td>
-                        <td class="j_poll_ptitle j_poll_click">
-                            추석 선물은?
-                        </td>
-                        <td class="j_poll_ptime">
-                            2022/05/01~2022/05/12
-                        </td>
-                        <td class="j_poll_pstate">
-                            진행중
-                        </td>
-                        <td class="j_poll_pwriter">
-                            장혜미
-                        </td>
-                        <td class="j_poll_pdate">
-                            2022/07/11
-                        </td>
-                    </tr>
                 </table>
             </div>
                 <!-- 모달 Bootstrap -->
@@ -138,9 +119,9 @@
                                         </tr>
                                         <tr>
                                             <td colspan="4" class="j_poll_content">
-                                               <%--  <c:if test="${login != null}">
+                                                <c:if test="${login != null}">
                                                     <input type="hidden" id="emp_no" name="emp_no" value="${login.emp_no}">
-                                                </c:if> --%>
+                                                </c:if>
                                             </td>
                                         </tr>
                                         <tr>
@@ -176,6 +157,7 @@
                 });
             });                                            
         });
+        
         //투표 리스트 클릭
         $("#j_poll_list").click(function(){
         	$("#s_content_box").load("<%=request.getContextPath()%>/poll/select");
