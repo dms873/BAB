@@ -493,6 +493,9 @@ public class ElectronicApprovalController {
 			mv.setViewName("documentForm/spending");
 		}
 		
+		if(result < 0) {
+			logger.debug("실패");
+		}
 		
 		return mv;
 	}

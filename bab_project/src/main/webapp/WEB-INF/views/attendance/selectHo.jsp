@@ -68,24 +68,30 @@
 	<div id="s_ho_list_box">
 		<div>
 			<div id="s_ho_list_info">
+				<!-- 로그인한 사람의 프로필 사진 -->
 				<img src="${info.emp_file_path }" style="width: 50px;">
+				<!-- 로그인한 사람의 이름 표기 -->
 				<div style="display: inline-block;margin-left: 10px;">${info.emp_name }</div>
+				<!-- 로그인한 사람의 직위 표기 -->
 				<div style="display: inline-block;">${info.job_title }</div>
 			</div>
 			<div class="s_ho_cnt"></div>
 			<div class="s_ho_cnt_box">
+				<!-- 총 연차의 수 표기 -->
 				<div style="margin-top: 15px;">총 연차</div>
 				<div class="s_ho_cnt_co">${totalHoCnt }</div>
 			</div>
 			<div class="s_ho_cnt"></div>
 			<div class="s_ho_cnt_box">
+				<!-- 휴가신청서 결재 완료, 승인 완료 된 것의 연차 합계 표기 -->
 				<div style="margin-top: 15px;">사용 연차</div>
 				<div class="s_ho_cnt_co" id="s_ho_use_cnt">${useHoCnt }</div>
 			</div>
 			<div class="s_ho_cnt"></div>
 			<div class="s_ho_cnt_box">
+				<!-- 총 연차 - 사용 연차 표기 -->
 				<div style="margin-top: 15px;">잔여 연차</div>
-				<div class="s_ho_cnt_co" id="s_ho_rm_cnt">3</div>
+				<div class="s_ho_cnt_co" id="s_ho_rm_cnt"></div>
 			</div>
 		</div>
 	</div>
@@ -106,7 +112,9 @@
 		    </tr>
 		  </thead>
 		  <tbody>
+		  	<!-- 사용 내역이 있을 때 -->
 		  	<c:if test="${not empty useHoList }">
+		  		<!-- 사용 내역만큼 반복문 돌기 -->
 			  	<c:forEach items="${useHoList }" var="i">
 				    <tr>
 				      <th scope="row">${i.rnum }</th>
@@ -121,30 +129,40 @@
 		    </c:if>
 		  </tbody>
 		</table>
+		<!-- 사용 내역이 없을 때 -->
 		<c:if test="${empty useHoList }">
 			<div id="s_notice">휴가 사용 내역이 없습니다.</div>
 		</c:if>
 	</div>
 	<div style="margin-top: 100px; display: flex; justify-content: center;">
+			<!-- 페이징 처리 -->
 			<nav aria-label="Page navigation example">
 			  <ul class="pagination">
+			  	<!-- 시작페이지가 1보다 크면 -->
 				<c:if test="${startPage > 1 }">
 					<li class="page-item pre">
+						<!-- '<<' 이전 모양 버튼 생김 -->
 						<a class="page-link" href="#" aria-label="Previous"> 
 							<span aria-hidden="true">&laquo;</span>
 						</a>
 					</li>
 					</c:if>
+					<!-- 시작페이지부터 끝페이지까지 반복 -->
 					<c:forEach begin="${startPage }" end="${endPage }" var="i">
+						<!-- 현재페이지가 i와 같으면 -->
 						<c:if test="${currentPage eq i}">
+							<!-- 해당 페이징에 active 클래스 추가(파란 배경) -->
 							<li class="page-item num active"><a class="page-link" href="#">${i }</a></li>
 						</c:if>
 						<c:if test="${currentPage ne i}">
+							<!-- 아니면 active 없음(흰 배경) -->
 							<li class="page-item num"><a class="page-link" href="#">${i }</a></li>
 						</c:if>
 					</c:forEach>
+					<!-- 끝페이지가 페이지개수보다 작으면 -->
 					<c:if test="${endPage < pageCnt }">
 					<li class="page-item next">
+						<!-- '>>' 다음 모양 버튼 생김 -->
 						<a class="page-link" href="#" aria-label="Next"> 
 							<span aria-hidden="true">&raquo;</span>
 						</a>
@@ -180,11 +198,15 @@
 	</div>
 	
 	<script>
+    	// 잔여 연차 계산
     	$(document).ready(function(){
-	    	// 잔여 연차 계산
+    		// 컨트롤러에서 구한 총 연차 개수를 total 변수에 담아줌
         	var total = "${totalHoCnt}";
+        	// 컨트롤러에서 구한 사용 연차 개수를 use 변수에 담아줌
         	var use = "${useHoCnt}";
+        	// 총 연차 개수 - 사용 연차 개수 계산
         	var cal = Number(total) - Number(use);
+        	// 잔여 연차 text를 계산한 값으로 변경
     		$("#s_ho_rm_cnt").text(cal);
     		
     		// 사용 연차가 0.0일 경우 0으로 표시
@@ -197,6 +219,7 @@
     <script>
 		// 페이징 처리
 		$(".page-item.num .page-link").click(function(event) {
+			// 페이지숫자 눌렀을 때 누른 innerText를 pageNum으로 가져와 링크로 넘겨주기
 			var pageNum = event.target.innerText;
 			$("#s_att_content_box").load("<%=request.getContextPath()%>/attendance/holiday?page="+pageNum);
 		})

@@ -2,7 +2,6 @@ package kh.spring.bab.chat.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -38,7 +37,7 @@ public class EchoHandler extends TextWebSocketHandler {
 	// 클라이언트가 연결 되었을 때 실행
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-	
+		// 세션 리스트에 해당 session을 추가
 		sessionList.add(session);
 		logger.info("{} 연결됨 ", session.getId());
 	}
@@ -47,13 +46,16 @@ public class EchoHandler extends TextWebSocketHandler {
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		
-		Map<String, Object> map = session.getAttributes();
+		// Map<String, Object> map = session.getAttributes();
+		// TextMessage의 getPayload메소드를 통해 view에서 보낸 메세지(이름, 채팅내용, 방번호)를 msg변수에 담아줌 ex) 손은진,안녕하세요,5
 		String msg = message.getPayload();
+		// 메세지를 구분자(",")를 이용하여 잘라서 배열형태로 담아줌 ex) [손은진, 안녕하세요, 5]
 		String[] arr = msg.split(",");
 		
 		logger.info("{} 로부터 {} 받음 ", session.getId(), message.getPayload());
 		// 모든 유저에게 메세지 출력
 		for(WebSocketSession sess : sessionList) {
+			// 메세지 출력 시 배열에 담긴 순서대로 이름, 채팅내용, 방번호 전달
 			sess.sendMessage(new TextMessage(arr[0]+","+arr[1] + "," + arr[2]));
 		}
 		
@@ -61,8 +63,11 @@ public class EchoHandler extends TextWebSocketHandler {
 		logger.info("메세지 내용 : " + arr[1]);
 		
 		Chatting ch = new Chatting();
+		// 메세지 보낸사람
 		ch.setEmp_name(arr[0]);
+		// 채팅내용
 		ch.setCh_content(arr[1]);
+		// 방번호
 		ch.setRoom_no(arr[2]);
 		
 		// 채팅 대화 DB저장
@@ -73,6 +78,7 @@ public class EchoHandler extends TextWebSocketHandler {
 	// 클라이언트 연결을 끊었을 때 실행
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+		// 세션리스트에서 해당 session 삭제
 		sessionList.remove(session);
 		logger.info("{} 연결 끊김.", session.getId());
 	}
@@ -111,9 +117,8 @@ public class EchoHandler extends TextWebSocketHandler {
 			@RequestParam(name = "room_no", required = false) String room_no,
 			Chatting ch
 			) {
-		// 로그인한 사람 정보 가져오기(사번, 이름)
+		// 로그인한 사람 정보 가져오기(이름)
 		Employee emp = (Employee) req.getSession().getAttribute("login");
-		String emp_no = emp.getEmp_no();
 		String emp_name = emp.getEmp_name();
 		
 		// 채팅방 정보
@@ -150,21 +155,23 @@ public class EchoHandler extends TextWebSocketHandler {
 			@RequestParam(value = "room_title", required = false) String room_title
 			) {
 		
-		// 배열 형태로 이름들 가져옴
-		logger.info("emp_name_arr" + emp_name_arr);
-		List<Chatting> list = new ArrayList<Chatting>();
-		
 		// 채팅방 생성
 		int result = service.insertRoom(room_title); 
 		
 		// 채팅 멤버 테이블 insert(방번호, 사원번호)
 		int result2 = 0;
+		
+		// 배열 형태로 이름들 가져옴
+		logger.info("emp_name_arr" + emp_name_arr);
+		
+		// 배열 형태로 가져온 이름들 향상된for문을 이용하여 반복문 실행
 		for(String emp_name : emp_name_arr) {
 			logger.info(emp_name);
 			result2 = service.insertMember(emp_name);
 		}
 		
 		String msg = "";
+		// 채팅방과 채팅 멤버 테이블 insert에 모두 성공 시
 		if(result > 0 && result2 > 0) {
 			msg = "방이 생성되었습니다.";
 		} else {

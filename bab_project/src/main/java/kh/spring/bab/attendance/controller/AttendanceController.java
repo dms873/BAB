@@ -48,13 +48,12 @@ public class AttendanceController {
 		List<Attendance> result2 = service.selectMonth(currentPage, pageSize, emp_no);
 		mv.addObject("selectMonth", result2);
 		
+		// 총 연차 일수
 		int totalCnt = service.totalselectMonth(emp_no);
 		
 		// 현재 월
 		LocalDateTime now = LocalDateTime.now();
-		
 		String month = now.getMonth().toString();
-		System.out.println(month);
 		mv.addObject("currentMonth", month);
 		
 		// 누적 근무시간
@@ -116,6 +115,7 @@ public class AttendanceController {
 		List<Attendance> useHoList = service.useHoList(currentPage, pageSize, emp_no);
 		mv.addObject("useHoList", useHoList);
 		
+		// 사용 연차 일수
 		int totalCnt = service.totalUseHoCnt(emp_no);
 		
 		// paging 처리
@@ -154,9 +154,11 @@ public class AttendanceController {
 		Employee emp = (Employee) req.getSession().getAttribute("login");
 		String emp_no = emp.getEmp_no();
 
+		// 출근 시간 저장
 		int result = service.insertStart(emp_no);
 		
 		String msg = "";
+		// 출근 시간 insert에 성공했을 때
 		if(result > 0) {
 			msg = "출근 시간이 등록되었습니다.";
 		} else {
@@ -185,8 +187,12 @@ public class AttendanceController {
 		int result2 = service.updateWorkTime(emp_no);
 		
 		String msg = "";
+		
+		// 퇴근 시간 insert에 성공했을 때
 		if(result > 0) {
-			msg = "정상적으로 퇴근처리 되었습니다.";
+			if(result2 > 0) {
+				msg = "정상적으로 퇴근처리 되었습니다.";
+			}
 		} else {
 			msg = "퇴근처리에 실패하였습니다.";
 		}

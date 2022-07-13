@@ -167,21 +167,27 @@
         		<div id="date" class="date"></div>
             	<div id="time" class="time"></div>
             	
+            	<!-- 출근 버튼 클릭 시 출근시간 표시되는 화면 -->
             	<div>출근시간 
             		<span id="s_now_start_time" style="color: gray; margin-left: 20px;">
+            			<!-- 오늘 날짜의 근무시작시간이 없으면 미등록 표기 -->
             			<c:if test="${empty selectToday.att_start }">
             				미등록
             			</c:if>
+            			<!-- 오늘 날짜의 근무시작시간이 있으면 오늘 날짜의 근무시작시간 표기 -->
             			<c:if test="${not empty selectToday.att_start }">
             				${selectToday.att_start }
             			</c:if>
             		</span>
             	</div>
+            	<!-- 퇴근 버튼 클릭 시 퇴근시간 표시되는 화면 -->
             	<div style="margin-top: 5px; margin-bottom: 20px;">퇴근시간 
 	            	<span id="s_now_out_time" style="color: gray; margin-left: 20px;">
+	            		<!-- 오늘 날짜의 근무종료시간이 없으면 미등록 표기 -->
 		            	<c:if test="${empty selectToday.att_end }">
 		            		미등록
 		            	</c:if>
+		            	<!-- 오늘 날짜의 근무종료시간이 있으면 오늘 날짜의 근무종료시간 표기 -->
             			<c:if test="${not empty selectToday.att_end }">
             				${selectToday.att_end }
             			</c:if>
@@ -189,10 +195,12 @@
             	</div>
             	<div style="border: 1px solid lightgrey;margin-bottom: 20px;"></div>
             	<div style="display: flex;justify-content: space-evenly;">
+            		<!-- 출퇴근 버튼 -->
             		<button class="btn btn-outline-success" id="s_att">출근</button>
             		<button class="btn btn-outline-danger" id="s_leave" disabled>퇴근</button>
             	</div>
             
+            	<!-- 서브 메뉴 -->
                 <div id="s_att_management">근태 관리</div>
                 <div style="color: rgb(5, 131, 242);" id="s_att_select" class="s_hover_event">내 근태 현황</div>
                 <div id="s_ho_select" class="s_hover_event">내 연차 내역</div>
@@ -221,6 +229,7 @@
 					</div>
 				</div>
 	            <div id="s_att_table_tt">내 근태 현황</div>
+	            <!-- 현재 월 컨트롤러에서 currentMonth로 담아준 것 가져와 표기 -->
 				<div id="s_att_month">${currentMonth }</div>
 	            <div>
 					<table class="table table-hover" style="text-align: center; vertical-align: middle;">
@@ -234,6 +243,7 @@
 					    </tr>
 					  </thead>
 					  <tbody>
+					  	<!-- 월별근무시간 반복문 돌기 -->
 					  	<c:forEach items="${selectMonth }" var="i">
 						    <tr>
 						      <th scope="row">${i.rnum }</th>
@@ -246,20 +256,25 @@
 						      	 ${fn:substring(att_start, 11,16) }
 					      	  </td>
 						      <td>
+						      	  <!-- 근무종료시간이 없으면 미등록으로 표기 -->
 						      	  <c:if test="${empty i.att_end }">
 						      	  	 미등록
 						      	  </c:if>
+						      	  <!-- 근무종료시간이 있으면 근무종료시간 표기 -->
 						      	  <c:if test="${not empty i.att_end }">
 						      	  	 ${i.att_end }
 						      	  </c:if>
 						      </td>
 						      <td>
+						      	  <!-- 소정근무시간이 0보다 크면 소정근무시간 표기 -->
 						      	  <c:if test="${i.att_worktime > 0 }">
 						      	  	 ${i.att_worktime }시간
 						      	  </c:if>
+						      	  <!-- 소정근무시간이 0보다 작으면 아무것도 표기 안함 -->
 						      	  <c:if test="${i.att_worktime < 0 }">
 						      	  	 
 						      	  </c:if>
+						      	  <!-- 소정근무시간이 비어있으면 퇴근시간 미등록 표기 -->
 						      	  <c:if test="${empty i.att_worktime }">
 						      	  	 퇴근시간 미등록
 						      	  </c:if>
@@ -270,25 +285,34 @@
 					</table>
 				</div>
 			<div style="margin-top: 100px; display: flex; justify-content: center;">
+			<!-- 페이징 처리 -->
 			<nav aria-label="Page navigation example">
 			  <ul class="pagination">
+			  	<!-- 시작페이지가 1보다 크면 -->
 				<c:if test="${startPage > 1 }">
 					<li class="page-item pre">
+						<!-- '<<' 이전 모양 버튼 생김 -->
 						<a class="page-link" href="#" aria-label="Previous"> 
 							<span aria-hidden="true">&laquo;</span>
 						</a>
 					</li>
 					</c:if>
+					<!-- 시작페이지부터 끝페이지까지 반복 -->
 					<c:forEach begin="${startPage }" end="${endPage }" var="i">
+						<!-- 현재페이지가 i와 같으면 -->
 						<c:if test="${currentPage eq i}">
+							<!-- 해당 페이징에 active 클래스 추가(파란 배경) -->
 							<li class="page-item num active"><a class="page-link" href="#">${i }</a></li>
 						</c:if>
 						<c:if test="${currentPage ne i}">
+							<!-- 아니면 active 없음(흰 배경) -->
 							<li class="page-item num"><a class="page-link" href="#">${i }</a></li>
 						</c:if>
 					</c:forEach>
+					<!-- 끝페이지가 페이지개수보다 작으면 -->
 					<c:if test="${endPage < pageCnt }">
 					<li class="page-item next">
+						<!-- '>>' 다음 모양 버튼 생김 -->
 						<a class="page-link" href="#" aria-label="Next"> 
 							<span aria-hidden="true">&raquo;</span>
 						</a>
@@ -304,8 +328,11 @@
     <script>
     	// 남은 근무 시간 계산
     	$(document).ready(function(){
+    		// 컨트롤러에서 구한 근무시간을 time변수에 담아줌
         	var time = "${workTimeCnt}";
+        	// 전체근무시간 - 소정근무시간 계산 
         	var timeCal = 160 - Number(time);
+        	// 남은 근무 시간 text를 계산한 값으로 변경
     		$("#s_r_work_time").text(timeCal + "시간");
     	});
     </script>
@@ -313,6 +340,7 @@
     <script>
 		// 페이징 처리
 		$(".page-item.num .page-link").click(function(event) {
+			// 페이지숫자 눌렀을 때 누른 innerText를 pageNum으로 가져와 링크로 넘겨주기
 			var pageNum = event.target.innerText;
 			$("#s_att_box").load("<%=request.getContextPath()%>/attendance/select?page="+pageNum);
 		})
@@ -333,10 +361,13 @@
     
     
     <script>
+    	// 서브 메뉴 클릭 시
+   		// 내 근태 현황
     	$("#s_ho_select").click(function() {
     		$("#s_att_content_box").load("<%=request.getContextPath()%>/attendance/holiday");
     	});
     	
+    	// 내 연차 내역
     	$("#s_att_select").click(function() {
     		$("#menu_attendance").get(0).click();
     	});
