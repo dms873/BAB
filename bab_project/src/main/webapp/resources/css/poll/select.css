@@ -46,10 +46,15 @@
 	color: red;
 }
 /* 테이블 중앙정렬 */
-#j_poll_table {
+.j_poll_table {
 	display: flex;
 	text-align: center;
 	justify-content: center;
+	width: 100%;
+}
+/* 옵션 테이블  */
+.j_poll_table1 {
+	margin-left: 7px;
 }
 /* 테이블 왼쪽 타이틀 */
 .j_poll_title {
@@ -162,10 +167,6 @@
 	border: #0583F2;
 	background-color: #0583F2;
 	cursor: pointer;
-}
-
-#j_poll_table {
-	width: 100%;
 }
 /* 테이블 상단 타이틀 */
 .j_poll_thead {

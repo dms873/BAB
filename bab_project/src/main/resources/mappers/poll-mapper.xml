@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Poll">
+	<!--투표 등록  -->
+	<insert id="insertPoll" parameterType="Poll">
+		insert into poll
+		values((select nvl(max(poll_no),0)+1 from poll),#{poll_title},#{poll_start},#{poll_end},#{poll_content},default,#{emp_no},#{poll_writer})
+	</insert>
+	
+	<!--옵션 등록  -->
+	<insert id="insertOption" parameterType="Poll">
+		insert into poll_option
+		values((select nvl(max(option_no),0)+1 from poll_option),#{option_val},(select poll_no from(select * from poll order by poll_date desc)where rownum=1))
+	</insert>
+	
+	<!--투표 조회  -->
+	<select id="select" resultType="Poll">
+		select poll_no, poll_title, poll_content, poll_writer,
+		substr(replace(poll_start,'-','/'),1,10)||'~'||substr(replace(poll_end,'-','/'),1,10) poll_time,
+		to_char(poll_Date,'YYYY/MM/DD') poll_date 
+		from poll where 1=1
+		<choose>
+			<when test="option != null and option.equals('poll_title')">
+			and poll_title like '%' || #{text} || '%'
+			</when>
+			<when test="option != null and option.equals('poll_writer')">
+			and poll_writer like '%' || #{text} || '%'
+			</when>
+		</choose>
+		order by poll_no
+	</select>
+</mapper>

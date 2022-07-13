@@ -1,7 +1,5 @@
 package kh.spring.bab.poll.domain;
 
-import java.sql.Timestamp;
-
 import org.springframework.stereotype.Component;
 
 @Component
@@ -26,18 +24,23 @@ public class Poll {
 	private String poll_title;
 	private String poll_start;
 	private String poll_end;
+	private String poll_time;
 	private String poll_content;
-	private Timestamp poll_date;
+	private String poll_date;
 	private String emp_no;
+	private String poll_writer;
 	private String option_no;
 	private String option_val;
+	private String option;
+	private String text;
 	
 	//toString
 	@Override
 	public String toString() {
 		return "Poll [poll_no=" + poll_no + ", poll_title=" + poll_title + ", poll_start=" + poll_start + ", poll_end="
-				+ poll_end + ", poll_content=" + poll_content + ", poll_date=" + poll_date + ", emp_no=" + emp_no
-				+ ", option_no=" + option_no + ", option_val=" + option_val + "]";
+				+ poll_end + ", poll_time=" + poll_time + ", poll_content=" + poll_content + ", poll_date=" + poll_date
+				+ ", emp_no=" + emp_no + ", poll_writer=" + poll_writer + ", option_no="
+				+ option_no + ", option_val=" + option_val + ", option=" + option + ", text=" + text + "]";
 	}
 	
 	//게터세터
@@ -81,11 +84,11 @@ public class Poll {
 		this.poll_content = poll_content;
 	}
 
-	public Timestamp getPoll_date() {
+	public String getPoll_date() {
 		return poll_date;
 	}
 
-	public void setPoll_date(Timestamp poll_date) {
+	public void setPoll_date(String poll_date) {
 		this.poll_date = poll_date;
 	}
 
@@ -112,6 +115,40 @@ public class Poll {
 	public void setOption_val(String option_val) {
 		this.option_val = option_val;
 	}
+
+	public String getPoll_time() {
+		return poll_time;
+	}
+
+	public void setPoll_time(String poll_time) {
+		this.poll_time = poll_time;
+	}
+
+	public String getOption() {
+		return option;
+	}
+
+	public void setOption(String option) {
+		this.option = option;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public String getPoll_writer() {
+		return poll_writer;
+	}
+
+	public void setPoll_writer(String poll_writer) {
+		this.poll_writer = poll_writer;
+	}
+	
+	
 	
 	
 
