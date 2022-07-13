@@ -2,6 +2,7 @@ package kh.spring.bab.mail.model.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -23,11 +24,19 @@ public class MailDao {
 		return sqlSession.insert("Mail.insertRcvMail", mailRcv);
 	}
 	
-	public List<MailRcv> selectRcvMail(){
-		return sqlSession.selectList(null);
+	public List<MailRcv> selectRcvMail(int currentPage, int pageSize, String email){
+		return sqlSession.selectList("Mail.selectRcvMail", email, new RowBounds((currentPage-1)*pageSize, pageSize));
 	}
 	
-	public List<MailSend> selectSndMail(){
-		return sqlSession.selectList(null);
+	public int selectRcvTotalCnt() {
+		return sqlSession.selectOne("Mail.selectRcvTotalCnt");
+	}
+	
+	public List<MailSend> selectSndMail(int currentPage, int pageSize, String email){
+		return sqlSession.selectList("Mail.selectSndMail", email, new RowBounds((currentPage-1)*pageSize, pageSize));
+	}
+	
+	public int selectSndTotalCnt() {
+		return sqlSession.selectOne("selectSndTotalCnt");
 	}
 }

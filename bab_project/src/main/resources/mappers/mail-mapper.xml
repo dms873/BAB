@@ -10,7 +10,20 @@
 	insert into RECEIVE_MAIL values (RECEIVE_MAIL_SEQ.nextval, #{rec_title}, #{rec_content}, systimestamp, #{rec_receiver}, #{rec_sender}, #{rec_filesize})
 </insert>
 
-<select id="">
-	select rec_no, rec_title, to_char(rec_date, 'yyyy-mm-dd') rec_date, rec_sender, rec_filesize from receive_mail order by rec_no desc
+<select id="selectRcvMail" resultType="MailRcv">
+	select rec_no, rec_title, to_char(rec_date, 'yyyy-mm-dd') rec_date, rec_sender, rec_receiver, rec_filesize from receive_mail where rec_receiver=#{email} order by rec_no desc
 </select>
+
+<select id="selectRcvTotalCnt" resultType="_int">
+	select count(*) from RECEIVE_MAIL
+</select>
+
+<select id="selectSndMail" resultType="MailSend">
+	select send_no, send_title, to_char(send_date, 'yyyy-mm-dd') send_date, send_sender, send_receiver, send_filesize from send_mail where send_sender=#{email} order by send_no desc
+</select>
+
+<select id="selectSndTotalCnt" resultType="_int">
+	select count(*) from SEND_MAIL
+</select>
+
 </mapper>

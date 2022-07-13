@@ -48,24 +48,82 @@ public class MailController {
 		return mv;
 	}
 	
-	@GetMapping("/selectRcv")
+	@PostMapping("/selectRcv")
 	public ModelAndView selectRcv(ModelAndView mv,
+			@RequestParam(name="page", defaultValue = "1") int currentPage,
+			@RequestParam(name="email", required = false) String email,
 			MailRcv mailRcv
 			) {
 		
+		final int pageSize = 5;
+		final int pageBlock = 5;
 		
-//		List<MailRcv> selectRcvMail = service.selectRcvMail(mailRcv);
+		List<MailRcv> selectRcvMail = service.selectRcvMail(currentPage, pageSize, email);
 		
+		int totalCnt = service.selectRcvTotalCnt();
+		
+		// paging 처리
+		int pageCnt = totalCnt / pageSize + (totalCnt % pageSize == 0 ? 0 : 1);
+		int startPage = 1;
+		int endPage = 1;
+		// int endPage = pageBlock;
+		if (currentPage % pageBlock == 0) {
+			startPage = ((currentPage / pageBlock) - 1) * pageBlock + 1;
+		} else {
+			startPage = (currentPage / pageBlock) * pageBlock + 1;
+		}
+		endPage = startPage + pageBlock - 1;
+		if (endPage > pageCnt) {
+			endPage = pageCnt;
+		}
+		
+		mv.addObject("email", email);
+		mv.addObject("selectRcv", selectRcvMail);
+		mv.addObject("startPage", startPage);
+		mv.addObject("endPage", endPage);
+		mv.addObject("pageCnt", pageCnt);
+		mv.addObject("totalCnt", totalCnt);
+		mv.addObject("currentPage", currentPage);
 		mv.setViewName("mail/selectRcv");
 		return mv;
 	}
 	
-	@GetMapping("/selectSnd")
+	@PostMapping("/selectSnd")
 	public ModelAndView selectSnd(ModelAndView mv,
+			@RequestParam(name="page", defaultValue = "1") int currentPage,
+			@RequestParam(name="email", required = false) String email,
 			MailSend mailSnd
 			) {
 		
-//		List<MailSend> selectSndMail = service.selectSndMail(mailSnd);
+		final int pageSize = 5;
+		final int pageBlock = 5;
+		
+		List<MailSend> selectSndMail = service.selectSndMail(currentPage, pageSize, email);
+		
+		int totalCnt = service.selectRcvTotalCnt();
+		
+		// paging 처리
+		int pageCnt = totalCnt / pageSize + (totalCnt % pageSize == 0 ? 0 : 1);
+		int startPage = 1;
+		int endPage = 1;
+		// int endPage = pageBlock;
+		if (currentPage % pageBlock == 0) {
+			startPage = ((currentPage / pageBlock) - 1) * pageBlock + 1;
+		} else {
+			startPage = (currentPage / pageBlock) * pageBlock + 1;
+		}
+		endPage = startPage + pageBlock - 1;
+		if (endPage > pageCnt) {
+			endPage = pageCnt;
+		}
+		
+		mv.addObject("email", email);
+		mv.addObject("selectSnd", selectSndMail);
+		mv.addObject("startPage", startPage);
+		mv.addObject("endPage", endPage);
+		mv.addObject("pageCnt", pageCnt);
+		mv.addObject("totalCnt", totalCnt);
+		mv.addObject("currentPage", currentPage);
 		
 		mv.setViewName("mail/selectSnd");
 		return mv;

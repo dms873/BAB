@@ -1,3 +1,4 @@
+<%@page import="kh.spring.bab.employee.domain.Employee"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -12,6 +13,16 @@
 }
 </style>
 <body>
+		<%
+ 		String email = null;
+		Employee vo = (Employee) request.getSession().getAttribute("login");
+		
+		email = vo.getEmp_email();
+		
+		%>
+		
+		<input type="hidden" id="y_emp_email" value = "<%= email %>">
+		
 	<section>
         <article style="float: left;">
             <div style="width: 150px; height: 1000px; margin-top: 25px;margin-left: 10px;">
@@ -37,7 +48,9 @@
     
     // 탭 메뉴 클릭 후 페이지 로드 시 선실행
     $(function() {
-    	$("#y_content_box").load("<%=request.getContextPath()%>/mail/selectRcv");
+    	
+    	var email = $("#y_emp_email").val()
+    	$("#y_content_box").load("<%=request.getContextPath()%>/mail/selectRcv",{email: email});
         $("#y_rcv_mail").css('color', 'rgb(5, 131, 242)');
     });
     
@@ -48,12 +61,14 @@
     
     // 받은 메일함 클릭 시 이동
     $("#y_rcv_mail").click(function(){
-    	$("#y_content_box").load("<%=request.getContextPath()%>/mail/selectRcv");
+    	var email = $("#y_emp_email").val()
+    	$("#y_content_box").load("<%=request.getContextPath()%>/mail/selectRcv",{email: email});
 	});
     
 	// 보낸 메일함 클릭 시 이동
 	$("#y_snd_mail").click(function() {
-		$("#y_content_box").load("<%=request.getContextPath()%>/mail/selectSnd");
+		var email = $("#y_emp_email").val()
+		$("#y_content_box").load("<%=request.getContextPath()%>/mail/selectSnd",{email: email});
     });
     
  	// 서브메뉴 클릭 시 색깔변경

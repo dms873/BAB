@@ -26,12 +26,22 @@ public class MailServiceImpl implements MailService {
 	}
 	
 	@Override
-	public List<MailRcv> selectRcvMail(MailRcv mailRcv){
-		return dao.selectRcvMail();
+	public List<MailRcv> selectRcvMail(int currentPage, int pageSize, String email){
+		return dao.selectRcvMail(currentPage, pageSize, email);
 	}
 	
 	@Override
-	public List<MailSend> selectSndMail(MailSend mailSnd){
-		return dao.selectSndMail();
+	public int selectRcvTotalCnt() {
+		return dao.selectRcvTotalCnt();
+	}
+	
+	@Override
+	public List<MailSend> selectSndMail(int currentPage, int pageSize, String email){
+		return dao.selectSndMail(currentPage, pageSize, email);
+	}
+	
+	@Override
+	public int selectSndTotalCnt() {
+		return dao.selectSndTotalCnt();
 	}
 }
