@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kh.spring.bab.mail.domain.MailRcv;
 import kh.spring.bab.mail.domain.MailSend;
@@ -151,6 +152,60 @@ public class MailController {
 		
 		return mv;
 	}
+	
+	@PostMapping(value="/delete", produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public String delete(HttpServletRequest request
+			, RedirectAttributes rttr
+			) {
+		
+		
+		String[] send_no = request.getParameterValues("valueArrSnd");
+		String[] rec_no = request.getParameterValues("valueArrRcv");
+		System.out.println("mNo : " + send_no);
+		System.out.println("mNo : " + rec_no);
+		
+		if(send_no != null) {
+			int size = send_no.length;
+			System.out.println("size : " + size);
+			
+			int result = 0;
+			
+			for(int i=0; i<size; i++) {
+				result = service.deleteSndMail(send_no[i]);
+				System.out.println("result : " + result);
+			}
+				String msg = "";
+				if(result > 0) {
+					msg = "게시글 삭제에 성공하였습니다.";
+				} else {
+					msg = "게시글 삭제에 실패하였습니다.";
+				}
+				return msg;
+		} else {
+			int size = rec_no.length;
+			System.out.println("size : " + size);
+			
+			int result = 0;
+			
+			for(int i=0; i<size; i++) {
+				result = service.deleteRcvMail(rec_no[i]);
+				System.out.println("result : " + result);
+			}
+				String msg = "";
+				if(result > 0) {
+					msg = "게시글 삭제에 성공하였습니다.";
+				} else {
+					msg = "게시글 삭제에 실패하였습니다.";
+				}
+				return msg;
+		}
+		
+	}
+	
+
+	
+	
 	
 	@GetMapping("/insert")
 	public ModelAndView insertMail(ModelAndView mv) {

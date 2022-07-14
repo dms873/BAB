@@ -26,8 +26,9 @@
 				<div>
 					<h1>받은 메일함</h1>
 					<div>
+						<span style="border: 1px solid lightgray; padding: 5px 7px 7px 7px;"><input type="checkbox" id="allCheck" name="allCheck"><i class="bi bi-arrow-down-short"></i></span>
 						<button type="button" class="btn btn-secondary">읽음</button>
-						<button type="button" class="btn btn-secondary">삭제</button>
+						<button type="button" id="y_btn_delete" class="btn btn-secondary">삭제</button>
 						<button type="button" class="btn btn-secondary">답장</button>
 					</div>
 					<div>
@@ -72,6 +73,70 @@
     </section>
     
     <script>
+    
+    
+	// 체크박스 전체 선택/해제
+	
+	$(function(){
+		var chkObj = document.getElementsByName("rowCheck");
+		console.log("chkObj : " + chkObj);
+		var rowCnt = chkObj.length;
+		
+		$("input[name=allCheck]").click(function() {
+			var chk_listArr = $("input[name=rowCheck]");
+			for(var i = 0; i < chk_listArr.length; i++){
+				chk_listArr[i].checked = this.checked;
+			}
+		});
+			
+		$("input[name=rowCheck]").click(function(){
+			if($("input[name=rowCheck]:checked").length == rowCnt) {
+				$("input[name=rowCheck]")[0].checked = true;
+			} else {
+			$("input[name=allCheck]")[0].checked = false;
+			}
+		});
+	});
+    
+	
+	// 체크박스 삭제
+	$("#y_btn_delete").click(function() {
+		var valueArr = new Array();
+		var list = $("input[name=rowCheck]");
+		for(var i = 0; i < list.length; i++) {
+			if(list[i].checked) { // 선택되어 있으면 배열에 값을 저장함
+				valueArr.push(list[i].value);
+			}
+		}
+		if(valueArr.length == 0) {
+			alert("선택된 글이 없습니다.");
+		} else {
+			var chk = confirm("정말 삭제하시겠습니까?");
+			$.ajax({
+				url : "<%= request.getContextPath() %>/mail/delete",
+				type : "post",
+				traditional : true,
+				data : {
+					valueArrRcv : valueArr
+				},
+				success : function(result) {
+					console.log("result : " + result);
+					if(result == "게시글 삭제에 성공하였습니다.") {
+						alert(result);
+						console.log("if 탔다");
+						$("#y_snd_mail").get(0).click();
+					} else {
+						alert(result);
+						console.log("else 탔다");
+						$("#y_snd_mail").get(0).click();
+					}
+				},
+				error:function(request,status,error){
+				    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				   }
+			});
+		}
+	});
     
 	// 페이징 처리
 	

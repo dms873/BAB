@@ -36,6 +36,16 @@ public class MailServiceImpl implements MailService {
 	}
 	
 	@Override
+	public int deleteSndMail(String send_no) {
+		return dao.deleteSndMail(send_no);
+	}
+	
+	@Override
+	public int deleteRcvMail(String rec_no) {
+		return dao.deleteSndMail(rec_no);
+	}
+	
+	@Override
 	public List<MailRcv> selectRcvMail(int currentPage, int pageSize, String email){
 		return dao.selectRcvMail(currentPage, pageSize, email);
 	}

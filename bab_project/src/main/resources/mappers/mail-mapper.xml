@@ -18,6 +18,14 @@
 	select send_title, send_receiver, send_sender, send_content from send_mail where send_no = #{mailNo}
 </select>
 
+<delete id="deleteSndMail">
+	delete from send_mail where send_no=#{send_no}
+</delete>
+
+<delete id="deleteRcvMail">
+	delete from receive_mail where rec_no=#{rec_no}
+</delete>
+
 <select id="selectRcvMail" resultType="MailRcv">
 	select rec_no, rec_title, to_char(rec_date, 'yyyy-mm-dd') rec_date, rec_sender, rec_receiver, rec_filesize from receive_mail where rec_receiver=#{email} order by rec_no desc
 </select>

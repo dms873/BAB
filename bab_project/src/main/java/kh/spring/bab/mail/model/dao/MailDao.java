@@ -32,6 +32,14 @@ public class MailDao {
 		return sqlSession.selectOne("Mail.readSndMail", mailNo);
 	}
 	
+	public int deleteSndMail(String send_no) {
+		return sqlSession.delete("Mail.deleteSndMail", send_no);
+	}
+	
+	public int deleteRcvMail(String rec_no) {
+		return sqlSession.delete("Mail.deleteRcvMail", rec_no);
+	}
+	
 	
 	public List<MailRcv> selectRcvMail(int currentPage, int pageSize, String email){
 		return sqlSession.selectList("Mail.selectRcvMail", email, new RowBounds((currentPage-1)*pageSize, pageSize));

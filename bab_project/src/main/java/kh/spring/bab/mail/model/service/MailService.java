@@ -45,6 +45,23 @@ public interface MailService {
 		 **/
 	    public MailSend readSndMail(int mailNo);
 	    
+		// 보낸 메일함 삭제
+		/**
+		 *  @param : String send_no
+		 *  @return : dao.readSndMail(send_no)
+		 *  @author : 윤영원
+		 **/
+	    public int deleteSndMail(String send_no);
+	    
+		// 받은 메일함 삭제
+		/**
+		 *  @param : String rec_no
+		 *  @return : dao.readRcvMail(rec_no)
+		 *  @author : 윤영원
+		 **/
+	    public int deleteRcvMail(String rec_no);
+	    
+	    
 	    // 받은 메일함 리스트
  			/**
  			 *  @param : int currentPage, int pageSize, MailRcv mailRcv

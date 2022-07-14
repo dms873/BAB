@@ -76,7 +76,6 @@
     
     <script>
 	    
-	    
     const fileSize = ($target) => {
     	  // 유저가 선택한 파일 가져오기
     	  const file = $target.files[0];
@@ -103,68 +102,77 @@
     	
     	$("#y_btn_insertDo").click(function(){
     		
-    		var rcv = $("#y_send_receiver").val();
-    		var id = $("#y_emp_id").val();
-    		var pwd = $("#y_emp_pwd").val();
-    		var ttl = $("#y_send_title").val();
-    		var ctt = $('.ck.ck-content').html().replace(/<br data-cke-filler="true">/g, "&nbsp;");
-			var arraycount = files.length;
-			
-				// 파일전송을 위한 FormData설정
-				var formData = new FormData();
-				
-				formData.append("send_receiver", rcv);
-				formData.append("emp_id", id);
-				formData.append("emp_pwd", pwd);
-				formData.append("send_title", ttl);
-				formData.append("send_content", ctt);
-				
-				for(var i=0; i<arraycount; i++){
-					formData.append("uploadfile", files[i]);
-				}
-				
-				
-				if($("#uploadfile").val()){
-					$.ajax({
-						url : "<%= request.getContextPath() %>/mail/insertFile",
-						data : formData,
-						processData : false,
-						contentType : false,
-						type : "post",
-						beforeSend : function(){
-							$(".warp-loading").removeClass("display-none");
-						},
-						complete : function(){
-							$(".wrap-loading").addClass("display-none");
-						},
-						success : function(result){
-							alert("전송 성공")
-							
-							$("#y_fileList").empty();
-							filecount = 0;
-			 			 	$("#menu_mail").get(0).click();
-						}
-					})	
-				} else{
-					$.ajax({
-						url : "<%= request.getContextPath() %>/mail/insertText",
-						data : formData,
-						processData : false,
-						contentType : false,
-						type : "post",
-						beforeSend : function(){
-							$(".warp-loading").removeClass("display-none");
-						},
-						complete : function(){
-							$(".wrap-loading").addClass("display-none");
-						},
-						success : function(result){
-							alert("전송 성공")
-							
-			 			 	$("#menu_mail").get(0).click();
-						}
-					})
-				}
+    		
+    	    var emp_id = $("#y_emp_id").val();
+    	    
+    	    if(emp_id != "dvs0722" || emp_id != "ggz123456" || emp_id != "babhyemi"){
+    	    	alert("권한이 없습니다!!");
+    	    	$("#y_rcv_mail").get(0).click();
+    	    } else {
+        		var rcv = $("#y_send_receiver").val();
+        		var id = $("#y_emp_id").val();
+        		var pwd = $("#y_emp_pwd").val();
+        		var ttl = $("#y_send_title").val();
+        		var ctt = $('.ck.ck-content').html().replace(/<br data-cke-filler="true">/g, "&nbsp;");
+    			var arraycount = files.length;
+    			
+    				// 파일전송을 위한 FormData설정
+    				var formData = new FormData();
+    				
+    				formData.append("send_receiver", rcv);
+    				formData.append("emp_id", id);
+    				formData.append("emp_pwd", pwd);
+    				formData.append("send_title", ttl);
+    				formData.append("send_content", ctt);
+    				
+    				for(var i=0; i<arraycount; i++){
+    					formData.append("uploadfile", files[i]);
+    				}
+    				
+    				
+    				if($("#uploadfile").val()){
+    					$.ajax({
+    						url : "<%= request.getContextPath() %>/mail/insertFile",
+    						data : formData,
+    						processData : false,
+    						contentType : false,
+    						type : "post",
+    						beforeSend : function(){
+    							$(".warp-loading").removeClass("display-none");
+    						},
+    						complete : function(){
+    							$(".wrap-loading").addClass("display-none");
+    						},
+    						success : function(result){
+    							alert("전송 성공")
+    							
+    							$("#y_fileList").empty();
+    							filecount = 0;
+    			 			 	$("#menu_mail").get(0).click();
+    						}
+    					})	
+    				} else{
+    					$.ajax({
+    						url : "<%= request.getContextPath() %>/mail/insertText",
+    						data : formData,
+    						processData : false,
+    						contentType : false,
+    						type : "post",
+    						beforeSend : function(){
+    							$(".warp-loading").removeClass("display-none");
+    						},
+    						complete : function(){
+    							$(".wrap-loading").addClass("display-none");
+    						},
+    						success : function(result){
+    							alert("전송 성공")
+    							
+    			 			 	$("#menu_mail").get(0).click();
+    						}
+    					})
+    				}
+    	    }
+
 	    	});
     </script>
 </body>
