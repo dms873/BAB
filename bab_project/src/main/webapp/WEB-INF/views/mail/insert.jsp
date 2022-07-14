@@ -28,7 +28,6 @@
 		
 		id = vo.getEmp_id();
 		pwd = vo.getEmp_pwd();
-		
 		%>
 	<div>
 		<h1>메일 쓰기</h1>

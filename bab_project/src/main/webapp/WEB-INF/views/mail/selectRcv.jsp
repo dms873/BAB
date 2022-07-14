@@ -36,8 +36,8 @@
 						<c:forEach items="${selectRcv}" var="i">
 							<tr>
 								<th scope="row"><input type="checkbox" id="rowCheck" name="rowCheck" value="${i.rec_no }"></th>
-								<td style="text-align: left;">${i.rec_receiver }</td>
-								<td id="y_td_hover" style="width: 400px; text-align: left;"><a href="javascript:void(0)" id="y_board_view" class="y_board_view">${i.rec_title }</a></td>
+								<td style="text-align: left;">${i.rec_sender }</td>
+								<td id="y_td_hover" style="width: 400px; text-align: left;"><a href="javascript:void(0)" id="y_mail_view" class="y_mail_view">${i.rec_title }</a></td>
 								<td>${i.rec_date }</td>
 								<td>${i.rec_filesize }</td>
 							</tr>
@@ -103,9 +103,10 @@
     
  	// 메일 리스트 [제목] 클릭 시 상세보기 페이지 진입
 	$(".y_mail_view").click(function(){
-		/* var bNo = $(this).parents("tr").children(".y_td_no").text();
-		console.log("bNo :" + bNo); */
-		$("#y_content_box").load("<%=request.getContextPath()%>/mail/read");
+		/* var mNo = $(this).parents("tr").children(".rowCheck").val(); */
+		var mNo = $(this).parents("tr").children("th").children("input").val();
+		console.log("mNo :" + mNo);
+		$("#y_content_box").load("<%=request.getContextPath()%>/mail/read?mRcvNo="+mNo);
 	});
     </script>
 </body>

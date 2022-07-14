@@ -131,8 +131,24 @@ public class MailController {
 	
 	
 	@GetMapping("/read")
-	public ModelAndView selectOne(ModelAndView mv) {
-		mv.setViewName("mail/selectOne");
+	public ModelAndView selectOne(ModelAndView mv,
+			@RequestParam(name="mRcvNo", required = false) String mRcvNo,
+			@RequestParam(name="mSndNo", required = false) String mSndNo
+			
+			) {
+		int mailNo = 0;
+		
+		if(mRcvNo != null) {
+			
+			mailNo = Integer.parseInt(mRcvNo);
+			mv.addObject("readMail", service.readRcvMail(mailNo));
+			mv.setViewName("mail/selectOneRcv");
+		} else {
+			mailNo = Integer.parseInt(mSndNo);
+			mv.addObject("readMail", service.readSndMail(mailNo));
+			mv.setViewName("mail/selectOneSnd");
+		}
+		
 		return mv;
 	}
 	

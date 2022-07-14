@@ -26,25 +26,12 @@
 							<tr>
 								<th scope="row"><input type="checkbox" id="rowCheck" name="rowCheck" value="${i.send_no }"></th>
 								<td style="text-align: left;">${i.send_receiver }</td>
-								<td id="y_td_hover" style="width: 400px; text-align: left;"><a href="javascript:void(0)" id="y_board_view" class="y_board_view">${i.send_title }</a></td>
+								<td id="y_td_hover" style="width: 400px; text-align: left;"><a href="javascript:void(0)" id="y_mail_view" class="y_mail_view">${i.send_title }</a></td>
 								<td>${i.send_date }</td>
 								<td>${i.send_filesize }</td>
 							</tr>
 						</c:forEach>
-						   <!--  <tr>
-						      <th scope="row"><input type="checkbox"></th>
-						      <td style="text-align: left;">ksy1234@ieei.or.kr</td>
-						      <td style="width: 400px; text-align: left;">휴가 신청</td>
-						      <td>2022/05/26</td>
-						      <td>15.2 KB</td>
-						    </tr>
-	                        <tr>
-	                          <th scope="row"><input type="checkbox"></th>
-	                          <td style="width: 200px; text-align: left;">ksy1234@ieei.or.kr</td>
-	                          <td style="width: 400px; text-align: left;">입사지원서</td>
-	                          <td>2022/05/26</td>
-	                          <td>18.3 KB</td>
-	                        </tr> -->
+
 						</table>
 					</div>
 	            </div>
@@ -100,6 +87,14 @@
 		<%-- $("#s_content_box").load("<%=request.getContextPath()%>/board/select?page=${currentPage+1}"); --%>
 		$("#y_content_box").load("<%=request.getContextPath()%>/mail/selectSnd",{page : num, email : email});
 	})
+	
+	
+	// 메일 리스트 [제목] 클릭 시 상세보기 페이지 진입
+	$(".y_mail_view").click(function(){
+		var mNo = $(this).parents("tr").children("th").children("input").val();
+		console.log("mNo :" + mNo);
+		$("#y_content_box").load("<%=request.getContextPath()%>/mail/read?mSndNo="+mNo);
+	});
     
     </script>
 </body>

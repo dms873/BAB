@@ -24,6 +24,15 @@ public class MailDao {
 		return sqlSession.insert("Mail.insertRcvMail", mailRcv);
 	}
 	
+	public MailRcv readRcvMail(int mailNo) {
+		return sqlSession.selectOne("Mail.readRcvMail", mailNo);
+	}
+	
+	public MailSend readSndMail(int mailNo) {
+		return sqlSession.selectOne("Mail.readSndMail", mailNo);
+	}
+	
+	
 	public List<MailRcv> selectRcvMail(int currentPage, int pageSize, String email){
 		return sqlSession.selectList("Mail.selectRcvMail", email, new RowBounds((currentPage-1)*pageSize, pageSize));
 	}

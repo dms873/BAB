@@ -26,23 +26,31 @@
 <body>
 
 <div>
-	<button class="btn btn-secondary" type="button">목록</button>
+	<button id="y_btn_back" class="btn btn-secondary" type="button">목록</button>
 </div>
     <div style="padding: 20px;">
     	<hr>
-    	<h4>똑!소리나는 BAB 메일 가입을 환영합니다.</h4>
+    	<h4>${readMail.send_title }</h4>
     	<div>
-    		<span style="font-weight: bold;">보낸사람 : </span><span>아아</span>
+    		<span style="font-weight: bold;">보낸사람 : </span><span>${readMail.send_sender }</span>
     	</div>
     	<div>
-    		<span style="font-weight: bold;">받는사람 : </span><span>아바라</span>
+    		<span style="font-weight: bold;">받는사람 : </span><span>${readMail.send_receiver }</span>
     	</div>
     	<hr>
  	
  		
  		<div>
- 		
+ 			${readMail.send_content }
  		</div>
     </div>
+    
+    <script>
+ 	// 게시글 목록으로 이동
+    $("#y_btn_back").click(function(){
+     	$("#y_snd_mail").get(0).click();
+    });
+    
+    </script>
 </body>
 </html>

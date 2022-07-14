@@ -29,6 +29,22 @@ public interface MailService {
 			 **/
 	    public int insertRcvMail(MailRcv mailRcv);
 	    
+		// 받은 메일함 상세보기
+		/**
+		 *  @param : int mailNo
+		 *  @return : dao.readRcvMail(mailNo)
+		 *  @author : 윤영원
+		 **/
+	    public MailRcv readRcvMail(int mailNo);
+	    
+		// 보낸 메일함 상세보기
+		/**
+		 *  @param : int mailNo
+		 *  @return : dao.readSndMail(mailNo)
+		 *  @author : 윤영원
+		 **/
+	    public MailSend readSndMail(int mailNo);
+	    
 	    // 받은 메일함 리스트
  			/**
  			 *  @param : int currentPage, int pageSize, MailRcv mailRcv

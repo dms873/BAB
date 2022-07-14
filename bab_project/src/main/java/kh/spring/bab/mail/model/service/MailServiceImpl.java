@@ -26,6 +26,16 @@ public class MailServiceImpl implements MailService {
 	}
 	
 	@Override
+	public MailRcv readRcvMail(int mailNo) {
+		return dao.readRcvMail(mailNo);
+	}
+	
+	@Override
+	public MailSend readSndMail(int mailNo) {
+		return dao.readSndMail(mailNo);
+	}
+	
+	@Override
 	public List<MailRcv> selectRcvMail(int currentPage, int pageSize, String email){
 		return dao.selectRcvMail(currentPage, pageSize, email);
 	}
