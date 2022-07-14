@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kh.spring.bab.info.domain.Info;
-import kh.spring.bab.info.model.service.InfoServiceImpl;
+import kh.spring.bab.info.model.service.InfoService;
 
 @Controller
 @RequestMapping("info")
 public class InfoController {
 	
 	@Autowired
-	private InfoServiceImpl service;
+	private InfoService service;
 
 	// 내정보수정 메인 페이지열기
 	@GetMapping("/main")

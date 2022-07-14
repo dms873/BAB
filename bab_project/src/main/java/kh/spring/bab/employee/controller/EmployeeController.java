@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import kh.spring.bab.employee.domain.Employee;
-import kh.spring.bab.employee.model.service.EmployeeServiceImpl;
+import kh.spring.bab.employee.model.service.EmployeeService;
 
 @Controller
 @RequestMapping("employee")
 public class EmployeeController {
 
 	@Autowired
-	private EmployeeServiceImpl service;
+	private EmployeeService service;
 
 	// 로그인 페이지열기
 	@GetMapping("/login")

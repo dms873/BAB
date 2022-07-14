@@ -40,20 +40,20 @@ public interface PollService {
 	 * @param poll_no
 	 * @author 장혜미
 	 */
-	public Poll readOption(String poll_no);
-
-	// 투표 수정
-	/**
-	 * @param poll
-	 * @author 장혜미
-	 */
-	public int update(Poll poll);
-
-	// 투표 삭제
+	public List<Poll> readOption(String poll_no);
+	
+	// 옵션 상세조회
 	/**
 	 * @param poll_no
 	 * @author 장혜미
 	 */
-	public int delete(String poll_no);
+	public List<Poll> readResult(String poll_no);
+
+	// 투표 하기
+	/**
+	 * @param poll
+	 * @author 장혜미
+	 */
+	public int vote(Poll poll);
 
 }

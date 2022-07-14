@@ -18,14 +18,14 @@ import org.springframework.web.servlet.ModelAndView;
 import kh.spring.bab.calendar.domain.Calendar;
 import kh.spring.bab.calendar.domain.CalendarHBD;
 import kh.spring.bab.calendar.domain.CalendarHo;
-import kh.spring.bab.calendar.model.service.CalendarServiceImpl;
+import kh.spring.bab.calendar.model.service.CalendarService;
 
 @Controller
 @RequestMapping("calendar")
 public class CalendarController {
 	
 	@Autowired
-	private CalendarServiceImpl calservice;
+	private CalendarService calservice;
 	
 	// 캘린더 조회
 	@GetMapping("/select")

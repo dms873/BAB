@@ -28,25 +28,16 @@ public class PollServiceImpl implements PollService {
 	
 	// 옵션 상세조회
 	@Override
-	public Poll readOption(String poll_no) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Poll> readOption(String poll_no) {
+		return dao.readOption(poll_no);
 	}
 
-	// 투표 수정
+	// 결과 상세조회
 	@Override
-	public int update(Poll poll) {
-		// TODO Auto-generated method stub
-		return 0;
+	public List<Poll> readResult(String poll_no) {
+		return dao.readResult(poll_no);
 	}
-	
-	// 투표 삭제
-	@Override
-	public int delete(String poll_no) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
+
 	// 투표 등록
 	@Override
 	public int insertPoll(Poll poll) {
@@ -58,6 +49,11 @@ public class PollServiceImpl implements PollService {
 	public int insertOption(Poll poll) {
 		return dao.insertOption(poll);
 	}
-
+	
+	// 투표 하기
+	@Override
+	public int vote(Poll poll) {
+		return dao.vote(poll);
+	}
 
 }

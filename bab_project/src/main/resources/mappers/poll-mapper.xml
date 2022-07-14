@@ -35,6 +35,25 @@
 		select poll_no, poll_title, poll_content, poll_writer,
 		substr(replace(poll_start,'-','/'),1,10)||'~'||substr(replace(poll_end,'-','/'),1,10) poll_time,
 		to_char(poll_Date,'YYYY/MM/DD HH24:MI') poll_date from poll where poll_no=#{poll_no}
-	
 	</select>
+	
+	<!--옵션 상세조회  -->
+	<select id="readOption" resultType="Poll">
+		select option_val from poll_option
+		where poll_no=#{poll_no}
+	</select>
+	
+	<!--결과 상세조회  -->
+	<select id="readResult" resultType="Poll">
+		select * from poll_option
+		join (select result_val, trunc(((count(*)/(select count(*) from employee))*100),0) result_count 
+		from poll_result group by result_val) on (poll_option.option_val = result_val)
+		where poll_no=#{poll_no}
+	</select>
+	
+	<!--투표하기  -->
+	<insert id="vote" parameterType="Poll">
+		insert into poll_result
+		values((select nvl(max(result_no),0)+1 from poll_result),#{result_val},#{result_voter},#{poll_no})
+	</insert>
 </mapper>

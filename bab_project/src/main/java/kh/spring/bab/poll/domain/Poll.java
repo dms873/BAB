@@ -21,6 +21,12 @@ public class Poll {
 //	OPTION_VAL          VARCHAR2(1000) 
 //	POLL_NO    NOT NULL VARCHAR2(30)
 	
+	//desc poll_result
+//	RESULT_NO    NOT NULL NUMBER         
+//	RESULT_VAL            VARCHAR2(1000) 
+//	RESULT_VOTER          VARCHAR2(30)   
+//	POLL_NO      NOT NULL VARCHAR2(30)  
+	
 	//변수 이름짓기
 	private String poll_no;
 	private String poll_title;
@@ -36,26 +42,27 @@ public class Poll {
 	private String option;
 	private String text;
 	private String[] option_vals;
+	private String result_no;
+	private String result_val;
+	private String result_voter;
+	private String result_count;
 	
 	//toString
-
-		
-	//게터세터
 	@Override
 	public String toString() {
 		return "Poll [poll_no=" + poll_no + ", poll_title=" + poll_title + ", poll_start=" + poll_start + ", poll_end="
 				+ poll_end + ", poll_time=" + poll_time + ", poll_content=" + poll_content + ", poll_date=" + poll_date
 				+ ", emp_no=" + emp_no + ", poll_writer=" + poll_writer + ", option_no=" + option_no + ", option_val="
 				+ option_val + ", option=" + option + ", text=" + text + ", option_vals=" + Arrays.toString(option_vals)
-				+ "]";
+				+ ", result_no=" + result_no + ", result_val=" + result_val + ", result_voter=" + result_voter
+				+ ", result_count=" + result_count + "]";
 	}
-	
-	
+		
+	//게터세터
 	public String getOption_val() {
 		return option_val;
 	}
 	
-
 	public String[] getOption_vals() {
 		return option_vals;
 	}
@@ -164,11 +171,41 @@ public class Poll {
 	public void setText(String text) {
 		this.text = text;
 	}
-	
-	
-	
-	
-	
-	
 
+	public String getResult_no() {
+		return result_no;
+	}
+
+	public void setResult_no(String result_no) {
+		this.result_no = result_no;
+	}
+
+	public String getResult_voter() {
+		return result_voter;
+	}
+
+	public void setResult_voter(String result_voter) {
+		this.result_voter = result_voter;
+	}
+
+
+	public String getResult_val() {
+		return result_val;
+	}
+
+
+	public void setResult_val(String result_val) {
+		this.result_val = result_val;
+	}
+
+	public String getResult_count() {
+		return result_count;
+	}
+
+	public void setResult_count(String result_count) {
+		this.result_count = result_count;
+	}
+	
+	
+	
 }

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kh.spring.bab.poll.domain.Poll;
-import kh.spring.bab.poll.model.service.PollServiceImpl;
+import kh.spring.bab.poll.model.service.PollService;
 
 
 @Controller
@@ -24,7 +24,7 @@ import kh.spring.bab.poll.model.service.PollServiceImpl;
 public class PollController {
 	
 	@Autowired
-	private PollServiceImpl service;
+	private PollService service;
 	
 	// 투표 조회 페이지열기
 	@GetMapping("/select")
@@ -47,9 +47,18 @@ public class PollController {
 		HttpSession session = request.getSession();
 		Object login = session.getAttribute("login");
 		mv.addObject("login", login);
-		
+		//투표
 		Poll poll = service.readPoll(poll_no);
 		mv.addObject("poll", poll);
+		
+		//옵션
+		List<Poll> optionList = service.readOption(poll_no);
+		mv.addObject("optionList", optionList);
+		
+		//투표결과
+		List<Poll> resultList = service.readResult(poll_no);
+		mv.addObject("resultList", resultList);
+		
 		mv.setViewName("poll/read");
 		return mv;
 	}
@@ -83,6 +92,22 @@ public class PollController {
 			service.insertOption(pollParam);
 		}
 		
+		return map;
+	}
+	
+	// 투표 하기
+	@PostMapping("/vote")
+	@ResponseBody
+	public HashMap<String, Object> vote(Poll poll) {
+		
+		int insert = service.vote(poll);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+
+		if (insert == 0) {
+			map.put("check", 0);
+		} else {
+			map.put("check", 1);
+		}
 		return map;
 	}
 

@@ -24,6 +24,11 @@ public class PollDao {
 		return sqlSession.insert("Poll.insertOption", poll);
 	}
 	
+	// 투표하기
+	public int vote(Poll poll) {
+		return sqlSession.insert("Poll.vote", poll);
+	}
+	
 	// 투표 조회
 	public List<Poll> select(Poll poll) {
 		return sqlSession.selectList("Poll.select", poll);
@@ -33,15 +38,16 @@ public class PollDao {
 	public Poll readPoll(String poll_no) {
 		return sqlSession.selectOne("Poll.readPoll",poll_no);
 	}
-
-	// 투표 수정
-	public int update(Poll poll) {
-		return sqlSession.update("",poll);
+	
+	// 옵션 상세조회
+	public List<Poll> readOption(String poll_no) {
+		return sqlSession.selectList("Poll.readOption",poll_no);
+	}
+	
+	// 결과 상세조회
+	public List<Poll> readResult(String poll_no) {
+		return sqlSession.selectList("Poll.readResult", poll_no);
 	}
 
-	// 투표 삭제
-	public int delete(String poll_no) {
-		return sqlSession.delete("",poll_no);
-	}
 
 }
