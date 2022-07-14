@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kh.spring.bab.attendance.domain.Attendance;
-import kh.spring.bab.attendance.model.service.AttendanceImpl;
+import kh.spring.bab.attendance.model.service.AttendanceService;
 import kh.spring.bab.employee.domain.Employee;
 
 @Controller
@@ -23,7 +23,7 @@ import kh.spring.bab.employee.domain.Employee;
 public class AttendanceController {
 	
 	@Autowired
-	private AttendanceImpl service;
+	private AttendanceService service;
 	
 	// 내 근태 현황조회
 	@GetMapping("/select")

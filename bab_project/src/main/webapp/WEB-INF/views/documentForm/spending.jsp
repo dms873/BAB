@@ -925,6 +925,30 @@
 			var df_no = "";
 			var dataArr = [];
 			
+			// 제목, 내용이 비어있을 때
+			if($('#s_sp_tt').val() == "" || $('#s_sp_co').val() == "") {
+				swal({
+                    title: "제목 또는 내용이 비어있습니다.",
+                    text: "다시 확인해주세요.",
+                    icon: "error",
+                    closeOnClickOutside: false,
+                    closeOnEsc: false
+                });
+				return;
+			}
+			
+			// 지출 내역이 비어있을 때
+			if($('.s_sp_date').val() == "" || $('.s_sp_detail').val() == "" || $('.s_sp_count').val() == "" || $('.s_sp_amount').val() == "") {
+				swal({
+                    title: "지출 내역을 다시 확인하여 입력해주세요.",
+                    text: "",
+                    icon: "error",
+                    closeOnClickOutside: false,
+                    closeOnEsc: false
+                });
+				return;
+			}
+			
 			dataObj = {
 					"sp_date" : $('.s_sp_date').val(),
 					"sp_detail" : $('.s_sp_detail').val(),

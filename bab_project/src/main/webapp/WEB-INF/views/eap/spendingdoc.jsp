@@ -153,14 +153,14 @@
 		<!-- pageContext.getAttribute(변수명).toString()으로 꺼내서 사용 가능 -->
 		<!-- 기안자와 로그인한 사람의 이름이 같고 반려상태일 때 -->
 		<% if(emp_name == true && eap_sta_check.equals("R")) { %>
-			<span><a id="s_opinion_btn" href="#" onclick="opinion()">의견 | </a></span>
+			<span><a id="s_opinion_btn" href="#" onclick="opinion()">반려 사유 | </a></span>
 			<span><a id="s_list_btn" href="#" onclick="list()">목록</a></span>
 			<!-- 기안자와 로그인한 사람의 이름이 같고 결재완료 또는 진행중일 때 -->
 		<% } else if(emp_name == true && (eap_sta_check.equals("F") || eap_sta_check.equals("O"))) { %>
 			<span><a id="s_list_btn" href="#" onclick="list()">| 목록 |</a></span>
 			<!-- 기안자와 로그인한 사람의 이름이 다르고 반려일 때 -->
 		<% } else if(emp_name == false && eap_sta_check.equals("R")) { %>
-			<span><a id="s_opinion_btn" href="#" onclick="opinion()">의견 | </a></span>
+			<span><a id="s_opinion_btn" href="#" onclick="opinion()">반려 사유 | </a></span>
 			<span><a id="s_list_btn" href="#" onclick="list()">목록</a></span>
 			<!-- 기안자와 로그인한 사람의 이름이 다르고 결재완료일 때 -->
 		<% } else if(emp_name == false && eap_sta_check.equals("F")) { %>
@@ -169,7 +169,6 @@
 		<% } else if(empNo.equals(pageContext.getAttribute("check").toString()) == true) { %>
 			<span><a id="s_eap_cancle" href="#">결재회수 | </a></span>
 			<span><a id="s_eap_update" href="#">문서 수정 | </a></span>
-			<span><a id="s_opinion_btn" href="#" onclick="opinion()">의견 | </a></span>
 			<span><a id="s_list_btn" href="#" onclick="list()">목록</a></span>
 		<% } else { %>
 			<span><a id="s_approval_btn" href="#" onclick="approval()">결재 승인 | </a></span>

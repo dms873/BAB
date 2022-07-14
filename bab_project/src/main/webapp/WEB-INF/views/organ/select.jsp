@@ -4,9 +4,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- jsTree js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
-   	<!-- jsTree css -->
 <meta charset="UTF-8">
 <!-- <title>조직도 조회</title> -->
 <style>
@@ -91,31 +88,6 @@
 </style>
 </head>
 <body>
-
-	<c:forEach items="${selectOrganList }" var="i">
-		<div class="emp_name" style="display: none;">
-			${i.emp_name }
-		</div>
-		<div class="dept_name_or" style="display: none;">
-			${i.dept_name }
-		</div>
-		<div class="job_title_or" style="display: none;">
-			${i.job_title }
-		</div>
-	</c:forEach>
-	<c:forEach items="${selectDeptList }" var="i">
-		<div class="dept_code" style="display: none;">
-			${i.dept_code }
-		</div>
-		<div class="dept_name" style="display: none;">
-			${i.dept_name }
-		</div>
-	</c:forEach>
-	<c:forEach items="${selectJobList }" var="i">
-		<div class="job_title" style="display: none;">
-			${i.job_title }
-		</div>
-	</c:forEach>
 
 	<div style="border: 1px solid lightgray;height: 1000px;width: 1300px;margin-top: 20px;margin-left: 10px;border-radius: 10px;padding: 20px;" >
         <div class="s_scroll" style="float:left;border: 1px solid lightgray;width: 40%;height: 955px;padding: 20px;border-radius: 10px;overflow: auto;">
@@ -236,14 +208,11 @@
 	</script>
 	
 	<script>
-	$(function() {
-		(function($) {
-			$("#search").keyup(function() {
-				var text = $("#search").val();
-				$('#tree').jstree(true).search(text);
-			});
-		} (jQuery))
-	});
+		// 검색
+		$("#search").keyup(function() {
+			var text = $("#search").val();
+			$('#tree').jstree(true).search(text);
+		});
     </script>
 
 </body>

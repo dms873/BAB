@@ -20,14 +20,14 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import kh.spring.bab.chat.domain.Chatting;
-import kh.spring.bab.chat.model.service.ChattingServiceImpl;
+import kh.spring.bab.chat.model.service.ChattingService;
 import kh.spring.bab.employee.domain.Employee;
 
 @RequestMapping("echo")
 public class EchoHandler extends TextWebSocketHandler {
 	
 	@Autowired
-	private ChattingServiceImpl service;
+	private ChattingService service;
 	
 	// 세션 리스트
 	private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();

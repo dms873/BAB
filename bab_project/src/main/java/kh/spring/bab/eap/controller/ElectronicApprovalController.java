@@ -17,7 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import kh.spring.bab.attendance.domain.Attendance;
 import kh.spring.bab.eap.domain.Eap;
 import kh.spring.bab.eap.domain.Spending;
-import kh.spring.bab.eap.model.service.EapServiceImpl;
+import kh.spring.bab.eap.model.service.EapService;
 import kh.spring.bab.employee.domain.Employee;
 
 @Controller
@@ -27,7 +27,7 @@ public class ElectronicApprovalController {
 	private static final Logger logger = LoggerFactory.getLogger(ElectronicApprovalController.class);
 	
 	@Autowired
-	private EapServiceImpl service;
+	private EapService service;
 
 	// 전자결재 홈
 	@GetMapping("/main")

@@ -185,14 +185,11 @@
 	</script>
 	
 	<script>
-	$(function() {
-		(function($) {
-			$("#search").keyup(function() {
-				var text = $("#search").val();
-				$('#tree').jstree(true).search(text);
-			});
-		} (jQuery))
-	});
+		// 검색
+		$("#search").keyup(function() {
+			var text = $("#search").val();
+			$('#tree').jstree(true).search(text);
+		});
     </script>
 
 </body>

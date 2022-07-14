@@ -475,7 +475,7 @@
 		
 				<div style="padding: 50px 10px 20px; clear: both;">
 					<div style="display: inline-block; font-size: 1.2em; font-weight: bold;">제목 : </div> 
-					<input type="text" class="form-control" style="display: inline-block; width: 583px; margin-left: 5px;" id="s_ho_tt">
+					<input type="text" class="form-control" style="display: inline-block; width: 583px; margin-left: 5px;" id="s_ho_tt" required="required">
 				</div>
 				
 				<div style="border: 1px solid lightgray; margin: 10px;"></div>
@@ -499,19 +499,19 @@
 					
 					<div style="padding: 10px 0;">
 						<div class="s_frm_title">2. 내용</div>
-						<textarea class="form-control" style="resize: none;" id="s_ho_co"></textarea>
+						<textarea class="form-control" style="resize: none;" id="s_ho_co" required="required"></textarea>
 					</div>
 					
 					<div style="padding: 10px 0;">
 						<div class="s_frm_title">3. 신청기간</div>
 						<div style="margin: 5px 0;">사용 가능한 휴가일수는 <span id="s_ho_use">${checkHo }</span>일 입니다.</div>
 						<div>
-							<input type="text" placeholder="신청 시작 기간을 선택해주세요" class="form-control s_ho_start" style="width: 250px; display: inline-block; cursor: context-menu;" id="s_ho_start">
-							<input type="time" class="form-control" style="width: 150px; display: inline-block;" id="s_start_time" min="09:00:00" max="22:00:00"> 부터
+							<input type="text" placeholder="신청 시작 기간을 선택해주세요" class="form-control s_ho_start" style="width: 250px; display: inline-block; cursor: context-menu;" id="s_ho_start" required="required">
+							<input type="time" class="form-control" style="width: 150px; display: inline-block;" id="s_start_time" min="09:00:00" max="22:00:00" required="required"> 부터
 						</div>
 						<div>
-							<input type="text" placeholder="신청 종료 기간을 선택해주세요" class="form-control s_ho_end" style="width: 250px; display: inline-block; cursor: context-menu; margin-top: 10px;" id="s_ho_end">
-							<input type="time" class="form-control" style="width: 150px; display: inline-block;" id="s_end_time" min="09:00:00" max="22:00:00"> 까지
+							<input type="text" placeholder="신청 종료 기간을 선택해주세요" class="form-control s_ho_end" style="width: 250px; display: inline-block; cursor: context-menu; margin-top: 10px;" id="s_ho_end"  required="required">
+							<input type="time" class="form-control" style="width: 150px; display: inline-block;" id="s_end_time" min="09:00:00" max="22:00:00" required="required"> 까지
 							<div style="display: inline-block;">(총 <span id="s_date_cal">0</span>일)</div>
 						</div>
 					</div>
@@ -523,7 +523,6 @@
 					
 					<div style="padding: 10px 0;">
 						<div class="s_frm_title">파일첨부</div>
-						<!-- <input type="file" class="form-control"> -->
 						<div id="s_file_upload">
 							<input type="hidden"
 							    role="uploadcare-uploader"
@@ -576,8 +575,6 @@
 		singleWidget.onUploadComplete(function(info) {
 			$("#fileUrl").val(info.cdnUrl);
 		});
-		
-		
 	</script>
 	
 	<script>
@@ -595,9 +592,6 @@
 				$(".s_span_fw").eq(i).css('color', 'gray');
 			}
 		}
-	
-		
-		
 	</script>
 		
 	<script>
@@ -845,11 +839,7 @@
 		                });
 					}
 			});
-			
-			
 		});
-		
-		 
 	</script>
 	
 	<script>
@@ -861,6 +851,18 @@
 			var ho_start = $('#s_ho_start').val() + " " + $('#s_start_time').val();
 			var ho_end = $('#s_ho_end').val() + " " + $('#s_end_time').val();
 			var ho_use_count = $('#s_date_cal').text();
+			
+			// 제목, 내용이 비어있을 때
+			if(eap_title == "" || eap_content == "") {
+				swal({
+                    title: "제목 또는 내용이 비어있습니다.",
+                    text: "다시 확인해주세요.",
+                    icon: "error",
+                    closeOnClickOutside: false,
+                    closeOnEsc: false
+                });
+				return;
+			}
 			
 			// 신청한 휴가일수가 0일때 alert
 			if(ho_use_count == 0) {

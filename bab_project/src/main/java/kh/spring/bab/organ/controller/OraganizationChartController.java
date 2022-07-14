@@ -17,7 +17,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import kh.spring.bab.employee.domain.Employee;
 import kh.spring.bab.organ.domain.Organ;
-import kh.spring.bab.organ.model.service.OrganServiceImpl;
+import kh.spring.bab.organ.model.service.OrganService;
 
 @Controller
 @RequestMapping("organ")
@@ -26,7 +26,7 @@ public class OraganizationChartController {
 	// private static final Logger logger = LoggerFactory.getLogger(OraganizationChartController.class);
 
 	@Autowired
-	private OrganServiceImpl service;
+	private OrganService service;
 	
 	
 	@GetMapping("/select")
