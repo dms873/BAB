@@ -33,7 +33,14 @@ public interface PollService {
 	 * @param poll_no
 	 * @author 장혜미
 	 */
-	public Poll read(String poll_no);
+	public Poll readPoll(String poll_no);
+	
+	// 옵션 상세조회
+	/**
+	 * @param poll_no
+	 * @author 장혜미
+	 */
+	public Poll readOption(String poll_no);
 
 	// 투표 수정
 	/**

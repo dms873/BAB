@@ -14,8 +14,8 @@
 <section>
         <article style="float: left;">
             <div style="width: 150px; height: 1000px; margin-top: 25px;margin-left: 10px;">
-                <button class="j_poll_side" id="j_poll_list">투표 리스트&#128203;</button>
-                <button class="j_poll_side" id="j_poll_make">투표 등록&#9998;</button>
+                <button class="j_poll_side" id="j_poll_list">투표 리스트&nbsp;&#128203;</button>
+                <button class="j_poll_side" id="j_poll_make">투표 등록&nbsp;&#9998;</button>
             </div>
         </article>
         <article style="float: left;">
@@ -56,7 +56,7 @@
                     <c:forEach items="${pollList}" var="poll">
                     <tr class="j_poll_tbody">
                         <td id="j_poll_pno">
-                            ${poll.poll_no}
+                            <a class="poll_pno">${poll.poll_no}</a>
                         </td>
                         <td class="j_poll_ptitle j_poll_click">
                             ${poll.poll_title}
@@ -146,6 +146,14 @@
         //모달 Bootstrap
         $("#j_poll_make").click(function(){
             $("#j_myModal").modal("show");
+        });
+        
+        //상세조회
+        $(".j_poll_click").click(function(){
+        	var pollNo = $(this).parents("tr").children("td").children(".poll_pno").text();
+        	console.log("화면에서 받아가는 번호:"+pollNo)
+        	$("#s_content_box").load("<%=request.getContextPath()%>/poll/readPoll?poll_no="+pollNo);
+        	
         });
 
         //옵션 추가
@@ -265,18 +273,60 @@
                                 closeOnEsc: false
                             })
                         }else {
-                            swal({
-                                title: "투표등록 완료!!",
-                                text: "그룹웨어 메인 화면으로 이동합니다.",
-                                icon: "success",
-                                closeOnClickOutside: false,
-                                closeOnEsc: false
-                            })
-                            .then((willDelete) => {
-      						  if (willDelete) {
-      							  location.reload();
-      						  }
-      						})
+                        	//옵션 데이터 전송 ajax
+                        	if($(".j_poll_option").val()!=""){
+                        		
+                        		//옵션 데이터 배열로 보내기
+                        		var optionList = $("input[name=option_val]").length;
+                        		var optionArr = new Array(optionList);
+                        		for(var i=0; i<optionList; i++){                          
+                        		optionArr[i] = $("input[name=option_val]").eq(i).val();
+                        	        console.log(optionArr[i]);
+                        		}
+                        		
+                                var param = {
+                                	"option_vals":optionArr,
+                                    "emp_no":$("#emp_no").val()
+                                }
+                                console.log(param);
+                                $.ajax({
+                                    url: "<%=request.getContextPath()%>/poll/insertOption",
+                                    data: param,
+                                    type: "post",
+                                    success: function(result) {
+                                    	console.log(result.check);
+                                    	if(result.check == 0) {
+                                            swal({
+                                                title: "투표등록 실패!!",
+                                                text: "확인 후 다시 입력 바랍니다.",
+                                                icon: "error",
+                                                closeOnClickOutside: false,
+                                                closeOnEsc: false
+                                            })
+                                        }else {
+                                            swal({
+                                                title: "투표등록 완료!!",
+                                                text: "그룹웨어 메인 화면으로 이동합니다.",
+                                                icon: "success",
+                                                closeOnClickOutside: false,
+                                                closeOnEsc: false
+                                            })
+                                            .then((willDelete) => {
+                      						  if (willDelete) {
+                      							  location.reload();
+                      						  }
+                      						})
+                                        }
+                                    }
+                                })}else{
+                                	 swal({
+                                         title: "옵션은 필수 입력 사항입니다. ",
+                                         text: "확인 후 입력 바랍니다.",
+                                         icon: "error",
+                                         closeOnClickOutside: false,
+                                         closeOnEsc: false
+                                     })
+                                };
                         }
                     }
                 })}else{
@@ -289,60 +339,7 @@
                      })
                 }
         	
-        	//옵션 데이터 전송 ajax
-        	if($(".j_poll_option").val()!=""){
-        		
-        		//옵션 데이터 배열로 보내기
-        		var optionList = $("input[name=option_val]").length;
-        		var optionArr = new Array(optionList);
-        		for(var i=0; i<optionList; i++){                          
-        		optionArr[i] = $("input[name=option_val]").eq(i).val();
-        	        console.log(optionArr[i]);
-        		}
-        		
-                var param = {
-                	"option_val":optionArr,
-                    "emp_no":$("#emp_no").val()
-                }
-                console.log(param);
-                $.ajax({
-                    url: "<%=request.getContextPath()%>/poll/insertOption",
-                    data: param,
-                    type: "post",
-                    success: function(result) {
-                    	console.log(result.check);
-                    	if(result.check == 0) {
-                            swal({
-                                title: "투표등록 실패!!",
-                                text: "확인 후 다시 입력 바랍니다.",
-                                icon: "error",
-                                closeOnClickOutside: false,
-                                closeOnEsc: false
-                            })
-                        }else {
-                            swal({
-                                title: "투표등록 완료!!",
-                                text: "그룹웨어 메인 화면으로 이동합니다.",
-                                icon: "success",
-                                closeOnClickOutside: false,
-                                closeOnEsc: false
-                            })
-                            .then((willDelete) => {
-      						  if (willDelete) {
-      							  location.reload();
-      						  }
-      						})
-                        }
-                    }
-                })}else{
-                	 swal({
-                         title: "옵션은 필수 입력 사항입니다. ",
-                         text: "확인 후 입력 바랍니다.",
-                         icon: "error",
-                         closeOnClickOutside: false,
-                         closeOnEsc: false
-                     })
-                };
+
         });
     </script>
 </body>

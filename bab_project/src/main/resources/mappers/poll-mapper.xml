@@ -10,12 +10,12 @@
 	<!--옵션 등록  -->
 	<insert id="insertOption" parameterType="Poll">
 		insert into poll_option
-		values((select nvl(max(option_no),0)+1 from poll_option),#{option_val},(select poll_no from(select * from poll order by poll_date desc)where rownum=1))
+		values((select nvl(max(to_number(option_no)),0)+1 from poll_option),#{option_val},(select poll_no from(select * from poll order by poll_date desc)where rownum=1))
 	</insert>
 	
 	<!--투표 조회  -->
 	<select id="select" resultType="Poll">
-		select poll_no, poll_title, poll_content, poll_writer,
+		select to_number(poll_no) poll_no, poll_title, poll_content, poll_writer,
 		substr(replace(poll_start,'-','/'),1,10)||'~'||substr(replace(poll_end,'-','/'),1,10) poll_time,
 		to_char(poll_Date,'YYYY/MM/DD') poll_date 
 		from poll where 1=1
@@ -27,6 +27,14 @@
 			and poll_writer like '%' || #{text} || '%'
 			</when>
 		</choose>
-		order by poll_no
+		order by to_number(poll_no)
+	</select>
+	
+	<!--투표 상세조회  -->
+	<select id="readPoll" resultType="Poll">
+		select poll_no, poll_title, poll_content, poll_writer,
+		substr(replace(poll_start,'-','/'),1,10)||'~'||substr(replace(poll_end,'-','/'),1,10) poll_time,
+		to_char(poll_Date,'YYYY/MM/DD HH24:MI') poll_date from poll where poll_no=#{poll_no}
+	
 	</select>
 </mapper>

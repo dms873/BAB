@@ -30,8 +30,8 @@ public class PollDao {
 	}
 
 	// 투표 상세조회
-	public Poll read(String poll_no) {
-		return sqlSession.selectOne("",poll_no);
+	public Poll readPoll(String poll_no) {
+		return sqlSession.selectOne("Poll.readPoll",poll_no);
 	}
 
 	// 투표 수정
