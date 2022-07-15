@@ -45,15 +45,15 @@ public class MailDao {
 		return sqlSession.selectList("Mail.selectRcvMail", email, new RowBounds((currentPage-1)*pageSize, pageSize));
 	}
 	
-	public int selectRcvTotalCnt() {
-		return sqlSession.selectOne("Mail.selectRcvTotalCnt");
+	public int selectRcvTotalCnt(String email) {
+		return sqlSession.selectOne("Mail.selectRcvTotalCnt", email);
 	}
 	
 	public List<MailSend> selectSndMail(int currentPage, int pageSize, String email){
 		return sqlSession.selectList("Mail.selectSndMail", email, new RowBounds((currentPage-1)*pageSize, pageSize));
 	}
 	
-	public int selectSndTotalCnt() {
-		return sqlSession.selectOne("selectSndTotalCnt");
+	public int selectSndTotalCnt(String email) {
+		return sqlSession.selectOne("Mail.selectSndTotalCnt", email);
 	}
 }

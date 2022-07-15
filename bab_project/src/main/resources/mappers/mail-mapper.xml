@@ -31,7 +31,7 @@
 </select>
 
 <select id="selectRcvTotalCnt" resultType="_int">
-	select count(*) from RECEIVE_MAIL
+	select count(*) from RECEIVE_MAIL where rec_receiver = #{email}
 </select>
 
 <select id="selectSndMail" resultType="MailSend">
@@ -39,7 +39,7 @@
 </select>
 
 <select id="selectSndTotalCnt" resultType="_int">
-	select count(*) from SEND_MAIL
+	select count(*) from SEND_MAIL where send_sender = #{email}
 </select>
 
 </mapper>

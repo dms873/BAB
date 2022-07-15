@@ -51,8 +51,8 @@ public class MailServiceImpl implements MailService {
 	}
 	
 	@Override
-	public int selectRcvTotalCnt() {
-		return dao.selectRcvTotalCnt();
+	public int selectRcvTotalCnt(String email) {
+		return dao.selectRcvTotalCnt(email);
 	}
 	
 	@Override
@@ -61,7 +61,7 @@ public class MailServiceImpl implements MailService {
 	}
 	
 	@Override
-	public int selectSndTotalCnt() {
-		return dao.selectSndTotalCnt();
+	public int selectSndTotalCnt(String email) {
+		return dao.selectSndTotalCnt(email);
 	}
 }

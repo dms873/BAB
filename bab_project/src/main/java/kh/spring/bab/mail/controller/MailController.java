@@ -61,7 +61,7 @@ public class MailController {
 		
 		List<MailRcv> selectRcvMail = service.selectRcvMail(currentPage, pageSize, email);
 		
-		int totalCnt = service.selectRcvTotalCnt();
+		int totalCnt = service.selectRcvTotalCnt(email);
 		
 		// paging 처리
 		int pageCnt = totalCnt / pageSize + (totalCnt % pageSize == 0 ? 0 : 1);
@@ -101,7 +101,7 @@ public class MailController {
 		
 		List<MailSend> selectSndMail = service.selectSndMail(currentPage, pageSize, email);
 		
-		int totalCnt = service.selectRcvTotalCnt();
+		int totalCnt = service.selectSndTotalCnt(email);
 		
 		// paging 처리
 		int pageCnt = totalCnt / pageSize + (totalCnt % pageSize == 0 ? 0 : 1);

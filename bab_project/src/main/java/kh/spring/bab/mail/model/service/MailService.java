@@ -72,11 +72,11 @@ public interface MailService {
 	 	
 	    // 받은 메일함 리스트 갯수
  			/**
- 			 *  @param : int currentPage, int pageSize, String email
+ 			 *  @param : String email
  			 *  @return : dao.selectRcvMail(currentPage, pageSize, email)
  			 *  @author : 윤영원
  			 **/
-	 	public int selectRcvTotalCnt();
+	 	public int selectRcvTotalCnt(String email);
 		
 	    // 보낸 메일함 리스트
  			/**
@@ -88,10 +88,10 @@ public interface MailService {
 		
 	    // 보낸 메일함 리스트 갯수
  			/**
- 			 *  @param : MailSend mailSnd
+ 			 *  @param : String email
  			 *  @return : dao.selectSndMail(mailSnd)
  			 *  @author : 윤영원
  			 **/
-	 	public int selectSndTotalCnt();
+	 	public int selectSndTotalCnt(String email);
 		
 }
