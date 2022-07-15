@@ -42,7 +42,7 @@ public class MailServiceImpl implements MailService {
 	
 	@Override
 	public int deleteRcvMail(String rec_no) {
-		return dao.deleteSndMail(rec_no);
+		return dao.deleteRcvMail(rec_no);
 	}
 	
 	@Override

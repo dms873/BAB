@@ -104,7 +104,7 @@
 		} else {
 			var chk = confirm("정말 삭제하시겠습니까?");
 			$.ajax({
-				url : "<%= request.getContextPath() %>/mail/delete",
+				url : "<%= request.getContextPath() %>/mail/deleteSnd",
 				type : "post",
 				traditional : true,
 				data : {
@@ -112,7 +112,7 @@
 				},
 				success : function(result) {
 					console.log("result : " + result);
-					if(result == "게시글 삭제에 성공하였습니다.") {
+					if(result == "메일 삭제에 성공하였습니다.") {
 						alert(result);
 						console.log("if 탔다");
 						$("#y_snd_mail").get(0).click();

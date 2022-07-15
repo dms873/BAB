@@ -153,36 +153,16 @@ public class MailController {
 		return mv;
 	}
 	
-	@PostMapping(value="/delete", produces = "text/plain;charset=UTF-8")
+	@PostMapping(value="/deleteRcv", produces = "text/plain;charset=UTF-8")
 	@ResponseBody
-	public String delete(HttpServletRequest request
+	public String deleteRcv(HttpServletRequest request
 			, RedirectAttributes rttr
 			) {
 		
 		
-		String[] send_no = request.getParameterValues("valueArrSnd");
 		String[] rec_no = request.getParameterValues("valueArrRcv");
-		System.out.println("mNo : " + send_no);
 		System.out.println("mNo : " + rec_no);
 		
-		if(send_no != null) {
-			int size = send_no.length;
-			System.out.println("size : " + size);
-			
-			int result = 0;
-			
-			for(int i=0; i<size; i++) {
-				result = service.deleteSndMail(send_no[i]);
-				System.out.println("result : " + result);
-			}
-				String msg = "";
-				if(result > 0) {
-					msg = "게시글 삭제에 성공하였습니다.";
-				} else {
-					msg = "게시글 삭제에 실패하였습니다.";
-				}
-				return msg;
-		} else {
 			int size = rec_no.length;
 			System.out.println("size : " + size);
 			
@@ -194,14 +174,44 @@ public class MailController {
 			}
 				String msg = "";
 				if(result > 0) {
-					msg = "게시글 삭제에 성공하였습니다.";
+					msg = "메일 삭제에 성공하였습니다.";
 				} else {
-					msg = "게시글 삭제에 실패하였습니다.";
+					msg = "메일 삭제에 실패하였습니다.";
 				}
 				return msg;
 		}
 		
-	}
+	
+	
+	
+	@PostMapping(value="/deleteSnd", produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public String deleteSnd(HttpServletRequest request
+			, RedirectAttributes rttr
+			) {
+		
+		
+		String[] send_no = request.getParameterValues("valueArrSnd");
+		System.out.println("mNo : " + send_no);
+		
+			int size = send_no.length;
+			System.out.println("size : " + size);
+			
+			int result = 0;
+			
+			for(int i=0; i<size; i++) {
+				result = service.deleteSndMail(send_no[i]);
+				System.out.println("result : " + result);
+			}
+				String msg = "";
+				if(result > 0) {
+					msg = "메일 삭제에 성공하였습니다.";
+				} else {
+					msg = "메일 삭제에 실패하였습니다.";
+				}
+				return msg;
+		
+		}
 	
 
 	
