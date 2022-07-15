@@ -76,9 +76,9 @@
     
     <script>
 	    
-    const fileSize = ($target) => {
+    	const fileSize = ($target) => {
     	  // 유저가 선택한 파일 가져오기
-    	  const file = $target.files[0];
+    	const file = $target.files[0];
     	  
     	  // 해당 파일의 용량(사이즈) 정보
     	  console.log(file.size);
@@ -104,11 +104,9 @@
     		
     		
     	    var emp_id = $("#y_emp_id").val();
+    	    console.log(emp_id);
     	    
-    	    if(emp_id != "dvs0722" || emp_id != "ggz123456" || emp_id != "babhyemi"){
-    	    	alert("권한이 없습니다!!");
-    	    	$("#y_rcv_mail").get(0).click();
-    	    } else {
+    	    if(emp_id === "dvs0722" || emp_id === "ggz123456" || emp_id === "babhyemi"){
         		var rcv = $("#y_send_receiver").val();
         		var id = $("#y_emp_id").val();
         		var pwd = $("#y_emp_pwd").val();
@@ -171,6 +169,10 @@
     						}
     					})
     				}
+
+    	    } else {
+    	    	alert("권한이 없습니다!!");
+    	    	$("#y_rcv_mail").get(0).click();
     	    }
 
 	    	});
