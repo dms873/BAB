@@ -48,6 +48,13 @@ public interface PollService {
 	 * @author 장혜미
 	 */
 	public List<Poll> readResult(String poll_no);
+	
+	// 투표 여부 확인
+	/**
+	 * @param poll
+	 * @author 장혜미
+	 */
+	public Poll voteCk(Poll poll);
 
 	// 투표 하기
 	/**

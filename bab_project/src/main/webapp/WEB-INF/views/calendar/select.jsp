@@ -12,7 +12,7 @@
 </head>
 <body>
 	<section id="j_cal_section">
-		<div id="j_cal_menu">캘린더</div>
+		<div id="j_cal_menu">캘린더&nbsp;&#128197;</div>
 		<hr id="j_cal_line">
 		<div id='j_cal_frame'></div>
 		<div id="j_cal_wrap">

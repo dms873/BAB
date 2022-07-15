@@ -102,41 +102,66 @@
         //투표하기 버튼 클릭 시
         $("#j_polld_submit").click(function(){
         	
-        	//투표결과 데이터 전송 ajax
+        	//투표여부 확인
         	if($("input:radio[name=option_val]").is(':checked')>0){
                 var param = {
                 	"poll_no": $("#poll_no").val(),
-                    "result_val": $("input[name=option_val]:checked").val(),
                     "result_voter": $("#emp_no").val()
                 }
                 console.log(param);
                 $.ajax({
-                    url: "<%=request.getContextPath()%>/poll/vote",
+                    url: "<%=request.getContextPath()%>/poll/voteCk",
                     data: param,
                     type: "post",
                     success: function(result) {
                     	console.log(result.check);
+                    	//투표한적 없으면 투표결과 데이터 전송
                     	if(result.check == 0) {
+                    		//투표결과 데이터 전송 ajax
+                                var param = {
+                                	"poll_no": $("#poll_no").val(),
+                                    "result_val": $("input[name=option_val]:checked").val(),
+                                    "result_voter": $("#emp_no").val()
+                                }
+                                console.log(param);
+                                $.ajax({
+                                    url: "<%=request.getContextPath()%>/poll/vote",
+                                    data: param,
+                                    type: "post",
+                                    success: function(result) {
+                                    	console.log(result.check);
+                                    	if(result.check == 0) {
+                                            swal({
+                                                title: "투표 실패!!",
+                                                text: "확인 후 다시 입력 바랍니다.",
+                                                icon: "error",
+                                                closeOnClickOutside: false,
+                                                closeOnEsc: false
+                                            })
+                                        }else {
+                                            swal({
+                                                title: "투표 완료!!",
+                                                text: "그룹웨어 메인 화면으로 이동합니다.",
+                                                icon: "success",
+                                                closeOnClickOutside: false,
+                                                closeOnEsc: false
+                                            })
+                                            .then((willDelete) => {
+                      						  if (willDelete) {
+                      							  location.reload();
+                      						  }
+                      						})
+                                        }
+                                    }
+                                })
+                        }else {
                             swal({
-                                title: "투표 실패!!",
-                                text: "확인 후 다시 입력 바랍니다.",
+                                title: "이미 진행한 투표입니다.",
+                                text: "",
                                 icon: "error",
                                 closeOnClickOutside: false,
                                 closeOnEsc: false
                             })
-                        }else {
-                            swal({
-                                title: "투표 완료!!",
-                                text: "그룹웨어 메인 화면으로 이동합니다.",
-                                icon: "success",
-                                closeOnClickOutside: false,
-                                closeOnEsc: false
-                            })
-                            .then((willDelete) => {
-      						  if (willDelete) {
-      							  location.reload();
-      						  }
-      						})
                         }
                     }
                 })}else{
@@ -147,8 +172,7 @@
                          closeOnClickOutside: false,
                          closeOnEsc: false
                      })
-                }
-        	
+                }    	
         });
     </script>
 </body>

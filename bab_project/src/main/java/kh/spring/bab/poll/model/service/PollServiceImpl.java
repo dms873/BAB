@@ -50,10 +50,17 @@ public class PollServiceImpl implements PollService {
 		return dao.insertOption(poll);
 	}
 	
+	// 투표 여부확인
+	@Override
+	public Poll voteCk(Poll poll) {
+		return dao.voteCk(poll);
+	}
+
 	// 투표 하기
 	@Override
 	public int vote(Poll poll) {
 		return dao.vote(poll);
 	}
+
 
 }

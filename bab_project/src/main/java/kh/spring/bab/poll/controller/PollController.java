@@ -95,6 +95,22 @@ public class PollController {
 		return map;
 	}
 	
+	// 투표 여부 확인
+	@PostMapping("/voteCk")
+	@ResponseBody
+	public HashMap<String, Object> voteCk(Poll poll) {
+
+		Poll voteCk = service.voteCk(poll);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+
+		if (voteCk == null) {
+			map.put("check", 0);
+		} else {
+			map.put("check", 1);
+		}
+		return map;
+	}
+	
 	// 투표 하기
 	@PostMapping("/vote")
 	@ResponseBody

@@ -69,7 +69,7 @@
 	cursor: pointer;
 }
 
-#j_infom_submit:focus {
+#j_infom_submit:hover {
 	border: 1px solid rgba(5, 131, 242, 0.8);
 	outline: 4px solid rgba(5, 131, 242, 0.3);
 	transition: ease-in-out .15s;

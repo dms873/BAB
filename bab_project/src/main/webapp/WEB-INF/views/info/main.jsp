@@ -12,9 +12,9 @@
 </head>
 <body>
 	<section id="j_infom_section">
-		<div id="j_infom_menu">내 정보 수정</div>
+		<div id="j_infom_menu">내 정보 수정 &nbsp;&#9998;</div>
 		<hr id="j_infom_line">
-		<div id="j_infom_men1">비밀번호 재확인&#10071;</div>
+		<div id="j_infom_men1">비밀번호 재확인 &nbsp;&#10071;</div>
 		<div id="j_infom_men2">사원님의 정보를 안전하게 보호하기 위해 비밀번호를 다시 한번 확인해주세요.
 		</div>
 		<c:if test="${info != null}">

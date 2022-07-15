@@ -20,7 +20,7 @@
         </article>
         <article style="float: left;">
             <div id="j_poll_frame">
-            <div id="j_poll_menu">투표</div>
+            <div id="j_poll_menu">투표 &#128221;</div>
 		    <hr id="j_poll_line">
             <!-- 검색기능 -->
             <div class="select_outer" style="display: flex; justify-content: center;">

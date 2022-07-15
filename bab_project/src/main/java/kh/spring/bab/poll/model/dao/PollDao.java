@@ -24,6 +24,11 @@ public class PollDao {
 		return sqlSession.insert("Poll.insertOption", poll);
 	}
 	
+	// 투표 여부확인
+	public Poll voteCk(Poll poll) {
+		return sqlSession.selectOne("Poll.voteCk", poll);
+	}
+	
 	// 투표하기
 	public int vote(Poll poll) {
 		return sqlSession.insert("Poll.vote", poll);

@@ -51,6 +51,7 @@
 	text-align: center;
 	justify-content: center;
 	width: 100%;
+	margin-top: 30px;
 }
 /* 옵션 테이블  */
 .j_poll_table1 {
@@ -174,6 +175,7 @@
 	height: 60px;
 	color: #0A0140;
 	border-bottom: 3px solid #0A0140;
+	background-color: rgba(5, 131, 242, 0.1);
 }
 /* 테이블 내용 */
 .j_poll_tbody {
@@ -212,6 +214,12 @@
 .j_poll_click:hover {
 	text-decoration: underline;
 	cursor: pointer;
+}
+/*검색 버튼  */
+#j_poll_search:hover{
+	border: 1px solid rgba(5, 131, 242, 0.8);
+	outline: 4px solid rgba(5, 131, 242, 0.3);
+	transition: ease-in-out .15s;
 }
 /* SweetAlert */
 /*모달창  */
