@@ -15,10 +15,10 @@
 	
 	<!--투표 조회  -->
 	<select id="select" resultType="Poll">
-		select to_number(poll_no) poll_no, poll_title, poll_content, poll_writer,
+		select poll_no, poll_title, poll_content, poll_writer,
 		substr(replace(poll_start,'-','/'),1,10)||'~'||substr(replace(poll_end,'-','/'),1,10) poll_time,
 		to_char(poll_Date,'YYYY/MM/DD') poll_date 
-		from poll where 1=1
+		from poll where poll_end <![CDATA[ >= ]]> to_char(sysdate,'yyyy-mm-dd')
 		<choose>
 			<when test="option != null and option.equals('poll_title')">
 			and poll_title like '%' || #{text} || '%'
@@ -27,14 +27,31 @@
 			and poll_writer like '%' || #{text} || '%'
 			</when>
 		</choose>
-		order by to_number(poll_no)
+		order by poll_date desc
+	</select>
+	
+	<!--마감된 투표 조회  -->
+	<select id="end" resultType="Poll">
+		select poll_no, poll_title, poll_content, poll_writer,
+		substr(replace(poll_start,'-','/'),1,10)||'~'||substr(replace(poll_end,'-','/'),1,10) poll_time,
+		to_char(poll_Date,'YYYY/MM/DD') poll_date 
+		from poll where poll_end <![CDATA[ < ]]> to_char(sysdate,'yyyy-mm-dd')
+		<choose>
+			<when test="option != null and option.equals('poll_title')">
+			and poll_title like '%' || #{text} || '%'
+			</when>
+			<when test="option != null and option.equals('poll_writer')">
+			and poll_writer like '%' || #{text} || '%'
+			</when>
+		</choose>
+		order by poll_date desc
 	</select>
 	
 	<!--투표 상세조회  -->
 	<select id="readPoll" resultType="Poll">
 		select poll_no, poll_title, poll_content, poll_writer,
 		substr(replace(poll_start,'-','/'),1,10)||'~'||substr(replace(poll_end,'-','/'),1,10) poll_time,
-		to_char(poll_Date,'YYYY/MM/DD HH24:MI') poll_date from poll where poll_no=#{poll_no}
+		to_char(poll_Date,'YYYY/MM/DD') poll_date from poll where poll_no=#{poll_no}
 	</select>
 	
 	<!--옵션 상세조회  -->

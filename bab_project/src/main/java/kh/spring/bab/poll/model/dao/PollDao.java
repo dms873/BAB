@@ -39,6 +39,11 @@ public class PollDao {
 		return sqlSession.selectList("Poll.select", poll);
 	}
 
+	// 마감된 투표 조회
+	public List<Poll> end(Poll poll) {
+		return sqlSession.selectList("Poll.end", poll);
+	}
+
 	// 투표 상세조회
 	public Poll readPoll(String poll_no) {
 		return sqlSession.selectOne("Poll.readPoll",poll_no);

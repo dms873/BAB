@@ -40,6 +40,21 @@ public class PollController {
 		return mv;
 	}
 	
+	// 마감된 투표 조회 페이지열기
+	@GetMapping("/end")
+	public ModelAndView pageEnd(ModelAndView mv, HttpServletRequest request, Poll poll) {
+		HttpSession session = request.getSession();
+		Object info = session.getAttribute("login");
+		mv.addObject("info", info);
+
+		List<Poll> endList = service.end(poll);
+		mv.addObject("endList", endList);
+
+		mv.setViewName("poll/end");
+		return mv;
+	}
+		
+	
 	// 투표 상세 조회
 	@GetMapping("/readPoll")
 	public ModelAndView readPoll(ModelAndView mv, HttpServletRequest request,

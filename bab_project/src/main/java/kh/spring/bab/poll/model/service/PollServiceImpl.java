@@ -20,6 +20,12 @@ public class PollServiceImpl implements PollService {
 		return dao.select(poll);
 	}
 	
+	// 마감된 투표 조회
+	@Override
+	public List<Poll> end(Poll poll) {
+		return dao.end(poll);
+	}
+	
 	// 투표 상세조회
 	@Override
 	public Poll readPoll(String poll_no) {

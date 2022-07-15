@@ -15,8 +15,7 @@
 		<article style="float: left;">
 			<div
 				style="width: 150px; height: 1000px; margin-top: 25px; margin-left: 10px;">
-				<button class="j_polld_side" id="j_polld_list">투표
-					리스트&nbsp;&#128203;</button>
+				<button class="j_polld_side" id="j_polld_list">투표리스트&nbsp;&#128203;</button>
 			</div>
 		</article>
 		<article style="float: left;">
@@ -31,7 +30,7 @@
 								<td class="j_polld_title">투표제목</td>
 								<td class="j_polld_content">${poll.poll_title}</td>
 								<td class="j_polld_title j_polld_yline">기간</td>
-								<td class="j_polld_content">${poll.poll_time}</td>
+								<td class="j_polld_content" id="poll_end">${poll.poll_time}</td>
 							</tr>
 							<tr class="j_polld_thead">
 								<td class="j_polld_title">작성자</td>
@@ -99,10 +98,28 @@
         	$("#s_content_box").load("<%=request.getContextPath()%>/poll/select");
         });
         
+        
         //투표하기 버튼 클릭 시
         $("#j_polld_submit").click(function(){
+        //마감된 투표 투표하기 버튼 클릭 시
+        var today = new Date();
+
+        var year = today.getFullYear();
+        var month = ('0' + (today.getMonth() + 1)).slice(-2);
+        var day = ('0' + today.getDate()).slice(-2);
+
+        var dateString = year + '/' + month  + '/' + day;
+
+        console.log(dateString);
+        
         	
         	//투표여부 확인
+        	var str = $("#poll_end").text();
+        	var substr = str.substr(11,10);
+        	console.log(substr);
+        	
+        	if(substr>dateString){
+        	
         	if($("input:radio[name=option_val]").is(':checked')>0){
                 var param = {
                 	"poll_no": $("#poll_no").val(),
@@ -172,7 +189,15 @@
                          closeOnClickOutside: false,
                          closeOnEsc: false
                      })
-                }    	
+                }}else{
+                	swal({
+                        title: "투표 기간이 종료되었습니다.",
+                        text: "",
+                        icon: "error",
+                        closeOnClickOutside: false,
+                        closeOnEsc: false
+                    })
+                }   	
         });
     </script>
 </body>

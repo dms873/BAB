@@ -13,6 +13,14 @@ public interface PollService {
 	 * @author 장혜미
 	 */
 	public List<Poll> select(Poll poll);
+	
+	// 마감된 투표 조회
+	/**
+	 * @param poll
+	 * @return poll
+	 * @author 장혜미
+	 */
+	public List<Poll> end(Poll poll);
 
 	// 투표 등록
 	/**

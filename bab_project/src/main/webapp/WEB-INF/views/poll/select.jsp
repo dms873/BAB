@@ -11,11 +11,12 @@
 	href="<%=request.getContextPath()%>/resources/css/poll/select.css">
 </head>
 <body>
-<section>
+<section  id="j_poll_secction">
         <article style="float: left;">
             <div style="width: 150px; height: 1000px; margin-top: 25px;margin-left: 10px;">
                 <button class="j_poll_side" id="j_poll_list">투표 리스트&nbsp;&#128203;</button>
                 <button class="j_poll_side" id="j_poll_make">투표 등록&nbsp;&#9998;</button>
+                <button class="j_poll_side" id="j_poll_endList">마감된 투표&nbsp;&#8987;</button>
             </div>
         </article>
         <article style="float: left;">
@@ -54,9 +55,11 @@
                         </td>
                     </tr>
                     <c:forEach items="${pollList}" var="poll">
+                    <c:set var="i" value="${i+1}"/>
                     <tr class="j_poll_tbody">
                         <td id="j_poll_pno">
-                            <a class="poll_pno">${poll.poll_no}</a>
+                            <input type="hidden" name="poll_no" class="poll_pno" value="${poll.poll_no}">
+                            <a>${i}</a>
                         </td>
                         <td class="j_poll_ptitle j_poll_click">
                             ${poll.poll_title}
@@ -65,7 +68,7 @@
                             ${poll.poll_time}
                         </td>
                         <td class="j_poll_pstate">
-                            진행중
+                            <a style="color: green; font-weight:bold">진행중</a>
                         </td>
                         <td class="j_poll_pwriter">
                             ${poll.poll_writer}
@@ -100,10 +103,10 @@
                                         <tr>
                                             <td class="j_poll_title">기간<a class="j_poll_sym">*</a>
                                             </td>
-                                            <td class="j_poll_content"><input type="datetime-local" id="poll_start"
+                                            <td class="j_poll_content"><input type="date" id="poll_start"
                                                 name="poll_start" class="j_poll_date"></td>
                                             <td class="j_poll_content"><a>~</a></td>
-                                            <td class="j_poll_content"><input type="datetime-local" id="poll_end"
+                                            <td class="j_poll_content"><input type="date" id="poll_end"
                                                 name="poll_end" class="j_poll_date"></td>
                                         </tr>
                                         <tr>
@@ -150,11 +153,16 @@
         
         //상세조회
         $(".j_poll_click").click(function(){
-        	var pollNo = $(this).parents("tr").children("td").children(".poll_pno").text();
+        	var pollNo = $(this).parents("tr").children("td").children(".poll_pno").val();
         	console.log("화면에서 받아가는 번호:"+pollNo)
         	$("#s_content_box").load("<%=request.getContextPath()%>/poll/readPoll?poll_no="+pollNo);
         	
         });
+        
+        //마감된 투표 조회
+        $("#j_poll_endList").click(function(){
+        	$("#j_poll_secction").load("<%=request.getContextPath()%>/poll/end");
+        })
 
         //옵션 추가
         $(document).ready (function () {                
