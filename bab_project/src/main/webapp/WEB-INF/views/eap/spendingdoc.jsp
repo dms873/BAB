@@ -528,14 +528,25 @@
 				type: "post",
 				data: {"df_no": $("#s_dfNo").text()},
 				success: function(result) {
-					swal({
-	                    title: "",
-	                    text: result,
-	                    icon: "success",
-	                    closeOnClickOutside: false,
-	                    closeOnEsc: false
-	                });
-					$("#menu_eap").get(0).click();
+					if(result.includes('실패')) {
+						swal({
+		                    title: "",
+		                    text: result,
+		                    icon: "error",
+		                    closeOnClickOutside: false,
+		                    closeOnEsc: false
+		                });
+						$("#menu_eap").get(0).click();
+					} else {
+						swal({
+		                    title: "",
+		                    text: result,
+		                    icon: "success",
+		                    closeOnClickOutside: false,
+		                    closeOnEsc: false
+		                });
+						$("#menu_eap").get(0).click();
+					}
 				}
 			});
 		});
@@ -603,14 +614,25 @@
 				, type : "post"
 				, data : dataObj
 				, success : function(result) {
-					swal({
-	                    title: "",
-	                    text: result,
-	                    icon: "success",
-	                    closeOnClickOutside: false,
-	                    closeOnEsc: false
-	                });
-					$("#s_before_doc").trigger("click");
+					if(result.includes('실패')) {
+						swal({
+		                    title: "",
+		                    text: result,
+		                    icon: "error",
+		                    closeOnClickOutside: false,
+		                    closeOnEsc: false
+		                });
+						$("#s_before_doc").trigger("click");
+					} else {
+						swal({
+		                    title: "",
+		                    text: result,
+		                    icon: "success",
+		                    closeOnClickOutside: false,
+		                    closeOnEsc: false
+		                });
+						$("#s_before_doc").trigger("click");
+					}
 				}
 			});
 		}
@@ -699,14 +721,25 @@
 					, type : "post"
 					, data : objdata
 					, success : function(result) {
-						swal({
-		                    title: "",
-		                    text: result,
-		                    icon: "success",
-		                    closeOnClickOutside: false,
-		                    closeOnEsc: false
-		                });
-						$("#menu_eap").get(0).click();
+						if(result.includes('실패')) {
+							swal({
+			                    title: "",
+			                    text: result,
+			                    icon: "error",
+			                    closeOnClickOutside: false,
+			                    closeOnEsc: false
+			                });
+							$("#menu_eap").get(0).click();
+						} else {
+							swal({
+			                    title: "",
+			                    text: result,
+			                    icon: "success",
+			                    closeOnClickOutside: false,
+			                    closeOnEsc: false
+			                });
+							$("#menu_eap").get(0).click();
+						}
 					}
 				});
 			}
@@ -752,15 +785,27 @@
 						, type : "post"
 						, data : objdata
 						, success : function(result) {
-							swal({
-			                    title: "",
-			                    text: result,
-			                    icon: "success",
-			                    closeOnClickOutside: false,
-			                    closeOnEsc: false
-			                });
-							$(".btn-close").trigger('click');
-							$("#menu_eap").get(0).click();
+							if(result.includes('실패')) {
+								swal({
+				                    title: "",
+				                    text: result,
+				                    icon: "error",
+				                    closeOnClickOutside: false,
+				                    closeOnEsc: false
+				                });
+								$(".btn-close").trigger('click');
+								$("#menu_eap").get(0).click();
+							} else {
+								swal({
+				                    title: "",
+				                    text: result,
+				                    icon: "success",
+				                    closeOnClickOutside: false,
+				                    closeOnEsc: false
+				                });
+								$(".btn-close").trigger('click');
+								$("#menu_eap").get(0).click();
+							}
 					}
 				});
 			}
@@ -813,15 +858,27 @@
 						, type : "post"
 						, data : objdata
 						, success : function(result) {
-							swal({
-			                    title: "",
-			                    text: result,
-			                    icon: "success",
-			                    closeOnClickOutside: false,
-			                    closeOnEsc: false
-			                });
-							$(".btn-close").trigger('click');
-							$("#menu_eap").get(0).click();
+							if(result.includes('실패')) {
+								swal({
+				                    title: "",
+				                    text: result,
+				                    icon: "error",
+				                    closeOnClickOutside: false,
+				                    closeOnEsc: false
+				                });
+								$(".btn-close").trigger('click');
+								$("#menu_eap").get(0).click();
+							} else {
+								swal({
+				                    title: "",
+				                    text: result,
+				                    icon: "success",
+				                    closeOnClickOutside: false,
+				                    closeOnEsc: false
+				                });
+								$(".btn-close").trigger('click');
+								$("#menu_eap").get(0).click();
+							}
 					}
 				});
 			}
@@ -858,15 +915,27 @@
 								, type : "post"
 								, data : objdata
 								, success : function(result) {
-									swal({
-					                    title: "",
-					                    text: result,
-					                    icon: "success",
-					                    closeOnClickOutside: false,
-					                    closeOnEsc: false
-					                });
-									$(".btn-close").trigger('click');
-									$("#menu_eap").get(0).click();
+									if(result.includes('실패')) {
+										swal({
+						                    title: "",
+						                    text: result,
+						                    icon: "error",
+						                    closeOnClickOutside: false,
+						                    closeOnEsc: false
+						                });
+										$(".btn-close").trigger('click');
+										$("#menu_eap").get(0).click();
+									} else {
+										swal({
+						                    title: "",
+						                    text: result,
+						                    icon: "success",
+						                    closeOnClickOutside: false,
+						                    closeOnEsc: false
+						                });
+										$(".btn-close").trigger('click');
+										$("#menu_eap").get(0).click();
+									}
 							}
 						});
 					}
@@ -914,14 +983,25 @@
 								, type : "post"
 								, data : objdata
 								, success : function(result) {
-									swal({
-					                    title: "",
-					                    text: result,
-					                    icon: "success",
-					                    closeOnClickOutside: false,
-					                    closeOnEsc: false
-					                });
-									$("#menu_eap").get(0).click();
+									if(result.includes('실패')) {
+										swal({
+						                    title: "",
+						                    text: result,
+						                    icon: "error",
+						                    closeOnClickOutside: false,
+						                    closeOnEsc: false
+						                });
+										$("#menu_eap").get(0).click();
+									} else {
+										swal({
+						                    title: "",
+						                    text: result,
+						                    icon: "success",
+						                    closeOnClickOutside: false,
+						                    closeOnEsc: false
+						                });
+										$("#menu_eap").get(0).click();
+									}
 							}
 						});
 					}
@@ -976,14 +1056,25 @@
 								, type : "post"
 								, data : objdata
 								, success : function(result) {
-									swal({
-					                    title: "",
-					                    text: result,
-					                    icon: "success",
-					                    closeOnClickOutside: false,
-					                    closeOnEsc: false
-					                });
-									$("#menu_eap").get(0).click();
+									if(result.includes('실패')) {
+										swal({
+						                    title: "",
+						                    text: result,
+						                    icon: "error",
+						                    closeOnClickOutside: false,
+						                    closeOnEsc: false
+						                });
+										$("#menu_eap").get(0).click();
+									} else {
+										swal({
+						                    title: "",
+						                    text: result,
+						                    icon: "success",
+						                    closeOnClickOutside: false,
+						                    closeOnEsc: false
+						                });
+										$("#menu_eap").get(0).click();
+									}
 							}
 						});
 					}

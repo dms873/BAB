@@ -266,14 +266,10 @@
         	var form = $("#s_document_form_select").val();
         	if(form == 's_holiday_form') {
         		// 강제로 닫기버튼 클릭하기
-        		// debugger;
         		$(".btn-close").trigger('click');
-        		// $("#s_eap_content_box").html();
-        		<%-- $("#s_eap_content_box").load("<%=request.getContextPath()%>/eap/selectform/holiday"); --%>
         	} else if(form == 's_spending_form') {
         		// 강제로 닫기버튼 클릭하기
         		$(".btn-close").trigger('click');
-        		<%-- $("#s_eap_content_box_left").load("<%=request.getContextPath()%>/eap/selectform/spending"); --%>
         	} else {
         		$("#s_document_form").html('<div class="alert alert-danger d-flex align-items-center" role="alert">'
         				  + '<i class="bi bi-exclamation-triangle-fill"></i>'

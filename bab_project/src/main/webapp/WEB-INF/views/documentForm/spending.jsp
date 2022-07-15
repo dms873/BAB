@@ -902,13 +902,23 @@
 					, type: "post"
 					, data: dataObj
 					, success: function(result) {
-						swal({
-		                    title: "",
-		                    text: result,
-		                    icon: "success",
-		                    closeOnClickOutside: false,
-		                    closeOnEsc: false
-		                });
+						if(result.includes('실패')) {
+							swal({
+			                    title: "",
+			                    text: result,
+			                    icon: "error",
+			                    closeOnClickOutside: false,
+			                    closeOnEsc: false
+			                });
+						} else {
+							swal({
+			                    title: "",
+			                    text: result,
+			                    icon: "success",
+			                    closeOnClickOutside: false,
+			                    closeOnEsc: false
+			                });
+						}
 					}
 			});
 		});
@@ -968,14 +978,25 @@
 				, type : "post"
 				, data : dataObj
 				, success : function(result) {
-					swal({
-	                    title: "",
-	                    text: result,
-	                    icon: "success",
-	                    closeOnClickOutside: false,
-	                    closeOnEsc: false
-	                });
-					$("#menu_eap").get(0).click();
+					if(result.includes('다시')) {
+						swal({
+		                    title: "",
+		                    text: result,
+		                    icon: "error",
+		                    closeOnClickOutside: false,
+		                    closeOnEsc: false
+		                });
+						$("#menu_eap").get(0).click();
+					} else {
+						swal({
+		                    title: "",
+		                    text: result,
+		                    icon: "success",
+		                    closeOnClickOutside: false,
+		                    closeOnEsc: false
+		                });
+						$("#menu_eap").get(0).click();
+					}
 				}
 			});
 		});

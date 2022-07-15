@@ -528,14 +528,25 @@
 				type: "post",
 				data: {"df_no": $("#s_dfNo").text()},
 				success: function(result) {
-					swal({
-	                    title: "",
-	                    text: result,
-	                    icon: "success",
-	                    closeOnClickOutside: false,
-	                    closeOnEsc: false
-	                });
-					$("#menu_eap").get(0).click();
+					if(result.includes('실패')) {
+						swal({
+		                    title: "",
+		                    text: result,
+		                    icon: "error",
+		                    closeOnClickOutside: false,
+		                    closeOnEsc: false
+		                });
+						$("#menu_eap").get(0).click();
+					} else {
+						swal({
+		                    title: "",
+		                    text: result,
+		                    icon: "success",
+		                    closeOnClickOutside: false,
+		                    closeOnEsc: false
+		                });
+						$("#menu_eap").get(0).click();
+					}
 				}
 			});
 		});
@@ -553,9 +564,6 @@
 					+ '<label class="form-check-label" for="flexRadioDefault2">반차</label></div>');
 			// 내용
 			$("#s_eap_content").replaceWith('<textarea class="form-control" style="resize: none;" id="s_ho_co">${readHoDoc.eap_content }</textarea>');
-			
-			/* "ho_start" : $('#s_start').text(),
-			"ho_end" : $('#s_end').text(), */
 			
 			// 시작날짜, 시간 추출
 			var start = $('#s_start').text();
@@ -615,16 +623,12 @@
 	                // maxDate: new Date(2023, 8 - 1, 31),
 	                beforeShowDay: disableAllTheseDays2
 				});
-				
-				//초기값을 오늘 날짜로 설정해줘야 합니다.
-			    // $('#s_ho_start').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
-			    // $('#s_ho_end').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
 			});
 			
 		   function disableAllTheseDays2(date) {
 	            var day = date.getDay();
 	            return [(day != 0 && day != 6)];
-				// 0=일, 1=월, 2=화, 4=목, 6=토 => 안나오게 할 것 
+				// 0=일, 6=토 => 안나오게 할 것 
 	        }
 		   
 		   function checkDate() {
@@ -705,14 +709,25 @@
 				, type : "post"
 				, data : dataObj
 				, success : function(result) {
-					swal({
-	                    title: "",
-	                    text: result,
-	                    icon: "success",
-	                    closeOnClickOutside: false,
-	                    closeOnEsc: false
-	                });
-					$("#s_before_doc").trigger("click");
+					if(result.includes('실패')) {
+						swal({
+		                    title: "",
+		                    text: result,
+		                    icon: "error",
+		                    closeOnClickOutside: false,
+		                    closeOnEsc: false
+		                });
+						$("#s_before_doc").trigger("click");
+					} else {
+						swal({
+		                    title: "",
+		                    text: result,
+		                    icon: "success",
+		                    closeOnClickOutside: false,
+		                    closeOnEsc: false
+		                });
+						$("#s_before_doc").trigger("click");
+					}
 				}
 			});
 		}
@@ -776,14 +791,25 @@
 					, type : "post"
 					, data : objdata
 					, success : function(result) {
-						swal({
-		                    title: "",
-		                    text: result,
-		                    icon: "error",
-		                    closeOnClickOutside: false,
-		                    closeOnEsc: false
-		                });
-						$("#menu_eap").get(0).click();
+						if(result.includes('실패')) {
+							swal({
+			                    title: "",
+			                    text: result,
+			                    icon: "error",
+			                    closeOnClickOutside: false,
+			                    closeOnEsc: false
+			                });
+							$("#menu_eap").get(0).click();
+						} else {
+							swal({
+			                    title: "",
+			                    text: result,
+			                    icon: "success",
+			                    closeOnClickOutside: false,
+			                    closeOnEsc: false
+			                });
+							$("#menu_eap").get(0).click();
+						}
 					}
 				});
 			}
@@ -829,15 +855,27 @@
 						, type : "post"
 						, data : objdata
 						, success : function(result) {
-							swal({
-			                    title: "",
-			                    text: result,
-			                    icon: "success",
-			                    closeOnClickOutside: false,
-			                    closeOnEsc: false
-			                });
-							$(".btn-close").trigger('click');
-							$("#menu_eap").get(0).click();
+							if(result.includes('실패')) {
+								swal({
+				                    title: "",
+				                    text: result,
+				                    icon: "error",
+				                    closeOnClickOutside: false,
+				                    closeOnEsc: false
+				                });
+								$(".btn-close").trigger('click');
+								$("#menu_eap").get(0).click();
+							} else {
+								swal({
+				                    title: "",
+				                    text: result,
+				                    icon: "success",
+				                    closeOnClickOutside: false,
+				                    closeOnEsc: false
+				                });
+								$(".btn-close").trigger('click');
+								$("#menu_eap").get(0).click();
+							}
 					}
 				});
 			}
@@ -890,15 +928,27 @@
 						, type : "post"
 						, data : objdata
 						, success : function(result) {
-							swal({
-			                    title: "",
-			                    text: result,
-			                    icon: "success",
-			                    closeOnClickOutside: false,
-			                    closeOnEsc: false
-			                });
-							$(".btn-close").trigger('click');
-							$("#menu_eap").get(0).click();
+							if(result.includes('실패')) {
+								swal({
+				                    title: "",
+				                    text: result,
+				                    icon: "error",
+				                    closeOnClickOutside: false,
+				                    closeOnEsc: false
+				                });
+								$(".btn-close").trigger('click');
+								$("#menu_eap").get(0).click();
+							} else {
+								swal({
+				                    title: "",
+				                    text: result,
+				                    icon: "success",
+				                    closeOnClickOutside: false,
+				                    closeOnEsc: false
+				                });
+								$(".btn-close").trigger('click');
+								$("#menu_eap").get(0).click();
+							}
 					}
 				});
 			}
@@ -935,15 +985,27 @@
 								, type : "post"
 								, data : objdata
 								, success : function(result) {
-									swal({
-					                    title: "",
-					                    text: result,
-					                    icon: "success",
-					                    closeOnClickOutside: false,
-					                    closeOnEsc: false
-					                });
-									$(".btn-close").trigger('click');
-									$("#menu_eap").get(0).click();
+									if(result.includes('실패')) {
+										swal({
+						                    title: "",
+						                    text: result,
+						                    icon: "error",
+						                    closeOnClickOutside: false,
+						                    closeOnEsc: false
+						                });
+										$(".btn-close").trigger('click');
+										$("#menu_eap").get(0).click();
+									} else {
+										swal({
+						                    title: "",
+						                    text: result,
+						                    icon: "success",
+						                    closeOnClickOutside: false,
+						                    closeOnEsc: false
+						                });
+										$(".btn-close").trigger('click');
+										$("#menu_eap").get(0).click();
+									}
 							}
 						});
 					}
@@ -991,14 +1053,25 @@
 								, type : "post"
 								, data : objdata
 								, success : function(result) {
-									swal({
-					                    title: "",
-					                    text: result,
-					                    icon: "success",
-					                    closeOnClickOutside: false,
-					                    closeOnEsc: false
-					                });
-									$("#menu_eap").get(0).click();
+									if(result.includes('실패')) {
+										swal({
+						                    title: "",
+						                    text: result,
+						                    icon: "error",
+						                    closeOnClickOutside: false,
+						                    closeOnEsc: false
+						                });
+										$("#menu_eap").get(0).click();
+									} else {
+										swal({
+						                    title: "",
+						                    text: result,
+						                    icon: "success",
+						                    closeOnClickOutside: false,
+						                    closeOnEsc: false
+						                });
+										$("#menu_eap").get(0).click();
+									}
 							}
 						});
 					}
@@ -1053,14 +1126,25 @@
 								, type : "post"
 								, data : objdata
 								, success : function(result) {
-									swal({
-					                    title: "",
-					                    text: result,
-					                    icon: "success",
-					                    closeOnClickOutside: false,
-					                    closeOnEsc: false
-					                });
-									$("#menu_eap").get(0).click();
+									if(result.includes('실패')) {
+										swal({
+						                    title: "",
+						                    text: result,
+						                    icon: "error",
+						                    closeOnClickOutside: false,
+						                    closeOnEsc: false
+						                });
+										$("#menu_eap").get(0).click();
+									} else {
+										swal({
+						                    title: "",
+						                    text: result,
+						                    icon: "success",
+						                    closeOnClickOutside: false,
+						                    closeOnEsc: false
+						                });
+										$("#menu_eap").get(0).click();
+									}
 							}
 						});
 					}

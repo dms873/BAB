@@ -830,13 +830,23 @@
 					, type: "post"
 					, data: dataObj
 					, success: function(result) {
-						swal({
-		                    title: "",
-		                    text: result,
-		                    icon: "success",
-		                    closeOnClickOutside: false,
-		                    closeOnEsc: false
-		                });
+						if(result.includes('실패')) {
+							swal({
+			                    title: "",
+			                    text: result,
+			                    icon: "error",
+			                    closeOnClickOutside: false,
+			                    closeOnEsc: false
+			                });
+						} else {
+							swal({
+			                    title: "",
+			                    text: result,
+			                    icon: "success",
+			                    closeOnClickOutside: false,
+			                    closeOnEsc: false
+			                });
+						}
 					}
 			});
 		});
@@ -907,14 +917,25 @@
 				, type: "post"
 				, data: dataObj
 				, success: function(result) {
-					swal({
-	                    title: "",
-	                    text: result,
-	                    icon: "success",
-	                    closeOnClickOutside: false,
-	                    closeOnEsc: false
-	                });
-					$("#menu_eap").get(0).click();
+					if(result.includes('다시')) {
+						swal({
+		                    title: "",
+		                    text: result,
+		                    icon: "error",
+		                    closeOnClickOutside: false,
+		                    closeOnEsc: false
+		                });
+						$("#menu_eap").get(0).click();
+					} else {
+						swal({
+		                    title: "",
+		                    text: result,
+		                    icon: "success",
+		                    closeOnClickOutside: false,
+		                    closeOnEsc: false
+		                });
+						$("#menu_eap").get(0).click();
+					}
 				}
 			})
 		});
@@ -1039,12 +1060,8 @@
                 monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
                 beforeShowDay: disableAllTheseDays2,
                 onSelect: function(dateText, inst) {
-                	console.log(dateText);
-                	console.log(inst);
                 	var date1 = new Date($("#s_ho_start").val()).getTime();
                 	var date2 = new Date(dateText).getTime();
-                	console.log(date1);
-                	console.log(date2);
                 	
                 	// 시작 날짜와 끝나는 날짜 비교하여 시작하는 날짜보다 끝나는 날짜가 앞이면 경고창으로 안내
                 	if(date1 > date2 == true) {
