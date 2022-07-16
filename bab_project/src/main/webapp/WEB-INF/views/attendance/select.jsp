@@ -409,15 +409,25 @@
    				url : "<%=request.getContextPath()%>/attendance/insertstart"
    					, type: "post"
    					, success: function(result) {
-   						console.log(result);
-   						swal({
-		                    title: "",
-		                    text: result,
-		                    icon: "success",
-		                    closeOnClickOutside: false,
-		                    closeOnEsc: false
-		                });
-   						$("#menu_attendance").get(0).click();
+   						if(result.includes('실패')) {
+   							swal({
+   			                    title: "",
+   			                    text: error,
+   			                    icon: "success",
+   			                    closeOnClickOutside: false,
+   			                    closeOnEsc: false
+   			                });
+   	   						$("#menu_attendance").get(0).click();
+   						} else {
+	   						swal({
+			                    title: "",
+			                    text: result,
+			                    icon: "success",
+			                    closeOnClickOutside: false,
+			                    closeOnEsc: false
+			                });
+	   						$("#menu_attendance").get(0).click();
+   						}
    					}
    			});
     	});
@@ -430,15 +440,25 @@
    				url : "<%=request.getContextPath()%>/attendance/updateend"
    					, type: "post"
    					, success: function(result) {
-   						console.log(result);
-   						swal({
-		                    title: "",
-		                    text: result,
-		                    icon: "success",
-		                    closeOnClickOutside: false,
-		                    closeOnEsc: false
-		                });
-   						$("#menu_attendance").get(0).click();
+   						if(result.includes('실패')) {
+   							swal({
+   			                    title: "",
+   			                    text: result,
+   			                    icon: "error",
+   			                    closeOnClickOutside: false,
+   			                    closeOnEsc: false
+   			                });
+   	   						$("#menu_attendance").get(0).click();
+   						} else {
+	   						swal({
+			                    title: "",
+			                    text: result,
+			                    icon: "success",
+			                    closeOnClickOutside: false,
+			                    closeOnEsc: false
+			                });
+	   						$("#menu_attendance").get(0).click();
+   						}
    					}
    			});
     	});

@@ -425,14 +425,25 @@
 					, data: obj
 					, success: function(result) {
 						$(".btn-close").trigger('click');
-						swal({
-		                    title: "",
-		                    text: result,
-		                    icon: "success",
-		                    closeOnClickOutside: false,
-		                    closeOnEsc: false
-		                });
-						$("#menu_chat").get(0).click();
+						if(result.includes('실패')) {
+							swal({
+			                    title: "",
+			                    text: result,
+			                    icon: "error",
+			                    closeOnClickOutside: false,
+			                    closeOnEsc: false
+			                });
+							$("#menu_chat").get(0).click();
+						} else {
+							swal({
+			                    title: "",
+			                    text: result,
+			                    icon: "success",
+			                    closeOnClickOutside: false,
+			                    closeOnEsc: false
+			                });
+							$("#menu_chat").get(0).click();
+						}
 					}
 			});
 		}
