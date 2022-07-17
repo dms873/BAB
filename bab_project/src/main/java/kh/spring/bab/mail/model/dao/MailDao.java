@@ -24,12 +24,20 @@ public class MailDao {
 		return sqlSession.insert("Mail.insertRcvMail", mailRcv);
 	}
 	
+	public int updateRead(int mailNo) {
+		return sqlSession.update("Mail.updateRead", mailNo);
+	}
+	
 	public MailRcv readRcvMail(int mailNo) {
 		return sqlSession.selectOne("Mail.readRcvMail", mailNo);
 	}
 	
 	public MailSend readSndMail(int mailNo) {
 		return sqlSession.selectOne("Mail.readSndMail", mailNo);
+	}
+	
+	public int readOnly(String rec_no) {
+		return sqlSession.update("Mail.readOnly", rec_no);
 	}
 	
 	public int deleteSndMail(String send_no) {

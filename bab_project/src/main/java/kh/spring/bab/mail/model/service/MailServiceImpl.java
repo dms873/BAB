@@ -26,6 +26,11 @@ public class MailServiceImpl implements MailService {
 	}
 	
 	@Override
+	public int updateRead(int mailNo) {
+		return dao.updateRead(mailNo);
+	}
+	
+	@Override
 	public MailRcv readRcvMail(int mailNo) {
 		return dao.readRcvMail(mailNo);
 	}
@@ -33,6 +38,11 @@ public class MailServiceImpl implements MailService {
 	@Override
 	public MailSend readSndMail(int mailNo) {
 		return dao.readSndMail(mailNo);
+	}
+	
+	@Override
+	public int readOnly(String rec_no) {
+		return dao.readOnly(rec_no);
 	}
 	
 	@Override

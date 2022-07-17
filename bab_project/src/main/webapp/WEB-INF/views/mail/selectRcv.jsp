@@ -27,7 +27,7 @@
 					<h1>받은 메일함</h1>
 					<div>
 						<span style="border: 1px solid lightgray; padding: 5px 7px 7px 7px;"><input type="checkbox" id="allCheck" name="allCheck"><i class="bi bi-arrow-down-short"></i></span>
-						<button type="button" class="btn btn-secondary">읽음</button>
+						<button type="button" id="y_btn_read" class="btn btn-secondary">읽음</button>
 						<button type="button" id="y_btn_delete" class="btn btn-secondary">삭제</button>
 						<button type="button" class="btn btn-secondary">답장</button>
 					</div>
@@ -37,8 +37,16 @@
 						<c:forEach items="${selectRcv}" var="i">
 							<tr>
 								<th scope="row"><input type="checkbox" id="rowCheck" name="rowCheck" value="${i.rec_no }"></th>
+								<c:choose>
+								<c:when test="${i.rec_read == 'Y'}">
 								<td style="text-align: left;">${i.rec_sender }</td>
 								<td id="y_td_hover" style="width: 400px; text-align: left;"><a href="javascript:void(0)" id="y_mail_view" class="y_mail_view">${i.rec_title }</a></td>
+								</c:when>
+								<c:otherwise>
+								<td style="text-align: left; color: blue;">${i.rec_sender }</td>
+								<td id="y_td_hover" style="width: 400px; text-align: left;"><a href="javascript:void(0)" id="y_mail_view" class="y_mail_view" style="color: blue;">${i.rec_title }</a></td>
+								</c:otherwise>
+								</c:choose>
 								<td>${i.rec_date }</td>
 								<td>${i.rec_filesize }</td>
 							</tr>
@@ -166,8 +174,50 @@
     
     
     
+	// 체크 박스 선택 후 읽음 버튼 클릭 시 색상 변경
+	$("#y_btn_read").click(function(){
+		var valueArr = new Array();
+		var list = $("input[name=rowCheck]");
+		for(var i = 0; i < list.length; i++) {
+			if(list[i].checked) { // 선택되어 있으면 배열에 값을 저장함
+				valueArr.push(list[i].value);
+			}
+		}
+		if(valueArr.length == 0) {
+			alert("선택된 글이 없습니다.");
+		} else {
+			var chk = confirm("읽음으로 표시하시겠습니까?");
+			$.ajax({
+				url : "<%= request.getContextPath() %>/mail/readOnly",
+				type : "post",
+				traditional : true,
+				data : {
+					valueArrRead : valueArr
+				},
+				success : function(result) {
+					console.log("result : " + result);
+					if(result == "메일을 읽었습니다.") {
+						alert(result);
+						console.log("if 탔다");
+						$("#y_rcv_mail").get(0).click();
+					} else {
+						alert(result);
+						console.log("else 탔다");
+						$("#y_rcv_mail").get(0).click();
+					}
+				},
+				error:function(request,status,error){
+				    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				   }
+			});
+		}
+	});
+	
+	
+	
  	// 메일 리스트 [제목] 클릭 시 상세보기 페이지 진입
 	$(".y_mail_view").click(function(){
+		
 		/* var mNo = $(this).parents("tr").children(".rowCheck").val(); */
 		var mNo = $(this).parents("tr").children("th").children("input").val();
 		console.log("mNo :" + mNo);

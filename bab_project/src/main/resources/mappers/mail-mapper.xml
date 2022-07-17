@@ -7,8 +7,12 @@
 </insert>
 
 <insert id="insertRcvMail">
-	insert into RECEIVE_MAIL values (RECEIVE_MAIL_SEQ.nextval, #{rec_title}, #{rec_content}, systimestamp, #{rec_receiver}, #{rec_sender}, #{rec_filesize})
+	insert into RECEIVE_MAIL values (RECEIVE_MAIL_SEQ.nextval, #{rec_title}, #{rec_content}, systimestamp, #{rec_receiver}, #{rec_sender}, #{rec_filesize}, default)
 </insert>
+
+<update id="updateRead">
+	update receive_mail set rec_read = 'Y' where rec_no = #{mailNo}
+</update>
 
 <select id="readRcvMail" resultType="Mailrcv">
 	select rec_title, rec_receiver, rec_sender, rec_content from receive_mail where rec_no = #{mailNo}
@@ -17,6 +21,10 @@
 <select id="readSndMail" resultType="Mailsend">
 	select send_title, send_receiver, send_sender, send_content from send_mail where send_no = #{mailNo}
 </select>
+
+<update id="readOnly">
+	update receive_mail set rec_read = 'Y' where rec_no = #{rec_no}
+</update>
 
 <delete id="deleteSndMail">
 	delete from send_mail where send_no=#{send_no}
@@ -27,7 +35,7 @@
 </delete>
 
 <select id="selectRcvMail" resultType="MailRcv">
-	select rec_no, rec_title, to_char(rec_date, 'yyyy-mm-dd') rec_date, rec_sender, rec_receiver, rec_filesize from receive_mail where rec_receiver=#{email} order by rec_no desc
+	select rec_no, rec_title, to_char(rec_date, 'yyyy-mm-dd') rec_date, rec_sender, rec_receiver, rec_filesize, rec_read from receive_mail where rec_receiver=#{email} order by rec_no desc
 </select>
 
 <select id="selectRcvTotalCnt" resultType="_int">

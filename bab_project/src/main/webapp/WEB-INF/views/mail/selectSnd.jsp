@@ -17,7 +17,6 @@
 	                <h1>보낸 메일함</h1>
 	                <div>
 	                	<span style="border: 1px solid lightgray; padding: 5px 7px 7px 7px;"><input type="checkbox" id="allCheck" name="allCheck"><i class="bi bi-arrow-down-short"></i></span>
-	                	<button type="button" class="btn btn-secondary">읽음</button>
 	                	<button type="button" id="y_btn_delete" class="btn btn-secondary">삭제</button>
 	                	<button type="button" class="btn btn-secondary">답장</button>
 	                </div>

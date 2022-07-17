@@ -134,15 +134,19 @@ public class MailController {
 	@GetMapping("/read")
 	public ModelAndView selectOne(ModelAndView mv,
 			@RequestParam(name="mRcvNo", required = false) String mRcvNo,
-			@RequestParam(name="mSndNo", required = false) String mSndNo
-			
+			@RequestParam(name="mSndNo", required = false) String mSndNo,
+			MailRcv mailRcv
 			) {
 		int mailNo = 0;
 		
+		
 		if(mRcvNo != null) {
 			
+			
 			mailNo = Integer.parseInt(mRcvNo);
-			mv.addObject("readMail", service.readRcvMail(mailNo));
+			int result1 = service.updateRead(mailNo);
+			MailRcv result2 = service.readRcvMail(mailNo);
+ 			mv.addObject("readMail", result2);
 			mv.setViewName("mail/selectOneRcv");
 		} else {
 			mailNo = Integer.parseInt(mSndNo);
@@ -151,6 +155,33 @@ public class MailController {
 		}
 		
 		return mv;
+	}
+	
+	@PostMapping(value="/readOnly", produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public String readOnly(HttpServletRequest request,
+			RedirectAttributes rttr
+			) {
+		
+		String[] rec_no = request.getParameterValues("valueArrRead");
+		
+		int size = rec_no.length;
+		System.out.println("size : " + size);
+		
+		int result = 0;
+		
+		for(int i=0; i<size; i++) {
+			result = service.readOnly(rec_no[i]);
+			System.out.println("result : " + result);
+		}
+			String msg = "";
+			if(result > 0) {
+				msg = "메일 읽기 성공하였습니다.";
+			} else {
+				msg = "메일 읽기 실패하였습니다.";
+			}
+			return msg;
+		
 	}
 	
 	@PostMapping(value="/deleteRcv", produces = "text/plain;charset=UTF-8")

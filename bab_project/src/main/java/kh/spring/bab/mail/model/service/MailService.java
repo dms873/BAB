@@ -29,6 +29,22 @@ public interface MailService {
 			 **/
 	    public int insertRcvMail(MailRcv mailRcv);
 	    
+		// 받은 메일함 제목 클릭 시 읽음 표시 변경 'N'->'Y'
+		/**
+		 *  @param : int mailNo
+		 *  @return : dao.updateRead(mailNo)
+		 *  @author : 윤영원
+		 **/
+	    public int updateRead(int mailNo);
+	    
+		// 받은 메일함 읽음 버튼 클릭 시 읽음 표시 변경 'N'->'Y'
+		/**
+		 *  @param : String rec_no
+		 *  @return : dao.readOnly(rec_no)
+		 *  @author : 윤영원
+		 **/
+	    public int readOnly(String rec_no);
+	    
 		// 받은 메일함 상세보기
 		/**
 		 *  @param : int mailNo
