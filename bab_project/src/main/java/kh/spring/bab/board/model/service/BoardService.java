@@ -10,10 +10,19 @@ import kh.spring.bab.board.domain.Board;
 public interface BoardService {
 	
 	
+	// 메인페이지 공지사항 조회
+		/**
+		 *  @param : 
+		 *  @return : dao.selectBList()
+		 *  @author : 윤영원
+		 **/
+	public List<Board> selectBList();
+	
+	
 	// 공지사항 조회
 		/**
 		 *  @param : currentPage, pageSize, board
-		 *  @return : dao.selectBoard(board, currentPag, pageSize)
+		 *  @return : dao.selectBoard(board, currentPage, pageSize)
 		 *  @author : 윤영원
 		 **/
 	public List<Board> selectBoard(int currentPage, int pageSize, Board board);

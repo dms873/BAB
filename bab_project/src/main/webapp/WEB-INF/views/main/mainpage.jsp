@@ -121,6 +121,12 @@
 	  background: #f1f7ff;
 	}
 </style>
+
+<style>
+	#y_td_hover:hover {
+		text-decoration: underline;
+	}	
+</style>
     
     
 </head>
@@ -273,7 +279,7 @@
 				  	  </c:if>
                 </div>
                 <div style="border: 1px solid lightgray; border-radius: 10px;height: 300px;margin-top: 30px;margin-left: 10px; padding: 20px;">
-                    <div class="s_main_tt">공지사항</div>
+                    <div id="y_board_tt" class="s_main_tt">공지사항</div>
                     <table class="table" style="text-align: center;">
                         <thead>
                           <tr>
@@ -284,30 +290,14 @@
                           </tr>
                         </thead>
                         <tbody>
+                          <c:forEach items="${boardList }" var="i">
                           <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
+                          	<th scope="row" class="y_td_no">${i.board_no }</th>
+                          	<td id="y_td_hover"><a href="javascript:void(0)" id="y_board_view" class="y_board_view">${i.board_title }</a></td>
+                          	<td>${i.board_writer }</td>
+                          	<td>${i.board_date }</td>
                           </tr>
-                          <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">3</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">4</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                          </tr>
+                          </c:forEach>
                         </tbody>
                       </table>
                 </div>
@@ -604,6 +594,22 @@
 
     	  calendar.render();
     	});
+    </script>
+    
+    <script>
+    
+    // 공지사항 제목 클릭 시 공지사항 페이지 로드
+    $("#y_board_tt").click(function(){
+    	$("#s_content_box").load("<%= request.getContextPath() %>/board/select");
+    })
+    
+    // 게시물 리스트 [제목] 클릭 시 상세보기 페이지 진입
+	$(".y_board_view").click(function(){
+		var bNo = $(this).parents("tr").children(".y_td_no").text();
+		console.log("bNo :" + bNo);
+		$("#s_content_box").load("<%=request.getContextPath()%>/board/select?mainBoard_no=" + bNo);
+	});
+    
     </script>
 
 </body>

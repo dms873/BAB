@@ -15,6 +15,11 @@ public class BoardDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	//메인페이지 게시글 리스트
+	public List<Board> selectBList() {
+		return sqlSession.selectList("Board.selectBList");
+	}
+	
 	//게시글 리스트
 	public List<Board> selectBoard(int currentPage, int pageSize, Board board) {
 		return sqlSession.selectList("Board.selectBoard", board, new RowBounds((currentPage-1)*pageSize, pageSize));

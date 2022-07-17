@@ -16,6 +16,11 @@
 
 </head>
 <body>
+
+<%
+String mainBoard_no = request.getParameter("mainBoard_no");
+%>
+
 <div id="y_board_content" style="border: 1px solid lightgray;height: 1000px;width: 1300px;margin-top: 20px;margin-left: 10px;border-radius: 10px;padding: 20px;" >
 
 	<div class="row" style="margin: 0 25px;">
@@ -27,7 +32,9 @@
 		
 		<div class="pannel-heading">전체 ${totalCnt}건의 게시물이 있습니다.</div>
 	</div>
-
+	
+	<input type="hidden" id="y_main_bNo" value = "<%= mainBoard_no %>">
+	
 	<div style="margin: 20px 0;">
 	<!-- search{s} -->
 		<div class="select_outer" style="display: flex; justify-content: center;">
@@ -121,8 +128,15 @@
 	
 	
 	// 체크박스 전체 선택/해제
+	// 메인페이지 board_no 값 받아오기.
 	
 	$(function(){
+		
+		var mainBoard_no = $("#y_main_bNo").val();
+		console.log(mainBoard_no);
+		if(mainBoard_no != null && mainBoard_no != "null"){
+			$("#y_board_content").load("<%=request.getContextPath()%>/board/read?board_no=" + mainBoard_no);
+		} else {
 		var chkObj = document.getElementsByName("rowCheck");
 		console.log("chkObj : " + chkObj);
 		var rowCnt = chkObj.length;
@@ -141,6 +155,10 @@
 			$("input[name=allCheck]")[0].checked = false;
 			}
 		});
+			
+		}
+		
+		
 	});
 	// 체크박스 삭제
 	$("#y_btn_delete").click(function() {

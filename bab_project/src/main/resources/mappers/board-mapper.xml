@@ -18,6 +18,12 @@
 	order by board_no desc
 </select>
 
+<select id="selectBList" resultType="Board">
+	select ROWNUM, a.board_no, a.board_title, a.board_writer, to_char(board_date, 'yyyy-mm-dd') board_date
+	from (select b.* from board b order by board_date desc) a
+	<![CDATA[where ROWNUM < 5]]>
+</select>
+
 <select id="selectTotalCnt" resultType="_int">
 	select count(*) from board
 </select>

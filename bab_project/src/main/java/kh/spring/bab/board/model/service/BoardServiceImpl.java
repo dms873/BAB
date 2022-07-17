@@ -14,11 +14,17 @@ public class BoardServiceImpl implements BoardService {
 	@Autowired
 	private BoardDao dao;
 	
+		// 메인페이지 공지사항 조회
+		@Override
+		public List<Board> selectBList() {
+			return dao.selectBList();
+		}
+	
 		// 공지사항 조회
 		@Override
 		public List<Board> selectBoard(int currentPage, int pageSize, Board board) {
 			return dao.selectBoard(currentPage, pageSize, board);
-		};
+		}
 		
 		// 공지사항 총 갯수
 		@Override

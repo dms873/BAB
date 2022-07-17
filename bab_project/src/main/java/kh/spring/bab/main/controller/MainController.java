@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import kh.spring.bab.attendance.model.service.AttendanceImpl;
+import kh.spring.bab.board.domain.Board;
+import kh.spring.bab.board.model.service.BoardService;
 import kh.spring.bab.calendar.domain.Calendar;
 import kh.spring.bab.calendar.domain.CalendarHBD;
 import kh.spring.bab.calendar.domain.CalendarHo;
@@ -36,6 +38,9 @@ public class MainController {
 	// 장혜미 추가(220711)
 	@Autowired
 	private CalendarServiceImpl calservice;
+	// 윤영원 추가(220717)
+	@Autowired
+	private BoardService bodservice;
 
 	@GetMapping("/main")
 	public ModelAndView select(ModelAndView mv, HttpServletRequest request) {
@@ -74,6 +79,11 @@ public class MainController {
 		
 		mv.setViewName("main/mainpage");
 		
+		// 공지사항 조회 : 윤영원 추가 (220717)
+		List<Board> boardList = bodservice.selectBList();
+		mv.addObject("boardList", boardList);
+		
+		mv.setViewName("main/mainpage");
 		return mv;
 	}
 	
