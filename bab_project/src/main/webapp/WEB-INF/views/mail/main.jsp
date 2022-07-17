@@ -14,6 +14,9 @@
 </style>
 <body>
 		<%
+		
+		String emailInfo = request.getParameter("emailInfo");
+		
  		String email = null;
 		Employee vo = (Employee) request.getSession().getAttribute("login");
 		
@@ -22,6 +25,7 @@
 		%>
 		
 		<input type="hidden" id="y_emp_email" value = "<%= email %>">
+		<input type="hidden" id="s_organ_mail" value = "<%= emailInfo %>">
 		
 	<section>
         <article style="float: left;">
@@ -49,9 +53,18 @@
     // 탭 메뉴 클릭 후 페이지 로드 시 선실행
     $(function() {
     	
+    	var s_organ_mail = $("#s_organ_mail").val();
+    	console.log(s_organ_mail);
+    	if(s_organ_mail != null && s_organ_mail !="null"){
+    		$("#y_content_box").load("<%=request.getContextPath()%>/mail/insert?emailInfo="+s_organ_mail);
+    	} else {
+    		
+    	console.log(s_organ_mail);
     	var email = $("#y_emp_email").val()
+    	
     	$("#y_content_box").load("<%=request.getContextPath()%>/mail/selectRcv",{email: email});
         $("#y_rcv_mail").css('color', 'rgb(5, 131, 242)');
+    	}
     });
     
     

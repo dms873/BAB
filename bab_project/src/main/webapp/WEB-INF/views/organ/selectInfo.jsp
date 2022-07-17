@@ -30,10 +30,10 @@
 	        </tr>
 	        <tr>
 	            <th>이메일</th>
-	            <td class="s_organ_td">${selectInfo.emp_email }</td>
+	            <td class="s_organ_td" id="s_organ_mail">${selectInfo.emp_email }</td>
 	            <!-- 메일 3명(손은진, 윤영원, 장혜미)만 가능하여 그 사람들만 버튼 보이게 설정 -->
 	            <c:if test="${selectInfo.emp_no eq '2206131' || selectInfo.emp_no eq '2108011' || selectInfo.emp_no eq '2207071'}">
-	            	<td colspan="2"><button class="btn btn-outline-primary">메일쓰기</button></td>
+	            	<td colspan="2"><button id="s_btn_mail" class="btn btn-outline-primary">메일쓰기</button></td>
 	            </c:if>
 	        </tr>
 	        <tr>
@@ -50,6 +50,16 @@
 	        </tr>
 	    </table>
     </c:if>
+
+<script>
+	$("#s_btn_mail").click(function(){
+		
+		var email = $("#s_organ_mail").text();
+		console.log(email);
+		$("#s_content_box").load("<%=request.getContextPath()%>/mail/main?emailInfo="+email);
+		
+	})
+</script>
 
 </body>
 </html>

@@ -29,7 +29,7 @@
 						<span style="border: 1px solid lightgray; padding: 5px 7px 7px 7px;"><input type="checkbox" id="allCheck" name="allCheck"><i class="bi bi-arrow-down-short"></i></span>
 						<button type="button" id="y_btn_read" class="btn btn-secondary">읽음</button>
 						<button type="button" id="y_btn_delete" class="btn btn-secondary">삭제</button>
-						<button type="button" class="btn btn-secondary">답장</button>
+						<button type="button" id="y_btn_reply" class="btn btn-secondary">답장</button>
 					</div>
 					<div>
 					<table class="table table-hover"
@@ -81,6 +81,7 @@
     </section>
     
     <script>
+    
     
     
 	// 체크박스 전체 선택/해제
@@ -173,6 +174,30 @@
 	})
     
     
+	
+	// 체크 박스 선택 후 답장 버튼 클릭 시 메일쓰기 페이지 이동
+	$("#y_btn_reply").click(function(){
+		
+		
+		var valueArr = new Array();
+		var list = $("input[name=rowCheck]");
+		for(var i = 0; i < list.length; i++) {
+			if(list[i].checked) { // 선택되어 있으면 배열에 값을 저장함
+				valueArr.push(list[i].value);
+			}
+		}
+		if(valueArr.length == 0) {
+			alert("선택된 글이 없습니다.");
+		} else if(valueArr.length > 1) {
+			alert("1개만 선택해주세요!")
+		} else {			
+		var chbox = $("input[name=rowCheck]:checked").parent().siblings("td").eq(0).text();
+		if(chbox.length)
+		console.log(chbox);
+		$("#y_content_box").load("<%=request.getContextPath()%>/mail/insert?emailInfo="+chbox);
+		}
+		
+	})
     
 	// 체크 박스 선택 후 읽음 버튼 클릭 시 색상 변경
 	$("#y_btn_read").click(function(){
