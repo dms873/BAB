@@ -100,25 +100,34 @@
 			  	</c:if>
 			</div>
 			<div style="margin-top: 100px; display: flex; justify-content: center;">
+				<!-- 페이징 처리 -->
 				<nav aria-label="Page navigation example">
 				  <ul class="pagination">
+				  	<!-- 시작페이지가 1보다 크면 -->
 					<c:if test="${startPage > 1 }">
 						<li class="page-item pre">
+							<!-- '<<' 이전 모양 버튼 생김 -->
 							<a class="page-link" href="#" aria-label="Previous"> 
 								<span aria-hidden="true">&laquo;</span>
 							</a>
 						</li>
 						</c:if>
+						<!-- 시작페이지부터 끝페이지까지 반복 -->
 						<c:forEach begin="${startPage }" end="${endPage }" var="i">
+							<!-- 현재페이지가 i와 같으면 -->
 							<c:if test="${currentPage eq i}">
+								<!-- 해당 페이징에 active 클래스 추가(파란 배경) -->
 								<li class="page-item num active"><a class="page-link" href="#">${i }</a></li>
 							</c:if>
 							<c:if test="${currentPage ne i}">
+								<!-- 아니면 active 클래스 없음(흰 배경) -->
 								<li class="page-item num"><a class="page-link" href="#">${i }</a></li>
 							</c:if>
 						</c:forEach>
+						<!-- 끝페이지가 페이지개수보다 작으면 -->
 						<c:if test="${endPage < pageCnt }">
 						<li class="page-item next">
+							<!-- '>>' 다음 모양 버튼 생김 -->
 							<a class="page-link" href="#" aria-label="Next"> 
 								<span aria-hidden="true">&raquo;</span>
 							</a>

@@ -129,6 +129,22 @@
 	.swal-text {
 		color: black;
 	}
+	
+	/* 스크롤바 디자인 */
+	.s_scroll::-webkit-scrollbar {
+    	width: 10px;  /* 스크롤바의 너비 */
+	}
+	
+	.s_scroll::-webkit-scrollbar-thumb {
+	    height: 30%; /* 스크롤바의 길이 */
+	    background: #34343482; /* 스크롤바의 색상 */
+	    
+	    border-radius: 10px;
+	}
+	
+	.s_scroll::-webkit-scrollbar-track{
+	    background: #4747471a;  /*스크롤바 뒷 배경 색상*/
+	}
 </style>
 </head>
 <body>
@@ -183,7 +199,7 @@
 	</div>
 	
 	<div id="s_eap_content_box_left">
-		<div class="s_div_container" style="height: 800px;">
+		<div class="s_div_container s_scroll" style="height: 800px;">
 			<div style="text-align: center; font-size: 2em; font-weight: bold; padding: 20px;">휴가신청서</div>
 			
 			<div style="float: left; width: 230px; margin: 0 30px;">
@@ -244,6 +260,10 @@
 								<c:if test="${readHoDoc.eap_step >= 1 && readHoDoc.eap_sta_code eq 'O' || readHoDoc.eap_sta_code eq 'F'}">
 									<img src="https://media.discordapp.net/attachments/692994434526085184/988792589799026709/stamp_5.png" style="width: 50px;">
 								</c:if>
+								<!-- 결재선 단계가 2 이상이고 결재 상태 코드가 반려일 때(승인상태) -->
+								<c:if test="${readHoDoc.eap_step >= 2 && readHoDoc.eap_sta_code eq 'R'}">
+									<img src="https://media.discordapp.net/attachments/692994434526085184/988792589799026709/stamp_5.png" style="width: 50px;">
+								</c:if>
 								<!-- 결재선 단계가 1 이고 결재 상태 코드가 반려일 때(반려상태) -->
 								<c:if test="${readHoDoc.eap_step == 1 && readHoDoc.eap_sta_code eq 'R'}">
 									<img src="https://media.discordapp.net/attachments/692994434526085184/992095931640057866/stamp_7.png" style="width: 50px;">
@@ -280,6 +300,10 @@
 								</c:if>
 								<!-- 결재선 단계가 3이고 결재 상태 코드가 진행중이거나 결재완료일 때(승인상태) -->
 								<c:if test="${readHoDoc.eap_step == 3 && readHoDoc.eap_sta_code eq 'O' || readHoDoc.eap_sta_code eq 'F'}">
+									<img src="https://media.discordapp.net/attachments/692994434526085184/988792589799026709/stamp_5.png" style="width: 50px;">
+								</c:if>
+								<!-- 결재선 단계가 3이고 결재 상태 코드가 반려일 때(승인상태) -->
+								<c:if test="${readHoDoc.eap_step == 3 && readHoDoc.eap_sta_code eq 'R'}">
 									<img src="https://media.discordapp.net/attachments/692994434526085184/988792589799026709/stamp_5.png" style="width: 50px;">
 								</c:if>
 								<!-- 결재선 단계가 2 이고 결재 상태 코드가 반려일 때(반려상태) -->
@@ -429,6 +453,10 @@
 						<c:if test="${readHoDoc.eap_step >= 1 && readHoDoc.eap_sta_code eq 'O' || readHoDoc.eap_sta_code eq 'F' }">
 							<span class="s_span_fw">결재</span>
 						</c:if>
+						<!-- 결재선 단계가 2이상이고 결재 상태 코드가 반려일 때(승인상태) -->
+						<c:if test="${readHoDoc.eap_step >= 2 && readHoDoc.eap_sta_code eq 'R' }">
+							<span class="s_span_fw">결재</span>
+						</c:if>
 						<!-- 결재선 단계가 1이고 결재 상태 코드가 반려일 때(반려상태) -->
 						<c:if test="${readHoDoc.eap_step == 1 && readHoDoc.eap_sta_code eq 'R' }">
 							<span class="s_span_fw">반려</span>
@@ -459,6 +487,10 @@
 						</c:if>
 						<!-- 결재선 단계가 3이고 결재 상태 코드가 진행중이거나 결재완료일 때(승인상태) -->
 						<c:if test="${readHoDoc.eap_step == 3 && readHoDoc.eap_sta_code eq 'O' || readHoDoc.eap_sta_code eq 'F' }">
+							<span class="s_span_fw">결재</span>
+						</c:if>
+						<!-- 결재선 단계가 3이고 결재 상태 코드가 반려일 때(승인상태) -->
+						<c:if test="${readHoDoc.eap_step == 3 && readHoDoc.eap_sta_code eq 'R' }">
 							<span class="s_span_fw">결재</span>
 						</c:if>
 						<!-- 결재선 단계가 2이고 결재 상태 코드가 반려일 때(반려상태) -->
@@ -617,10 +649,6 @@
 	                dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
 	                monthNamesShort: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
 	                monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-	                //minDate: new Date(2018, 5 - 1, 14),
-	                //maxDate: new Date(2018, 8 - 1, 24)
-	                // minDate: new Date(2020, 4 - 1, 1),
-	                // maxDate: new Date(2023, 8 - 1, 31),
 	                beforeShowDay: disableAllTheseDays2
 				});
 			});
@@ -760,11 +788,11 @@
 		// 결재선 지정 시 결재상태에 따라 글씨색 변경
 		for(var i = 0; i < 3; i++) {
 			if($(".s_span_fw").eq(i).text() == '결재') {
-				$(".s_span_fw").eq(i).css('color', 'green');
+				$(".s_span_fw").eq(i).css('color', 'rgb(5, 131, 242)');
 			} else if($(".s_span_fw").eq(i).text() == '대기') {
 				$(".s_span_fw").eq(i).css('color', 'gray');
 			} else if($(".s_span_fw").eq(i).text() == '반려') {
-				$(".s_span_fw").eq(i).css('color', '#709F51');
+				$(".s_span_fw").eq(i).css('color', 'green');
 			}
 		}
 	</script>

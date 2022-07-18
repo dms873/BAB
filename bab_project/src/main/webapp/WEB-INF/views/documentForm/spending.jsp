@@ -416,7 +416,7 @@
 	  </div>
 	</div>
 
-	<div id="s_eap_content_box_left">
+	<div id="s_eap_content_box_left" class="s_scroll">
 		<div class="s_div_container s_scroll" style="height: 800px;">
 			<div
 				style="text-align: center; font-size: 2em; font-weight: bold; padding: 20px;">지출결의서</div>
@@ -607,13 +607,13 @@
 		// 결재선 지정 시 결재상태에 따라 글씨색 변경
 		for(var i = 0; i < 3; i++) {
 			if($(".s_span_fw").eq(i).text() == '결재') {
-				$(".s_span_fw").eq(i).css('color', 'green');
-			} else {
+				$(".s_span_fw").eq(i).css('color', 'rgb(5, 131, 242)');
+			} else if($(".s_span_fw").eq(i).text() == '대기') {
 				$(".s_span_fw").eq(i).css('color', 'gray');
+			} else if($(".s_span_fw").eq(i).text() == '반려') {
+				$(".s_span_fw").eq(i).css('color', 'green');
 			}
 		}
-	
-		
 		
 	</script>
 	
@@ -1121,7 +1121,6 @@
 	            timeFormat: 'HH:mm',
 	            dateFormat: 'yy-mm-dd',
 	            yearRange: '1930:2024',
-	            minDate: 0, // 오늘 날짜 이전 선택 불가
 	            dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
 	            dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
 	            monthNamesShort: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],

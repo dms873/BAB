@@ -68,6 +68,7 @@ public class ElectronicApprovalController {
 	public ModelAndView selectBeforeDoc(
 			ModelAndView mv,
 			HttpServletRequest req,
+			// url로 넘겨준 page를 currentPage 변수에 담아줌, 기본 값은 1
 			@RequestParam(name="page", defaultValue = "1") int currentPage,
 			@RequestParam(name="type", required = false) String type,
 			@RequestParam(name="keyword", required = false) String keyword,
@@ -82,7 +83,9 @@ public class ElectronicApprovalController {
 		eap.setType(type);
 		eap.setKeyword(keyword);
 		
+		// 한 페이지에 나타낼 개수
 		final int pageSize = 3;
+		// 페이징 숫자 몇 개 띄울지
 		final int pageBlock = 2;
 		
 		List<Eap> beforeDoc = service.selectBeforeDoc(currentPage, pageSize, eap);

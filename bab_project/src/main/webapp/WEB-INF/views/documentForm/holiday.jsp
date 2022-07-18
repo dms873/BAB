@@ -412,7 +412,7 @@
 	  </div>
 	</div>
 
-	<div id="s_eap_content_box_left">
+	<div id="s_eap_content_box_left" class="s_scroll">
 		<div class="s_div_container s_scroll" style="height: 800px;">
 			<div style="text-align: center; font-size: 2em; font-weight: bold; padding: 20px;">휴가신청서</div>
 			
@@ -587,9 +587,11 @@
 		// 결재선 지정 시 결재상태에 따라 글씨색 변경
 		for(var i = 0; i < 3; i++) {
 			if($(".s_span_fw").eq(i).text() == '결재') {
-				$(".s_span_fw").eq(i).css('color', 'green');
-			} else {
+				$(".s_span_fw").eq(i).css('color', 'rgb(5, 131, 242)');
+			} else if($(".s_span_fw").eq(i).text() == '대기') {
 				$(".s_span_fw").eq(i).css('color', 'gray');
+			} else if($(".s_span_fw").eq(i).text() == '반려') {
+				$(".s_span_fw").eq(i).css('color', 'green');
 			}
 		}
 	</script>

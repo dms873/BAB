@@ -126,6 +126,213 @@
 	.swal-text {
 		color: black;
 	}
+	
+	/* 스크롤바 디자인 */
+	.s_scroll::-webkit-scrollbar {
+    	width: 10px;  /* 스크롤바의 너비 */
+	}
+	
+	.s_scroll::-webkit-scrollbar-thumb {
+	    height: 30%; /* 스크롤바의 길이 */
+	    background: #34343482; /* 스크롤바의 색상 */
+	    
+	    border-radius: 10px;
+	}
+	
+	.s_scroll::-webkit-scrollbar-track{
+	    background: #4747471a;  /*스크롤바 뒷 배경 색상*/
+	}
+</style>
+<!-- datepicker css -->
+<style>
+	.ui-widget-header {
+		border: 0px solid #dddddd;
+		background: #fff;
+	}
+	
+	.ui-datepicker-calendar>thead>tr>th {
+		font-size: 14px !important;
+	}
+	
+	.ui-datepicker .ui-datepicker-header {
+		position: relative;
+		padding: 10px 0;
+	}
+	
+	.ui-state-default, .ui-widget-content .ui-state-default,
+		.ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover,
+		html .ui-button.ui-state-disabled:active {
+		border: 0px solid #c5c5c5;
+		background-color: transparent;
+		font-weight: normal;
+		color: #454545;
+		text-align: center;
+	}
+	
+	.ui-datepicker .ui-datepicker-title {
+		margin: 0 0em;
+		line-height: 16px;
+		text-align: center;
+		font-size: 14px;
+		padding: 0px;
+		font-weight: bold;
+	}
+	
+	.ui-datepicker {
+		display: none;
+		background-color: #fff;
+		border-radius: 4px;
+		margin-top: 10px;
+		margin-left: 0px;
+		margin-right: 0px;
+		padding: 20px;
+		padding-bottom: 10px;
+		width: 300px;
+		box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.1);
+	}
+	
+	.ui-widget.ui-widget-content {
+		border: 1px solid #eee;
+	}
+	
+	#datepicker:focus>.ui-datepicker {
+		display: block;
+	}
+	
+	.ui-datepicker-prev, .ui-datepicker-next {
+		cursor: pointer;
+	}
+	
+	.ui-datepicker-next {
+		float: right;
+	}
+	
+	.ui-state-disabled {
+		cursor: auto;
+		color: hsla(0, 0%, 80%, 1);
+	}
+	
+	.ui-datepicker-title {
+		text-align: center;
+		padding: 10px;
+		font-weight: 100;
+		font-size: 20px;
+	}
+	
+	.ui-datepicker-calendar {
+		width: 100%;
+	}
+	
+	.ui-datepicker-calendar>thead>tr>th {
+		padding: 5px;
+		font-size: 20px;
+		font-weight: 400;
+	}
+	
+	.ui-datepicker-calendar>tbody>tr>td>a {
+		color: #000;
+		font-size: 12px !important;
+		font-weight: bold !important;
+		text-decoration: none;
+	}
+	
+	.ui-datepicker-calendar>tbody>tr>.ui-state-disabled:hover {
+		cursor: auto;
+		background-color: #fff;
+	}
+	
+	.ui-datepicker-calendar>tbody>tr>td {
+		border-radius: 100%;
+		width: 44px;
+		height: 30px;
+		cursor: pointer;
+		padding: 5px;
+		font-weight: 100;
+		text-align: center;
+		font-size: 12px;
+	}
+	
+	.ui-datepicker-calendar>tbody>tr>td:hover {
+		background-color: transparent;
+		opacity: 0.6;
+	}
+	
+	.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover,
+		.ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus,
+		.ui-button:hover, .ui-button:focus {
+		border: 0px solid #cccccc;
+		background-color: transparent;
+		font-weight: normal;
+		color: #2b2b2b;
+	}
+	
+	.ui-widget-header .ui-icon {
+		background-image: url('https://media.discordapp.net/attachments/692994434526085184/995979886768439306/btns.png');
+	}
+	
+	.ui-icon-circle-triangle-e {
+		background-position: -20px 0px;
+		background-size: 36px;
+	}
+	
+	.ui-icon-circle-triangle-w {
+		background-position: -0px -0px;
+		background-size: 36px;
+	}
+	
+	.ui-datepicker-calendar>tbody>tr>td:first-child a {
+		color: red !important;
+	}
+	
+	.ui-datepicker-calendar>tbody>tr>td:last-child a {
+		color: #0099ff !important;
+	}
+	
+	.ui-datepicker-calendar>thead>tr>th:first-child {
+		color: red !important;
+	}
+	
+	.ui-datepicker-calendar>thead>tr>th:last-child {
+		color: #0099ff !important;
+	}
+	
+	.ui-state-highlight, .ui-widget-content .ui-state-highlight,
+		.ui-widget-header .ui-state-highlight {
+		border: 0px;
+		background: #f1f1f1;
+		border-radius: 50%;
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
+	
+	.inp {
+		padding: 10px 10px;
+		background-color: #f1f1f1;
+		border-radius: 4px;
+		border: 0px;
+	}
+	
+	.inp:focus {
+		outline: none;
+		background-color: #eee;
+	}
+	
+	select.ui-datepicker-month {
+		border-radius: 5px;
+    	padding: 5px;
+    	width: 80px !important;
+	}
+	
+	select.ui-datepicker-year {
+		border-radius: 5px;
+	    padding: 5px;
+	    margin-left: 10px !important;
+    	width: 80px !important;
+	}
+	
+	.ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next {
+	    top: 9px !important;
+	}
 </style>
 </head>
 <body>
@@ -178,7 +385,7 @@
 	</div>
 	
 	<div id="s_eap_content_box_left">
-		<div class="s_div_container" style="height: 800px;">
+		<div class="s_div_container s_scroll" style="height: 800px;">
 			<div style="text-align: center; font-size: 2em; font-weight: bold; padding: 20px;">지출결의서</div>
 			
 			<div style="float: left; width: 230px; margin: 0 30px;">
@@ -239,6 +446,10 @@
 								<c:if test="${readSpDoc.eap_step >= 1 && readSpDoc.eap_sta_code eq 'O' || readSpDoc.eap_sta_code eq 'F'}">
 									<img src="https://media.discordapp.net/attachments/692994434526085184/988792589799026709/stamp_5.png" style="width: 50px;">
 								</c:if>
+								<!-- 결재선 단계가 2 이상이고 결재 상태 코드가 반려일 때(승인상태) -->
+								<c:if test="${readSpDoc.eap_step >= 2 && readSpDoc.eap_sta_code eq 'R'}">
+									<img src="https://media.discordapp.net/attachments/692994434526085184/988792589799026709/stamp_5.png" style="width: 50px;">
+								</c:if>
 								<!-- 결재선 단계가 1 이고 결재 상태 코드가 반려일 때(반려상태) -->
 								<c:if test="${readSpDoc.eap_step == 1 && readSpDoc.eap_sta_code eq 'R'}">
 									<img src="https://media.discordapp.net/attachments/692994434526085184/992095931640057866/stamp_7.png" style="width: 50px;">
@@ -276,6 +487,10 @@
 								</c:if>
 								<!-- 결재선 단계가 3이고 결재 상태 코드가 진행중이거나 결재완료일 때(승인상태) -->
 								<c:if test="${readSpDoc.eap_step == 3 && readSpDoc.eap_sta_code eq 'O' || readSpDoc.eap_sta_code eq 'F'}">
+									<img src="https://media.discordapp.net/attachments/692994434526085184/988792589799026709/stamp_5.png" style="width: 50px;">
+								</c:if>
+								<!-- 결재선 단계가 3이고 결재 상태 코드가 반려일 때(승인상태) -->
+								<c:if test="${readSpDoc.eap_step == 3 && readSpDoc.eap_sta_code eq 'R'}">
 									<img src="https://media.discordapp.net/attachments/692994434526085184/988792589799026709/stamp_5.png" style="width: 50px;">
 								</c:if>
 								<!-- 결재선 단계가 2 이고 결재 상태 코드가 반려일 때(반려상태) -->
@@ -429,6 +644,10 @@
 						<c:if test="${readSpDoc.eap_step >= 1 && readSpDoc.eap_sta_code eq 'O' || readSpDoc.eap_sta_code eq 'F' }">
 							<span class="s_span_fw">결재</span>
 						</c:if>
+						<!-- 결재선 단계가 2이상이고 결재 상태 코드가 반려일 때(승인상태) -->
+						<c:if test="${readSpDoc.eap_step >= 2 && readSpDoc.eap_sta_code eq 'R' }">
+							<span class="s_span_fw">결재</span>
+						</c:if>
 						<!-- 결재선 단계가 1이고 결재 상태 코드가 반려일 때(반려상태) -->
 						<c:if test="${readSpDoc.eap_step == 1 && readSpDoc.eap_sta_code eq 'R' }">
 							<span class="s_span_fw">반려</span>
@@ -459,6 +678,10 @@
 						</c:if>
 						<!-- 결재선 단계가 3이고 결재 상태 코드가 진행중이거나 결재완료일 때(승인상태) -->
 						<c:if test="${readSpDoc.eap_step == 3 && readSpDoc.eap_sta_code eq 'O' || readSpDoc.eap_sta_code eq 'F' }">
+							<span class="s_span_fw">결재</span>
+						</c:if>
+						<!-- 결재선 단계가 3이고 결재 상태 코드가 반려일 때(승인상태) -->
+						<c:if test="${readSpDoc.eap_step == 3 && readSpDoc.eap_sta_code eq 'R' }">
 							<span class="s_span_fw">결재</span>
 						</c:if>
 						<!-- 결재선 단계가 2이고 결재 상태 코드가 반려일 때(반려상태) -->
@@ -561,7 +784,7 @@
 			// 년월일만 출력
 			date = date.substr(0,10);
 			// 날짜
-			$('#s_sp_date').replaceWith('<input type="date" class="form-control s_sp_date" id="s_sp_date" name="sp_date" style="width: 135px;">');
+			$('#s_sp_date').replaceWith('<input type="text" class="form-control s_sp_date" id="s_sp_date" name="sp_date" placeholder="날짜 선택" value="${spInfo.sp_detail }" style="cursor: context-menu; width: 135px;">');
 			$("#s_sp_date").attr('value', date);
 			// 내역
 			$('#s_sp_detail').replaceWith('<input type="text" class="form-control s_sp_detail" name="sp_detail" value="${spInfo.sp_detail }">');
@@ -587,6 +810,25 @@
 		
 			singleWidget.onUploadComplete(function(info) {
 				$("#fileUrl").val(info.cdnUrl);
+			});
+			
+			$("#s_sp_date").datepicker({
+				timepicker: true,
+				changeMonth: true,
+	            changeYear: true,
+	            controlType: 'select',
+	            timeFormat: 'HH:mm',
+	            dateFormat: 'yy-mm-dd',
+	            yearRange: '1930:2024',
+	            dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+	            dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+	            monthNamesShort: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+	            monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+	            beforeShow: function() {
+	                setTimeout(function(){
+	                    $('.ui-datepicker').css('z-index', 99999999999999);
+	                }, 0);
+	            }
 			});
 		});
 	</script>
@@ -690,11 +932,11 @@
 		// 결재선 지정 시 결재상태에 따라 글씨색 변경
 		for(var i = 0; i < 3; i++) {
 			if($(".s_span_fw").eq(i).text() == '결재') {
-				$(".s_span_fw").eq(i).css('color', 'green');
+				$(".s_span_fw").eq(i).css('color', 'rgb(5, 131, 242)');
 			} else if($(".s_span_fw").eq(i).text() == '대기') {
 				$(".s_span_fw").eq(i).css('color', 'gray');
 			} else if($(".s_span_fw").eq(i).text() == '반려') {
-				$(".s_span_fw").eq(i).css('color', '#709F51');
+				$(".s_span_fw").eq(i).css('color', 'green');
 			}
 		}
 	</script>
