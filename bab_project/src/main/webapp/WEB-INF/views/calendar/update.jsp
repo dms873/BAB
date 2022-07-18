@@ -30,6 +30,12 @@
 								value="${cal.cal_title}"></td>
 						</tr>
 						<tr>
+							<td class="j_cald_title">작성자</td>
+							<td class="j_cald_content" colspan="3"><input type="text"
+								name="cal_title" class="j_cald_input"
+								value="${cal.emp_name}" readonly="readonly"></td>
+						</tr>
+						<tr>
 							<td class="j_cald_title">일시<a class="j_cald_sym">*</a>
 							</td>
 							<td class="j_cald_content"><input type="datetime-local"

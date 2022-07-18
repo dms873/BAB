@@ -28,7 +28,7 @@
 	
 	<!--캘린더 일정상세 조회  -->
 	<select id="read" resultType="Calendar">
-		select * from calendar where cal_no=#{cal_no}
+		select cal_no, cal_title, cal_start, cal_end, cal_content, emp_no, cal_color, emp_name from calendar join employee using(emp_no) where cal_no=#{cal_no}
 	</select>
 	
 	<!--캘린더 수정  -->

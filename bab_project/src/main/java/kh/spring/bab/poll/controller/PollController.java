@@ -29,6 +29,7 @@ public class PollController {
 	// 투표 조회 페이지열기
 	@GetMapping("/select")
 	public ModelAndView pageselect(ModelAndView mv, HttpServletRequest request, Poll poll) {
+		
 		HttpSession session = request.getSession();
 		Object info = session.getAttribute("login");
 		mv.addObject("info", info);
@@ -43,6 +44,7 @@ public class PollController {
 	// 마감된 투표 조회 페이지열기
 	@GetMapping("/end")
 	public ModelAndView pageEnd(ModelAndView mv, HttpServletRequest request, Poll poll) {
+		
 		HttpSession session = request.getSession();
 		Object info = session.getAttribute("login");
 		mv.addObject("info", info);
@@ -59,9 +61,11 @@ public class PollController {
 	@GetMapping("/readPoll")
 	public ModelAndView readPoll(ModelAndView mv, HttpServletRequest request,
 			@RequestParam(name = "poll_no", required = false) String poll_no) {
+		
 		HttpSession session = request.getSession();
 		Object login = session.getAttribute("login");
 		mv.addObject("login", login);
+		
 		//투표
 		Poll poll = service.readPoll(poll_no);
 		mv.addObject("poll", poll);
@@ -98,9 +102,11 @@ public class PollController {
 	@PostMapping("/insertOption")
 	@ResponseBody
 	public HashMap<String, Object> insertOption(Poll poll) {
+		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		//여러개 값 보낼때 근데 난 하나만 보냄
 		Poll pollParam = null;
+		
 		for(int i = 0; i < poll.getOption_vals().length; i++) {
 			pollParam = new Poll();
 			pollParam.setOption_val(poll.getOption_vals()[i]);

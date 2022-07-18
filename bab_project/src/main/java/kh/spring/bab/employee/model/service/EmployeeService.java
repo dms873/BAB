@@ -7,7 +7,7 @@ public interface EmployeeService {
 	// 로그인
 	/**
 	 * @param employee
-	 * @return employee
+	 * @return Employee
 	 * @author 장혜미
 	*/
 	public Employee login(Employee employee);
@@ -15,7 +15,7 @@ public interface EmployeeService {
 	// 아이디찾기
 	/**
 	 * @param employee
-	 * @return employee
+	 * @return Employee
 	 * @author 장혜미
 	*/
 	public Employee findid(Employee employee);
@@ -23,7 +23,7 @@ public interface EmployeeService {
 	// 비밀번호찾기
 	/**
 	 * @param employee
-	 * @return employee
+	 * @return Employee
 	 * @author 장혜미
 	*/
 	public Employee findpwd(Employee employee);

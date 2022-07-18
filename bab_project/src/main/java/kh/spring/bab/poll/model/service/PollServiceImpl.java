@@ -14,6 +14,18 @@ public class PollServiceImpl implements PollService {
 	@Autowired
 	private PollDao dao;
 	
+	// 투표 등록
+	@Override
+	public int insertPoll(Poll poll) {
+		return dao.insertPoll(poll);
+	}
+	
+	// 옵션 등록
+	@Override
+	public int insertOption(Poll poll) {
+		return dao.insertOption(poll);
+	}
+	
 	// 투표 조회
 	@Override
 	public List<Poll> select(Poll poll) {
@@ -44,18 +56,6 @@ public class PollServiceImpl implements PollService {
 		return dao.readResult(poll_no);
 	}
 
-	// 투표 등록
-	@Override
-	public int insertPoll(Poll poll) {
-		return dao.insertPoll(poll);
-	}
-	
-	// 옵션 등록
-	@Override
-	public int insertOption(Poll poll) {
-		return dao.insertOption(poll);
-	}
-	
 	// 투표 여부확인
 	@Override
 	public Poll voteCk(Poll poll) {

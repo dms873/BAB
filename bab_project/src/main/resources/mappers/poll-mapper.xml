@@ -17,7 +17,7 @@
 	<select id="select" resultType="Poll">
 		select poll_no, poll_title, poll_content, poll_writer,
 		substr(replace(poll_start,'-','/'),1,10)||'~'||substr(replace(poll_end,'-','/'),1,10) poll_time,
-		to_char(poll_Date,'YYYY/MM/DD') poll_date 
+		to_char(poll_date,'YYYY/MM/DD HH24:MI') poll_date 
 		from poll where poll_end <![CDATA[ >= ]]> to_char(sysdate,'yyyy-mm-dd')
 		<choose>
 			<when test="option != null and option.equals('poll_title')">

@@ -22,20 +22,21 @@ public class Calendar {
 	private String cal_end;
 	private String cal_content;
 	private String emp_no;
+	private String emp_name;
 	private String cal_color;
 	
 	//toString
 	@Override
 	public String toString() {
 		return "Calendar [cal_no=" + cal_no + ", cal_title=" + cal_title + ", cal_start=" + cal_start + ", cal_end="
-				+ cal_end + ", cal_content=" + cal_content + ", emp_no=" + emp_no + ", cal_color=" + cal_color + "]";
+				+ cal_end + ", cal_content=" + cal_content + ", emp_no=" + emp_no + ", emp_name=" + emp_name
+				+ ", cal_color=" + cal_color + "]";
 	}
 
 	//게터세터
 	public String getCal_no() {
 		return cal_no;
 	}
-
 
 	public void setCal_no(String cal_no) {
 		this.cal_no = cal_no;
@@ -87,6 +88,14 @@ public class Calendar {
 
 	public void setCal_color(String cal_color) {
 		this.cal_color = cal_color;
+	}
+
+	public String getEmp_name() {
+		return emp_name;
+	}
+
+	public void setEmp_name(String emp_name) {
+		this.emp_name = emp_name;
 	}
 	
 	

@@ -15,8 +15,8 @@
         <article style="float: left;">
             <div style="width: 150px; height: 1000px; margin-top: 25px;margin-left: 10px;">
                 <button class="j_poll_side" id="j_poll_list">투표 리스트&nbsp;&#128203;</button>
-                <button class="j_poll_side" id="j_poll_make">투표 등록&nbsp;&#9998;</button>
                 <button class="j_poll_side" id="j_poll_endList">마감된 투표&nbsp;&#8987;</button>
+                <button class="j_poll_side" id="j_poll_make">투표 등록&nbsp;&#9998;</button>
             </div>
         </article>
         <article style="float: left;">
@@ -73,7 +73,7 @@
                         <td class="j_poll_pwriter">
                             ${poll.poll_writer}
                         </td>
-                        <td class="j_poll_pdate">
+                        <td class="j_poll_pdate" style="font-size:14px;">
                             ${poll.poll_date}
                         </td>
                     </tr>
@@ -104,7 +104,7 @@
                                             <td class="j_poll_title">기간<a class="j_poll_sym">*</a>
                                             </td>
                                             <td class="j_poll_content"><input type="date" id="poll_start"
-                                                name="poll_start" class="j_poll_date"></td>
+                                                name="poll_start" class="j_poll_date" readonly="readonly"></td>
                                             <td class="j_poll_content"><a>~</a></td>
                                             <td class="j_poll_content"><input type="date" id="poll_end"
                                                 name="poll_end" class="j_poll_date"></td>
@@ -150,6 +150,9 @@
         $("#j_poll_make").click(function(){
             $("#j_myModal").modal("show");
         });
+        
+        //시작날짜 오늘날짜로
+        document.getElementById('poll_start').valueAsDate = new Date();
         
         //상세조회
         $(".j_poll_click").click(function(){

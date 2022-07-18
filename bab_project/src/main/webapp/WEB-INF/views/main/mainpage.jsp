@@ -164,8 +164,9 @@
                             </div>
                         </c:if>
                             <div style="line-height: 60px;">
-                                <button type="button" class="btn btn-secondary" style="font-size: .8em;"
-                                onclick="location.href='<%=request.getContextPath()%>/employee/logout'">로그아웃</button>
+                                <button type="button" id="j_main_logout" class="btn btn-secondary" style="font-size: .8em;">
+                                로그아웃
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -196,7 +197,7 @@
                         <li class="nav-item">
                             <a href="#" class="nav-link text-white s_menu" aria-current="page" id="menu_calendar">캘린더</a>
                         </li>
-			<li class="nav-item">
+						<li class="nav-item">
                             <a href="#" class="nav-link text-white s_menu" aria-current="page" id="menu_chat">채팅</a>
                         </li>
                         <li class="nav-item">
@@ -530,13 +531,35 @@
     });
     </script>
     
+    <!--script 추가 : 장혜미(220718)  -->
+    <script>
+    //로그아웃 버튼 클릭 시
+    $("#j_main_logout").click(function(){
+   	 swal({
+         title: "로그아웃 하시겠습니까?",
+         text: "",
+         icon: "info",
+         buttons: true,
+         closeOnClickOutside: false,
+         closeOnEsc: false
+     })
+     .then((willDelete) => {
+		  if (willDelete) {
+			  location.href='<%=request.getContextPath()%>/employee/logout'
+		  } else {
+		    
+		  }
+	});
+    });
+    </script>
+    
     <!--FullCalendar 추가 : 장혜미(220711)  -->
     <script>
-    
+    // 캘린더 클릭 시
     $("#j_cal_tt").click(function(){
-    	$("#s_content_box").load("<%=request.getContextPath()%>/calendar/select");
+    	$("#menu_calendar").get(0).click();
     });
-    
+    // 캘린더 로드
     document.addEventListener('DOMContentLoaded', function() {
     	  var calendarEl = document.getElementById('j_calendar');
     	  var calendar = new FullCalendar.Calendar(calendarEl, {

@@ -55,6 +55,7 @@ public class InfoController {
 	// 내정보수정 업데이트 페이지열기
 	@GetMapping("/update")
 	public ModelAndView pageupdate(ModelAndView mv, HttpServletRequest request) {
+		
 		HttpSession session = request.getSession();
 		Object update = session.getAttribute("login");
 		

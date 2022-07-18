@@ -67,10 +67,11 @@ public class CalendarController {
 	@GetMapping("/read")
 	public ModelAndView read(ModelAndView mv, HttpServletRequest request
 			, @RequestParam(name="cal_no", required = false) String cal_no) {
+		
 		HttpSession session = request.getSession();
 		Object login = session.getAttribute("login");
 		mv.addObject("login", login);
-		// 캘린더 일정 조회
+
 		Calendar cal = calservice.read(cal_no);
 		mv.addObject("cal", cal);
 		mv.setViewName("calendar/update");

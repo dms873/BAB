@@ -54,12 +54,10 @@ public class EmployeeController {
 	// 아이디찾기
 	@PostMapping("/findid")
 	public ModelAndView findid(ModelAndView mv, Employee employee) {
-		//jsp에서 입력받은거 employee에 담아서 보내고 결과는 findid에 담기 
+		
 		Employee findid = service.findid(employee);
-		//findid가 null이면 0전달
 		if (findid == null) {
 			mv.addObject("check", 0);
-		//아니면 1전달하고 결과 받은거 findid에 넣어서 jsp로
 		} else {
 			mv.addObject("check", 1);
 			mv.addObject("findid", findid);

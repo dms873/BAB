@@ -158,14 +158,14 @@
                                         }else {
                                             swal({
                                                 title: "투표 완료!!",
-                                                text: "그룹웨어 메인 화면으로 이동합니다.",
+                                                text: "투표 메인 화면으로 이동합니다.",
                                                 icon: "success",
                                                 closeOnClickOutside: false,
                                                 closeOnEsc: false
                                             })
                                             .then((willDelete) => {
                       						  if (willDelete) {
-                      							  location.reload();
+                      							$("#s_content_box").load("<%=request.getContextPath()%>/poll/select");
                       						  }
                       						})
                                         }

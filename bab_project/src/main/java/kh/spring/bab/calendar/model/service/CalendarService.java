@@ -10,21 +10,21 @@ public interface CalendarService {
 	
 	// 캘린더 조회
 	/**
-	 * @return cal
+	 * @return Calendar
 	 * @author 장혜미
 	 */
 	public List<Calendar> select();
 	
 	// 캘린더 조회(휴가)
 	/**
-	 * @return calHo
+	 * @return CalendarHo
 	 * @author 장혜미
 	 */
 	public List<CalendarHo> selectHo();
 	
 	// 캘린더 조회(생일)
 	/**
-	 * @return calHBD
+	 * @return CalendarHBD
 	 * @author 장혜미
 	 */
 	public List<CalendarHBD> selectHBD();
@@ -39,6 +39,7 @@ public interface CalendarService {
 	//캘린더 일정상세 조회
 	/**
 	 * @param cal_no
+	 * @return Calendar
 	 * @author 장혜미
 	 */
 	public Calendar read(String cal_no);
@@ -52,6 +53,7 @@ public interface CalendarService {
 	
 	// 캘린더 삭제
 	/**
+	 * @param cal_no
 	 * @author 장혜미
 	 */
 	public int delete(String cal_no);

@@ -7,7 +7,7 @@ public interface InfoService {
 	// 내정보수정 메인
 	/**
 	 * @param info
-	 * @return info
+	 * @return Info
 	 * @author 장혜미
 	 */
 	public Info main(Info info);
