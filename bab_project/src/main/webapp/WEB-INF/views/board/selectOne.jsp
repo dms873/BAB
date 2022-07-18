@@ -1,3 +1,4 @@
+<%@page import="kh.spring.bab.employee.domain.Employee"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -29,12 +30,22 @@
   </head>
   <body>
   
+		  <%
+		    String dept_code = null;
+			Employee vo = (Employee) request.getSession().getAttribute("login");
+			
+			dept_code = vo.getDept_code();
+		  %>
+  
+  
     <div class="row" style="margin: 0 25px;">
 		<div class="col-lg-12" >
 			<h1 class="page-header">글읽기</h1>
 		</div>
-		
 		<hr>
+		
+		<input type="hidden" id="y_emp_dCode" value="<%= dept_code%>">
+		
 	</div>
     <button class="btn btn-secondary" id="y_btn_back" style="margin: 30px 20px 10px;">목록</button>
 	
@@ -88,8 +99,13 @@
     
     // 게시글 수정 페이지 이동
     $("#y_btn_update").click(function() {
+    	var dept_code = $("#y_emp_dCode").val()
     	var bNo = $("#y_read_no").text();
-       $("#y_board_content").load("<%=request.getContextPath()%>/board/update?board_no="+bNo);
+    	if(dept_code == "D40"){
+       		$("#y_board_content").load("<%=request.getContextPath()%>/board/update?board_no="+bNo);
+    	} else {
+    		alert("권한이 없습니다!");
+    	}
     });
     
     </script>
