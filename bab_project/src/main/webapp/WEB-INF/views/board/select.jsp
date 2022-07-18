@@ -1,3 +1,4 @@
+<%@page import="kh.spring.bab.employee.domain.Employee"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -17,9 +18,14 @@
 </head>
 <body>
 
-<%
-String mainBoard_no = request.getParameter("mainBoard_no");
-%>
+		<%
+		String mainBoard_no = request.getParameter("mainBoard_no");
+		
+		String dept_code = null;
+		Employee vo = (Employee) request.getSession().getAttribute("login");
+		
+		dept_code = vo.getDept_code();
+		%>
 
 <div id="y_board_content" style="border: 1px solid lightgray;height: 1000px;width: 1300px;margin-top: 20px;margin-left: 10px;border-radius: 10px;padding: 20px;" >
 
@@ -34,6 +40,7 @@ String mainBoard_no = request.getParameter("mainBoard_no");
 	</div>
 	
 	<input type="hidden" id="y_main_bNo" value = "<%= mainBoard_no %>">
+	<input type="hidden" id="y_emp_dCode" value = "<%= dept_code %>">
 	
 	<div style="margin: 20px 0;">
 	<!-- search{s} -->
@@ -227,13 +234,19 @@ String mainBoard_no = request.getParameter("mainBoard_no");
 	$(".y_board_view").click(function(){
 		var bNo = $(this).parents("tr").children(".y_td_no").text();
 		console.log("bNo :" + bNo);
-		$("#y_board_content").load("<%=request.getContextPath()%>/board/read?board_no=" + bNo);
+		$("#y_board_content").load("<%=request.getContextPath()%>/board/read", {board_no : bNo});
 	});
 	
 	
 	// 글쓰기 [버튼] 클릭 시 글쓰기 페이지 진입
 	$("#y_btn_insert").click(function() {
-        $("#y_board_content").load("<%=request.getContextPath()%>/board/insert");
+       var dept_code = $("#y_emp_dCode").val()
+       console.log(dept_code);
+       if(dept_code == "D40"){
+         $("#y_board_content").load("<%=request.getContextPath()%>/board/insert");
+       } else {
+    	  alert("권한이 없습니다!");
+       }
     });
 	
 	</script>

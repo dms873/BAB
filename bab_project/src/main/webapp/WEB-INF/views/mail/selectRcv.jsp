@@ -245,8 +245,9 @@
 		
 		/* var mNo = $(this).parents("tr").children(".rowCheck").val(); */
 		var mNo = $(this).parents("tr").children("th").children("input").val();
+		var email = $("#y_emp_email").val();
 		console.log("mNo :" + mNo);
-		$("#y_content_box").load("<%=request.getContextPath()%>/mail/read?mRcvNo="+mNo);
+		$("#y_content_box").load("<%=request.getContextPath()%>/mail/read",{myemail : email, mRcvNo : mNo});
 	});
     </script>
 </body>

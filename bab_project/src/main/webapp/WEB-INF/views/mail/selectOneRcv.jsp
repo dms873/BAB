@@ -46,6 +46,9 @@
     </div>
     
     <script>
+    console.log("newMailCnt:"+ "${newMailCnt}");
+    console.log($("#y_rcv_mail"));
+    $("#newMail").html("${newMailCnt}");
  	// 게시글 목록으로 이동
     $("#y_btn_back").click(function(){
      	$("#y_rcv_mail").get(0).click();

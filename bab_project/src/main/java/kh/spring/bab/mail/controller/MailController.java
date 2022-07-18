@@ -31,6 +31,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kh.spring.bab.employee.domain.Employee;
 import kh.spring.bab.mail.domain.MailRcv;
 import kh.spring.bab.mail.domain.MailSend;
 import kh.spring.bab.mail.model.service.MailService;
@@ -43,8 +44,15 @@ public class MailController {
 	private MailService service;
 	
 	@GetMapping("/main")
-	public ModelAndView main(ModelAndView mv
+	public ModelAndView main(ModelAndView mv,
+			HttpServletRequest request
 			) {
+		
+		Employee emp = (Employee) request.getSession().getAttribute("login");
+		String email = emp.getEmp_email();
+		
+		mv.addObject("newMail", service.newMail(email));
+		
 		mv.setViewName("mail/main");
 		return mv;
 	}
@@ -131,10 +139,11 @@ public class MailController {
 	}
 	
 	
-	@GetMapping("/read")
+	@PostMapping("/read")
 	public ModelAndView selectOne(ModelAndView mv,
 			@RequestParam(name="mRcvNo", required = false) String mRcvNo,
 			@RequestParam(name="mSndNo", required = false) String mSndNo,
+			@RequestParam(name="myemail", required = false) String myemail,
 			MailRcv mailRcv
 			) {
 		int mailNo = 0;
@@ -142,11 +151,12 @@ public class MailController {
 		
 		if(mRcvNo != null) {
 			
-			
 			mailNo = Integer.parseInt(mRcvNo);
 			int result1 = service.updateRead(mailNo);
 			MailRcv result2 = service.readRcvMail(mailNo);
- 			mv.addObject("readMail", result2);
+			mv.addObject("readMail", result2);
+			int newMailCnt = service.newMail(myemail);
+			mv.addObject("newMailCnt", newMailCnt);
 			mv.setViewName("mail/selectOneRcv");
 		} else {
 			mailNo = Integer.parseInt(mSndNo);

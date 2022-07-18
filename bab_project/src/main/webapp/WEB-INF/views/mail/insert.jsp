@@ -83,16 +83,18 @@
 	    	var emailInfo = "<%= email %>";
 	        console.log(emailInfo);
 	        
+	        if(emailInfo != "null") {
 	        $("#y_send_receiver").val(emailInfo);
+	        }
 	    });
 	    
-/*     	const fileSize = ($target) => {
+     	const fileSize = ($target) => {
     	  // 유저가 선택한 파일 가져오기
     	const file = $target.files[0];
     	  
     	  // 해당 파일의 용량(사이즈) 정보
     	  console.log(file.size);
-    	} */
+    	}
     
     	var files = []; // 파일이 저장될 배열
     	var filecount = 0;

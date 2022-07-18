@@ -10,6 +10,10 @@
 	insert into RECEIVE_MAIL values (RECEIVE_MAIL_SEQ.nextval, #{rec_title}, #{rec_content}, systimestamp, #{rec_receiver}, #{rec_sender}, #{rec_filesize}, default)
 </insert>
 
+<select id="newMail" resultType="_int">
+	select count(*) from receive_mail where rec_receiver = #{email} and rec_read = 'N'
+</select>
+
 <update id="updateRead">
 	update receive_mail set rec_read = 'Y' where rec_no = #{mailNo}
 </update>

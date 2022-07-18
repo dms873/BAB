@@ -29,6 +29,14 @@ public interface MailService {
 			 **/
 	    public int insertRcvMail(MailRcv mailRcv);
 	    
+		// 받은 메일함 새로운 메일 숫자 표시
+		/**
+		 *  @param : String email
+		 *  @return : dao.newMail(email)
+		 *  @author : 윤영원
+		 **/
+	    public int newMail(String email);
+	    
 		// 받은 메일함 제목 클릭 시 읽음 표시 변경 'N'->'Y'
 		/**
 		 *  @param : int mailNo

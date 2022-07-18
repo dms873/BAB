@@ -26,6 +26,11 @@ public class MailServiceImpl implements MailService {
 	}
 	
 	@Override
+	public int newMail(String email) {
+		return dao.newMail(email);
+	}
+	
+	@Override
 	public int updateRead(int mailNo) {
 		return dao.updateRead(mailNo);
 	}

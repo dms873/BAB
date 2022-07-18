@@ -158,7 +158,7 @@
 	$(".y_mail_view").click(function(){
 		var mNo = $(this).parents("tr").children("th").children("input").val();
 		console.log("mNo :" + mNo);
-		$("#y_content_box").load("<%=request.getContextPath()%>/mail/read?mSndNo="+mNo);
+		$("#y_content_box").load("<%=request.getContextPath()%>/mail/read",{mSndNo : mNo});
 	});
     
     </script>

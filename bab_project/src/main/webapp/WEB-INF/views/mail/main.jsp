@@ -34,8 +34,8 @@
                 
 
                 <div style="margin-top: 30px; font-weight: bold; font-size: 1.2em; color: rgb(1, 3, 38);">메일함</div>
-                <div id="y_rcv_mail" class="y_hover_event" style="display: inline-block; margin-right: 10px;">받은 메일함</div><span style="font-weight: bold; color: red;">2</span>
-                <div id="y_snd_mail" class="y_hover_event" style="display: inline-block; margin-right: 10px;">보낸 메일함</div><span style="font-weight: bold; color: red;">2</span>
+                <div id="y_rcv_mail" class="y_hover_event" style="display: inline-block; margin-right: 10px;">받은 메일함</div><span id="newMail" style="font-weight: bold; color: red;">${newMail}</span>
+                <div id="y_snd_mail" class="y_hover_event" style="display: inline-block; margin-right: 10px;">보낸 메일함</div>
             </div>
         </article>  
         <article style="float: left;">
@@ -52,14 +52,23 @@
     
     // 탭 메뉴 클릭 후 페이지 로드 시 선실행
     $(function() {
+    	var mtt = $("#newMail").text();
+    	console.log(mtt);
+    	if(mtt == 0){
+    		$("#newMail").hide();
+    	}
+    	
     	
     	var s_organ_mail = $("#s_organ_mail").val();
     	console.log(s_organ_mail);
+    	
     	if(s_organ_mail != null && s_organ_mail !="null"){
+    		console.log("여기탔나?");
     		$("#y_content_box").load("<%=request.getContextPath()%>/mail/insert?emailInfo="+s_organ_mail);
     	} else {
     		
     	console.log(s_organ_mail);
+    	console.log("여기탔나?2");
     	var email = $("#y_emp_email").val()
     	
     	$("#y_content_box").load("<%=request.getContextPath()%>/mail/selectRcv",{email: email});

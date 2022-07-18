@@ -59,7 +59,7 @@ public class BoardController {
 		return msg;
 	}
 	
-	@GetMapping("/read")
+	@PostMapping("/read")
 	public ModelAndView read(ModelAndView mv
 			, @RequestParam(name="board_no", required = false) String board_no
 			, RedirectAttributes rttr
