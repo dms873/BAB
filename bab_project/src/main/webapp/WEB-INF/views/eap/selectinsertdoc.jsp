@@ -43,8 +43,6 @@
 						class="form-select" aria-label="Default select example">
 						<option value="eap_title" selected="selected">제목</option>
 						<option value="df_title">결재양식</option>
-						<option value="emp_name">기안자</option>
-						<option value="dept_name">기안부서</option>
 					</select> 
 					<input class="form-control me-2" type="search" name="search_bar" id="search_bar" placeholder="Search" aria-label="Search" style="width: 300px;">
 					<button id="s_search_btn" class="btn btn-outline-success" type="submit">Search</button>

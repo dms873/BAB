@@ -37,6 +37,12 @@ public class AttendanceImpl implements AttendanceService {
 	public int updateWorkTime(String emp_no) {
 		return dao.updateWorkTime(emp_no);
 	}
+	
+	// 소정 근무 시간 구하기(휴게시간 1시간 제외)
+	@Override
+	public int updateBreakTime(String emp_no) {
+		return dao.updateBreakTime(emp_no);
+	}
 
 	// 월별 근태 현황조회
 	@Override

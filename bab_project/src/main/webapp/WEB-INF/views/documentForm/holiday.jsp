@@ -754,6 +754,18 @@
 		
 		// 모달에서 확인 클릭 시 
 		$("#s_add_appLine_list").click(function() {
+			
+			if($(".s_td_name").length == 0) {
+				swal({
+                    title: "결재선이 지정되어있지 않습니다.",
+                    text: "결재할 사원을 추가해주세요!",
+                    icon: "error",
+                    closeOnClickOutside: false,
+                    closeOnEsc: false
+                });
+				return;
+			}
+			
 			var empNoArr = [];
 			for(var i = 0; i < $(".emp_no").length; i++) {
 				empNoArr.push($(".emp_no").eq(i).val());

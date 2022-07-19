@@ -185,6 +185,16 @@ public class AttendanceController {
 		
 		// 소정근무시간 구하기
 		int result2 = service.updateWorkTime(emp_no);
+		Attendance resultWorkTime = service.selectToday(emp_no);
+		System.out.println();
+		
+		// 소정근무시간 5시간 이상이면 휴게시간 1시간 제외
+		String workTimeStr = resultWorkTime.getAtt_worktime();
+		int workTime = Integer.parseInt(workTimeStr);
+		
+		if(workTime >= 5) {
+			result2 = service.updateBreakTime(emp_no);
+		}
 		
 		String msg = "";
 		

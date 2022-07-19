@@ -39,6 +39,13 @@ public interface AttendanceService {
 	
 	/**
 	 * @author : 손은진
+	 * @return : 소정 근무 시간 구하기(휴게시간 1시간 제외)
+	 * @param : emp_no (로그인한 사람의 사번)
+	 * */
+	public int updateBreakTime(String emp_no);
+	
+	/**
+	 * @author : 손은진
 	 * @return : 월별 근태 현황조회
 	 * @param : currentPage, pageSize, emp_no (로그인한 사람의 사번)
 	 * */

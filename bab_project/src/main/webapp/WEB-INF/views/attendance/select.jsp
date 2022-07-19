@@ -400,7 +400,7 @@
     		$("#s_leave").css("color", "white");
     		$("#s_leave").css("borderColor", "gray");
     	}
-    
+   		
     	// 출근버튼 클릭 시 버튼 사용 불가
     	$("#s_att").click(function() {
     		
@@ -435,32 +435,64 @@
     	// 퇴근버튼 클릭 시 버튼 사용 불가
     	$("#s_leave").click(function() {
     		
-    		// 퇴근 시간 저장 DB다녀올 ajax
-   			$.ajax({
-   				url : "<%=request.getContextPath()%>/attendance/updateend"
-   					, type: "post"
-   					, success: function(result) {
-   						if(result.includes('실패')) {
-   							swal({
-   			                    title: "",
-   			                    text: result,
-   			                    icon: "error",
-   			                    closeOnClickOutside: false,
-   			                    closeOnEsc: false
-   			                });
-   	   						$("#menu_attendance").get(0).click();
-   						} else {
-	   						swal({
-			                    title: "",
-			                    text: result,
-			                    icon: "success",
-			                    closeOnClickOutside: false,
-			                    closeOnEsc: false
-			                });
-	   						$("#menu_attendance").get(0).click();
-   						}
-   					}
-   			});
+    		// DB에 저장된 출근 시간 
+    		var startTime = "${selectToday.att_start}"
+    		
+    		// 오늘 날짜 조회
+   			var date = new Date();
+    	    var year = date.getFullYear();
+    	    var month = ("0" + (1 + date.getMonth())).slice(-2);
+    	    var day = ("0" + date.getDate()).slice(-2);
+    	    var TodayDate = year + "/" + month + "/" + day; 
+    	    
+    	    // 오늘 출근 시간 시간 계산 위해 오늘날짜+DB 저장된 출근시간으로 Date형식을 만듬
+    	    var attStart = new Date(TodayDate + " " + startTime);
+    		
+    	    // 출근 시간보다 1시간 뒤 시간 계산
+    	    attStart.setHours(attStart.getHours() + 1);
+    		var endTime = new Date();
+    		// 출근 후 최소 1시간 이상 근무해야 퇴근 가능
+    		if(attStart <= endTime) {
+    			// 퇴근 시간 저장 DB다녀올 ajax
+       			$.ajax({
+       				url : "<%=request.getContextPath()%>/attendance/updateend"
+       					, type: "post"
+       					, success: function(result) {
+       						if(result.includes('실패')) {
+       							swal({
+       			                    title: result,
+       			                    text: "",
+       			                    icon: "error",
+       			                    closeOnClickOutside: false,
+       			                    closeOnEsc: false
+       			                });
+       	   						$("#menu_attendance").get(0).click();
+       						} else {
+    	   						swal({
+    			                    title: result,
+    			                    text: "",
+    			                    icon: "success",
+    			                    closeOnClickOutside: false,
+    			                    closeOnEsc: false
+    			                });
+    	   						$("#menu_attendance").get(0).click();
+       						}
+       					}
+       			});
+    		} else {
+    			swal({
+	                    title: "출근 후 최소 1시간 이상 지나야 퇴근 처리가 가능합니다.",
+	                    text: "",
+	                    icon: "error",
+	                    closeOnClickOutside: false,
+	                    closeOnEsc: false
+	                });
+    			return;
+    		}
+    		
+    		
+    		
+    		
     	});
     </script>
 

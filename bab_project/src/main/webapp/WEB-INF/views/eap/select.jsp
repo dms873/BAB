@@ -115,7 +115,7 @@
             	
                 <div class="s_eap_home">
 	                <div class="s_eap_tt" id="s_be_tt" style="cursor: pointer; color: darkorange;">전자 결재 대기</div>
-		                <table class="table" style="vertical-align: middle; text-align: center;">
+		                <table class="table table-hover" style="vertical-align: middle; text-align: center;">
 						  <thead>
 						    <tr>
 						      <th scope="col">문서번호</th>
@@ -161,7 +161,7 @@
 					
 					<div class="s_eap_home">
 		                <div class="s_eap_tt" id="s_re_tt" style="cursor: pointer; color: darkgreen;">기안 진행 문서</div>
-		                <table class="table" style="vertical-align: middle; text-align: center;">
+		                <table class="table table-hover" style="vertical-align: middle; text-align: center;">
 						  <thead>
 						    <tr>
 						      <th scope="col">NO</th>
@@ -295,6 +295,53 @@
         	}
         });
     	
+    </script>
+    
+    <!-- 상세문서조회 -->
+    <script>
+    	// 전자결재대기 상세조회 시
+    	$(".s_be_readList").click(function() {
+    		// 배열 선언
+    		var tdArr = new Array();
+    		// 현재 클릭된 행(tr의 td)
+    		var tr = $(this);
+    		var td = tr.children();
+    		
+    		// 반복문을 통해 배열에 값을 담아 사용
+    		td.each(function(i) {
+    			tdArr.push(td.eq(i).text());
+    		})
+    		
+    		// 그 중 첫 번째 담긴 결재번호 필요
+    		var dfNo = tdArr[0]; 
+    		
+    		// 링크로 넘기기
+    		$("#s_before_doc").css('color', 'rgb(5, 131, 242)');
+    		$("#s_eap_content_box").load("<%=request.getContextPath()%>/eap/selectdoc?df_no=" + dfNo);
+    		
+    	});
+    	
+    	// 기안진행문서 상세조회 시
+    	$(".s_re_readList").click(function() {
+    		// 배열 선언
+    		var tdArr = new Array();
+    		// 현재 클릭된 행(tr의 td)
+    		var tr = $(this);
+    		var td = tr.children();
+    		
+    		// 반복문을 통해 배열에 값을 담아 사용
+    		td.each(function(i) {
+    			tdArr.push(td.eq(i).text());
+    		})
+    		
+    		// 그 중 첫 번째 담긴 결재번호 필요
+    		var dfNo = tdArr[0]; 
+    		
+    		// 링크로 넘기기
+    		$("#s_receipt_doc").css('color', 'rgb(5, 131, 242)');
+    		$("#s_eap_content_box").load("<%=request.getContextPath()%>/eap/selectdoc?df_no=" + dfNo);
+    		
+    	});
     </script>
     
     <script>

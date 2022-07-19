@@ -35,6 +35,11 @@ public class AttendanceDao {
 		return sqlSession.update("Attendance.updateWorkTime", emp_no);
 	}
 	
+	// 소정 근무 시간 구하기(휴게시간 1시간 제외)
+	public int updateBreakTime(String emp_no) {
+		return sqlSession.update("Attendance.updateBreakTime", emp_no);
+	}
+	
 	// 월별 근태 현황조회
 	public List<Attendance> selectMonth(int currentPage, int pageSize, String emp_no) {
 		return sqlSession.selectList("Attendance.selectMonth", emp_no, new RowBounds((currentPage-1)*pageSize, pageSize));

@@ -409,6 +409,18 @@
 					"room_title" : $("#s_room_title").val()
 				};
 		
+		// 대화상대 선택 안했을 시
+		if($(".s_invite_p").length == 0) {
+			swal({
+                title: "대화상대가 선택되지 않았습니다.",
+                text: "대화할 사원을 선택해주세요!",
+                icon: "error",
+                closeOnClickOutside: false,
+                closeOnEsc: false
+            });
+			return;
+		}
+		
 		// 방 제목 미입력 시
 		if($("#s_room_title").val() == "") {
 			swal({

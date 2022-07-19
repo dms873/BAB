@@ -513,7 +513,7 @@
 											<input type="text" class="form-control s_sp_date" id="s_sp_date" name="sp_date" placeholder="날짜 선택" style="cursor: context-menu;">
 										</th>
 										<td><input type="text" class="form-control s_sp_detail" name="sp_detail"></td>
-										<td><input type="number" id="sp_count" class="form-control s_sp_count" name="sp_count" onblur="total()"></td>
+										<td><input type="text" id="sp_count" class="form-control s_sp_count" name="sp_count" onblur="total()" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"></td>
 										<td><input type="text" class="form-control s_sp_amount" id="sp_amount" name="sp_amount" onkeyup="commas(this)" onblur="total()"></td>
 										<td><select class="form-select s_select" aria-label="Default select example">
 												<option value="C">신용카드</option>
@@ -823,6 +823,17 @@
 		// 모달에서 확인 클릭 시 
 		$("#s_add_appLine_list").click(function() {
 			
+			if($(".s_td_name").length == 0) {
+				swal({
+                    title: "결재선이 지정되어있지 않습니다.",
+                    text: "결재할 사원을 추가해주세요!",
+                    icon: "error",
+                    closeOnClickOutside: false,
+                    closeOnEsc: false
+                });
+				return;
+			}
+			
 			var empNoArr = [];
 			for(var i = 0; i < $(".emp_no").length; i++) {
 				empNoArr.push($(".emp_no").eq(i).val());
@@ -1016,8 +1027,8 @@
 		if(!regexp.test(x)){ 
 			$(t).val(""); 
 			swal({
-                title: "",
-                text: "숫자만 입력 가능합니다.",
+                title: "숫자만 입력 가능합니다.",
+                text: "",
                 icon: "error",
                 closeOnClickOutside: false,
                 closeOnEsc: false

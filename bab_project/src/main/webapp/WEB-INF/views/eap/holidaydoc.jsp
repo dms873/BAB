@@ -555,32 +555,56 @@
 	<script>
 		// 결재 회수 ajax
 		$("#s_eap_cancle").click(function() {
-			$.ajax({
-				url: "<%=request.getContextPath()%>/eap/canceldoc",
-				type: "post",
-				data: {"df_no": $("#s_dfNo").text()},
-				success: function(result) {
-					if(result.includes('실패')) {
-						swal({
-		                    title: "",
-		                    text: result,
-		                    icon: "error",
-		                    closeOnClickOutside: false,
-		                    closeOnEsc: false
-		                });
-						$("#menu_eap").get(0).click();
-					} else {
-						swal({
-		                    title: "",
-		                    text: result,
-		                    icon: "success",
-		                    closeOnClickOutside: false,
-		                    closeOnEsc: false
-		                });
-						$("#menu_eap").get(0).click();
-					}
+			swal({
+				title: "결재 회수",
+                text: "회수하시겠습니까?",
+                icon: "warning",
+                confirmButtonClass : "btn-danger",
+                buttons: ["취소", "확인"],
+                closeOnClickOutside: false,
+                closeOnEsc: false
+			}).then((확인) => {
+				if(확인) {
+					$.ajax({
+						url: "<%=request.getContextPath()%>/eap/canceldoc",
+						type: "post",
+						data: {"df_no": $("#s_dfNo").text()},
+						success: function(result) {
+							if(result.includes('실패')) {
+								swal({
+				                    title: "",
+				                    text: result,
+				                    icon: "error",
+				                    closeOnClickOutside: false,
+				                    closeOnEsc: false
+				                })
+				                .then((ok) => {
+									$("#menu_eap").get(0).click();
+				                })
+							} else {
+								swal({
+				                    title: "",
+				                    text: result,
+				                    icon: "success",
+				                    closeOnClickOutside: false,
+				                    closeOnEsc: false
+				                })
+				                .then((ok) => {
+									$("#menu_eap").get(0).click();
+				                })
+							}
+						}
+					});
+				} else {
+					swal({
+                        title: "",
+                        text: "취소되었습니다.",
+                        icon: "success",
+                        closeOnClickOutside: false,
+                        closeOnEsc: false
+                    });
 				}
-			});
+			})
 		});
 		
 		// 문서 수정 클릭 시
@@ -744,8 +768,10 @@
 		                    icon: "error",
 		                    closeOnClickOutside: false,
 		                    closeOnEsc: false
-		                });
-						$("#s_before_doc").trigger("click");
+		                })
+		                .then((ok) => {
+							$("#s_before_doc").trigger("click");
+		                })
 					} else {
 						swal({
 		                    title: "",
@@ -753,8 +779,10 @@
 		                    icon: "success",
 		                    closeOnClickOutside: false,
 		                    closeOnEsc: false
-		                });
-						$("#s_before_doc").trigger("click");
+		                })
+		                .then((ok) => {
+							$("#s_before_doc").trigger("click");
+		                })
 					}
 				}
 			});
@@ -826,8 +854,11 @@
 			                    icon: "error",
 			                    closeOnClickOutside: false,
 			                    closeOnEsc: false
-			                });
-							$("#menu_eap").get(0).click();
+			                })
+			                .then((ok) => {
+			                	$(".btn-close").trigger('click');
+								$("#menu_eap").get(0).click();
+		                	})
 						} else {
 							swal({
 			                    title: "",
@@ -835,8 +866,11 @@
 			                    icon: "success",
 			                    closeOnClickOutside: false,
 			                    closeOnEsc: false
-			                });
-							$("#menu_eap").get(0).click();
+			                })
+			                .then((ok) => {
+			                	$(".btn-close").trigger('click');
+								$("#menu_eap").get(0).click();
+		                	})
 						}
 					}
 				});
@@ -890,9 +924,11 @@
 				                    icon: "error",
 				                    closeOnClickOutside: false,
 				                    closeOnEsc: false
-				                });
-								$(".btn-close").trigger('click');
-								$("#menu_eap").get(0).click();
+				                })
+				                .then((ok) => {
+									$(".btn-close").trigger('click');
+									$("#menu_eap").get(0).click();
+		                		})
 							} else {
 								swal({
 				                    title: "",
@@ -900,9 +936,11 @@
 				                    icon: "success",
 				                    closeOnClickOutside: false,
 				                    closeOnEsc: false
-				                });
-								$(".btn-close").trigger('click');
-								$("#menu_eap").get(0).click();
+				                })
+				                .then((ok) => {
+									$(".btn-close").trigger('click');
+									$("#menu_eap").get(0).click();
+		                		})
 							}
 					}
 				});
@@ -963,9 +1001,11 @@
 				                    icon: "error",
 				                    closeOnClickOutside: false,
 				                    closeOnEsc: false
-				                });
-								$(".btn-close").trigger('click');
-								$("#menu_eap").get(0).click();
+				                })
+				                .then((ok) => {
+									$(".btn-close").trigger('click');
+									$("#menu_eap").get(0).click();
+		                		})
 							} else {
 								swal({
 				                    title: "",
@@ -973,9 +1013,11 @@
 				                    icon: "success",
 				                    closeOnClickOutside: false,
 				                    closeOnEsc: false
-				                });
-								$(".btn-close").trigger('click');
-								$("#menu_eap").get(0).click();
+				                })
+				                .then((ok) => {
+									$(".btn-close").trigger('click');
+									$("#menu_eap").get(0).click();
+		                		})
 							}
 					}
 				});
@@ -1020,9 +1062,11 @@
 						                    icon: "error",
 						                    closeOnClickOutside: false,
 						                    closeOnEsc: false
-						                });
-										$(".btn-close").trigger('click');
-										$("#menu_eap").get(0).click();
+						                })
+						                .then((ok) => {
+											$(".btn-close").trigger('click');
+											$("#menu_eap").get(0).click();
+					                	})
 									} else {
 										swal({
 						                    title: "",
@@ -1030,9 +1074,11 @@
 						                    icon: "success",
 						                    closeOnClickOutside: false,
 						                    closeOnEsc: false
-						                });
-										$(".btn-close").trigger('click');
-										$("#menu_eap").get(0).click();
+						                })
+						                .then((ok) => {
+							                $(".btn-close").trigger('click');
+											$("#menu_eap").get(0).click();
+					                	})
 									}
 							}
 						});
@@ -1088,8 +1134,10 @@
 						                    icon: "error",
 						                    closeOnClickOutside: false,
 						                    closeOnEsc: false
-						                });
-										$("#menu_eap").get(0).click();
+						                })
+						                .then((ok) => {
+											$("#menu_eap").get(0).click();
+					                	})
 									} else {
 										swal({
 						                    title: "",
@@ -1097,8 +1145,10 @@
 						                    icon: "success",
 						                    closeOnClickOutside: false,
 						                    closeOnEsc: false
-						                });
-										$("#menu_eap").get(0).click();
+						                })
+						                .then((ok) => {
+											$("#menu_eap").get(0).click();
+					                	})
 									}
 							}
 						});
@@ -1161,8 +1211,10 @@
 						                    icon: "error",
 						                    closeOnClickOutside: false,
 						                    closeOnEsc: false
-						                });
-										$("#menu_eap").get(0).click();
+						                })
+						                .then((ok) => {
+											$("#menu_eap").get(0).click();
+					                	})
 									} else {
 										swal({
 						                    title: "",
@@ -1170,8 +1222,10 @@
 						                    icon: "success",
 						                    closeOnClickOutside: false,
 						                    closeOnEsc: false
-						                });
-										$("#menu_eap").get(0).click();
+						                })
+						                .then((ok) => {
+											$("#menu_eap").get(0).click();
+					                	})
 									}
 							}
 						});
