@@ -142,7 +142,7 @@
 		var mainBoard_no = $("#y_main_bNo").val();
 		console.log(mainBoard_no);
 		if(mainBoard_no != null && mainBoard_no != "null"){
-			$("#y_board_content").load("<%=request.getContextPath()%>/board/read?board_no=" + mainBoard_no);
+			$("#y_board_content").load("<%=request.getContextPath()%>/board/read",{board_no : mainBoard_no});
 		} else {
 		var chkObj = document.getElementsByName("rowCheck");
 		console.log("chkObj : " + chkObj);
