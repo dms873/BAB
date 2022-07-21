@@ -169,6 +169,9 @@
 	});
 	// 체크박스 삭제
 	$("#y_btn_delete").click(function() {
+		var dept_code = $("#y_emp_dCode").val()
+		
+		if(dept_code == "D40"){
 		var valueArr = new Array();
 		var list = $("input[name=rowCheck]");
 		for(var i = 0; i < list.length; i++) {
@@ -203,6 +206,9 @@
 				    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 				   }
 			});
+		  }
+		} else {
+			alert("권한이 없습니다!");
 		}
 	});
 	
