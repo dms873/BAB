@@ -996,8 +996,10 @@
 		                    icon: "error",
 		                    closeOnClickOutside: false,
 		                    closeOnEsc: false
-		                });
-						$("#menu_eap").get(0).click();
+		                })
+		                .then((ok) => {
+							$("#menu_eap").get(0).click();
+                		})
 					} else {
 						swal({
 		                    title: "",
@@ -1005,8 +1007,10 @@
 		                    icon: "success",
 		                    closeOnClickOutside: false,
 		                    closeOnEsc: false
-		                });
-						$("#menu_eap").get(0).click();
+		                })
+		                .then((ok) => {
+							$("#menu_eap").get(0).click();
+                		})
 					}
 				}
 			});

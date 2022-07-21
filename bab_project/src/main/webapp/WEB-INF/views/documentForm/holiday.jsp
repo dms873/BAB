@@ -876,6 +876,22 @@
 			var ho_end = $('#s_ho_end').val() + " " + $('#s_end_time').val();
 			var ho_use_count = $('#s_date_cal').text();
 			
+			// 날짜 계산
+			var start = new Date($('#s_ho_start').val() + 'T' + $('#s_start_time').val());
+			var end = new Date($('#s_ho_end').val() + 'T' + $('#s_end_time').val());
+			
+			// 신청 종료시간이 시작시간보다 빠를 때
+			if(start > end) {
+				swal({
+                    title: "종료 시간이 시작 시간보다 빠를 수 없습니다!",
+                    text: "신청 종료 시간을 다시 선택해주세요.",
+                    icon: "error",
+                    closeOnClickOutside: false,
+                    closeOnEsc: false
+                });
+				$("#s_end_time").val('');
+			}
+			
 			// 제목, 내용이 비어있을 때
 			if(eap_title == "" || eap_content == "") {
 				swal({
@@ -903,7 +919,7 @@
 			var s_ho_use = $("#s_ho_use").text();
 			
 			// 사용 가능한 휴가일수보다 신청한 휴가일수가 더 많을 때 alert
-			if(ho_use_count > s_ho_use) {
+			if(ho_use_count < s_ho_use) {
 				swal({
                     title: "사용 가능한 휴가일수보다 신청한 휴가일수가 더 많습니다.",
                     text: "날짜와 시간을 다시 선택해주세요",
@@ -938,8 +954,10 @@
 		                    icon: "error",
 		                    closeOnClickOutside: false,
 		                    closeOnEsc: false
-		                });
-						$("#menu_eap").get(0).click();
+		                })
+		                .then((ok) => {
+							$("#menu_eap").get(0).click();
+                		})
 					} else {
 						swal({
 		                    title: "",
@@ -947,8 +965,10 @@
 		                    icon: "success",
 		                    closeOnClickOutside: false,
 		                    closeOnEsc: false
-		                });
-						$("#menu_eap").get(0).click();
+		                })
+		                .then((ok) => {
+							$("#menu_eap").get(0).click();
+                		})
 					}
 				}
 			})
@@ -997,6 +1017,18 @@
 			// 시간 구하기(휴식시간 1시간 제외)
 			var diffTime = (end.getTime() - start.getTime()) / (1000*60*60) -1;
 			
+			// 신청 종료시간이 시작시간보다 빠를 때
+			if(start > end) {
+				swal({
+                    title: "종료 시간이 시작 기간보다 빠를 수 없습니다!",
+                    text: "신청 종료 시간을 다시 선택해주세요.",
+                    icon: "error",
+                    closeOnClickOutside: false,
+                    closeOnEsc: false
+                });
+				$("#s_end_time").val('');
+			}
+			
 			if((0 < diffDay && diffDay < 1) && (0 < diffTime && diffTime < 8)) {
 				$('#s_date_cal').text('0.5'); // 반차
 			} else if(diffTime >= 1 && diffTime >= 8) {
@@ -1029,7 +1061,7 @@
 			} else {
 				$('#s_date_cal').text('0');
 			}
-		}) 
+		}); 
 		
 		
 		
