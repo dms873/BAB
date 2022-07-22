@@ -42,6 +42,7 @@
 		        AND C.CH_NO IN (SELECT MAX(CH_NO) AS CH_NO FROM CHATTING GROUP BY ROOM_NO) 
 		        OR C.CH_NO IS NULL 
 	        	AND EMP_NO = #{emp_no}
+	        ORDER BY CH_NO DESC NULLS LAST
 	</select>
 	
 	<!-- 채팅방 정보 -->
