@@ -264,7 +264,12 @@
 	                		<!-- 방 제목 표기 -->
 		                	<div class="s_room_tt">${i.room_title }</div>
 		                	<!-- 해당 방 마지막 대화 표기 -->
-		                	<div>${i.ch_content }</div>
+		                	<c:if test="${empty i.ch_content}">
+		                		<div>대화를 시작해주세요.</div>
+		                	</c:if>
+		                	<c:if test="${not empty i.ch_content }">
+		                		<div>${i.ch_content }</div>
+		                	</c:if>
 	                	</div>
                 	</c:forEach>
                 </div>
