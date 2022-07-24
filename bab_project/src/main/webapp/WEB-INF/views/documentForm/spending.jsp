@@ -970,6 +970,18 @@
 				return;
 			}
 			
+			// 지출 날짜가 'YYYY-MM-DD'형태로 입력이 되지 않았을 때
+			if($('.s_sp_date').val().length != 10) {
+				swal({
+                    title: "날짜를 'YYYY-MM-DD'형태로 입력해주세요.",
+                    text: "",
+                    icon: "error",
+                    closeOnClickOutside: false,
+                    closeOnEsc: false
+                });
+				return;
+			}
+			
 			dataObj = {
 					"sp_date" : $('.s_sp_date').val(),
 					"sp_detail" : $('.s_sp_detail').val(),
@@ -1073,6 +1085,21 @@
                 });
 				// 입력한 내용 지우기
 				$('#s_sp_co').val("");
+			}
+		});
+		
+		// 지출날짜 입력 시
+		$(".s_sp_date").change(function() {
+			if($('div').hasClass('s_div') == false) {
+				swal({
+                    title: "",
+                    text: "결재선 지정을 먼저 해주세요",
+                    icon: "error",
+                    closeOnClickOutside: false,
+                    closeOnEsc: false
+                });
+				// 입력한 내용 지우기
+				$('.s_sp_date').val("");
 			}
 		});
 		

@@ -6,7 +6,7 @@
 	<artifactId>bab</artifactId>
 	<name>bab</name>
 	<packaging>war</packaging>
-	<version>v1.0.0</version>
+	<version>v2.1.0</version>
 	<properties>
 		<java-version>1.11</java-version>
 		<org.springframework-version>5.3.19</org.springframework-version>

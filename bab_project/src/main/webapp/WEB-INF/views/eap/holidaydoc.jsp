@@ -607,6 +607,16 @@
 			})
 		});
 		
+		// 줄바꿈을 기준으로 split을 사용해 하나의 배열로 변환하고 그 배열을 \r\n으로 구분자를 통해 연결함.
+		function content() {
+			// 안녕<br/>하세요<br/>반가워요
+			var eapContent = $("#s_ho_co").val(); 
+			// ['안녕', '하세요', '반가워요'] 로 되어있는 배열을 연결하는데 ','대신 '\r\n'으로 연결해줌
+			// join에 매개인자가 없으면 '안녕,하세요,반가워요'로 연결됨
+			eapContent = eapContent.split("<br/>").join("\r\n");
+			$("#s_ho_co").val(eapContent);
+		};
+		
 		// 문서 수정 클릭 시
 		$("#s_eap_update").click(function() {
 			// 제목
@@ -619,7 +629,9 @@
 					+ '<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="H">'
 					+ '<label class="form-check-label" for="flexRadioDefault2">반차</label></div>');
 			// 내용
-			$("#s_eap_content").replaceWith('<textarea class="form-control" style="resize: none;" id="s_ho_co">${readHoDoc.eap_content }</textarea>');
+			$("#s_eap_content").replaceWith('<textarea class="form-control s_scroll" style="resize: none;" id="s_ho_co">${readHoDoc.eap_content }</textarea>');
+			content();
+			
 			
 			// 시작날짜, 시간 추출
 			var start = $('#s_start').text();
@@ -740,10 +752,15 @@
 	<script>
 		// 문서 수정 클릭 시
 		function update() {
+			
+			var eap_content = $('#s_ho_co').val();
+			// textarea에 \r \n같은 문자를 <br>로 바꿔주기
+			eap_content = eap_content.replace(/(?:\r\n|\r|\n)/g,'<br/>');
+			
 			dataObj = {
 					"df_no" : $("#s_dfNo").text(),
 					"eap_title" : $('#s_ho_tt').val(),
-					"eap_content" : $('#s_ho_co').val(),
+					"eap_content" : eap_content,
 					"ho_code" : $('input[type=radio]:checked').val(),
 					//"ho_start" : $('#s_start').text(),
 					"ho_start" : $('#s_ho_start').val() + " " + $('#s_start_time').val(),

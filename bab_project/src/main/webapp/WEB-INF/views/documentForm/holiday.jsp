@@ -499,19 +499,19 @@
 					
 					<div style="padding: 10px 0;">
 						<div class="s_frm_title">2. 내용</div>
-						<textarea class="form-control" style="resize: none;" id="s_ho_co" required="required"></textarea>
+						<textarea class="form-control s_scroll" style="resize: none;" id="s_ho_co" required="required" rows="2" cols="20" wrap="hard"></textarea>
 					</div>
 					
 					<div style="padding: 10px 0;">
 						<div class="s_frm_title">3. 신청기간</div>
 						<div style="margin: 5px 0;">사용 가능한 휴가일수는 <span id="s_ho_use">${checkHo }</span>일 입니다.</div>
 						<div>
-							<input type="text" placeholder="신청 시작 기간을 선택해주세요" class="form-control s_ho_start" style="width: 250px; display: inline-block; cursor: context-menu;" id="s_ho_start" required="required">
-							<input type="time" class="form-control" style="width: 150px; display: inline-block;" id="s_start_time" min="09:00:00" max="22:00:00" required="required"> 부터
+							<input type="text" placeholder="신청 시작 기간을 선택해주세요" class="form-control s_ho_start" style="width: 250px; display: inline-block; cursor: context-menu;" id="s_ho_start" required="required" onchange="dateCnt();">
+							<input type="time" class="form-control" style="width: 150px; display: inline-block;" id="s_start_time" min="09:00:00" max="22:00:00" required="required" onchange="dateCnt();"> 부터
 						</div>
 						<div>
-							<input type="text" placeholder="신청 종료 기간을 선택해주세요" class="form-control s_ho_end" style="width: 250px; display: inline-block; cursor: context-menu; margin-top: 10px;" id="s_ho_end"  required="required">
-							<input type="time" class="form-control" style="width: 150px; display: inline-block;" id="s_end_time" min="09:00:00" max="22:00:00" required="required"> 까지
+							<input type="text" placeholder="신청 종료 기간을 선택해주세요" class="form-control s_ho_end" style="width: 250px; display: inline-block; cursor: context-menu; margin-top: 10px;" id="s_ho_end"  required="required" onchange="dateCnt();">
+							<input type="time" class="form-control" style="width: 150px; display: inline-block;" id="s_end_time" min="09:00:00" max="22:00:00" required="required" onchange="dateCnt();"> 까지
 							<div style="display: inline-block;">(총 <span id="s_date_cal">0</span>일)</div>
 						</div>
 					</div>
@@ -871,6 +871,8 @@
 		$("#s_eap_app").click(function() {
 			var eap_title = $('#s_ho_tt').val();
 			var eap_content = $('#s_ho_co').val();
+			// textarea에 \r \n같은 문자를 <br>로 바꿔주기
+			eap_content = eap_content.replace(/(?:\r\n|\r|\n)/g,'<br/>');
 			var ho_code = $('input[type=radio]:checked').val();
 			var ho_start = $('#s_ho_start').val() + " " + $('#s_start_time').val();
 			var ho_end = $('#s_ho_end').val() + " " + $('#s_end_time').val();
@@ -1008,7 +1010,8 @@
 			}
 		});
 		
-		$('#s_end_time').change(function() {
+		// 총 일수 계산 함수
+		function dateCnt() {
 			// 날짜 계산
 			var start = new Date($('#s_ho_start').val() + 'T' + $('#s_start_time').val());
 			var end = new Date($('#s_ho_end').val() + 'T' + $('#s_end_time').val());
@@ -1061,10 +1064,7 @@
 			} else {
 				$('#s_date_cal').text('0');
 			}
-		}); 
-		
-		
-		
+		}
 	</script>
 	
 	<script>
@@ -1084,6 +1084,22 @@
                 monthNamesShort: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
                 monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
                 beforeShowDay: disableAllTheseDays2,
+                onSelect: function(dateText, inst) {
+                	var date1 = new Date($("#s_ho_end").val()).getTime();
+                	var date2 = new Date(dateText).getTime();
+                	
+                	// 시작 날짜와 끝나는 날짜 비교하여 끝나는 날짜보다 시작하는 날짜가 앞이면 경고창으로 안내
+                	if(date1 < date2 == true) {
+                		swal({
+    	                    title: "신청 시작 기간을 다시 선택해주세요.",
+    	                    text: "",
+    	                    icon: "error",
+    	                    closeOnClickOutside: false,
+    	                    closeOnEsc: false
+    	                });
+        				$("#s_ho_start").val("");
+        			}
+                },
                 beforeShow: function() {
                     setTimeout(function(){
                         $('.ui-datepicker').css('z-index', 99999999999999);
@@ -1112,8 +1128,8 @@
                 	// 시작 날짜와 끝나는 날짜 비교하여 시작하는 날짜보다 끝나는 날짜가 앞이면 경고창으로 안내
                 	if(date1 > date2 == true) {
                 		swal({
-    	                    title: "종료 기간이 시작 기간보다 빠를 수 없습니다!",
-    	                    text: "신청 종료 기간을 다시 선택해주세요.",
+    	                    title: "신청 종료 기간을 다시 선택해주세요.",
+    	                    text: "",
     	                    icon: "error",
     	                    closeOnClickOutside: false,
     	                    closeOnEsc: false

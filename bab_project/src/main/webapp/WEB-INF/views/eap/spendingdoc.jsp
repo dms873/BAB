@@ -887,8 +887,10 @@
 		                    icon: "error",
 		                    closeOnClickOutside: false,
 		                    closeOnEsc: false
-		                });
-						$("#s_before_doc").trigger("click");
+		                })
+		                .then((ok) => {
+							$("#s_before_doc").trigger("click");
+	                	})
 					} else {
 						swal({
 		                    title: "",
@@ -896,8 +898,10 @@
 		                    icon: "success",
 		                    closeOnClickOutside: false,
 		                    closeOnEsc: false
-		                });
-						$("#s_before_doc").trigger("click");
+		                })
+		                .then((ok) => {
+							$("#s_before_doc").trigger("click");
+	                	})
 					}
 				}
 			});
