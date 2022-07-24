@@ -492,7 +492,7 @@
 
 						<div style="padding: 10px 0;">
 							<div class="s_frm_title">1. 지출 내용</div>
-							<textarea class="form-control" style="resize: none;" id="s_sp_co"></textarea>
+							<textarea class="form-control" style="resize: none; height: 150px;" id="s_sp_co" required="required" rows="2" cols="20" wrap="hard"></textarea>
 						</div>
 
 						<div style="padding: 10px 0;">
@@ -982,6 +982,10 @@
 				return;
 			}
 			
+			var eap_content = $('#s_sp_co').val();
+			// textarea에 \r \n같은 문자를 <br>로 바꿔주기
+			eap_content = eap_content.replace(/(?:\r\n|\r|\n)/g,'<br/>');
+			
 			dataObj = {
 					"sp_date" : $('.s_sp_date').val(),
 					"sp_detail" : $('.s_sp_detail').val(),
@@ -990,7 +994,7 @@
 					"sp_pay_code" : $('.s_select').val(),
 					"df_no" : $('#s_dfNo').text(),
 					"eap_title" : $('#s_sp_tt').val(),
-					"eap_content" : $('#s_sp_co').val(),
+					"eap_content" : eap_content,
 					"eap_file_path": $("#fileUrl").val(),
 			}
 			

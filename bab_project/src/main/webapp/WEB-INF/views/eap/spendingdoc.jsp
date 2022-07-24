@@ -798,12 +798,23 @@
 			})
 		});
 		
+		// 줄바꿈을 기준으로 split을 사용해 하나의 배열로 변환하고 그 배열을 \r\n으로 구분자를 통해 연결함.
+		function content() {
+			// 안녕<br/>하세요<br/>반가워요
+			var eapContent = $("#s_sp_co").val(); 
+			// ['안녕', '하세요', '반가워요'] 로 되어있는 배열을 연결하는데 ','대신 '\r\n'으로 연결해줌
+			// join에 매개인자가 없으면 '안녕,하세요,반가워요'로 연결됨
+			eapContent = eapContent.split("<br/>").join("\r\n");
+			$("#s_sp_co").val(eapContent);
+		};
+		
 		// 문서 수정 클릭 시
 		$("#s_eap_update").click(function() {
 			// 제목
 			$('#s_sp_tt').replaceWith('<input type="text" style="display: inline-block; width: 583px; margin-left: 5px;" class="form-control" value="${readSpDoc.eap_title }" id="s_sp_tt">');
 			// 내용
-			$('#s_eap_content').replaceWith('<textarea class="form-control" style="resize: none;" id="s_sp_co">${readSpDoc.eap_content }</textarea>')
+			$('#s_eap_content').replaceWith('<textarea class="form-control s_scroll" style="resize: none; height: 150px;" id="s_sp_co">${readSpDoc.eap_content }</textarea>')
+			content();
 			var date = "${spInfo.sp_date }";
 			// 년월일만 출력
 			date = date.substr(0,10);
@@ -860,6 +871,12 @@
 	<script>
 		// 문서 수정 클릭 시
 		function update() {
+			
+			var eap_content = $('#s_sp_co').val();
+			// textarea에 \r \n같은 문자를 <br>로 바꿔주기
+			eap_content = eap_content.replace(/(?:\r\n|\r|\n)/g,'<br/>');
+			
+			
 			dataObj = {
 					"sp_date" : $('.s_sp_date').val(),
 					"sp_detail" : $('.s_sp_detail').val(),
@@ -868,7 +885,7 @@
 					"sp_pay_code" : $('.s_select').val(),
 					"df_no" : $('#s_dfNo').text(),
 					"eap_title" : $('#s_sp_tt').val(),
-					"eap_content" : $('#s_sp_co').val(),
+					"eap_content" : eap_content,
 					"eap_file_path": $("#fileUrl").val(),
 					"s_img": $("#s_img").attr("src")
 			}

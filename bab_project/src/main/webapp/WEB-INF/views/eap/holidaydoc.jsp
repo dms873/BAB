@@ -629,7 +629,7 @@
 					+ '<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="H">'
 					+ '<label class="form-check-label" for="flexRadioDefault2">반차</label></div>');
 			// 내용
-			$("#s_eap_content").replaceWith('<textarea class="form-control s_scroll" style="resize: none;" id="s_ho_co">${readHoDoc.eap_content }</textarea>');
+			$("#s_eap_content").replaceWith('<textarea class="form-control s_scroll" style="resize: none; height: 150px;" id="s_ho_co">${readHoDoc.eap_content }</textarea>');
 			content();
 			
 			
@@ -762,10 +762,8 @@
 					"eap_title" : $('#s_ho_tt').val(),
 					"eap_content" : eap_content,
 					"ho_code" : $('input[type=radio]:checked').val(),
-					//"ho_start" : $('#s_start').text(),
 					"ho_start" : $('#s_ho_start').val() + " " + $('#s_start_time').val(),
 					"ho_end" : $('#s_ho_end').val() + " " + $('#s_end_time').val(),
-					//"ho_end" : $('#s_end').text(),
 					"ho_use_count" : $('#s_date_cal').text(),
 					"eap_file_path": $("#fileUrl").val(),
 					"s_img": $("#s_img").attr("src")
