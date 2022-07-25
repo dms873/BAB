@@ -88,18 +88,6 @@
 	        }
 	    });
 	    
-     	const fileSize = ($target) => {
-    	  // 유저가 선택한 파일 가져오기
-    	const file = $target.files[0];
-    	  
-    	  // 해당 파일의 용량(사이즈) 정보
-    	  console.log(file.size);
-    	}
-    
-    	var files = []; // 파일이 저장될 배열
-    	var filecount = 0;
-    	$('[data-toggle="tooltip"]').tooltip();
-    	
     	// 파일선택 시 발생하는 이벤트 처리(전송할 파일 목록에 등록)
     	$("#uploadfile").change(function(event){
     		files[filecount]=event.target.files[0];

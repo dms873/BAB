@@ -143,8 +143,9 @@ public class BoardController {
 		return mv;
 	}
 	
-	@PostMapping("/update")
-	public ModelAndView updateDo(ModelAndView mv
+	@PostMapping(value="/update", produces = "text/plain;charset=UTF-8")
+	@ResponseBody
+	public String updateDo(ModelAndView mv
 			, @RequestParam(name="board_no", required = false) int board_no
 			, @RequestParam(name="board_title", required = false) String board_title
 			, @RequestParam(name="board_content", required = false) String board_content
@@ -158,13 +159,15 @@ public class BoardController {
 		board.setBoard_content(board_content);
 		System.out.println(board_no+","+board_title+","+board_content);
 		int result = service.updateBoard(board);
+		
+		String msg = "";
 		if(result > 0) {
-			rttr.addFlashAttribute("msg", "수정이 완료되었습니다.");
+			msg = "complete";
 		} else {
-			rttr.addFlashAttribute("msg", "수정에 실패했습니다.");
+			msg = "fail";
 		}
 		
-		return mv;
+		return msg;
 	}
 	
 	@PostMapping(value="/delete", produces = "text/plain;charset=UTF-8")
@@ -188,9 +191,9 @@ public class BoardController {
 		
 		String msg = "";
 		if(result > 0) {
-			msg = "게시글 삭제에 성공하였습니다.";
+			msg = "complete";
 		} else {
-			msg = "게시글 삭제에 실패하였습니다.";
+			msg = "fail";
 		}
 		return msg;
 	}

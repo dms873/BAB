@@ -110,6 +110,8 @@
 	
 	// 체크박스 삭제
 	$("#y_btn_delete").click(function() {
+		var chk = confirm("정말 삭제하시겠습니까?");
+		
 		var valueArr = new Array();
 		var list = $("input[name=rowCheck]");
 		for(var i = 0; i < list.length; i++) {
@@ -119,8 +121,7 @@
 		}
 		if(valueArr.length == 0) {
 			alert("선택된 글이 없습니다.");
-		} else {
-			var chk = confirm("정말 삭제하시겠습니까?");
+		} else if(chk) {
 			$.ajax({
 				url : "<%= request.getContextPath() %>/mail/deleteRcv",
 				type : "post",
@@ -144,6 +145,12 @@
 				    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 				   }
 			});
+		} else{
+			var chk_listArr = $("input[name=rowCheck]");
+			
+			for(var i = 0; i <= chk_listArr.length; i++){
+				  $("input[type=checkbox]")[i].checked = false;
+				  }
 		}
 	});
     

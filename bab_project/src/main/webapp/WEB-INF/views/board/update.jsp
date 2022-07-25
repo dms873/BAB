@@ -94,7 +94,12 @@
     		type : "post",
     		data : obj,
     		success : function(result){
-    			$("#y_board_content").load("<%=request.getContextPath()%>/board/read?board_no="+bNo);
+    			if(result == "fail"){
+    				alert("게시물 수정에 실패했습니다.");
+    			} else {
+					alert("게시물 수정에 성공했습니다."); 				
+    			$("#y_board_content").load("<%=request.getContextPath()%>/board/read",{board_no : bNo});
+    			}
     			/* $("#y_board_content").html(result); */
     		}
     	})

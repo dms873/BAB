@@ -170,6 +170,7 @@
 	// 체크박스 삭제
 	$("#y_btn_delete").click(function() {
 		var dept_code = $("#y_emp_dCode").val()
+		var chk = confirm("정말 삭제하시겠습니까?");
 		
 		if(dept_code == "D40"){
 		var valueArr = new Array();
@@ -181,8 +182,7 @@
 		}
 		if(valueArr.length == 0) {
 			alert("선택된 글이 없습니다.");
-		} else {
-			var chk = confirm("정말 삭제하시겠습니까?");
+		} else if(chk) {
 			$.ajax({
 				url : "<%= request.getContextPath() %>/board/delete",
 				type : "post",
@@ -191,14 +191,11 @@
 					valueArr : valueArr
 				},
 				success : function(result) {
-					console.log("result : " + result);
-					if(result == "게시글 삭제에 성공하였습니다.") {
-						alert(result);
-						console.log("if 탔다");
+					if(result == "complete") {
+						alert("삭제에 성공했습니다.");
 						$("#menu_board").get(0).click();
 					} else {
-						alert(result);
-						console.log("else 탔다");
+						alert("삭제에 실패했습니다.");
 						$("#menu_board").get(0).click();
 					}
 				},
@@ -206,6 +203,12 @@
 				    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 				   }
 			});
+		  } else{
+			  var chk_listArr = $("input[name=rowCheck]");
+			  
+			  for(var i = 0; i <= chk_listArr.length; i++){
+			  $("input[type=checkbox]")[i].checked = false;
+			  }
 		  }
 		} else {
 			alert("권한이 없습니다!");
