@@ -347,7 +347,7 @@
 	<!-- 결재선 지정 Modal -->
 	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 	  <div class="modal-dialog">
-	    <div class="modal-content" style="width: 1200px;">
+	    <div class="modal-content" style="width: 200%;">
 	      <div class="modal-header">
 	        <h5 class="modal-title" id="staticBackdropLabel">결재선 지정</h5>
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -370,7 +370,7 @@
 					<i style="font-size: 2em;cursor: pointer;" class="bi bi-arrow-left-square"></i>
 				</span>
 				</div>
-			<div style="float: left;width: 400px;text-align: center; margin-left: 100px;">
+			<div style="float: left;width: 400px;text-align: center; margin-left: 50px;">
 				<div>
 					<div style="font-size: 1.2em;font-weight: bold;">결재선 리스트</div>
 						<div style="border-bottom: 1px solid lightgray; margin: 20px 0;"></div>
@@ -921,7 +921,8 @@
 			var s_ho_use = $("#s_ho_use").text();
 			
 			// 사용 가능한 휴가일수보다 신청한 휴가일수가 더 많을 때 alert
-			if(ho_use_count < s_ho_use) {
+			// ex) s_ho_use(사용 가능한 휴가일수) = 14.5 / ho_use_count(신청한 휴가 일수) = 1
+			if(parseFloat(ho_use_count) > parseFloat(s_ho_use)) {
 				swal({
                     title: "사용 가능한 휴가일수보다 신청한 휴가일수가 더 많습니다.",
                     text: "날짜와 시간을 다시 선택해주세요",
@@ -1085,6 +1086,7 @@
                 monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
                 beforeShowDay: disableAllTheseDays2,
                 onSelect: function(dateText, inst) {
+                	
                 	var date1 = new Date($("#s_ho_end").val()).getTime();
                 	var date2 = new Date(dateText).getTime();
                 	
@@ -1099,6 +1101,7 @@
     	                });
         				$("#s_ho_start").val("");
         			}
+                	dateCnt();
                 },
                 beforeShow: function() {
                     setTimeout(function(){
@@ -1136,6 +1139,7 @@
     	                });
         				$("#s_ho_end").val("");
         			}
+                	dateCnt();
                 },
                 beforeShow: function() {
                     setTimeout(function(){

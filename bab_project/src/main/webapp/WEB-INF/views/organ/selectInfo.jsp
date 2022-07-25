@@ -46,7 +46,7 @@
 	        </tr>
 	        <tr>
 	            <th>내선번호</th>
-	            <td class="s_organ_td" colspan="3">${selectInfo.emp_phone }</td>
+	            <td class="s_organ_td" colspan="3">${selectInfo.emp_deskphone }</td>
 	        </tr>
 	    </table>
     </c:if>

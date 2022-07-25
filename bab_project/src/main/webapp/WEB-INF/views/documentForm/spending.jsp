@@ -351,7 +351,7 @@
 	<!-- 결재선 지정 Modal -->
 	<div class="modal fade" id="applineModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	  <div class="modal-dialog">
-	    <div class="modal-content" style="width: 1200px;">
+	    <div class="modal-content" style="width: 200%;">
 	      <div class="modal-header">
 	        <h5 class="modal-title" id="staticBackdropLabel">결재선 지정</h5>
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -374,7 +374,7 @@
 					<i style="font-size: 2em;cursor: pointer;" class="bi bi-arrow-left-square"></i>
 				</span>
 				</div>
-			<div style="float: left;width: 400px;text-align: center; margin-left: 100px;">
+			<div style="float: left;width: 400px;text-align: center; margin-left: 50px;">
 				<div>
 					<div style="font-size: 1.2em;font-weight: bold;">결재선 리스트</div>
 						<div style="border-bottom: 1px solid lightgray; margin: 20px 0;"></div>

@@ -12,7 +12,7 @@
 }
 
 .modal {
-	left: -15% !important;
+	left: -10% !important;
 }
 
 .s_eap_tt {
@@ -69,7 +69,7 @@
                 <!-- 결재 양식 Modal -->
 				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				  <div class="modal-dialog">
-				    <div class="modal-content" style="width: 1200px;">
+				    <div class="modal-content" style="width: 200%;">
 				      <div class="modal-header">
 				        <h5 class="modal-title" id="exampleModalLabel" style="font-weight: bold;">결재 양식 선택</h5>
 				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

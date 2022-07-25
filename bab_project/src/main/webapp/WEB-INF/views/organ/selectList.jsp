@@ -88,7 +88,7 @@
 </head>
 <body>
 
-        <div class="s_scroll" style="float:left;border: 1px solid lightgray;width: 40%;height: 500px;padding: 20px;border-radius: 10px;overflow: auto;">
+        <div class="s_scroll" style="float:left;border: 1px solid lightgray;width: 45%;height: 500px;padding: 20px;border-radius: 10px;overflow: auto;">
             <!-- 검색 -->
             <nav class="navbar navbar-light" style="float: right; margin-bottom: 20px;">
                 <div class="container-fluid">
