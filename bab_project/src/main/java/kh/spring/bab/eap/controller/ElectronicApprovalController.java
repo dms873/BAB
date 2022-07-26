@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -84,7 +85,7 @@ public class ElectronicApprovalController {
 		eap.setKeyword(keyword);
 		
 		// 한 페이지에 나타낼 개수
-		final int pageSize = 3;
+		final int pageSize = 6;
 		// 페이징 숫자 몇 개 띄울지
 		final int pageBlock = 2;
 		
@@ -136,7 +137,7 @@ public class ElectronicApprovalController {
 		eap.setType(type);
 		eap.setKeyword(keyword);
 		
-		final int pageSize = 3;
+		final int pageSize = 6;
 		final int pageBlock = 2;
 		
 		List<Eap> receiptDoc = service.selectReceiptDoc(currentPage, pageSize, eap);
@@ -222,7 +223,7 @@ public class ElectronicApprovalController {
 		eap.setType(type);
 		eap.setKeyword(keyword);
 		
-		final int pageSize = 3;
+		final int pageSize = 6;
 		final int pageBlock = 2;
 		
 		List<Eap> result = service.selectInsertDoc(currentPage, pageSize, eap);
@@ -273,7 +274,7 @@ public class ElectronicApprovalController {
 		eap.setType(type);
 		eap.setKeyword(keyword);
 		
-		final int pageSize = 3;
+		final int pageSize = 6;
 		final int pageBlock = 2;
 		
 		List<Eap> result = service.selectResultDoc(currentPage, pageSize, eap);
@@ -324,7 +325,7 @@ public class ElectronicApprovalController {
 		eap.setType(type);
 		eap.setKeyword(keyword);
 		
-		final int pageSize = 3;
+		final int pageSize = 6;
 		final int pageBlock = 2;
 		
 		List<Eap> result = service.selectReferenceDoc(currentPage, pageSize, eap);
@@ -442,8 +443,6 @@ public class ElectronicApprovalController {
 			HttpServletRequest req,
 			Eap eap
 			) {
-		
-		System.out.println("값 받아오나? : " + form);
 		
 		// 문서양식테이블 DB에 데이터 저장
 		int result = 0;
@@ -930,5 +929,21 @@ public class ElectronicApprovalController {
 	public String addComma(int data) {
 		DecimalFormat formatter = new DecimalFormat("###,###");
 		return formatter.format(data);
+	}
+
+	// 에러 일부러 발생하여 에러페이지 확인
+//	@GetMapping("/exception")
+//	public ModelAndView exception() {
+//		throw new NullPointerException();
+//	}
+	
+	@ExceptionHandler(Exception.class)
+	private ModelAndView handlerMemberException(Exception e) {
+		logger.error(e.getMessage());
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("errMsg", e.getMessage());
+		// 에러페이지로 이동하는걸 추천
+		mv.setViewName("error/errException");
+		return mv;
 	}
 }

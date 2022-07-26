@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -179,6 +180,16 @@ public class EchoHandler extends TextWebSocketHandler {
 		}
 		
 		return msg;
+	}
+	
+	@ExceptionHandler(Exception.class)
+	private ModelAndView handlerMemberException(Exception e) {
+		logger.error(e.getMessage());
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("errMsg", e.getMessage());
+		// 에러페이지로 이동하는걸 추천
+		mv.setViewName("error/errException");
+		return mv;
 	}
 	
 	

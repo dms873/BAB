@@ -5,8 +5,11 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +24,8 @@ import kh.spring.bab.employee.domain.Employee;
 @Controller
 @RequestMapping("attendance")
 public class AttendanceController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(AttendanceController.class);
 	
 	@Autowired
 	private AttendanceService service;
@@ -37,7 +42,7 @@ public class AttendanceController {
 		Employee emp = (Employee) req.getSession().getAttribute("login");
 		String emp_no = emp.getEmp_no();
 		
-		final int pageSize = 3;
+		final int pageSize = 6;
 		final int pageBlock = 2;
 		
 		// 오늘 근태 현황 조회
@@ -208,6 +213,16 @@ public class AttendanceController {
 		}
 		
 		return msg;
+	}
+	
+	@ExceptionHandler(Exception.class)
+	private ModelAndView handlerMemberException(Exception e) {
+		logger.error(e.getMessage());
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("errMsg", e.getMessage());
+		// 에러페이지로 이동하는걸 추천
+		mv.setViewName("error/errException");
+		return mv;
 	}
 	
 

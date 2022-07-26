@@ -3,10 +3,14 @@ package kh.spring.bab.organ.controller;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,11 +27,10 @@ import kh.spring.bab.organ.model.service.OrganService;
 @RequestMapping("organ")
 public class OraganizationChartController {
 	
-	// private static final Logger logger = LoggerFactory.getLogger(OraganizationChartController.class);
+	private static final Logger logger = LoggerFactory.getLogger(OraganizationChartController.class);
 
 	@Autowired
 	private OrganService service;
-	
 	
 	@GetMapping("/select")
 	public ModelAndView select(ModelAndView mv) {
@@ -157,6 +160,16 @@ public class OraganizationChartController {
 		
 		return mv;
 		
+	}
+	
+	@ExceptionHandler(Exception.class)
+	private ModelAndView handlerMemberException(Exception e) {
+		logger.error(e.getMessage());
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("errMsg", e.getMessage());
+		// 에러페이지로 이동하는걸 추천
+		mv.setViewName("error/errException");
+		return mv;
 	}
 	
 }

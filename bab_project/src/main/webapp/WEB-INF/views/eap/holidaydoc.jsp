@@ -851,8 +851,8 @@
 			if(apPerson == 1) {
 				objdata = {
 						"eap_step" : 1,
-						"eap_sta_code" : 'F',
-						"eap_res_code" : 'A',
+						"eap_sta_code" : 'R',
+						"eap_res_code" : 'R',
 						"eap_reject" : $("#s_reject_val").val(),
 						"df_no" : $('#s_dfNo').text()
 				}

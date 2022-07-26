@@ -284,7 +284,7 @@
 					  </tbody>
 					</table>
 				</div>
-			<div style="margin-top: 100px; display: flex; justify-content: center;">
+			<div style="margin-top: 50px; display: flex; justify-content: center;">
 			<!-- 페이징 처리 -->
 			<nav aria-label="Page navigation example">
 			  <ul class="pagination">
