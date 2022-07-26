@@ -101,7 +101,7 @@
         
         //투표하기 버튼 클릭 시
         $("#j_polld_submit").click(function(){
-        //마감된 투표 투표하기 버튼 클릭 시
+        //오늘날짜 가져오기
         var today = new Date();
 
         var year = today.getFullYear();
@@ -113,13 +113,14 @@
         console.log(dateString);
         
         	
-        	//투표여부 확인
         	var str = $("#poll_end").text();
         	var substr = str.substr(11,10);
         	console.log(substr);
         	
-        	if(substr>dateString){
+        	//투표기간 확인
+        	if(substr>=dateString){
         	
+        	//투표여부 확인
         	if($("input:radio[name=option_val]").is(':checked')>0){
                 var param = {
                 	"poll_no": $("#poll_no").val(),

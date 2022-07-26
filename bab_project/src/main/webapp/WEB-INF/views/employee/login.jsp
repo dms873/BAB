@@ -162,5 +162,13 @@
 		  	document.cookie = cookieName + "= " + "; expires=" + expireDate.toGMTString();
 		}
 </script>
+<!--뒤로가기 클릭 시 reload  -->
+<script>
+$(window).bind("pageshow", function(event) {
+    if (event.originalEvent.persisted) {
+        document.location.reload();
+    }
+});
+</script>
 </body>
 </html>
