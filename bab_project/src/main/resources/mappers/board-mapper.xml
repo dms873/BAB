@@ -26,6 +26,18 @@
 
 <select id="selectTotalCnt" resultType="_int">
 	select count(*) from board
+	where 1=1
+	<choose>
+		<when test="type != null and type.equals('board_title')">
+		and board_title like '%' || #{keyword} || '%'
+		</when>
+		<when test="type != null and type.equals('board_content')">
+		and board_content like '%' || #{keyword} || '%'
+		</when>
+		<when test="type != null and type.equals('board_writer')">
+		and board_writer like '%' || #{keyword} || '%'
+		</when>
+	</choose>
 </select>
 
 <select id="readBoard" resultType="Board">

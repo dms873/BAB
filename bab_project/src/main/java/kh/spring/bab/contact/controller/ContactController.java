@@ -42,9 +42,8 @@ public class ContactController {
 		
 		List<Contact> selectContact = service.selectContact(currentPage, pageSize, contact);
 			
-		//int totalCnt = service.selectTotalCnt();
-		
-		int totalCnt = keyword == "" || keyword == null  ? service.selectTotalCnt() :selectContact.size();
+		int totalCnt = service.selectSearchTotalCnt(contact);
+		System.out.println("totalCnt :" + totalCnt);
 		
 		// paging 처리
 		int pageCnt = totalCnt / pageSize + (totalCnt % pageSize == 0 ? 0 : 1);

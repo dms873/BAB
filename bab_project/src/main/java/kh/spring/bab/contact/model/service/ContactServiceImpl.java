@@ -20,10 +20,10 @@ public class ContactServiceImpl implements ContactService {
 			return dao.selectContact(currentPage, pageSize, contact);
 		}
 		
-		// 주소록 목록 개수
+		// 주소록 검색 목록 개수
 		@Override
-		public int selectTotalCnt() {
-			return dao.selectTotalCnt();
+		public int selectSearchTotalCnt(Contact contact) {
+			return dao.selectSearchTotalCnt(contact);
 		}
 		
 		// 주소록 초성 검색

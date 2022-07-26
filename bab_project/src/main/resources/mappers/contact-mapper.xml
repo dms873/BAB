@@ -22,8 +22,23 @@
 	order by rownum
 </select>
 
-<select id="selectTotalCnt" resultType="_int">
-	select count(*) from employee
+<select id="selectSearchTotalCnt" resultType="_int">
+	select count(*) from employee e join dept d
+	using (dept_code)
+	join job j
+	using (job_code)
+	where 1=1
+	<choose>
+		<when test="type != null and type.equals('emp_name')">
+		and emp_name like '%' || #{keyword} || '%'
+		</when>
+		<when test="type != null and type.equals('dept_name')">
+		and dept_name like '%' || #{keyword} || '%'
+		</when>
+		<when test="type != null and type.equals('job_title')">
+		and job_title like '%' || #{keyword} || '%'
+		</when>
+	</choose>
 </select>
 
 <select id="selectBtn" resultType="Contact">

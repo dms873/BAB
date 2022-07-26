@@ -25,9 +25,9 @@ public class BoardDao {
 		return sqlSession.selectList("Board.selectBoard", board, new RowBounds((currentPage-1)*pageSize, pageSize));
 	}
 	
-	//게시글 목록갯수
-	public int selectTotalCnt() {
-		return sqlSession.selectOne("Board.selectTotalCnt");
+	//게시글 검색 목록갯수
+	public int selectTotalCnt(Board board) {
+		return sqlSession.selectOne("Board.selectTotalCnt", board);
 	}
 	
 	//게시글 상세보기

@@ -102,9 +102,7 @@ public class BoardController {
 		
 		List<Board> selectBoard = service.selectBoard(currentPage, pageSize, board);
 			
-		//int totalCnt = service.selectTotalCnt();
-		
-		int totalCnt = keyword == "" || keyword == null  ? service.selectTotalCnt() :selectBoard.size();
+		int totalCnt = service.selectTotalCnt(board);
 		
 		// paging 처리
 		int pageCnt = totalCnt / pageSize + (totalCnt % pageSize == 0 ? 0 : 1);

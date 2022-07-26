@@ -18,13 +18,14 @@ public interface ContactService {
 			 **/
 	public List<Contact> selectContact(int currentPage, int pageSize, Contact contact);
 	
-	// 주소록 목록 개수
-				/**
-				 *  @param :
-				 *  @return : dao.selectTotalCnt()
-				 *  @author : 윤영원
-				 **/
-	public int selectTotalCnt();
+		// 주소록 검색 목록 개수
+		/**
+		 *  @param : contact
+		 *  @return : dao.selectSearchTotalCnt(Contact contact)
+		 *  @author : 윤영원
+		 **/
+	public int selectSearchTotalCnt(Contact contact);	
+	
 	
 	// 주소록 초성검색 리스트
 			/**

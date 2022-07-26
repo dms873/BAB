@@ -29,11 +29,11 @@ public interface BoardService {
 	
 	// 공지사항 목록 갯수
 		/**
-		 *  @param :
-		 *  @return : dao.selectTotalCnt()
+		 *  @param : board
+		 *  @return : dao.selectTotalCnt(board)
 		 *  @author : 윤영원
 		 **/
-	public int selectTotalCnt();
+	public int selectTotalCnt(Board board);
 	
 	// 상세보기 조회
 	public Board readBoard(String board_no);

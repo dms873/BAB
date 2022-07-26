@@ -19,8 +19,8 @@ public class ContactDao {
 		return sqlsession.selectList("Contact.selectContact", contact, new RowBounds((currentPage-1)*pageSize, pageSize));
 	}
 	
-	public int selectTotalCnt() {
-		return sqlsession.selectOne("Contact.selectTotalCnt");
+	public int selectSearchTotalCnt(Contact contact) {
+		return sqlsession.selectOne("Contact.selectSearchTotalCnt", contact);
 	}
 	
 	public List<Contact> selectBtn() {
