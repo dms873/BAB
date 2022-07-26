@@ -208,6 +208,8 @@
     
 	// 체크 박스 선택 후 읽음 버튼 클릭 시 색상 변경
 	$("#y_btn_read").click(function(){
+		var chk = confirm("읽음으로 표시하시겠습니까?");
+		
 		var valueArr = new Array();
 		var list = $("input[name=rowCheck]");
 		for(var i = 0; i < list.length; i++) {
@@ -217,8 +219,7 @@
 		}
 		if(valueArr.length == 0) {
 			alert("선택된 글이 없습니다.");
-		} else {
-			var chk = confirm("읽음으로 표시하시겠습니까?");
+		} else if(chk) {
 			$.ajax({
 				url : "<%= request.getContextPath() %>/mail/readOnly",
 				type : "post",
@@ -228,20 +229,25 @@
 				},
 				success : function(result) {
 					console.log("result : " + result);
-					if(result == "메일을 읽었습니다.") {
-						alert(result);
-						console.log("if 탔다");
+					if(result == "complete") {
+						console.log("읽기 성공");
+					    $("#newMail").html("${newMailCnt}");
 						$("#y_rcv_mail").get(0).click();
 					} else {
-						alert(result);
-						console.log("else 탔다");
-						$("#y_rcv_mail").get(0).click();
+						console.log("읽기 실패");
+						alert("읽기에 실패했습니다.")
 					}
 				},
 				error:function(request,status,error){
 				    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 				   }
 			});
+		} else {
+			var chk_listArr = $("input[name=rowCheck]");
+			
+			for(var i = 0; i <= chk_listArr.length; i++){
+				  $("input[type=checkbox]")[i].checked = false;
+				  }
 		}
 	});
 	

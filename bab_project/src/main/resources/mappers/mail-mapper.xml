@@ -11,7 +11,7 @@
 </insert>
 
 <select id="newMail" resultType="_int">
-	select count(*) from receive_mail where rec_receiver = #{email} and rec_read = 'N'
+	select count(*) from receive_mail where rec_receiver = #{myemail} and rec_read = 'N'
 </select>
 
 <update id="updateRead">

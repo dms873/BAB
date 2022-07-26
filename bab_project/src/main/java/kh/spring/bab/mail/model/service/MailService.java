@@ -35,7 +35,7 @@ public interface MailService {
 		 *  @return : dao.newMail(email)
 		 *  @author : 윤영원
 		 **/
-	    public int newMail(String email);
+	    public int newMail(String myemail);
 	    
 		// 받은 메일함 제목 클릭 시 읽음 표시 변경 'N'->'Y'
 		/**

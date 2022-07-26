@@ -26,8 +26,8 @@ public class MailServiceImpl implements MailService {
 	}
 	
 	@Override
-	public int newMail(String email) {
-		return dao.newMail(email);
+	public int newMail(String myemail) {
+		return dao.newMail(myemail);
 	}
 	
 	@Override

@@ -24,8 +24,8 @@ public class MailDao {
 		return sqlSession.insert("Mail.insertRcvMail", mailRcv);
 	}
 	
-	public int newMail(String email) {
-		return sqlSession.selectOne("Mail.newMail",email);
+	public int newMail(String myemail) {
+		return sqlSession.selectOne("Mail.newMail",myemail);
 	}
 	
 	public int updateRead(int mailNo) {

@@ -186,9 +186,9 @@ public class MailController {
 		}
 			String msg = "";
 			if(result > 0) {
-				msg = "메일 읽기 성공하였습니다.";
+				msg = "complete";
 			} else {
-				msg = "메일 읽기 실패하였습니다.";
+				msg = "fail";
 			}
 			return msg;
 		
