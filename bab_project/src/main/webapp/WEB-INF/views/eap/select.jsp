@@ -164,7 +164,7 @@
 		                <table class="table table-hover" style="vertical-align: middle; text-align: center;">
 						  <thead>
 						    <tr>
-						      <th scope="col">NO</th>
+						      <th scope="col">문서번호</th>
 						      <th scope="col">기안일</th>
 						      <th scope="col">결재양식</th>
 						      <th scope="col">제목</th>

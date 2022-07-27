@@ -24,6 +24,10 @@
     #s_organ_table .s_organ_td {
         width: 200px;
     }
+    
+    .jstree-icon.jstree-themeicon.jstree-themeicon-custom {
+     	background-size: cover !important;
+     }
 </style>
 <!-- SweetAlert -->
 <style>
@@ -95,9 +99,13 @@
                     <input class="form-control me-2" placeholder="Search" aria-label="Search" id="search" value="" style=" width: 100px;">
                 </div>
             </nav>
+            <div style="float: left; margin-top: 10px;">
+            	<button class="btn btn-outline-success" onclick="openTree();">OPEN</button>
+            	<button class="btn btn-outline-dark" onclick="closeTree();">CLOSE</button>
+            </div>
             
             <!-- 조직도 -->
-            <div id="tree" style="float: left;margin-top: 20px;"></div>
+            <div id="tree" style="clear: both;margin-top: 20px;"></div>
         </div>
 
     <script>
@@ -142,7 +150,7 @@
         			            "id": result[i].emp_no,
         			            "parent": result[i].dept_code,
         			            "text": result[i].emp_name + ' ' + result[i].job_title  + '(' +  result[i].emp_no + ')',
-        			            "icon": "https://media.discordapp.net/attachments/692994434526085184/983044903678398604/5e8f55608965fadc.png"
+        			            "icon": result[i].emp_file_path
         			            });
        					}
       					fnCreateJstree(json);
@@ -190,6 +198,16 @@
 			var text = $("#search").val();
 			$('#tree').jstree(true).search(text);
 		});
+
+		// 전체열기
+		function openTree() {
+			$("#tree").jstree("open_all");
+		}
+		
+		// 전체닫기
+		function closeTree() {
+			$("#tree").jstree("close_all");
+		}
     </script>
 
 </body>

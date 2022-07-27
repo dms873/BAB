@@ -25,6 +25,9 @@
      #s_organ_table .s_organ_td {
          width: 200px;
      }
+     .jstree-icon.jstree-themeicon.jstree-themeicon-custom {
+     	background-size: cover !important;
+     }
 </style>
 <!-- SweetAlert -->
 <style>
@@ -97,9 +100,13 @@
                     <input class="form-control me-2" placeholder="Search" aria-label="Search" id="search" value="" style=" width: 150px;">
                 </div>
             </nav>
+            <div style="float: left; margin-top: 10px;">
+            	<button class="btn btn-outline-success" onclick="openTree();">OPEN</button>
+            	<button class="btn btn-outline-dark" onclick="closeTree();">CLOSE</button>
+            </div>
             
             <!-- 조직도 -->
-            <div id="tree" style="float: left;margin-top: 20px;"></div>
+            <div id="tree" style="clear: both;margin-top: 20px;"></div>
         </div>
 
         <div style="float:left;border-top: 2px solid grey;border-bottom: 2px solid grey;margin-left: 20px;padding: 30px;width: 57%;height: 950px;" id="s_dt_info_content">
@@ -150,7 +157,7 @@
         			            "parent": result[i].dept_code,
         			            // emp_no를 띄운 이유 : 상세 조회 시 emp_no를 넘기려고
         			            "text": result[i].emp_name + ' ' + result[i].job_title  + '(' +  result[i].emp_no + ')',
-        			            "icon": "https://media.discordapp.net/attachments/692994434526085184/983044903678398604/5e8f55608965fadc.png"
+        			            "icon": result[i].emp_file_path
         			            });
        					}
       					fnCreateJstree(json);
@@ -213,6 +220,16 @@
 			var text = $("#search").val();
 			$('#tree').jstree(true).search(text);
 		});
+		
+		// 전체열기
+		function openTree() {
+			$("#tree").jstree("open_all");
+		}
+		
+		// 전체닫기
+		function closeTree() {
+			$("#tree").jstree("close_all");
+		}
     </script>
 
 </body>

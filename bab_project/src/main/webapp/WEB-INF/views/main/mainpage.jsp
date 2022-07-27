@@ -494,8 +494,8 @@
 	                 	 enabled: true,
 	                 	format: '{y}시간',
 		                color: '#fff', 
-		                y: 15,
-		                x: -5,
+		                y: -5,
+		                x: -10,
 		                style: {
 			                  fontSize: '13px',
 			                  fontFamily: 'notoSans',
@@ -511,7 +511,7 @@
 	                color: '#fff', 
 	                align: 'center',
 	                //세로 위치 지정
-	                y: 5,
+	                y: 15,
 	                x: 10,
 	                style: {
 	                  fontSize: '13px',
