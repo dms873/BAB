@@ -13,12 +13,12 @@
 <br>
 
 ## 1️⃣ 팀 소개
-<img width="1913" alt="image" src="https://user-images.githubusercontent.com/83773369/181909047-e6a41788-20b0-432c-9fe1-348fec0fcf9f.png">
+<img width="1911" alt="image" src="https://user-images.githubusercontent.com/83773369/181913934-be21209f-3edb-4a7b-8428-f67879500a3d.png">
 
 <br>
 
 ## 2️⃣ 프로젝트 개요
-<img width="1910" alt="image" src="https://user-images.githubusercontent.com/83773369/181909175-6f49e5d7-769d-4d5b-bc78-455c5d1622f0.png">
+<img width="1913" alt="image" src="https://user-images.githubusercontent.com/83773369/181913946-265024a0-50af-4e75-97b1-efdf2054c5bc.png">
 
 <img width="30" alt="image" src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1626765925/noticon/mpyse3r6bwekcye70p5o.png"> **그룹웨어 미사용시**
   - 업무 프로세서가 정립되지 않아 업무 인수인계가 제대로 이루어지지 않을 수 있다.
@@ -38,7 +38,7 @@
 <br>
 
 ## 4️⃣ 개발환경
-<img width="1912" alt="image" src="https://user-images.githubusercontent.com/83773369/181909264-6b69fe70-02f1-421d-8167-128d8a52c169.png">
+<img width="1711" alt="image" src="https://user-images.githubusercontent.com/83773369/181913916-5f7079cd-9175-4580-ae52-22e469f8060c.png">
 
 <br>
 
