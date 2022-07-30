@@ -1,6 +1,8 @@
-# 파이널 프로젝트 - BAB 그룹웨어 
 
-## Contents
+# 파이널 프로젝트 - BAB 그룹웨어 <img width="50" alt="image" src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1568917764/noticon/stddia3lvzo8napn15ec.png">
+
+
+## Contents <img width="30" src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1567008133/noticon/mw0xnjgco64rfeviwqvy.png">
 1. 팀 소개
 2. 프로젝트 개요
 3. 설계의 주안점
@@ -18,7 +20,7 @@
 ## 2️⃣ 프로젝트 개요
 <img width="1910" alt="image" src="https://user-images.githubusercontent.com/83773369/181909175-6f49e5d7-769d-4d5b-bc78-455c5d1622f0.png">
 
-- **그룹웨어 미사용시**
+<img width="30" alt="image" src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1626765925/noticon/mpyse3r6bwekcye70p5o.png"> **그룹웨어 미사용시**
   - 업무 프로세서가 정립되지 않아 업무 인수인계가 제대로 이루어지지 않을 수 있다.
   - 실시간으로 의사 결정을 내리기가 어렵다.
   - 협업을 함에 있어 애로사항이 많다.
