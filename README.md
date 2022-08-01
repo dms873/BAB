@@ -519,3 +519,10 @@
 ##  1. 개발 일정
 
 <img width="1906" alt="image" src="https://user-images.githubusercontent.com/83773369/182081450-dbb3a95f-6235-4bcb-b460-4c9ed1a22c6d.png">
+
+<br>
+
+## 2. 유스케이스
+
+<img width="1707" alt="image" src="https://user-images.githubusercontent.com/83773369/182176678-d45a7246-a74e-4ac5-b700-2a4178a828fc.png">
+
