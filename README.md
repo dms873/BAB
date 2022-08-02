@@ -526,3 +526,11 @@
 
 <img width="1707" alt="image" src="https://user-images.githubusercontent.com/83773369/182176678-d45a7246-a74e-4ac5-b700-2a4178a828fc.png">
 
+<br>
+
+## 3. ERD
+
+
+
+<br>
+
