@@ -2,6 +2,7 @@
 
 
 
+
 # 파이널 프로젝트 - BAB 그룹웨어 <img width="50" alt="image" src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1568917764/noticon/stddia3lvzo8napn15ec.png">
 
 
@@ -52,7 +53,7 @@
 </div>
 
 <details>
-<summary><h3>✅조직도 </h3></summary>
+<summary><h3>✅ 조직도 </h3></summary>
 <div markdown="1"> 
 
 <div align="center">
@@ -86,7 +87,7 @@
 ---
 
 <details>
-<summary><h3>✅전자결재 </h3></summary>
+<summary><h3>✅ 전자결재 </h3></summary>
 <div markdown="1"> 
 
 <div align="center">
@@ -311,7 +312,7 @@
 ---
 
 <details>
-<summary><h3>✅근태관리 </h3></summary>
+<summary><h3>✅ 근태관리 </h3></summary>
 <div markdown="1"> 
 
 <div align="center">
@@ -413,7 +414,7 @@
 ---
 
 <details>
-<summary><h3>✅채팅 </h3></summary>
+<summary><h3>✅ 채팅 </h3></summary>
 <div markdown="1"> 
 
 <div align="center">
@@ -504,6 +505,185 @@
 - 채팅 내용 조회 시 중복된 행은 하나만 조회되도록 차집합 역할을 해주는 MINUS를 이용하여 2개의 SELECT문을 하나의 쿼리로 조회
 - LEFT OUTER JOIN을 이용하여 채팅 내용이 없는 방도 조회
 - 채팅번호 DESC로 정렬 후 채팅 내용이 없는 방은 마지막으로 정렬
+
+</div>
+</details>
+
+---
+
+<br>
+
+<div align="center">
+<img width="202" alt="image" src="https://user-images.githubusercontent.com/83773369/182773336-b2226c1b-02ee-445b-aa31-5ebf09254acb.png">
+</div>
+
+<details>
+<summary><h3>✅ 주소록 </h3></summary>
+<div markdown="1"> 
+
+<div align="center">
+<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 주소록 조회, 검색
+<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+</div>
+
+<br>
+
+<div align="center">
+
+![주소록X2](https://user-images.githubusercontent.com/83773369/182774004-e7dc93e9-a2e9-4735-bbb7-2e7753b69c1c.gif)
+
+</div>
+
+</div>
+</details>
+
+---
+
+<details>
+<summary><h3>✅ 공지사항 </h3></summary>
+<div markdown="1"> 
+
+<div align="center">
+<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 공지사항 글쓰기
+<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+</div>
+
+<br>
+
+<div align="center">
+
+![공지사항글쓰기X2](https://user-images.githubusercontent.com/83773369/182774185-c56ebce7-6203-4446-a27c-ca2b0e9fa47d.gif)
+
+</div>
+
+---
+
+<div align="center">
+<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 공지사항 삭제
+<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+</div>
+
+<br>
+
+<div align="center">
+
+![공지사항삭제X2](https://user-images.githubusercontent.com/83773369/182774290-cf610f67-1023-46dc-8397-75ccac48fc83.gif)
+
+</div>
+
+---
+
+<div align="center">
+<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 공지사항 조회, 검색
+<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+</div>
+
+<br>
+
+<div align="center">
+
+![공지사항조회X2](https://user-images.githubusercontent.com/83773369/182774372-17637cd4-ae18-4ab8-9b33-1db062e7fe4b.gif)
+
+</div>
+
+---
+
+<div align="center">
+<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 공지사항 상세 조회
+<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+</div>
+
+<br>
+
+<div align="center">
+
+![공지사항상세보기X2](https://user-images.githubusercontent.com/83773369/182774357-25955578-fa24-4f12-892f-b84f14eb0cbd.gif)
+
+</div>
+
+---
+
+<div align="center">
+<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 공지사항 수정
+<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+</div>
+
+<br>
+
+<div align="center">
+
+![공지사항수정X2](https://user-images.githubusercontent.com/83773369/182774367-96fae620-c5c7-41d4-9b94-93e81dbbdc2d.gif)
+
+</div>
+
+</div>
+</details>
+
+---
+
+<details>
+<summary><h3>✅ 메일 </h3></summary>
+<div markdown="1"> 
+
+
+<div align="center">
+<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 메일 쓰기
+<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+</div>
+
+<br>
+
+<div align="center">
+
+![메일쓰기X2](https://user-images.githubusercontent.com/83773369/182774912-1e653f03-31d7-413a-a340-e176009ff6f7.gif)
+
+</div>
+
+---
+
+<div align="center">
+<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 메일 조회
+<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+</div>
+
+<br>
+
+<div align="center">
+
+![메일조회X2](https://user-images.githubusercontent.com/83773369/182774905-0b3e24d9-75f6-4edc-81d1-342c0df88547.gif)
+
+</div>
+
+---
+
+<div align="center">
+<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 메일 읽기
+<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+</div>
+
+<br>
+
+<div align="center">
+
+![메일읽기X2](https://user-images.githubusercontent.com/83773369/182774913-b28a843a-0f87-4995-96b5-d397112bc23e.gif)
+
+</div>
+
+---
+
+<div align="center">
+<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 메일 삭제
+<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+</div>
+
+<br>
+
+<div align="center">
+
+![메일삭제X2](https://user-images.githubusercontent.com/83773369/182774910-8ab137b3-6178-4d4a-a6b5-1a2f8a43b560.gif)
+
+</div>
+
 
 </div>
 </details>
