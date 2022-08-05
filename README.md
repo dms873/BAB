@@ -692,6 +692,161 @@
 
 <br>
 
+<div align="center">
+
+<img width="202" alt="image" src="https://user-images.githubusercontent.com/83773369/183080289-febe828b-1b19-4f65-9dad-8bea6533b119.png">
+
+</div>
+
+<details>
+<summary><h3>✅ 로그인 / 로그아웃 </h3></summary>
+<div markdown="1"> 
+
+<div align="center">
+<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 로그인 / 로그아웃
+<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+</div>
+
+<div align="center">
+
+![로그인,로그아웃](https://user-images.githubusercontent.com/83773369/183080597-66acda39-57df-4ee5-b7e4-339a432cf700.gif)
+
+</div>
+
+---
+
+<div align="center">
+<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 아이디 찾기
+<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+</div>
+
+<div align="center">
+
+![아이디 찾기](https://user-images.githubusercontent.com/83773369/183080784-867d5021-29aa-4662-a6c2-ba53de7dcd2b.gif)
+
+</div>
+
+
+---
+
+<div align="center">
+<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 비밀번호 찾기
+<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+</div>
+
+<div align="center">
+
+![비밀번호 찾기](https://user-images.githubusercontent.com/83773369/183080924-531ad121-d170-4a89-ac90-784ebb50b249.gif)
+
+</div>
+
+</div>
+</details>
+
+---
+
+<details>
+<summary><h3>✅ 내 정보 수정 </h3></summary>
+<div markdown="1"> 
+
+<div align="center">
+<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 내 정보 수정
+<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+</div>
+
+<div align="center">
+
+![내정보수정](https://user-images.githubusercontent.com/83773369/183081230-034b0021-6334-4492-9eff-1f37fca867bc.gif)
+
+</div>
+
+</div>
+</details>
+
+---
+
+<details>
+<summary><h3>✅ 캘린더 </h3></summary>
+<div markdown="1"> 
+
+<div align="center">
+<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 캘린더 등록 / 조회
+<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+</div>
+
+<div align="center">
+
+![캘린더_등록,조회](https://user-images.githubusercontent.com/83773369/183081365-872dc245-4f1c-4813-b863-af12728968de.gif)
+
+</div>
+
+---
+
+<div align="center">
+<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 캘린더 삭제
+<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+</div>
+
+<div align="center">
+
+![캘린더_삭제](https://user-images.githubusercontent.com/83773369/183081424-26963f60-b666-4bfe-b855-998077ed918f.gif)
+
+</div>
+
+---
+
+<div align="center">
+<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 캘린더 수정
+<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+</div>
+
+<div align="center">
+
+![캘린더_수정](https://user-images.githubusercontent.com/83773369/183081490-bcf59907-7f32-4039-b461-9e4956d01791.gif)
+
+</div>
+
+</div>
+</details>
+
+---
+
+<details>
+<summary><h3>✅ 투표 </h3></summary>
+<div markdown="1"> 
+
+<div align="center">
+<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 투표 등록 / 투표
+<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+</div>
+
+<div align="center">
+
+![투표_등록,투표](https://user-images.githubusercontent.com/83773369/183081570-1632a0ba-382a-425b-bba5-543aede817c1.gif)
+
+</div>
+
+---
+
+<div align="center">
+<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 투표 조회 / 검색
+<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+</div>
+
+<div align="center">
+
+![투표_조회,검색](https://user-images.githubusercontent.com/83773369/183081631-16d264bb-8e5a-4e1f-98ee-fcd802f9d8ee.gif)
+
+</div>
+
+</div>
+</details>
+
+---
+
+<br>
+
+
 ## 6️⃣ Document
 
 <br>
