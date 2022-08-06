@@ -635,7 +635,7 @@
 
 <div align="center">
 
-![메일쓰기X2](https://user-images.githubusercontent.com/83773369/182774912-1e653f03-31d7-413a-a340-e176009ff6f7.gif)
+![메일쓰기x2](https://user-images.githubusercontent.com/83773369/183241003-49488764-ae7e-4ba5-bdf5-54ec849c7ab4.gif)
 
 </div>
 
@@ -680,7 +680,7 @@
 
 <div align="center">
 
-![메일삭제X2](https://user-images.githubusercontent.com/83773369/182774910-8ab137b3-6178-4d4a-a6b5-1a2f8a43b560.gif)
+![메일삭제x2](https://user-images.githubusercontent.com/83773369/183241009-396ad828-9e50-4f5c-badb-551cfd553ae1.gif)
 
 </div>
 
