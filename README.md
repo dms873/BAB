@@ -865,6 +865,7 @@
 
 ## 3. ERD
 
+![6_9수정  5조_BAB 그룹웨어 (1)](https://user-images.githubusercontent.com/83773369/183255199-34af36d4-92c7-4e62-a529-e4f18b878851.png)
 
 
 <br>
