@@ -870,3 +870,9 @@
 
 <br>
 
+## 4. Sequence Diagram
+
+
+
+<br>
+
