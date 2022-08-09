@@ -872,7 +872,7 @@
 
 ## 4. Sequence Diagram
 
-
+![문서기안, 기안문 결재 행동 시퀀스](https://user-images.githubusercontent.com/83773369/183291735-3a9ba65b-5467-4507-8b57-49bd1c1ebbc6.png)
 
 <br>
 
