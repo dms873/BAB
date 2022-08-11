@@ -876,3 +876,9 @@
 
 <br>
 
+## 5. Class Diagram
+
+
+
+<br>
+
