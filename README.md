@@ -879,6 +879,7 @@
 ## 5. Class Diagram
 
 
+![5조_클래스다이어그램(사원)](https://user-images.githubusercontent.com/83773369/183291755-7a47a40b-d0e7-4948-8748-310d47fc6194.png)
 
 <br>
 
