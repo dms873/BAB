@@ -857,26 +857,38 @@
 
 <br>
 
-## 2. 유스케이스
+## 2. 요구사항 정의서
+
+[요구사항 정의서 전체보기](https://docs.google.com/spreadsheets/d/1PUxP9JcGVrgsQoJxdzjprNQlSF0D2X3qWazKkthU9Xs/edit?usp=sharing)
+
+<br>
+
+## 3. 화면설계서
+
+[화면설계서 전체보기](https://drive.google.com/file/d/1wIYphLNSAB6ILcB9ZYiuYVu_WX-BD-v3/view?usp=sharing)
+
+<br>
+
+## 4. 유스케이스
 
 <img width="1707" alt="image" src="https://user-images.githubusercontent.com/83773369/182176678-d45a7246-a74e-4ac5-b700-2a4178a828fc.png">
 
 <br>
 
-## 3. ERD
+## 5. ERD
 
 ![6_9수정  5조_BAB 그룹웨어 (1)](https://user-images.githubusercontent.com/83773369/183255199-34af36d4-92c7-4e62-a529-e4f18b878851.png)
 
 
 <br>
 
-## 4. Sequence Diagram
+## 6. Sequence Diagram
 
 ![문서기안, 기안문 결재 행동 시퀀스](https://user-images.githubusercontent.com/83773369/183291735-3a9ba65b-5467-4507-8b57-49bd1c1ebbc6.png)
 
 <br>
 
-## 5. Class Diagram
+## 7. Class Diagram
 
 
 ![5조_클래스다이어그램(사원)](https://user-images.githubusercontent.com/83773369/183291755-7a47a40b-d0e7-4948-8748-310d47fc6194.png)
@@ -886,3 +898,14 @@
 
 <br>
 
+## 8. history
+
+[history 전체보기](https://docs.google.com/spreadsheets/d/1kKlxIaIMGjbSzL5dVjH7ItHryRWPO7xc8TomtV1wfjw/edit?usp=sharing)
+
+<br>
+
+## 9. Troubleshooting
+
+[Troubleshooting 전체보기](https://docs.google.com/spreadsheets/d/18u4PkV01i9RTfLitqqGMHz5tFDioYFSgxeSm1G0rjR8/edit?usp=sharing)
+
+<br>
