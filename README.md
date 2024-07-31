@@ -57,7 +57,7 @@
 <div markdown="1"> 
 
 <div align="center">
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 조직도 조회 및 검색 <img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+☑️ 조직도 조회 및 검색 ☑️
 </div>
 
 <br>
@@ -91,7 +91,7 @@
 <div markdown="1"> 
 
 <div align="center">
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 결재 양식 선택 <img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+☑️ 결재 양식 선택 ☑️
 </div>
 
 <br>
@@ -107,8 +107,7 @@
 - 지출결의서를 선택하면 지출결의서 로드
 ---
 <div align="center">
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 결재선 지정
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+☑️ 결재선 지정 ☑️
 </div>
 
 <br>
@@ -128,8 +127,7 @@
 ---
 
 <div align="center">
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 문서 기안 
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+☑️ 문서 기안 ☑️
 </div>
 
 <br>
@@ -148,8 +146,7 @@
 ---
 
 <div align="center">
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 결재 회수
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+☑️ 결재 회수 ☑️
 </div>
 
 <br>
@@ -165,8 +162,7 @@
 ---
 
 <div align="center">
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 문서 수정
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+☑️ 문서 수정 ☑️
 </div>
 
 <br>
@@ -182,8 +178,7 @@
 ---
 
 <div align="center">
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 결재 승인 
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+☑️ 결재 승인 ☑️
 </div>
 
 <br>
@@ -212,8 +207,7 @@
 ---
 
 <div align="center">
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 결재 반려 
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+☑️ 결재 반려 ☑️
 </div>
 
 <br>
@@ -249,8 +243,7 @@
 ---
 
 <div align="center">
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 기안 문서함
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+☑️ 기안 문서함 ☑️
 </div>
 
 <br>
@@ -269,8 +262,7 @@
 ---
 
 <div align="center">
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 결재 문서함 
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+☑️ 결재 문서함 ☑️
 </div>
 
 <br>
@@ -289,8 +281,7 @@
 ---
 
 <div align="center">
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 참조 문서함 
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+☑️ 참조 문서함 ☑️
 </div>
 
 <br>
@@ -316,8 +307,7 @@
 <div markdown="1"> 
 
 <div align="center">
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 출근 등록
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+☑️ 출근 등록 ☑️
 </div>
 
 <br>
@@ -335,8 +325,7 @@
 ---
 
 <div align="center">
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 퇴근 등록
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+☑️ 퇴근 등록 ☑️
 </div>
 
 <br>
@@ -363,8 +352,7 @@
 ---
 
 <div align="center">
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 내 근태 현황 
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+☑️ 내 근태 현황 ☑️
 </div>
 
 <br>
@@ -382,8 +370,7 @@
 ---
 
 <div align="center">
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 내 연차 내역
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+☑️ 내 연차 내역 ☑️
 </div>
 
 <br>
@@ -418,8 +405,7 @@
 <div markdown="1"> 
 
 <div align="center">
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 채팅 홈 
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+☑️ 채팅 홈 ☑️
 </div>
 
 <br>
@@ -438,8 +424,7 @@
 ---
 
 <div align="center">
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 채팅방 만들기 및 멤버 초대
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+☑️ 채팅방 만들기 및 멤버 초대 ☑️
 </div>
 
 <br>
@@ -456,8 +441,7 @@
 ---
 
 <div align="center">
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 채팅 발신 및 수신
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+☑️ 채팅 발신 및 수신 ☑️
 </div>
 
 <br>
@@ -522,8 +506,7 @@
 <div markdown="1"> 
 
 <div align="center">
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 주소록 조회, 검색
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+☑️ 주소록 조회, 검색 ☑️
 </div>
 
 <br>
@@ -544,8 +527,7 @@
 <div markdown="1"> 
 
 <div align="center">
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 공지사항 글쓰기
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+☑️ 공지사항 글쓰기 ☑️
 </div>
 
 <br>
@@ -559,8 +541,7 @@
 ---
 
 <div align="center">
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 공지사항 삭제
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+☑️ 공지사항 삭제 ☑️
 </div>
 
 <br>
@@ -574,8 +555,7 @@
 ---
 
 <div align="center">
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 공지사항 조회, 검색
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+☑️ 공지사항 조회, 검색 ☑️
 </div>
 
 <br>
@@ -589,8 +569,7 @@
 ---
 
 <div align="center">
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 공지사항 상세 조회
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+☑️ 공지사항 상세 조회 ☑️
 </div>
 
 <br>
@@ -604,8 +583,7 @@
 ---
 
 <div align="center">
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 공지사항 수정
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+☑️ 공지사항 수정 ☑️
 </div>
 
 <br>
@@ -627,8 +605,7 @@
 
 
 <div align="center">
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 메일 쓰기
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+☑️ 메일 쓰기 ☑️
 </div>
 
 <br>
@@ -642,8 +619,7 @@
 ---
 
 <div align="center">
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 메일 조회
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+☑️ 메일 조회 ☑️
 </div>
 
 <br>
@@ -657,8 +633,7 @@
 ---
 
 <div align="center">
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 메일 읽기
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+☑️ 메일 읽기 ☑️
 </div>
 
 <br>
@@ -672,8 +647,7 @@
 ---
 
 <div align="center">
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 메일 삭제
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+☑️ 메일 삭제 ☑️
 </div>
 
 <br>
@@ -703,8 +677,7 @@
 <div markdown="1"> 
 
 <div align="center">
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 로그인 / 로그아웃
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+☑️ 로그인 / 로그아웃 ☑️
 </div>
 
 <div align="center">
@@ -716,8 +689,7 @@
 ---
 
 <div align="center">
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 아이디 찾기
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+☑️ 아이디 찾기 ☑️
 </div>
 
 <div align="center">
@@ -730,8 +702,7 @@
 ---
 
 <div align="center">
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 비밀번호 찾기
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+☑️ 비밀번호 찾기 ☑️
 </div>
 
 <div align="center">
@@ -750,8 +721,7 @@
 <div markdown="1"> 
 
 <div align="center">
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 내 정보 수정
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+☑️ 내 정보 수정 ☑️
 </div>
 
 <div align="center">
@@ -770,8 +740,7 @@
 <div markdown="1"> 
 
 <div align="center">
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 캘린더 등록 / 조회
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+☑️ 캘린더 등록 / 조회 ☑️
 </div>
 
 <div align="center">
@@ -783,8 +752,7 @@
 ---
 
 <div align="center">
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 캘린더 삭제
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+☑️ 캘린더 삭제 ☑️
 </div>
 
 <div align="center">
@@ -796,8 +764,7 @@
 ---
 
 <div align="center">
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 캘린더 수정
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+☑️ 캘린더 수정 ☑️
 </div>
 
 <div align="center">
@@ -816,8 +783,7 @@
 <div markdown="1"> 
 
 <div align="center">
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 투표 등록 / 투표
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+☑️ 투표 등록 / 투표 ☑️
 </div>
 
 <div align="center">
@@ -829,8 +795,7 @@
 ---
 
 <div align="center">
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png"> 투표 조회 / 검색
-<img width="250" alt="image" src="https://media.discordapp.net/attachments/692994434526085184/1002954522253074472/a0c55ca0bfe82413.png">
+☑️ 투표 조회 / 검색 ☑️
 </div>
 
 <div align="center">
